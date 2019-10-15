@@ -1,6 +1,6 @@
 # FreedomLife
 
-FreedomLife yearly bible guide app.
+FreedomLife yearly bible reading guide app.
 
 ## Requirements
 
