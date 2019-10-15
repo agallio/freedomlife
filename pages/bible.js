@@ -259,6 +259,7 @@ const Bible = props => {
                 onClick={() => {
                   setPassage('pl-1');
                   setPassageModal(false);
+                  topFunction();
                 }}
               ></ListItemText>
             </ListItem>
@@ -278,6 +279,7 @@ const Bible = props => {
                   onClick={() => {
                     setPassage('pl-2');
                     setPassageModal(false);
+                    topFunction();
                   }}
                 ></ListItemText>
               </ListItem>
@@ -298,6 +300,7 @@ const Bible = props => {
                   onClick={() => {
                     setPassage('pl-3');
                     setPassageModal(false);
+                    topFunction();
                   }}
                 ></ListItemText>
               </ListItem>
@@ -313,6 +316,7 @@ const Bible = props => {
                 onClick={() => {
                   setPassage('pb1');
                   setPassageModal(false);
+                  topFunction();
                 }}
               ></ListItemText>
             </ListItem>
@@ -327,6 +331,7 @@ const Bible = props => {
                 onClick={() => {
                   setPassage('pb2');
                   setPassageModal(false);
+                  topFunction();
                 }}
               ></ListItemText>
             </ListItem>
