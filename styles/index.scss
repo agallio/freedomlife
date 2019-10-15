@@ -1,0 +1,167 @@
+@import 'home.scss';
+@import 'bible.scss';
+@import 'guide.scss';
+
+// Color Theme
+$primary: #673ab7;
+$secondary: #764ec0;
+$grey: #6e6e6e;
+$dark: #121212;
+
+@font-face {
+  font-family: 'SFProDisplay-Bold';
+  src: url('/static/fonts/SFProDisplay-Bold.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'SFProDisplay-Regular';
+  src: url('/static/fonts/SFProDisplay-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'SFProDisplay-Light';
+  src: url('/static/fonts/SFProDisplay-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'SFProDisplay-LightItalic';
+  src: url('/static/fonts/SFProDisplay-LightItalic.ttf');
+  font-weight: 300;
+}
+
+.container {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 8%;
+}
+
+.container-fluid {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.header-title {
+  font-family: 'SFProDisplay-Bold', sans-serif;
+  font-size: 32px;
+  line-height: 36px;
+  color: white;
+  margin-bottom: 0;
+}
+
+.header-subtitle {
+  font-family: 'SFProDisplay-Regular', sans-serif;
+  font-size: 16px;
+  color: white;
+  margin-top: 0;
+}
+
+.styled-card {
+  width: 100%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14) !important;
+}
+
+.styled-fluid-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14) !important;
+  border-radius: 25px 25px 0 0 !important;
+}
+
+.styled-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.14);
+}
+
+.styled-bottom-nav-action {
+  flex: 0 !important;
+}
+
+// Typography
+.primary {
+  color: $primary !important;
+}
+
+.bold-text {
+  font-family: 'SFProDisplay-Bold' !important;
+}
+
+.regular-text {
+  font-family: 'SFProDisplay-Regular' !important;
+}
+
+.light-text {
+  font-family: 'SFProDisplay-Light' !important;
+}
+
+.light-italic-text {
+  font-family: 'SFProDisplay-LightItalic' !important;
+}
+
+// Dark Mode
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000 !important;
+  }
+  .styled-card,
+  .styled-bottom-nav {
+    background-color: #121212 !important;
+  }
+  .primary {
+    color: #fff !important;
+  }
+  .guide-passage-box {
+    background-color: $primary !important;
+  }
+  .guide-passage-box-text {
+    color: #fff !important;
+  }
+  .styled-bottom-nav {
+    bottom: -1px !important;
+  }
+  .styled-bottom-nav-action {
+    color: #525252 !important;
+  }
+  .styled-bottom-nav-action.Mui-selected {
+    color: #fff !important;
+  }
+  .styled-fluid-card {
+    background: #000 !important;
+  }
+  .guide-box {
+    background: #1f1f1f !important;
+  }
+  .regular-text {
+    color: #525252;
+  }
+  .bible-title {
+    color: #fff !important;
+  }
+  .bible-verse {
+    color: #fff !important;
+  }
+  .bible-verse-sup {
+    color: lighten($primary, 40%) !important;
+  }
+  .modal-passage {
+    background: #424242 !important;
+  }
+  .modal-passage-title {
+    color: #fff !important;
+  }
+  .modal-passage-list-text {
+    color: #fff !important;
+  }
+  .modal-passage-list-text-secondary {
+    color: #bfbfbf !important;
+  }
+}
