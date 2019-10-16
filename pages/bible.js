@@ -330,7 +330,9 @@ const Bible = props => {
             <ListItem button>
               <ListItemText
                 primary="Perjanjian Baru 1"
-                secondary={guideToday.pb1_name || ''}
+                secondary={
+                  guideDate ? guideByDate.pb1_name : guideToday.pb1_name || ''
+                }
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
                   className: 'modal-passage-list-text-secondary'
@@ -345,7 +347,9 @@ const Bible = props => {
             <ListItem button>
               <ListItemText
                 primary="Perjanjian Baru 2"
-                secondary={guideToday.pb2_name || ''}
+                secondary={
+                  guideDate ? guideByDate.pb2_name : guideToday.pb2_name || ''
+                }
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
                   className: 'modal-passage-list-text-secondary'
