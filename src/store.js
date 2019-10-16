@@ -40,6 +40,7 @@ const configureStore = () => {
   let store;
   const sagaMiddleware = createSagaMiddleware();
 
+  // TODO: Research a better way using this redux-persist package
   const isClient = typeof window !== undefined;
 
   if (isClient) {
@@ -48,6 +49,7 @@ const configureStore = () => {
 
     const persistConfig = {
       key: 'root',
+      blacklist: ['bible'],
       storage
     };
 

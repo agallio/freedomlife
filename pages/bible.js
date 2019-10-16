@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import {
   Fade,
@@ -23,6 +23,8 @@ import {
   ArrowForwardIos as NextIosIcon
 } from '@material-ui/icons';
 
+import { fetchTodayChapter } from '../src/actions/bible';
+
 const HideOnScrollTop = props => {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -38,13 +40,24 @@ const HideOnScrollTop = props => {
 };
 
 const Bible = props => {
+  // Redux State
   const isFetching = useSelector(state => state.bible.isFetching);
   const chapters = useSelector(state => state.bible.chapters);
   const guideToday = useSelector(state => state.guide.guideToday);
+  // Component State
   const [passageModal, setPassageModal] = useState(false);
   const [passage, setPassage] = useState('pl-1');
+  // Using Redux Dispatch
+  const dispatch = useDispatch();
 
+  // Fetch Today Chapter when the user reloads the `/bible` page
+  useEffect(() => {
+    dispatch(fetchTodayChapter());
+  }, []);
+
+  // Passage Array (Conditional)
   let passageArr = [];
+  // Logic for fill the `passageArr` array
   if (
     chapters.pl !== undefined &&
     chapters.pb1 !== undefined &&
@@ -77,6 +90,7 @@ const Bible = props => {
     }
   }
 
+  // Scroll to top function
   const topFunction = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -104,6 +118,7 @@ const Bible = props => {
     }
   };
 
+  // Split the `pl` passage for the passage title
   const plSpaceSplit = guideToday.pl_name.split(' ');
   const plDashSplit =
     plSpaceSplit.length === 3

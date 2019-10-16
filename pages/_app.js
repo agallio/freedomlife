@@ -60,6 +60,7 @@ class MyApp extends App {
           <link rel="manifest" href="/static/manifest.json" />
         </Head>
         <Provider store={store}>
+          {/* TODO: Research a better way using this redux-persist one */}
           <PersistGate persistor={store.__PERSISTOR} loading={null}>
             <ThemeProvider theme={theme}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
