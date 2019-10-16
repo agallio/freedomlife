@@ -19,16 +19,15 @@ class Index extends Component {
   componentDidMount = async () => {
     if (this.props.guide.guideToday.date !== moment().format('DD-MM-YYYY')) {
       this.props.fetchGuideToday();
+      this.props.fetchTodayChapter();
     }
   };
 
   toBible = () => {
-    if (
-      this.props.guide.guideToday.date === moment().format('DD-MM-YYYY') &&
-      this.props.bible.chapters.passage.length === 0
-    ) {
-      this.props.fetchTodayChapter();
-    }
+    // TODO: Search better logic for fetching today chapter
+    // if (this.props.guide.guideToday.date === moment().format('DD-MM-YYYY')) {
+    //   this.props.fetchTodayChapter();
+    // }
     Router.push('/bible');
   };
 

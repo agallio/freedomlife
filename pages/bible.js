@@ -114,8 +114,6 @@ const Bible = props => {
     list.push(i);
   }
 
-  console.log(plSpaceSplit);
-
   return (
     <Fade in>
       <div className="bible-container">
