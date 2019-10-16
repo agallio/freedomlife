@@ -23,7 +23,7 @@ import {
   ArrowForwardIos as NextIosIcon
 } from '@material-ui/icons';
 
-import { fetchTodayChapter } from '../src/actions/bible';
+import { fetchTodayChapter, fetchChapterByDate } from '../src/actions/bible';
 
 const HideOnScrollTop = props => {
   const { children, window } = props;
@@ -44,6 +44,8 @@ const Bible = props => {
   const isFetching = useSelector(state => state.bible.isFetching);
   const chapters = useSelector(state => state.bible.chapters);
   const guideToday = useSelector(state => state.guide.guideToday);
+  const guideDate = useSelector(state => state.guide.guideDate);
+  const guideByDate = useSelector(state => state.guide.guideByDate);
   // Component State
   const [passageModal, setPassageModal] = useState(false);
   const [passage, setPassage] = useState('pl-1');
@@ -52,7 +54,8 @@ const Bible = props => {
 
   // Fetch Today Chapter when the user reloads the `/bible` page
   useEffect(() => {
-    dispatch(fetchTodayChapter());
+    if (guideDate) dispatch(fetchChapterByDate(guideDate));
+    else dispatch(fetchTodayChapter());
   }, []);
 
   // Passage Array (Conditional)
@@ -119,7 +122,9 @@ const Bible = props => {
   };
 
   // Split the `pl` passage for the passage title
-  const plSpaceSplit = guideToday.pl_name.split(' ');
+  const plSpaceSplit = guideDate
+    ? guideByDate.pl_name.split(' ')
+    : guideToday.pl_name.split(' ');
   const plDashSplit =
     plSpaceSplit.length === 3
       ? plSpaceSplit[2].split('-')
@@ -164,9 +169,13 @@ const Bible = props => {
                     ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${list[2]}`
                     : `${plSpaceSplit[0]} ${list[2]}`
                   : passage === 'pb1'
-                  ? guideToday.pb1_name
+                  ? guideDate
+                    ? guideByDate.pb1_name
+                    : guideToday.pb1_name
                   : passage === 'pb2'
-                  ? guideToday.pb2_name
+                  ? guideDate
+                    ? guideByDate.pb2_name
+                    : guideToday.pb2_name
                   : ''}
               </Typography>
             </Toolbar>

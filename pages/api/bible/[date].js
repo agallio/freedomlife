@@ -69,7 +69,7 @@ export default async (req, res) => {
         version: 'tb',
         book: passage[0].book,
         chapter: i,
-        passagePlace: `pb1-${place++}`,
+        passagePlace: `pb1`,
         data: passage[0].verses
       });
     }
@@ -81,7 +81,7 @@ export default async (req, res) => {
       version: 'tb',
       book: passage[0].book,
       chapter: passage[0].chapter,
-      passagePlace: `pb1-1`,
+      passagePlace: `pb1`,
       data: passage[0].verses
     });
   }

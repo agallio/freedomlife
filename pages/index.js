@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 import 'moment/locale/id';
 
-import { fetchGuideToday } from '../src/actions/guide';
+import { fetchGuideToday, setGuideDate } from '../src/actions/guide';
 import { fetchTodayChapter } from '../src/actions/bible';
 
 class Index extends Component {
@@ -28,6 +28,7 @@ class Index extends Component {
     // if (this.props.guide.guideToday.date === moment().format('DD-MM-YYYY')) {
     //   this.props.fetchTodayChapter();
     // }
+    this.props.setGuideDate('');
     Router.push('/bible');
   };
 
@@ -132,7 +133,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchGuideToday: () => dispatch(fetchGuideToday()),
-    fetchTodayChapter: version => dispatch(fetchTodayChapter(version))
+    fetchTodayChapter: version => dispatch(fetchTodayChapter(version)),
+    setGuideDate: date => dispatch(setGuideDate(date))
   };
 };
 

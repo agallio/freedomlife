@@ -7,7 +7,8 @@ import {
   FETCH_GUIDE_BY_MONTH_FAILURE,
   FETCH_GUIDE_BY_DATE,
   FETCH_GUIDE_BY_DATE_SUCCESS,
-  FETCH_GUIDE_BY_DATE_FAILURE
+  FETCH_GUIDE_BY_DATE_FAILURE,
+  SET_GUIDE_DATE
 } from '../actions';
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
     pb2_name: ''
   },
   guideByMonth: [],
+  guideDate: '',
 
   isFetching: false,
   isError: false
@@ -65,6 +67,11 @@ export default (state = initialState, action) => {
       };
     case FETCH_GUIDE_BY_DATE_FAILURE:
       return { ...state, isFetching: false, isError: true };
+    case SET_GUIDE_DATE:
+      return {
+        ...state,
+        guideDate: action.date
+      };
 
     default:
       return state;

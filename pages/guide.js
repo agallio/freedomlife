@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Router from 'next/router';
 import { connect } from 'react-redux';
 import {
   Fade,
@@ -7,12 +8,18 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Typography
+  Typography,
+  ButtonBase
 } from '@material-ui/core';
 import moment from 'moment';
 import 'moment/locale/id';
 
-import { fetchGuideByMonth } from '../src/actions/guide';
+import {
+  fetchGuideByMonth,
+  fetchGuideByDate,
+  setGuideDate
+} from '../src/actions/guide';
+import { fetchChapterByDate } from '../src/actions/bible';
 
 class Guide extends Component {
   componentDidMount = () => {
@@ -26,6 +33,13 @@ class Guide extends Component {
         moment().format('YYYY')
       );
     }
+  };
+
+  toBible = async date => {
+    await this.props.setGuideDate(date);
+    await this.props.fetchGuideByDate(date);
+    await this.props.fetchChapterByDate(date);
+    Router.push('/bible');
   };
 
   render() {
@@ -66,43 +80,45 @@ class Guide extends Component {
                       spacing={4}
                     >
                       <Grid item sm={4} md={4}>
-                        <div
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'guide-box-primary'
-                              : 'guide-box'
-                          }
-                        >
-                          <Typography
+                        <ButtonBase onClick={() => this.toBible(item.date)}>
+                          <div
                             className={
                               moment().format('DD-MM-YYYY') === item.date
-                                ? 'bold-text'
-                                : 'bold-text primary'
+                                ? 'guide-box-primary'
+                                : 'guide-box'
                             }
-                            style={{
-                              color:
-                                moment().format('DD-MM-YYYY') === item.date &&
-                                '#fff'
-                            }}
                           >
-                            {moment(item.date, 'DD-MM-YYYY').format('dddd')}
-                          </Typography>
-                          <Typography
-                            variant="h4"
-                            className={
-                              moment().format('DD-MM-YYYY') === item.date
-                                ? 'bold-text'
-                                : 'bold-text primary'
-                            }
-                            style={{
-                              color:
-                                moment().format('DD-MM-YYYY') === item.date &&
-                                '#fff'
-                            }}
-                          >
-                            {item.date.split('-')[0] || '-'}
-                          </Typography>
-                        </div>
+                            <Typography
+                              className={
+                                moment().format('DD-MM-YYYY') === item.date
+                                  ? 'bold-text'
+                                  : 'bold-text primary'
+                              }
+                              style={{
+                                color:
+                                  moment().format('DD-MM-YYYY') === item.date &&
+                                  '#fff'
+                              }}
+                            >
+                              {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+                            </Typography>
+                            <Typography
+                              variant="h4"
+                              className={
+                                moment().format('DD-MM-YYYY') === item.date
+                                  ? 'bold-text'
+                                  : 'bold-text primary'
+                              }
+                              style={{
+                                color:
+                                  moment().format('DD-MM-YYYY') === item.date &&
+                                  '#fff'
+                              }}
+                            >
+                              {item.date.split('-')[0] || '-'}
+                            </Typography>
+                          </div>
+                        </ButtonBase>
                       </Grid>
                       <Grid item sm={8} md={8}>
                         <Typography
@@ -154,7 +170,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchGuideByMonth: (month, year) => dispatch(fetchGuideByMonth(month, year))
+    fetchGuideByMonth: (month, year) =>
+      dispatch(fetchGuideByMonth(month, year)),
+    fetchChapterByDate: date => dispatch(fetchChapterByDate(date)),
+    fetchGuideByDate: date => dispatch(fetchGuideByDate(date)),
+    setGuideDate: date => dispatch(setGuideDate(date))
   };
 };
 
