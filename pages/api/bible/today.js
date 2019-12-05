@@ -15,6 +15,8 @@ export default async (req, res) => {
     res.status(500).json({ err })
   );
 
+  console.log(query);
+
   let pl = query[0].pl;
   let pb1 = query[0].pb1;
   let pb2 = query[0].pb2;
@@ -61,7 +63,7 @@ export default async (req, res) => {
   if (pb1ColonSplit.length > 1) {
     pb2DashSplit = pb1ColonSplit[1].split('-');
     const passage = await BibleModel.find({
-      $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1SpaceSplit[1] }]
+      $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1ColonSplit[0] }]
     });
     pb2Arr.push({
       version: 'tb',
@@ -75,10 +77,10 @@ export default async (req, res) => {
       )
     });
   } else {
-    ('test');
     const passage = await BibleModel.find({
       $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1SpaceSplit[1] }]
     });
+    console.log(passage);
     pb1Arr.push({
       version: 'tb',
       book: passage[0].book,
@@ -96,6 +98,7 @@ export default async (req, res) => {
       const passage = await BibleModel.find({
         $and: [{ abbr: pb2SpaceSplit[0] }, { chapter: pb2SpaceSplit[1] }]
       });
+      console.log(passage);
       pb2Arr.push({
         version: 'tb',
         book: passage[0].book,
@@ -111,6 +114,7 @@ export default async (req, res) => {
       const passage = await BibleModel.find({
         $and: [{ abbr: pb2SpaceSplit[0] }, { chapter: pb2SpaceSplit[1] }]
       });
+      console.log(passage);
       pb2Arr.push({
         version: 'tb',
         book: passage[0].book,
@@ -123,6 +127,7 @@ export default async (req, res) => {
     const passage = await BibleModel.find({
       $and: [{ abbr: pb2SpaceSplit[0] }, { chapter: pb2SpaceSplit[1] }]
     });
+    console.log(passage);
     pb2Arr.push({
       version: 'tb',
       book: passage[0].book,
