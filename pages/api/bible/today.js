@@ -65,7 +65,7 @@ export default async (req, res) => {
     const passage = await BibleModel.find({
       $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1ColonSplit[0] }]
     });
-    pb2Arr.push({
+    pb1Arr.push({
       version: 'tb',
       book: passage[0].book,
       chapter: passage[0].chapter,
