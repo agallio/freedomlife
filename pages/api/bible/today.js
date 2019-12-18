@@ -96,7 +96,7 @@ export default async (req, res) => {
     if (pb2ColonSplit.length > 1) {
       pb2DashSplit = pb2ColonSplit[1].split('-');
       const passage = await BibleModel.find({
-        $and: [{ abbr: pb2SpaceSplit[0] }, { chapter: pb2SpaceSplit[1] }]
+        $and: [{ abbr: pb2SpaceSplit[0] }, { chapter: pb2ColonSplit[0] }]
       });
       console.log(passage);
       pb2Arr.push({
