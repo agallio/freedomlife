@@ -61,7 +61,7 @@ export default async (req, res) => {
   // Perjanjian Baru 1
   let pb1ColonSplit = pb1SpaceSplit[1].split(':');
   if (pb1ColonSplit.length > 1) {
-    pb2DashSplit = pb1ColonSplit[1].split('-');
+    pb1DashSplit = pb1ColonSplit[1].split('-');
     const passage = await BibleModel.find({
       $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1ColonSplit[0] }]
     });
@@ -72,22 +72,40 @@ export default async (req, res) => {
       passagePlace: `pb1`,
       data: passage[0].verses.filter(
         item =>
-          item.verse >= Number(pb2DashSplit[0]) &&
-          item.verse <= Number(pb2DashSplit[1])
+          item.verse >= Number(pb1DashSplit[0]) &&
+          item.verse <= Number(pb1DashSplit[1])
       )
     });
   } else {
-    const passage = await BibleModel.find({
-      $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1SpaceSplit[1] }]
-    });
-    console.log(passage);
-    pb1Arr.push({
-      version: 'tb',
-      book: passage[0].book,
-      chapter: passage[0].chapter,
-      passagePlace: `pb1`,
-      data: passage[0].verses
-    });
+    if (pb1ColonSplit.length > 1) {
+      pb1DashSplit = pb1ColonSplit[1].split('-');
+      const passage = await BibleModel.find({
+        $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1ColonSplit[0] }]
+      });
+      pb1Arr.push({
+        version: 'tb',
+        book: passage[0].book,
+        chapter: passage[0].chapter,
+        passagePlace: `pb1`,
+        data: passage[0].verses.filter(
+          item =>
+            item.verse >= Number(pb1DashSplit[0]) &&
+            item.verse <= Number(pb1DashSplit[1])
+        )
+      });
+    } else {
+      const passage = await BibleModel.find({
+        $and: [{ abbr: pb1SpaceSplit[0] }, { chapter: pb1SpaceSplit[1] }]
+      });
+      console.log(passage);
+      pb1Arr.push({
+        version: 'tb',
+        book: passage[0].book,
+        chapter: passage[0].chapter,
+        passagePlace: `pb1`,
+        data: passage[0].verses
+      });
+    }
   }
 
   // Perjanjian Baru 2
