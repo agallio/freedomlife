@@ -12,6 +12,7 @@ export default async (req, res) => {
   GuideModel2020.find({ date: customDate })
     .then(guide => {
       res.json(guide[0]);
+      res.end();
     })
     .catch(err => {
       console.log(err);

@@ -11,6 +11,7 @@ export default async (req, res) => {
   })
     .then(guide => {
       res.json(guide);
+      res.end();
     })
     .catch(err => {
       console.log(err);
