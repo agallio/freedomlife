@@ -7,9 +7,7 @@ export default async (req, res) => {
   const { GuideModel2020 } = database;
   const { date } = req.query;
 
-  const customDate = moment(date, 'DD-MM-YYYY')
-    .tz('Asia/Jakarta')
-    .format('DD-MM-YYYY');
+  const customDate = moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY');
 
   GuideModel2020.find({ date: customDate })
     .then(guide => {

@@ -10,9 +10,7 @@ export default async (req, res) => {
   const pb1Arr = [];
   const pb2Arr = [];
 
-  const todayDate = moment()
-    .tz('Asia/Jakarta')
-    .format('DD-MM-YYYY');
+  const todayDate = moment().format('DD-MM-YYYY');
   const query = await GuideModel.find({ date: todayDate }).catch(err =>
     res.status(500).json({ err })
   );

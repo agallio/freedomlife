@@ -6,9 +6,7 @@ export default async (req, res) => {
   const database = await getDatabase();
   const { GuideModel } = database;
 
-  const todayDate = moment()
-    .tz('Asia/Jakarta')
-    .format('DD-MM-YYYY');
+  const todayDate = moment().format('DD-MM-YYYY');
 
   GuideModel.find({ date: todayDate })
     .then(guide => {
