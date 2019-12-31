@@ -17,7 +17,8 @@ import 'moment/locale/id';
 import {
   fetchGuideByMonth,
   fetchGuideByDate,
-  setGuideDate
+  setGuideDate,
+  fetchGuide2020ByMonth
 } from '../src/actions/guide';
 import { fetchChapterByDate } from '../src/actions/bible';
 
@@ -28,22 +29,32 @@ class Guide extends Component {
         moment().format('MM') ||
       this.props.guide.guideByMonth.length === 0
     ) {
-      this.props.fetchGuideByMonth(
-        moment().format('MM'),
-        moment().format('YYYY')
-      );
+      if (this.props.guide.new_2020) {
+        this.props.fetchGuide2020ByMonth('01', '2020');
+      } else {
+        this.props.fetchGuideByMonth(
+          moment().format('MM'),
+          moment().format('YYYY')
+        );
+      }
     }
   };
 
   toBible = async date => {
-    await this.props.setGuideDate(date);
-    await this.props.fetchGuideByDate(date);
-    await this.props.fetchChapterByDate(date);
-    Router.push('/bible');
+    console.log('Clicked')
+    // await this.props.setGuideDate(date);
+    // await this.props.fetchGuideByDate(date);
+    // await this.props.fetchChapterByDate(date);
+    // Router.push('/bible');
   };
 
   render() {
-    const { isFetching, guideByMonth } = this.props.guide;
+    const {
+      isFetching,
+      new_2020,
+      guideByMonth,
+      guide2020ByMonth
+    } = this.props.guide;
 
     return (
       <Fade in>
@@ -69,6 +80,81 @@ class Guide extends Component {
               >
                 {isFetching ? (
                   <CircularProgress />
+                ) : new_2020 ? (
+                  guide2020ByMonth.map((item, index) => (
+                    <Grid
+                      container
+                      key={index}
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      spacing={4}
+                    >
+                      <Grid item sm={4} md={4}>
+                        <ButtonBase onClick={() => this.toBible(item.date)}>
+                          <div
+                            className={
+                              moment().format('DD-MM-YYYY') === item.date
+                                ? 'guide-box-primary'
+                                : 'guide-box'
+                            }
+                          >
+                            <Typography
+                              className={
+                                moment().format('DD-MM-YYYY') === item.date
+                                  ? 'bold-text'
+                                  : 'bold-text primary'
+                              }
+                              style={{
+                                color:
+                                  moment().format('DD-MM-YYYY') === item.date &&
+                                  '#fff'
+                              }}
+                            >
+                              {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+                            </Typography>
+                            <Typography
+                              variant="h4"
+                              className={
+                                moment().format('DD-MM-YYYY') === item.date
+                                  ? 'bold-text'
+                                  : 'bold-text primary'
+                              }
+                              style={{
+                                color:
+                                  moment().format('DD-MM-YYYY') === item.date &&
+                                  '#fff'
+                              }}
+                            >
+                              {item.date.split('-')[0] || '-'}
+                            </Typography>
+                          </div>
+                        </ButtonBase>
+                      </Grid>
+                      <Grid item sm={8} md={8}>
+                        <Typography
+                          variant="subtitle1"
+                          className={
+                            moment().format('DD-MM-YYYY') === item.date
+                              ? 'regular-text primary'
+                              : 'regular-text'
+                          }
+                        >
+                          {item.pl_name || '-'}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          className={
+                            moment().format('DD-MM-YYYY') === item.date
+                              ? 'regular-text primary'
+                              : 'regular-text'
+                          }
+                        >
+                          {item.pb_name || '-'}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  ))
                 ) : (
                   guideByMonth.map((item, index) => (
                     <Grid
@@ -174,11 +260,11 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchGuideByMonth(month, year)),
     fetchChapterByDate: date => dispatch(fetchChapterByDate(date)),
     fetchGuideByDate: date => dispatch(fetchGuideByDate(date)),
-    setGuideDate: date => dispatch(setGuideDate(date))
+    setGuideDate: date => dispatch(setGuideDate(date)),
+    // 2020
+    fetchGuide2020ByMonth: (month, year) =>
+      dispatch(fetchGuide2020ByMonth(month, year))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Guide);
+export default connect(mapStateToProps, mapDispatchToProps)(Guide);

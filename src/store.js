@@ -41,27 +41,27 @@ const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware();
 
   // TODO: Research a better way using this redux-persist package
-  const isClient = typeof window !== undefined;
+  // const isClient = typeof window !== undefined;
 
-  if (isClient) {
-    const { persistReducer } = require('redux-persist');
-    const storage = require('redux-persist/lib/storage').default;
+  // if (isClient) {
+  //   const { persistReducer } = require('redux-persist');
+  //   const storage = require('redux-persist/lib/storage').default;
 
-    const persistConfig = {
-      key: 'root',
-      blacklist: ['bible'],
-      storage
-    };
+  //   const persistConfig = {
+  //     key: 'root',
+  //     blacklist: ['bible'],
+  //     storage
+  //   };
 
-    store = createStore(
-      persistReducer(persistConfig, rootReducer),
-      bindMiddleware([sagaMiddleware])
-    );
+  //   store = createStore(
+  //     persistReducer(persistConfig, rootReducer),
+  //     bindMiddleware([sagaMiddleware])
+  //   );
 
-    store.__PERSISTOR = persistStore(store);
-  } else {
-    store = createStore(rootReducer, bindMiddleware([sagaMiddleware]));
-  }
+  //   store.__PERSISTOR = persistStore(store);
+  // } else {
+  store = createStore(rootReducer, bindMiddleware([sagaMiddleware]));
+  // }
 
   store.sagaTask = sagaMiddleware.run(rootSaga);
 

@@ -12,28 +12,35 @@ import {
 import moment from 'moment';
 import 'moment/locale/id';
 
-import { fetchGuideToday, setGuideDate } from '../src/actions/guide';
-import { fetchTodayChapter } from '../src/actions/bible';
+import {
+  fetchGuideToday,
+  setGuideDate,
+  fetchGuide2020Today
+} from '../src/actions/guide';
 
 class Index extends Component {
   componentDidMount = async () => {
     if (this.props.guide.guideToday.date !== moment().format('DD-MM-YYYY')) {
-      this.props.fetchGuideToday();
-      this.props.fetchTodayChapter();
+      if (this.props.guide.new_2020) {
+        this.props.fetchGuide2020Today();
+      } else {
+        this.props.fetchGuideToday();
+      }
     }
   };
 
   toBible = () => {
-    // TODO: Search better logic for fetching today chapter
-    // if (this.props.guide.guideToday.date === moment().format('DD-MM-YYYY')) {
-    //   this.props.fetchTodayChapter();
-    // }
     this.props.setGuideDate('');
     Router.push('/bible');
   };
 
   render() {
-    const { isFetching, guideToday } = this.props.guide;
+    const {
+      isFetching,
+      new_2020,
+      guideToday,
+      guide2020Today
+    } = this.props.guide;
 
     return (
       <div>
@@ -53,56 +60,100 @@ class Index extends Component {
                   Panduan Hari Ini
                 </Typography>
                 <Typography className="light-text primary" variant="subtitle1">
-                  {moment().format('dddd, LL')}
+                  {/* {moment().format('dddd, LL')} */}
                 </Typography>
 
-                {['PL', 'PB1', 'PB2'].map(item => (
-                  <Grid
-                    key={item}
-                    container
-                    direction="row"
-                    alignItems="center"
-                    spacing={2}
-                    style={{ marginTop: 5 }}
-                  >
-                    <Grid item xs={3} sm={2} md={2}>
-                      <div className="guide-passage-box">
-                        <h5 className="guide-passage-box-text">{item}</h5>
-                      </div>
-                    </Grid>
-                    <Grid item xs={9} sm={10} md={10}>
-                      {isFetching ? (
-                        <LinearProgress />
-                      ) : (
-                        <Typography
-                          className="bold-text primary"
-                          variant="h6"
-                          style={{ fontSize: 17 }}
-                        >
-                          {item === 'PL'
-                            ? guideToday.pl_name
-                            : item === 'PB1'
-                            ? guideToday.pb1_name
-                            : item === 'PB2'
-                            ? guideToday.pb2_name
-                            : 'Tidak ada data'}
-                        </Typography>
-                      )}
-                      <Typography
-                        className="light-text primary"
-                        variant="subtitle1"
+                {new_2020
+                  ? ['PL', 'PB'].map(item => (
+                      <Grid
+                        key={item}
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={2}
+                        style={{ marginTop: 5 }}
                       >
-                        {item === 'PL'
-                          ? 'Perjanjian Lama'
-                          : item === 'PB1'
-                          ? 'Perjanjian Baru 1'
-                          : item === 'PB2'
-                          ? 'Perjanjian Baru 2'
-                          : ''}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                ))}
+                        <Grid item xs={3} sm={2} md={2}>
+                          <div className="guide-passage-box">
+                            <h5 className="guide-passage-box-text">{item}</h5>
+                          </div>
+                        </Grid>
+                        <Grid item xs={9} sm={10} md={10}>
+                          {isFetching ? (
+                            <LinearProgress />
+                          ) : (
+                            <Typography
+                              className="bold-text primary"
+                              variant="h6"
+                              style={{ fontSize: 17 }}
+                            >
+                              {item === 'PL'
+                                ? guide2020Today.pl_name
+                                : item === 'PB'
+                                ? guide2020Today.pb_name
+                                : 'Tidak ada data'}
+                            </Typography>
+                          )}
+                          <Typography
+                            className="light-text primary"
+                            variant="subtitle1"
+                          >
+                            {item === 'PL'
+                              ? 'Perjanjian Lama'
+                              : item === 'PB'
+                              ? 'Perjanjian Baru'
+                              : ''}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    ))
+                  : ['PL', 'PB1', 'PB2'].map(item => (
+                      <Grid
+                        key={item}
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={2}
+                        style={{ marginTop: 5 }}
+                      >
+                        <Grid item xs={3} sm={2} md={2}>
+                          <div className="guide-passage-box">
+                            <h5 className="guide-passage-box-text">{item}</h5>
+                          </div>
+                        </Grid>
+                        <Grid item xs={9} sm={10} md={10}>
+                          {isFetching ? (
+                            <LinearProgress />
+                          ) : (
+                            <Typography
+                              className="bold-text primary"
+                              variant="h6"
+                              style={{ fontSize: 17 }}
+                            >
+                              {item === 'PL'
+                                ? guideToday.pl_name
+                                : item === 'PB1'
+                                ? guideToday.pb1_name
+                                : item === 'PB2'
+                                ? guideToday.pb2_name
+                                : 'Tidak ada data'}
+                            </Typography>
+                          )}
+                          <Typography
+                            className="light-text primary"
+                            variant="subtitle1"
+                          >
+                            {item === 'PL'
+                              ? 'Perjanjian Lama'
+                              : item === 'PB1'
+                              ? 'Perjanjian Baru 1'
+                              : item === 'PB2'
+                              ? 'Perjanjian Baru 2'
+                              : ''}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    ))}
 
                 <br />
                 <Fab
@@ -133,12 +184,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchGuideToday: () => dispatch(fetchGuideToday()),
-    fetchTodayChapter: version => dispatch(fetchTodayChapter(version)),
-    setGuideDate: date => dispatch(setGuideDate(date))
+    setGuideDate: date => dispatch(setGuideDate(date)),
+    // 2020
+    fetchGuide2020Today: () => dispatch(fetchGuide2020Today())
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

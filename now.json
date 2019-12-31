@@ -13,6 +13,7 @@
   ],
   "env": {
     "DB_FL_URI": "@db-fl-uri",
-    "DB_BIBLE_URI": "@db-bible-uri"
+    "DB_BIBLE_URI": "@db-bible-uri",
+    "DB_FL_URI_2020": "@db-fl-uri-2020"
   }
 }
