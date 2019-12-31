@@ -2,7 +2,7 @@ import moment from 'moment';
 
 import { getDatabase } from '../../../../src/db';
 
-export default (req, res) => {
+export default async (req, res) => {
   const database = await getDatabase();
   const { GuideModel2020 } = database;
 
