@@ -1,5 +1,4 @@
 import moment from 'moment';
-import 'moment/locale/id'
 
 import { getDatabase } from '../../../src/db';
 
