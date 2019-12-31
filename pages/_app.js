@@ -30,7 +30,7 @@ class MyApp extends App {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {};
-    return { pathname: ctx.pathname, pageProps };
+    return { pathname: ctx.pathname, pageProps, maintenance: true };
   }
 
   componentDidMount() {
@@ -46,7 +46,7 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, maintenance } = this.props;
 
     return (
       <React.Fragment>
@@ -66,7 +66,17 @@ class MyApp extends App {
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
               <Fade in>
-                {this.props.pathname === '/bible' ? (
+                {maintenance ? (
+                  <div className="jumbo-header">
+                    <div className="jumbo-header-overlay"></div>
+                    <div className="container" style={{ paddingBottom: 90 }}>
+                      <h2 className="header-title" style={{ marginTop: 70 }}>
+                        Freedom Life
+                      </h2>
+                      <p className="header-subtitle">Under Maintenance</p>
+                    </div>
+                  </div>
+                ) : this.props.pathname === '/bible' ? (
                   <Component {...pageProps} />
                 ) : (
                   <div className="jumbo-header">
