@@ -8,13 +8,12 @@ export default async (req, res) => {
 
   const todayDate = moment().format('DD-MM-YYYY');
 
-  GuideModel2020.find({ date: todayDate.toString() })
-    .then(guide => {
-      res.json(guide[0]);
-      res.end();
-    })
-    .catch(err => {
+  const guide = await GuideModel2020.find({ date: todayDate.toString() }).catch(
+    err => {
       console.log(err);
       res.status(500).json(err);
-    });
+    }
+  );
+
+  res.json(guide[0]);
 };
