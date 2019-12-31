@@ -7,11 +7,10 @@ export default async (req, res) => {
   const { GuideModel2020 } = database;
 
   const todayDate = moment.tz('Asia/Jakarta').format('DD-MM-YYYY');
-  console.log(todayDate)
 
   GuideModel2020.find({ date: todayDate })
     .then(guide => {
-      res.json(guide);
+      res.json(guide[0]);
     })
     .catch(err => {
       console.log(err);
