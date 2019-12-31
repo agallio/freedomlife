@@ -8,6 +8,8 @@ export default async (req, res) => {
 
   const todayDate = moment().format('DD-MM-YYYY');
 
+  console.log(todayDate)
+
   GuideModel2020.find({ date: todayDate })
     .then(guide => {
       res.json(guide);
