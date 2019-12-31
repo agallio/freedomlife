@@ -17,7 +17,9 @@ export default async (req, res) => {
   const plArr = [];
   const pbArr = [];
 
-  const todayDate = moment().format('DD-MM-YYYY');
+  const todayDate = moment()
+    .tz('Asia/Jakarta')
+    .format('DD-MM-YYYY');
   const query = await GuideModel2020.find({ date: todayDate }).catch(err => {
     console.log(err);
     res.status(500).json({ err });

@@ -10,7 +10,9 @@ export default async (req, res) => {
   const plArr = [];
   const pbArr = [];
 
-  const thisDate = moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY');
+  const thisDate = moment(date, 'DD-MM-YYYY')
+    .tz('Asia/Jakarta')
+    .format('DD-MM-YYYY');
   const query = await GuideModel2020.find({ date: thisDate }).catch(err =>
     res.status(500).json({ err })
   );
