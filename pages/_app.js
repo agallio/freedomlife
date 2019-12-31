@@ -9,10 +9,10 @@ import {
   Fade,
   BottomNavigation,
   BottomNavigationAction,
-  useMediaQuery
+  // useMediaQuery
 } from '@material-ui/core';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+// import { PersistGate } from 'redux-persist/integration/react';
 import HomeIcon from '@material-ui/icons/HomeRounded';
 import BookIcon from '@material-ui/icons/BookRounded';
 import theme from '../src/theme';
@@ -30,7 +30,7 @@ class MyApp extends App {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {};
-    return { pathname: ctx.pathname, pageProps, maintenance: true };
+    return { pathname: ctx.pathname, pageProps, maintenance: false };
   }
 
   componentDidMount() {
@@ -61,50 +61,50 @@ class MyApp extends App {
         </Head>
         <Provider store={store}>
           {/* TODO: Research a better way using this redux-persist one */}
-          <PersistGate persistor={store.__PERSISTOR} loading={null}>
-            <ThemeProvider theme={theme}>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              <Fade in>
-                {maintenance ? (
-                  <div className="jumbo-header">
-                    <div className="jumbo-header-overlay"></div>
-                    <div className="container" style={{ paddingBottom: 90 }}>
-                      <h2 className="header-title" style={{ marginTop: 70 }}>
-                        Freedom Life
-                      </h2>
-                      <p className="header-subtitle">Under Maintenance</p>
-                    </div>
+          {/* <PersistGate persistor={store.__PERSISTOR} loading={null}> */}
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Fade in>
+              {maintenance ? (
+                <div className="jumbo-header">
+                  <div className="jumbo-header-overlay"></div>
+                  <div className="container" style={{ paddingBottom: 90 }}>
+                    <h2 className="header-title" style={{ marginTop: 70 }}>
+                      Freedom Life
+                    </h2>
+                    <p className="header-subtitle">Under Maintenance</p>
                   </div>
-                ) : this.props.pathname === '/bible' ? (
+                </div>
+              ) : this.props.pathname === '/bible' ? (
+                <Component {...pageProps} />
+              ) : (
+                <div className="jumbo-header">
+                  <div className="jumbo-header-overlay"></div>
                   <Component {...pageProps} />
-                ) : (
-                  <div className="jumbo-header">
-                    <div className="jumbo-header-overlay"></div>
-                    <Component {...pageProps} />
-                    <BottomNavigation
-                      value={this.props.pathname}
-                      onChange={this.navOnChange}
-                      className="styled-bottom-nav"
-                    >
-                      <BottomNavigationAction
-                        className="styled-bottom-nav-action"
-                        label="Beranda"
-                        value="/"
-                        icon={<HomeIcon />}
-                      ></BottomNavigationAction>
-                      <BottomNavigationAction
-                        className="styled-bottom-nav-action"
-                        label="Panduan"
-                        value="/guide"
-                        icon={<BookIcon />}
-                      ></BottomNavigationAction>
-                    </BottomNavigation>
-                  </div>
-                )}
-              </Fade>
-            </ThemeProvider>
-          </PersistGate>
+                  <BottomNavigation
+                    value={this.props.pathname}
+                    onChange={this.navOnChange}
+                    className="styled-bottom-nav"
+                  >
+                    <BottomNavigationAction
+                      className="styled-bottom-nav-action"
+                      label="Beranda"
+                      value="/"
+                      icon={<HomeIcon />}
+                    ></BottomNavigationAction>
+                    <BottomNavigationAction
+                      className="styled-bottom-nav-action"
+                      label="Panduan"
+                      value="/guide"
+                      icon={<BookIcon />}
+                    ></BottomNavigationAction>
+                  </BottomNavigation>
+                </div>
+              )}
+            </Fade>
+          </ThemeProvider>
+          {/* </PersistGate> */}
         </Provider>
       </React.Fragment>
     );
