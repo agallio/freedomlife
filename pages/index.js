@@ -19,7 +19,8 @@ import {
 } from '../src/actions/guide';
 
 class Index extends Component {
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    localStorage.clear();
     if (this.props.guide.guideToday.date !== moment().format('DD-MM-YYYY')) {
       if (this.props.guide.new_2020) {
         this.props.fetchGuide2020Today();
