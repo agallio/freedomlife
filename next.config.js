@@ -1,4 +1,11 @@
 require('dotenv').config();
+const sitemap = require('nextjs-sitemap-generator');
+sitemap({
+  baseUrl: 'https://freedomlife.id/',
+  pagesDirectory: `${__dirname}/pages`,
+  targetDirectory: 'public/static/',
+  ignoredPaths: ['api']
+});
 
 const { PHASE_PRODUCTION_SERVER } =
   process.env.NODE_ENV === 'development'
