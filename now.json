@@ -9,10 +9,6 @@
         "cache-control": "public, max-age=43200, immutable",
         "Service-Worker-Allowed": "/"
       }
-    },
-    {
-      "src": "^/sitemap.xml",
-      "dest": "/public/static/sitemap.xml"
     }
   ],
   "env": {
