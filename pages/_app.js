@@ -8,7 +8,7 @@ import {
   CssBaseline,
   Fade,
   BottomNavigation,
-  BottomNavigationAction,
+  BottomNavigationAction
   // useMediaQuery
 } from '@material-ui/core';
 import { Provider } from 'react-redux';
@@ -76,7 +76,8 @@ class MyApp extends App {
                     <p className="header-subtitle">Under Maintenance</p>
                   </div>
                 </div>
-              ) : this.props.pathname === '/bible' ? (
+              ) : this.props.pathname === '/bible' &&
+                this.props.pathname === '/sitemap.xml' ? (
                 <Component {...pageProps} />
               ) : (
                 <div className="jumbo-header">
