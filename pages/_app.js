@@ -76,7 +76,7 @@ class MyApp extends App {
                     <p className="header-subtitle">Under Maintenance</p>
                   </div>
                 </div>
-              ) : this.props.pathname === '/bible' &&
+              ) : this.props.pathname === '/bible' ||
                 this.props.pathname === '/sitemap.xml' ? (
                 <Component {...pageProps} />
               ) : (
