@@ -22,8 +22,11 @@ import {
 } from '../src/actions/guide';
 import { fetchChapterByDate } from '../src/actions/bible';
 
+import { logPageView } from '../src/utils/analytics';
+
 class Guide extends Component {
   componentDidMount = () => {
+    logPageView();
     if (
       moment(this.props.guide.guideToday.date, 'DD-MM-YYYY').format('MM') !==
         moment().format('MM') ||
@@ -41,7 +44,7 @@ class Guide extends Component {
   };
 
   toBible = async date => {
-    console.log('Clicked')
+    console.log('Clicked');
     // await this.props.setGuideDate(date);
     // await this.props.fetchGuideByDate(date);
     // await this.props.fetchChapterByDate(date);

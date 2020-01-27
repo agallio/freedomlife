@@ -16,6 +16,7 @@ import { Provider } from 'react-redux';
 import HomeIcon from '@material-ui/icons/HomeRounded';
 import BookIcon from '@material-ui/icons/BookRounded';
 import theme from '../src/theme';
+import { initGA, logPageView } from '../src/utils/analytics';
 
 // Import SCSS
 import '../styles/index.scss';
@@ -39,6 +40,11 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
   }
 
   navOnChange = (e, value) => {

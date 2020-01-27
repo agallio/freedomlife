@@ -35,6 +35,8 @@ import {
   fetchGuide2020Today
 } from '../src/actions/guide';
 
+import { logPageView } from '../src/utils/analytics';
+
 const HideOnScrollTop = props => {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -69,6 +71,7 @@ const Bible = props => {
 
   // Fetch Today Chapter when the user reloads the `/bible` page
   useEffect(() => {
+    logPageView();
     if (new_2020) {
       // if (guideDate) {
       //   dispatch(fetchGuide2020ByDate(guideDate))
