@@ -23,6 +23,8 @@ import {
   ArrowForwardIos as NextIosIcon,
   Translate as TranslateIcon
 } from '@material-ui/icons';
+import moment from 'moment';
+import * as gtag from '../src/utils/gtag';
 
 import {
   fetchTodayChapter,
@@ -34,8 +36,6 @@ import {
   fetchGuide2020ByDate,
   fetchGuide2020Today
 } from '../src/actions/guide';
-
-import { logPageView } from '../src/utils/analytics';
 
 const HideOnScrollTop = props => {
   const { children, window } = props;
@@ -71,7 +71,6 @@ const Bible = props => {
 
   // Fetch Today Chapter when the user reloads the `/bible` page
   useEffect(() => {
-    logPageView();
     if (new_2020) {
       // if (guideDate) {
       //   dispatch(fetchGuide2020ByDate(guideDate))
@@ -170,6 +169,15 @@ const Bible = props => {
       topFunction();
       setPassage(currChapter[currPassageIndex + 1]);
     }
+
+    // Google Analytics
+    gtag.event({
+      action: 'next_bible',
+      category: 'Bible',
+      label: `Read Bible (${currPassageIndex}) ${moment().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )}`
+    });
   };
 
   const backPassage = async () => {
@@ -181,6 +189,15 @@ const Bible = props => {
       topFunction();
       setPassage(currChapter[currPassageIndex - 1]);
     }
+
+    // Google Analytics
+    gtag.event({
+      action: 'back_bible',
+      category: 'Bible',
+      label: `Read Bible (${currPassageIndex}) ${moment().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )}`
+    });
   };
 
   // Split the `pl` passage for the passage title
@@ -411,6 +428,14 @@ const Bible = props => {
                     setPassage('pl-1');
                     setPassageModal(false);
                     topFunction();
+                    // Google Analytics
+                    gtag.event({
+                      action: 'to_passage_pl_1',
+                      category: 'Bible',
+                      label: `Read Bible (PL-1) ${moment().format(
+                        'DD-MM-YYYY HH:mm:ss'
+                      )}`
+                    });
                   }}
                 ></ListItemText>
               </ListItem>
@@ -431,6 +456,14 @@ const Bible = props => {
                       setPassage('pl-2');
                       setPassageModal(false);
                       topFunction();
+                      // Google Analytics
+                      gtag.event({
+                        action: 'to_passage_pl_2',
+                        category: 'Bible',
+                        label: `Read Bible (PL-2) ${moment().format(
+                          'DD-MM-YYYY HH:mm:ss'
+                        )}`
+                      });
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -452,6 +485,14 @@ const Bible = props => {
                       setPassage('pl-3');
                       setPassageModal(false);
                       topFunction();
+                      // Google Analytics
+                      gtag.event({
+                        action: 'to_passage_pl_3',
+                        category: 'Bible',
+                        label: `Read Bible (PL-3) ${moment().format(
+                          'DD-MM-YYYY HH:mm:ss'
+                        )}`
+                      });
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -473,6 +514,14 @@ const Bible = props => {
                       setPassage('pl-4');
                       setPassageModal(false);
                       topFunction();
+                      // Google Analytics
+                      gtag.event({
+                        action: 'to_passage_pl_4',
+                        category: 'Bible',
+                        label: `Read Bible (PL-4) ${moment().format(
+                          'DD-MM-YYYY HH:mm:ss'
+                        )}`
+                      });
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -493,6 +542,14 @@ const Bible = props => {
                     setPassage('pb');
                     setPassageModal(false);
                     topFunction();
+                    // Google Analytics
+                    gtag.event({
+                      action: 'to_passage_pb',
+                      category: 'Bible',
+                      label: `Read Bible (PB) ${moment().format(
+                        'DD-MM-YYYY HH:mm:ss'
+                      )}`
+                    });
                   }}
                 ></ListItemText>
               </ListItem>

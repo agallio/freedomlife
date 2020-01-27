@@ -16,7 +16,7 @@ import { Provider } from 'react-redux';
 import HomeIcon from '@material-ui/icons/HomeRounded';
 import BookIcon from '@material-ui/icons/BookRounded';
 import theme from '../src/theme';
-import { initGA, logPageView } from '../src/utils/analytics';
+import * as gtag from '../src/utils/gtag';
 
 // Import SCSS
 import '../styles/index.scss';
@@ -40,11 +40,6 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    if (!window.GA_INITIALIZED) {
-      initGA();
-      window.GA_INITIALIZED = true;
-    }
-    logPageView();
   }
 
   navOnChange = (e, value) => {
@@ -117,5 +112,8 @@ class MyApp extends App {
     );
   }
 }
+
+// Google Analytics (Page View)
+Router.events.on('routeChangeComplete', url => gtag.pageview(url));
 
 export default withRedux(configureStore)(MyApp);

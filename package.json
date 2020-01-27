@@ -21,7 +21,6 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-ga": "^2.7.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

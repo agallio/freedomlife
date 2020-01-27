@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 import 'moment/locale/id';
+import * as gtag from '../src/utils/gtag';
 
 import {
   fetchGuideToday,
@@ -32,6 +33,11 @@ class Index extends Component {
 
   toBible = () => {
     this.props.setGuideDate('');
+    gtag.event({
+      action: 'to_bible',
+      category: 'Bible',
+      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`
+    });
     Router.push('/bible');
   };
 
