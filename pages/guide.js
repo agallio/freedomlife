@@ -30,7 +30,10 @@ class Guide extends Component {
       this.props.guide.guideByMonth.length === 0
     ) {
       if (this.props.guide.new_2020) {
-        this.props.fetchGuide2020ByMonth('01', '2020');
+        this.props.fetchGuide2020ByMonth(
+          moment().format('MM'),
+          moment().format('YYYY')
+        );
       } else {
         this.props.fetchGuideByMonth(
           moment().format('MM'),
