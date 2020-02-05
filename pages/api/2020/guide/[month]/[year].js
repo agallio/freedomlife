@@ -9,6 +9,7 @@ export default async (req, res) => {
   GuideModel2020.find({
     $and: [{ month }, { year }]
   })
+    .sort('date')
     .then(guide => {
       res.json(guide);
       res.end();
