@@ -155,6 +155,18 @@ class Guide extends Component {
                         >
                           {item.pb_name || '-'}
                         </Typography>
+                        {item.alt_name && (
+                          <Typography
+                            variant="subtitle1"
+                            className={
+                              moment().format('DD-MM-YYYY') === item.date
+                                ? 'regular-text primary'
+                                : 'regular-text'
+                            }
+                          >
+                            {item.alt_name || '-'}
+                          </Typography>
+                        )}
                       </Grid>
                     </Grid>
                   ))

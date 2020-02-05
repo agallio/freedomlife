@@ -49,6 +49,8 @@ class Index extends Component {
       guide2020Today
     } = this.props.guide;
 
+    const isFeb = moment().format('MM') === '02';
+
     return (
       <div>
         {isFetching && <LinearProgress color="secondary" />}
@@ -71,49 +73,97 @@ class Index extends Component {
                 </Typography>
 
                 {new_2020
-                  ? ['PL', 'PB'].map(item => (
-                      <Grid
-                        key={item}
-                        container
-                        direction="row"
-                        alignItems="center"
-                        spacing={2}
-                        style={{ marginTop: 5 }}
-                      >
-                        <Grid item xs={3} sm={2} md={2}>
-                          <div className="guide-passage-box">
-                            <h5 className="guide-passage-box-text">{item}</h5>
-                          </div>
-                        </Grid>
-                        <Grid item xs={9} sm={10} md={10}>
-                          {isFetching ? (
-                            <LinearProgress />
-                          ) : (
+                  ? isFeb
+                    ? ['PL', 'PB', 'ALT'].map(item => (
+                        <Grid
+                          key={item}
+                          container
+                          direction="row"
+                          alignItems="center"
+                          spacing={2}
+                          style={{ marginTop: 5 }}
+                        >
+                          <Grid item xs={3} sm={2} md={2}>
+                            <div className="guide-passage-box">
+                              <h5 className="guide-passage-box-text">{item}</h5>
+                            </div>
+                          </Grid>
+                          <Grid item xs={9} sm={10} md={10}>
+                            {isFetching ? (
+                              <LinearProgress />
+                            ) : (
+                              <Typography
+                                className="bold-text primary"
+                                variant="h6"
+                                style={{ fontSize: 17 }}
+                              >
+                                {item === 'PL'
+                                  ? guide2020Today.pl_name
+                                  : item === 'PB'
+                                  ? guide2020Today.pb_name
+                                  : item === 'ALT'
+                                  ? guide2020Today.alt_name
+                                  : 'Tidak ada data'}
+                              </Typography>
+                            )}
                             <Typography
-                              className="bold-text primary"
-                              variant="h6"
-                              style={{ fontSize: 17 }}
+                              className="light-text primary"
+                              variant="subtitle1"
                             >
                               {item === 'PL'
-                                ? guide2020Today.pl_name
+                                ? 'Perjanjian Lama'
                                 : item === 'PB'
-                                ? guide2020Today.pb_name
-                                : 'Tidak ada data'}
+                                ? 'Perjanjian Baru'
+                                : item === 'ALT'
+                                ? 'Tambahan'
+                                : ''}
                             </Typography>
-                          )}
-                          <Typography
-                            className="light-text primary"
-                            variant="subtitle1"
-                          >
-                            {item === 'PL'
-                              ? 'Perjanjian Lama'
-                              : item === 'PB'
-                              ? 'Perjanjian Baru'
-                              : ''}
-                          </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    ))
+                      ))
+                    : ['PL', 'PB'].map(item => (
+                        <Grid
+                          key={item}
+                          container
+                          direction="row"
+                          alignItems="center"
+                          spacing={2}
+                          style={{ marginTop: 5 }}
+                        >
+                          <Grid item xs={3} sm={2} md={2}>
+                            <div className="guide-passage-box">
+                              <h5 className="guide-passage-box-text">{item}</h5>
+                            </div>
+                          </Grid>
+                          <Grid item xs={9} sm={10} md={10}>
+                            {isFetching ? (
+                              <LinearProgress />
+                            ) : (
+                              <Typography
+                                className="bold-text primary"
+                                variant="h6"
+                                style={{ fontSize: 17 }}
+                              >
+                                {item === 'PL'
+                                  ? guide2020Today.pl_name
+                                  : item === 'PB'
+                                  ? guide2020Today.pb_name
+                                  : 'Tidak ada data'}
+                              </Typography>
+                            )}
+                            <Typography
+                              className="light-text primary"
+                              variant="subtitle1"
+                            >
+                              {item === 'PL'
+                                ? 'Perjanjian Lama'
+                                : item === 'PB'
+                                ? 'Perjanjian Baru'
+                                : ''}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      ))
                   : ['PL', 'PB1', 'PB2'].map(item => (
                       <Grid
                         key={item}

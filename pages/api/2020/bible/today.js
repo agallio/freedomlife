@@ -16,6 +16,7 @@ export default async (req, res) => {
 
   const plArr = [];
   const pbArr = [];
+  const altArr = [];
 
   const todayDate = moment.tz('Asia/Jakarta').format('DD-MM-YYYY');
   const query = await GuideModel2020.find({ date: todayDate }).catch(err => {
@@ -25,14 +26,18 @@ export default async (req, res) => {
 
   let pl = query[0].pl;
   let pb = query[0].pb;
+  let alt = query[0].alt;
 
   const plSpaceSplit = pl.split(' ');
   const pbSpaceSplit = pb.split(' ');
+  let altSpaceSplit;
+  if (alt) {
+    altSpaceSplit = alt.split(' ');
+  }
 
   let plDashSplit;
   let pbDashSplit;
-
-  console.log(pl, pb);
+  let altDashSplit;
 
   const bibleVersion = (abbr, chapter) => {
     switch (version) {
@@ -131,16 +136,78 @@ export default async (req, res) => {
     });
   }
 
+  // Alt (Tambahan) (February 2020)
+  if (alt) {
+    altDashSplit = altSpaceSplit[1].split('-');
+    let altColonSplit = altSpaceSplit[1].split(':');
+    if (altColonSplit.length > 1) {
+      let altColonDashSplit = altColonSplit[1].split('-');
+      const passage = await bibleVersion(
+        altSpaceSplit[0],
+        altColonDashSplit[0]
+      );
+      altArr.push({
+        version: version || 'tb',
+        book: passage[0].book,
+        chapter: passage[0].chapter,
+        passagePlace: `alt-1`,
+        data: passage[0].verses.filter(
+          item =>
+            item.verse >= Number(altColonDashSplit[0]) &&
+            item.verse <= Number(altColonDashSplit[1])
+        )
+      });
+    } else if (altDashSplit.length > 1) {
+      let place = 1;
+      for (let i = Number(altDashSplit[0]); i <= altDashSplit[1]; i++) {
+        const passage = await bibleVersion(altSpaceSplit[0], i);
+        altArr.push({
+          version: version || 'tb',
+          book: passage[0].book,
+          chapter: i,
+          passagePlace: `alt-${place++}`,
+          data: passage[0].verses
+        });
+      }
+    } else {
+      const passage = await bibleVersion(altSpaceSplit[0], altSpaceSplit[1]);
+      altArr.push({
+        version: version || 'tb',
+        book: passage[0].book,
+        chapter: passage[0].chapter,
+        passagePlace: `alt-1`,
+        data: passage[0].verses
+      });
+    }
+  }
+
   let plList = [];
   for (let i = 1; i <= plArr.length; i++) {
     plList.push(`pl-${i}`);
   }
 
-  const data = {
-    passage: [...plList, 'pb'],
-    pl: [...plArr],
-    pb: [...pbArr]
-  };
+  let altList = [];
+  if (alt) {
+    for (let i = 1; i <= altArr.length; i++) {
+      altList.push(`alt-${i}`);
+    }
+  }
+
+  let data;
+  if (alt) {
+    data = {
+      passage: [...plList, 'pb', ...altList],
+      pl: [...plArr],
+      pb: [...pbArr],
+      alt: [...altArr]
+    };
+  } else {
+    data = {
+      passage: [...plList, 'pb'],
+      pl: [...plArr],
+      pb: [...pbArr]
+    };
+  }
 
   await res.json(data);
 };
