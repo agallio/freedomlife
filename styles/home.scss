@@ -1,6 +1,8 @@
 // Color Theme
-$primary: #673ab7;
-$secondary: #764ec0;
+// $primary: #673ab7;
+// $secondary: #764ec0;
+$primary: #d81b60;
+$secondary: #ec407a;
 $grey: #6e6e6e;
 
 .jumbo-header {
@@ -26,10 +28,18 @@ $grey: #6e6e6e;
   text-align: center;
 }
 
+// .guide-passage-box-text {
+//   font-family: 'SFProDisplay-Bold', sans-serif !important;
+//   font-size: 14pt;
+//   color: $primary;
+//   margin: 0;
+// }
+
+// February
 .guide-passage-box-text {
   font-family: 'SFProDisplay-Bold', sans-serif !important;
   font-size: 14pt;
-  color: $primary;
+  color: #000;
   margin: 0;
 }
 

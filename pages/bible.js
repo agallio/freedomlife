@@ -438,7 +438,7 @@ const Bible = props => {
               <BackIosIcon />
             </IconButton>
             <Fab
-              color="secondary"
+              color="primary"
               style={{
                 position: 'absolute',
                 zIindex: 1,

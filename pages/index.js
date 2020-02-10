@@ -9,6 +9,7 @@ import {
   Grid,
   Fab
 } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import moment from 'moment';
 import 'moment/locale/id';
 import * as gtag from '../src/utils/gtag';
@@ -56,7 +57,7 @@ class Index extends Component {
         {isFetching && <LinearProgress color="secondary" />}
         <div className="container" style={{ paddingBottom: 90 }}>
           <h2 className="header-title" style={{ marginTop: 70 }}>
-            Freedom Life
+            Freedom Life <FavoriteIcon />
           </h2>
           <p className="header-subtitle">
             Aplikasi panduan baca Alkitab setahun
@@ -93,7 +94,7 @@ class Index extends Component {
                               <LinearProgress />
                             ) : (
                               <Typography
-                                className="bold-text primary"
+                                className="bold-text primary-feb"
                                 variant="h6"
                                 style={{ fontSize: 17 }}
                               >
@@ -107,7 +108,7 @@ class Index extends Component {
                               </Typography>
                             )}
                             <Typography
-                              className="light-text primary"
+                              className="light-text primary-feb"
                               variant="subtitle1"
                             >
                               {item === 'PL'

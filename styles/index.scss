@@ -3,8 +3,10 @@
 @import 'guide.scss';
 
 // Color Theme
-$primary: #673ab7;
-$secondary: #764ec0;
+// $primary: #673ab7;
+// $secondary: #764ec0;
+$primary: #d81b60;
+$secondary: #ec407a;
 $grey: #6e6e6e;
 $dark: #121212;
 
@@ -91,6 +93,10 @@ $dark: #121212;
   color: $primary !important;
 }
 
+.primary-feb {
+  color: #000 !important;
+}
+
 .bold-text {
   font-family: 'SFProDisplay-Bold' !important;
 }
@@ -107,6 +113,12 @@ $dark: #121212;
   font-family: 'SFProDisplay-LightItalic' !important;
 }
 
+// Override
+.MuiAppBar-colorPrimary {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
 // Dark Mode
 @media (prefers-color-scheme: dark) {
   body {
@@ -116,7 +128,8 @@ $dark: #121212;
   .styled-bottom-nav {
     background-color: #121212 !important;
   }
-  .primary {
+  .primary,
+  .primary-feb {
     color: #fff !important;
   }
   .guide-passage-box {
@@ -163,5 +176,10 @@ $dark: #121212;
   }
   .modal-passage-list-text-secondary {
     color: #bfbfbf !important;
+  }
+  // Override
+  .MuiAppBar-colorPrimary {
+    color: #fff !important;
+    background-color: #212121 !important;
   }
 }
