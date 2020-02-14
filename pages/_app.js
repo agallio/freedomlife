@@ -15,14 +15,15 @@ import { Provider } from 'react-redux';
 // import { PersistGate } from 'redux-persist/integration/react';
 import HomeIcon from '@material-ui/icons/HomeRounded';
 import BookIcon from '@material-ui/icons/BookRounded';
-import theme from '../src/theme';
-import * as gtag from '../src/utils/gtag';
+import WartaIcon from '@material-ui/icons/LocalLibraryRounded';
+import theme from 'theme';
+import * as gtag from 'utils/gtag';
 
 // Import SCSS
-import '../styles/index.scss';
+import 'styles/index.scss';
 
 // Redux Store
-import configureStore from '../src/store';
+import configureStore from 'store';
 
 const store = configureStore();
 
@@ -89,6 +90,12 @@ class MyApp extends App {
                     onChange={this.navOnChange}
                     className="styled-bottom-nav"
                   >
+                    <BottomNavigationAction
+                      className="styled-bottom-nav-action"
+                      label="Warta"
+                      value="/warta"
+                      icon={<WartaIcon />}
+                    ></BottomNavigationAction>
                     <BottomNavigationAction
                       className="styled-bottom-nav-action"
                       label="Beranda"

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const sitemap = require('nextjs-sitemap-generator');
 sitemap({
   baseUrl: 'https://freedomlife.id/',
@@ -15,6 +16,18 @@ const { PHASE_PRODUCTION_SERVER } =
     : require('next-server/constants'); // Get values from `next-server` package when building on now v2
 
 const nextConfig = {
+  webpack(config) {
+    config.resolve.alias['actions'] = path.join(__dirname, 'src', 'actions');
+    config.resolve.alias['db'] = path.join(__dirname, 'src', 'db');
+    config.resolve.alias['models'] = path.join(__dirname, 'src', 'models');
+    config.resolve.alias['reducers'] = path.join(__dirname, 'src', 'reducers');
+    config.resolve.alias['sagas'] = path.join(__dirname, 'src', 'sagas');
+    config.resolve.alias['utils'] = path.join(__dirname, 'src', 'utils');
+    config.resolve.alias['store'] = path.join(__dirname, 'src', 'store');
+    config.resolve.alias['theme'] = path.join(__dirname, 'src', 'theme');
+    config.resolve.alias['styles'] = path.join(__dirname, 'styles');
+    return config;
+  },
   target: 'serverless',
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we

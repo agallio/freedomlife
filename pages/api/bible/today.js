@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { getDatabase } from '../../../src/db';
+import { getDatabase } from 'db';
 
 export default async (req, res) => {
   const database = await getDatabase();

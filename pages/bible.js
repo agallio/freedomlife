@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import {
@@ -24,18 +25,15 @@ import {
   Translate as TranslateIcon
 } from '@material-ui/icons';
 import moment from 'moment';
-import * as gtag from '../src/utils/gtag';
+import * as gtag from 'utils/gtag';
 
 import {
   fetchTodayChapter,
   fetchChapterByDate,
   fetchTodayChapter2020,
   fetchChapter2020ByDate
-} from '../src/actions/bible';
-import {
-  fetchGuide2020ByDate,
-  fetchGuide2020Today
-} from '../src/actions/guide';
+} from 'actions/bible';
+import { fetchGuide2020ByDate, fetchGuide2020Today } from 'actions/guide';
 
 const HideOnScrollTop = props => {
   const { children, window } = props;
@@ -369,6 +367,9 @@ const Bible = props => {
   return (
     <Fade in>
       <div className="bible-container">
+        <Head>
+          <title>Pembacaan Firman | FreedomLife</title>
+        </Head>
         <HideOnScrollTop {...props}>
           <AppBar>
             <Toolbar>

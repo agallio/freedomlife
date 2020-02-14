@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Head from 'next/head';
 import Router from 'next/router';
 import { connect } from 'react-redux';
 import {
@@ -19,8 +20,8 @@ import {
   fetchGuideByDate,
   setGuideDate,
   fetchGuide2020ByMonth
-} from '../src/actions/guide';
-import { fetchChapterByDate } from '../src/actions/bible';
+} from 'actions/guide';
+import { fetchChapterByDate } from 'actions/bible';
 
 class Guide extends Component {
   componentDidMount = () => {
@@ -62,6 +63,9 @@ class Guide extends Component {
     return (
       <Fade in>
         <>
+          <Head>
+            <title>Panduan Baca | FreedomLife</title>
+          </Head>
           {isFetching && <LinearProgress color="secondary" />}
           <div className="container" style={{ paddingBottom: 30 }}>
             <h2 className="header-title" style={{ marginTop: 35 }}>

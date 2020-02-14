@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Head from 'next/head';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import {
@@ -12,13 +13,13 @@ import {
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import moment from 'moment';
 import 'moment/locale/id';
-import * as gtag from '../src/utils/gtag';
+import * as gtag from 'utils/gtag';
 
 import {
   fetchGuideToday,
   setGuideDate,
   fetchGuide2020Today
-} from '../src/actions/guide';
+} from 'actions/guide';
 
 class Index extends Component {
   componentDidMount = () => {
@@ -54,6 +55,9 @@ class Index extends Component {
 
     return (
       <div>
+        <Head>
+          <title>FreedomLife</title>
+        </Head>
         {isFetching && <LinearProgress color="secondary" />}
         <div className="container" style={{ paddingBottom: 90 }}>
           <h2 className="header-title" style={{ marginTop: 70 }}>
