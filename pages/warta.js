@@ -99,7 +99,6 @@ class Warta extends Component {
                       variant="subtitle1"
                     >
                       {moment()
-                        .day(7)
                         .format('dddd, DD MMMM YYYY')}
                     </Typography>
                     {/* {moment().format('DD-MM-YYYY') === nextSunday.date ? ( */}
