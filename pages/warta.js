@@ -95,10 +95,7 @@ class Warta extends Component {
                 ) : (
                   <>
                     <Typography className="bold-text primary" variant="h5">
-                      Warta Minggu{' '}
-                      {moment().format('DD-MM-YYYY') === nextSunday.date
-                        ? 'Ini'
-                        : 'Depan'}
+                      Warta Minggu Ini
                     </Typography>
                     <Typography
                       className="light-text primary"
