@@ -58,10 +58,7 @@ class Warta extends Component {
       wartaData.month_data.length > 0 &&
       wartaData.month_data.find(
         item =>
-          item.date ===
-          moment()
-            .day(7)
-            .format('DD-MM-YYYY')
+          item.date === '16-02-2020'
       );
     const wartaUrl =
       wartaData.month_data.length > 0 &&
