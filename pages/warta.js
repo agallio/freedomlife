@@ -108,7 +108,7 @@ class Warta extends Component {
                         .day(7)
                         .format('dddd, DD MMMM YYYY')}
                     </Typography>
-                    {moment().format('DD-MM-YYYY') === nextSunday.date ? (
+                    {/* {moment().format('DD-MM-YYYY') === nextSunday.date ? ( */}
                       <Fab
                         className="guide-passage-box-fab"
                         size="small"
@@ -120,7 +120,7 @@ class Warta extends Component {
                       >
                         Baca
                       </Fab>
-                    ) : (
+                     {/*) : (
                       <>
                         <Chip
                           label="BELUM TERSEDIA"
@@ -137,11 +137,11 @@ class Warta extends Component {
                       </>
                     )}
                   </>
-                )}
+                )} */}
               </CardContent>
             </Card>
 
-            {isFetching ? (
+           {/* {isFetching ? (
               <></>
             ) : (
               <Card className="styled-card" style={{ marginTop: 20 }}>
@@ -192,7 +192,7 @@ class Warta extends Component {
                   })}
                 </CardContent>
               </Card>
-            )}
+            )} */}
 
             {/* Warta Dialog */}
             <Dialog
