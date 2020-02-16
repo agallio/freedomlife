@@ -112,7 +112,8 @@ class Warta extends Component {
                             .day(7)
                             .format('dddd, DD MMMM YYYY')}
                     </Typography>
-                    {moment().format('DD-MM-YYYY') === nextSunday.date ? (
+                    {nextSunday &&
+                    moment().format('DD-MM-YYYY') === nextSunday.date ? (
                       <Fab
                         className="guide-passage-box-fab"
                         size="small"
