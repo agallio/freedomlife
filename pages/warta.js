@@ -114,7 +114,7 @@ class Warta extends Component {
                         size="small"
                         variant="extended"
                         color="primary"
-                        style={{ marginTop: 10 }}
+                        style={{ marginTop: 12 }}
                         onClick={() => this.handleClickOpen(nextSunday.date)}
                         disabled={isFetching}
                       >
