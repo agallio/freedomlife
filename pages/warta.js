@@ -54,12 +54,20 @@ class Warta extends Component {
   render() {
     const { isFetching, wartaData } = this.props.warta;
 
+    const getMomentDay = moment().day();
+
     const nextSunday =
-      wartaData.month_data.length > 0 &&
-      wartaData.month_data.find(
-        item =>
-          item.date === '16-02-2020'
-      );
+      wartaData.month_data.length > 0 && getMomentDay === 0
+        ? wartaData.month_data.find(
+            item => item.date === moment().format('DD-MM-YYYY')
+          )
+        : wartaData.month_data.find(
+            item =>
+              item.date ===
+              moment()
+                .day(7)
+                .format('DD-MM-YYYY')
+          );
     const wartaUrl =
       wartaData.month_data.length > 0 &&
       this.state.selectedDate !== '' &&
@@ -92,16 +100,19 @@ class Warta extends Component {
                 ) : (
                   <>
                     <Typography className="bold-text primary" variant="h5">
-                      Warta Minggu Ini
+                      Warta Minggu {getMomentDay === 0 ? 'Ini' : 'Depan'}
                     </Typography>
                     <Typography
                       className="light-text primary"
                       variant="subtitle1"
                     >
-                      {moment()
-                        .format('dddd, DD MMMM YYYY')}
+                      {getMomentDay === 0
+                        ? moment().format('dddd, DD MMMM YYYY')
+                        : moment()
+                            .day(7)
+                            .format('dddd, DD MMMM YYYY')}
                     </Typography>
-                    {/* {moment().format('DD-MM-YYYY') === nextSunday.date ? ( */}
+                    {moment().format('DD-MM-YYYY') === nextSunday.date ? (
                       <Fab
                         className="guide-passage-box-fab"
                         size="small"
@@ -113,7 +124,7 @@ class Warta extends Component {
                       >
                         Baca
                       </Fab>
-                     {/*) : (
+                    ) : (
                       <>
                         <Chip
                           label="BELUM TERSEDIA"
@@ -128,13 +139,13 @@ class Warta extends Component {
                           <i>* Warta akan diperbarui setiap hari Minggu</i>
                         </Typography>
                       </>
-                    )} */}
+                    )}
                   </>
-                )} 
+                )}
               </CardContent>
             </Card>
 
-           {/* {isFetching ? (
+            {isFetching ? (
               <></>
             ) : (
               <Card className="styled-card" style={{ marginTop: 20 }}>
@@ -147,7 +158,8 @@ class Warta extends Component {
                       moment(
                         moment().format('DD-MM-YYYY'),
                         'DD-MM-YYYY'
-                      ).isAfter(moment(item.date, 'DD-MM-YYYY'))
+                      ).isAfter(moment(item.date, 'DD-MM-YYYY')) &&
+                      item.url
                     ) {
                       return (
                         <Grid
@@ -185,7 +197,7 @@ class Warta extends Component {
                   })}
                 </CardContent>
               </Card>
-            )} */}
+            )}
 
             {/* Warta Dialog */}
             <Dialog

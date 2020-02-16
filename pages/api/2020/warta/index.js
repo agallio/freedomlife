@@ -45,9 +45,47 @@ export default async (req, res) => {
         });
       });
   } else if (req.method === 'PUT') {
-    res.status(200).json({
-      message: 'Warta Updated'
-    });
+    const { id } = req.query;
+    const { month, year, month_data } = req.body;
+
+    WartaModel.findOne({ _id: id })
+      .then(warta => {
+        if (warta) {
+          const wartaData = {
+            month,
+            year,
+            month_data
+          };
+          Object.assign(warta, wartaData);
+          warta.save().then(() => {
+            console.log({
+              message: 'Warta Updated',
+              data: wartaData
+            });
+            res.status(201).json({
+              message: 'Warta Updated',
+              data: wartaData
+            });
+          });
+        } else {
+          console.log({
+            message: 'Warta Not Existed. Create.'
+          });
+          res.status(404).json({
+            message: 'Warta Not Existed. Create.'
+          });
+        }
+      })
+      .catch(err => {
+        console.log({
+          message: 'Update Warta Failure',
+          error: err
+        });
+        res.status(500).json({
+          message: 'Update Warta Failure',
+          error: err
+        });
+      });
   } else if (req.method === 'GET') {
     const { month, year } = req.query;
 
