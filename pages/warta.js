@@ -135,9 +135,9 @@ class Warta extends Component {
                           <i>* Warta akan diperbarui setiap hari Minggu</i>
                         </Typography>
                       </>
-                    )}
+                    )} */}
                   </>
-                )} */}
+                )} 
               </CardContent>
             </Card>
 
