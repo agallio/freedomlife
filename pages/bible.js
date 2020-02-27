@@ -324,6 +324,10 @@ const Bible = props => {
                     altList[0]
                   } (${bibleVersion.toUpperCase()})`
                 : `${altSpaceSplit[0]} ${altList[0]}`
+              : altSpaceSplit.length > 3
+              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]} ${altSpaceSplit[3]}`
+              : altSpaceSplit.length > 2
+              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]}`
               : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`;
 
           case 'alt-2':
