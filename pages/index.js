@@ -51,7 +51,7 @@ class Index extends Component {
       guide2020Today
     } = this.props.guide;
 
-    const isFeb = moment().format('MM') === '02';
+    const isAlt = moment().format('MM') === '03';
 
     return (
       <div>
@@ -74,11 +74,11 @@ class Index extends Component {
                   Panduan Hari Ini
                 </Typography>
                 <Typography className="light-text primary" variant="subtitle1">
-                  {/* {moment().format('dddd, LL')} */}
+                  {moment().format('dddd, LL')}
                 </Typography>
 
                 {new_2020
-                  ? isFeb
+                  ? isAlt
                     ? ['PL', 'PB', 'ALT'].map(item => (
                         <Grid
                           key={item}

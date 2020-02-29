@@ -73,6 +73,14 @@ class Warta extends Component {
       this.state.selectedDate !== '' &&
       wartaData.month_data.find(item => item.date === this.state.selectedDate)
         .url;
+    const wartaDataFiltered =
+      wartaData.month_data &&
+      wartaData.month_data.filter(
+        item =>
+          moment(moment().format('DD-MM-YYYY'), 'DD-MM-YYYY').isAfter(
+            moment(item.date, 'DD-MM-YYYY')
+          ) && item.url
+      );
 
     return (
       <div>
@@ -149,55 +157,47 @@ class Warta extends Component {
             {isFetching ? (
               <></>
             ) : (
-              <Card className="styled-card" style={{ marginTop: 20 }}>
-                <CardContent>
-                  <Typography className="bold-text primary" variant="h5">
-                    Warta Bulan Ini
-                  </Typography>
-                  {wartaData.month_data.map((item, index) => {
-                    if (
-                      moment(
-                        moment().format('DD-MM-YYYY'),
-                        'DD-MM-YYYY'
-                      ).isAfter(moment(item.date, 'DD-MM-YYYY')) &&
-                      item.url
-                    ) {
-                      return (
-                        <Grid
-                          key={index}
-                          container
-                          direction="row"
-                          alignItems="center"
-                          spacing={2}
-                          style={{ marginTop: 5 }}
-                        >
-                          <Grid item xs={8} sm={10} md={10}>
-                            <Typography
-                              className="light-text primary"
-                              variant="subtitle1"
+              wartaDataFiltered.length > 0 && (
+                <Card className="styled-card" style={{ marginTop: 20 }}>
+                  <CardContent>
+                    <Typography className="bold-text primary" variant="h5">
+                      Warta Bulan Ini
+                    </Typography>
+                    {wartaDataFiltered.map((item, index) => (
+                      <Grid
+                        key={index}
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={2}
+                        style={{ marginTop: 5 }}
+                      >
+                        <Grid item xs={8} sm={10} md={10}>
+                          <Typography
+                            className="light-text primary"
+                            variant="subtitle1"
+                          >
+                            {moment(item.date, 'DD-MM-YYYY').format(
+                              'DD MMMM YYYY'
+                            )}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4} sm={2} md={2}>
+                          <Grid container direction="row" justify="flex-end">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => this.handleClickOpen(item.date)}
                             >
-                              {moment(item.date, 'DD-MM-YYYY').format(
-                                'DD MMMM YYYY'
-                              )}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={4} sm={2} md={2}>
-                            <Grid container direction="row" justify="flex-end">
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => this.handleClickOpen(item.date)}
-                              >
-                                Baca
-                              </Button>
-                            </Grid>
+                              Baca
+                            </Button>
                           </Grid>
                         </Grid>
-                      );
-                    }
-                  })}
-                </CardContent>
-              </Card>
+                      </Grid>
+                    ))}
+                  </CardContent>
+                </Card>
+              )
             )}
 
             {/* Warta Dialog */}
