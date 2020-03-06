@@ -61,7 +61,7 @@ class Index extends Component {
         {isFetching && <LinearProgress color="secondary" />}
         <div className="container" style={{ paddingBottom: 90 }}>
           <h2 className="header-title" style={{ marginTop: 70 }}>
-            Freedom Life <FavoriteIcon />
+            Freedom Life
           </h2>
           <p className="header-subtitle">
             Aplikasi panduan baca Alkitab setahun
@@ -98,7 +98,7 @@ class Index extends Component {
                               <LinearProgress />
                             ) : (
                               <Typography
-                                className="bold-text primary-feb"
+                                className="bold-text primary"
                                 variant="h6"
                                 style={{ fontSize: 17 }}
                               >
@@ -112,7 +112,7 @@ class Index extends Component {
                               </Typography>
                             )}
                             <Typography
-                              className="light-text primary-feb"
+                              className="light-text primary"
                               variant="subtitle1"
                             >
                               {item === 'PL'

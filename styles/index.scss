@@ -4,10 +4,10 @@
 @import 'warta.scss';
 
 // Color Theme
-// $primary: #673ab7;
-// $secondary: #764ec0;
-$primary: #d81b60;
-$secondary: #ec407a;
+$primary: #673ab7;
+$secondary: #764ec0;
+// $primary: #d81b60;
+// $secondary: #ec407a;
 $grey: #6e6e6e;
 $dark: #121212;
 
@@ -86,7 +86,7 @@ $dark: #121212;
 }
 
 .styled-bottom-nav-action {
-  flex: 0 !important;
+  // flex: 0 !important;
 }
 
 // Typography

@@ -86,6 +86,7 @@ class MyApp extends App {
                   <div className="jumbo-header-overlay"></div>
                   <Component {...pageProps} />
                   <BottomNavigation
+                    showLabels
                     value={this.props.pathname}
                     onChange={this.navOnChange}
                     className="styled-bottom-nav"
