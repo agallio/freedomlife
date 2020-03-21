@@ -88,9 +88,10 @@ class Guide extends Component {
                       <Grid
                         key={item}
                         container
+                        direction="row"
                         justify="flex-start"
                         alignItems="center"
-                        style={{ marginBottom: 20 }}
+                        spacing={4}
                       >
                         <Grid item sm={4} md={4}>
                           <Skeleton
@@ -102,9 +103,21 @@ class Guide extends Component {
                           />
                         </Grid>
                         <Grid item sm={8} md={8}>
-                          <Skeleton variant="text" animation="wave" />
-                          <Skeleton variant="text" animation="wave" />
-                          <Skeleton variant="text" animation="wave" />
+                          <Skeleton
+                            variant="text"
+                            animation="wave"
+                            width={150}
+                          />
+                          <Skeleton
+                            variant="text"
+                            animation="wave"
+                            width={150}
+                          />
+                          <Skeleton
+                            variant="text"
+                            animation="wave"
+                            width={150}
+                          />
                         </Grid>
                       </Grid>
                     ))

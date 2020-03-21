@@ -115,6 +115,7 @@ class Warta extends Component {
                     />
                     <Skeleton
                       variant="rect"
+                      animation="wave"
                       height={30}
                       style={{ borderRadius: '50px' }}
                     />
