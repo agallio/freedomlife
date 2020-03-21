@@ -183,4 +183,7 @@ $dark: #121212;
     color: #fff !important;
     background-color: #212121 !important;
   }
+  .MuiSkeleton-root {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
 }

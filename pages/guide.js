@@ -7,11 +7,11 @@ import {
   LinearProgress,
   Card,
   CardContent,
-  CircularProgress,
   Grid,
   Typography,
   ButtonBase
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment';
 import 'moment/locale/id';
 
@@ -80,86 +80,86 @@ class Guide extends Component {
               <CardContent
                 style={{
                   padding: '16px 10%',
-                  height: isFetching && '80vh',
-                  textAlign: isFetching && 'center',
-                  paddingTop: isFetching && '20vh'
+                  height: isFetching && '80vh'
                 }}
               >
-                {isFetching ? (
-                  <CircularProgress />
-                ) : new_2020 ? (
-                  guide2020ByMonth.map((item, index) => (
-                    <Grid
-                      container
-                      key={index}
-                      direction="row"
-                      justify="flex-start"
-                      alignItems="center"
-                      spacing={4}
-                    >
-                      <Grid item sm={4} md={4}>
-                        <ButtonBase onClick={() => this.toBible(item.date)}>
-                          <div
-                            className={
-                              moment().format('DD-MM-YYYY') === item.date
-                                ? 'guide-box-primary'
-                                : 'guide-box'
-                            }
-                          >
-                            <Typography
-                              className={
-                                moment().format('DD-MM-YYYY') === item.date
-                                  ? 'bold-text'
-                                  : 'bold-text primary'
-                              }
-                              style={{
-                                color:
-                                  moment().format('DD-MM-YYYY') === item.date &&
-                                  '#fff'
-                              }}
-                            >
-                              {moment(item.date, 'DD-MM-YYYY').format('dddd')}
-                            </Typography>
-                            <Typography
-                              variant="h4"
-                              className={
-                                moment().format('DD-MM-YYYY') === item.date
-                                  ? 'bold-text'
-                                  : 'bold-text primary'
-                              }
-                              style={{
-                                color:
-                                  moment().format('DD-MM-YYYY') === item.date &&
-                                  '#fff'
-                              }}
-                            >
-                              {item.date.split('-')[0] || '-'}
-                            </Typography>
-                          </div>
-                        </ButtonBase>
+                {isFetching
+                  ? [1, 2, 3, 4, 5, 6].map(item => (
+                      <Grid
+                        key={item}
+                        container
+                        justify="flex-start"
+                        alignItems="center"
+                        style={{ marginBottom: 20 }}
+                      >
+                        <Grid item sm={4} md={4}>
+                          <Skeleton
+                            variant="rect"
+                            animation="wave"
+                            width={105}
+                            height={90}
+                            style={{ borderRadius: 5 }}
+                          />
+                        </Grid>
+                        <Grid item sm={8} md={8}>
+                          <Skeleton variant="text" animation="wave" />
+                          <Skeleton variant="text" animation="wave" />
+                          <Skeleton variant="text" animation="wave" />
+                        </Grid>
                       </Grid>
-                      <Grid item sm={8} md={8}>
-                        <Typography
-                          variant="subtitle1"
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'regular-text primary'
-                              : 'regular-text'
-                          }
-                        >
-                          {item.pl_name || '-'}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'regular-text primary'
-                              : 'regular-text'
-                          }
-                        >
-                          {item.pb_name || '-'}
-                        </Typography>
-                        {item.alt_name && (
+                    ))
+                  : new_2020
+                  ? guide2020ByMonth.map((item, index) => (
+                      <Grid
+                        container
+                        key={index}
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="center"
+                        spacing={4}
+                      >
+                        <Grid item sm={4} md={4}>
+                          <ButtonBase onClick={() => this.toBible(item.date)}>
+                            <div
+                              className={
+                                moment().format('DD-MM-YYYY') === item.date
+                                  ? 'guide-box-primary'
+                                  : 'guide-box'
+                              }
+                            >
+                              <Typography
+                                className={
+                                  moment().format('DD-MM-YYYY') === item.date
+                                    ? 'bold-text'
+                                    : 'bold-text primary'
+                                }
+                                style={{
+                                  color:
+                                    moment().format('DD-MM-YYYY') ===
+                                      item.date && '#fff'
+                                }}
+                              >
+                                {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+                              </Typography>
+                              <Typography
+                                variant="h4"
+                                className={
+                                  moment().format('DD-MM-YYYY') === item.date
+                                    ? 'bold-text'
+                                    : 'bold-text primary'
+                                }
+                                style={{
+                                  color:
+                                    moment().format('DD-MM-YYYY') ===
+                                      item.date && '#fff'
+                                }}
+                              >
+                                {item.date.split('-')[0] || '-'}
+                              </Typography>
+                            </div>
+                          </ButtonBase>
+                        </Grid>
+                        <Grid item sm={8} md={8}>
                           <Typography
                             variant="subtitle1"
                             className={
@@ -168,98 +168,117 @@ class Guide extends Component {
                                 : 'regular-text'
                             }
                           >
-                            {item.alt_name || '-'}
+                            {item.pl_name || '-'}
                           </Typography>
-                        )}
-                      </Grid>
-                    </Grid>
-                  ))
-                ) : (
-                  guideByMonth.map((item, index) => (
-                    <Grid
-                      container
-                      key={index}
-                      direction="row"
-                      justify="flex-start"
-                      alignItems="center"
-                      spacing={4}
-                    >
-                      <Grid item sm={4} md={4}>
-                        <ButtonBase onClick={() => this.toBible(item.date)}>
-                          <div
+                          <Typography
+                            variant="subtitle1"
                             className={
                               moment().format('DD-MM-YYYY') === item.date
-                                ? 'guide-box-primary'
-                                : 'guide-box'
+                                ? 'regular-text primary'
+                                : 'regular-text'
                             }
                           >
+                            {item.pb_name || '-'}
+                          </Typography>
+                          {item.alt_name && (
                             <Typography
+                              variant="subtitle1"
                               className={
                                 moment().format('DD-MM-YYYY') === item.date
-                                  ? 'bold-text'
-                                  : 'bold-text primary'
+                                  ? 'regular-text primary'
+                                  : 'regular-text'
                               }
-                              style={{
-                                color:
-                                  moment().format('DD-MM-YYYY') === item.date &&
-                                  '#fff'
-                              }}
                             >
-                              {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+                              {item.alt_name || '-'}
                             </Typography>
-                            <Typography
-                              variant="h4"
+                          )}
+                        </Grid>
+                      </Grid>
+                    ))
+                  : guideByMonth.map((item, index) => (
+                      <Grid
+                        container
+                        key={index}
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="center"
+                        spacing={4}
+                      >
+                        <Grid item sm={4} md={4}>
+                          <ButtonBase onClick={() => this.toBible(item.date)}>
+                            <div
                               className={
                                 moment().format('DD-MM-YYYY') === item.date
-                                  ? 'bold-text'
-                                  : 'bold-text primary'
+                                  ? 'guide-box-primary'
+                                  : 'guide-box'
                               }
-                              style={{
-                                color:
-                                  moment().format('DD-MM-YYYY') === item.date &&
-                                  '#fff'
-                              }}
                             >
-                              {item.date.split('-')[0] || '-'}
-                            </Typography>
-                          </div>
-                        </ButtonBase>
+                              <Typography
+                                className={
+                                  moment().format('DD-MM-YYYY') === item.date
+                                    ? 'bold-text'
+                                    : 'bold-text primary'
+                                }
+                                style={{
+                                  color:
+                                    moment().format('DD-MM-YYYY') ===
+                                      item.date && '#fff'
+                                }}
+                              >
+                                {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+                              </Typography>
+                              <Typography
+                                variant="h4"
+                                className={
+                                  moment().format('DD-MM-YYYY') === item.date
+                                    ? 'bold-text'
+                                    : 'bold-text primary'
+                                }
+                                style={{
+                                  color:
+                                    moment().format('DD-MM-YYYY') ===
+                                      item.date && '#fff'
+                                }}
+                              >
+                                {item.date.split('-')[0] || '-'}
+                              </Typography>
+                            </div>
+                          </ButtonBase>
+                        </Grid>
+                        <Grid item sm={8} md={8}>
+                          <Typography
+                            variant="subtitle1"
+                            className={
+                              moment().format('DD-MM-YYYY') === item.date
+                                ? 'regular-text primary'
+                                : 'regular-text'
+                            }
+                          >
+                            {item.pl_name || '-'}
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            className={
+                              moment().format('DD-MM-YYYY') === item.date
+                                ? 'regular-text primary'
+                                : 'regular-text'
+                            }
+                          >
+                            {item.pb1_name || '-'}
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            className={
+                              moment().format('DD-MM-YYYY') === item.date
+                                ? 'regular-text primary'
+                                : 'regular-text'
+                            }
+                          >
+                            {item.pb2_name || '-'}
+                          </Typography>
+                        </Grid>
                       </Grid>
-                      <Grid item sm={8} md={8}>
-                        <Typography
-                          variant="subtitle1"
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'regular-text primary'
-                              : 'regular-text'
-                          }
-                        >
-                          {item.pl_name || '-'}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'regular-text primary'
-                              : 'regular-text'
-                          }
-                        >
-                          {item.pb1_name || '-'}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          className={
-                            moment().format('DD-MM-YYYY') === item.date
-                              ? 'regular-text primary'
-                              : 'regular-text'
-                          }
-                        >
-                          {item.pb2_name || '-'}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  ))
-                )}
+                    ))}
               </CardContent>
             </Card>
           </div>

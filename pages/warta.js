@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import {
   LinearProgress,
-  CircularProgress,
   Card,
   CardContent,
   Typography,
@@ -16,6 +15,7 @@ import {
   Button,
   Chip
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 import 'moment/locale/id';
@@ -100,11 +100,25 @@ class Warta extends Component {
             <Card className="styled-card">
               <CardContent>
                 {isFetching ? (
-                  <Grid container justify="center" alignItems="center">
-                    <Grid item>
-                      <CircularProgress style={{ marginTop: 10 }} />
-                    </Grid>
-                  </Grid>
+                  <>
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width={250}
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width={200}
+                      style={{ marginBottom: 20 }}
+                    />
+                    <Skeleton
+                      variant="rect"
+                      height={30}
+                      style={{ borderRadius: '50px' }}
+                    />
+                  </>
                 ) : (
                   <>
                     <Typography className="bold-text primary" variant="h5">

@@ -10,7 +10,7 @@ import {
   Grid,
   Fab
 } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment';
 import 'moment/locale/id';
 import * as gtag from 'utils/gtag';
@@ -95,7 +95,11 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={9} sm={10} md={10}>
                             {isFetching ? (
-                              <LinearProgress />
+                              <Skeleton
+                                variant="text"
+                                animation="wave"
+                                height={25}
+                              />
                             ) : (
                               <Typography
                                 className="bold-text primary"
@@ -224,6 +228,7 @@ class Index extends Component {
                   variant="extended"
                   color="primary"
                   onClick={this.toBible}
+                  disabled={isFetching}
                 >
                   Baca
                 </Fab>
