@@ -51,7 +51,8 @@ class Index extends Component {
       guide2020Today
     } = this.props.guide;
 
-    const isAlt = moment().format('MM') === '03';
+    const isAlt =
+      moment().format('MM') === '03' || moment().format('MM') === '04';
 
     return (
       <div>
