@@ -8,7 +8,7 @@ import {
   CssBaseline,
   Fade,
   BottomNavigation,
-  BottomNavigationAction
+  BottomNavigationAction,
   // useMediaQuery
 } from '@material-ui/core';
 import { Provider } from 'react-redux';
@@ -91,12 +91,12 @@ class MyApp extends App {
                     onChange={this.navOnChange}
                     className="styled-bottom-nav"
                   >
-                    <BottomNavigationAction
+                    {/* <BottomNavigationAction
                       className="styled-bottom-nav-action"
                       label="Warta"
                       value="/warta"
                       icon={<WartaIcon />}
-                    ></BottomNavigationAction>
+                    ></BottomNavigationAction> */}
                     <BottomNavigationAction
                       className="styled-bottom-nav-action"
                       label="Beranda"
@@ -122,6 +122,6 @@ class MyApp extends App {
 }
 
 // Google Analytics (Page View)
-Router.events.on('routeChangeComplete', url => gtag.pageview(url));
+Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
 
 export default withRedux(configureStore)(MyApp);
