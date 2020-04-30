@@ -8,7 +8,7 @@ import {
   CardContent,
   Typography,
   Grid,
-  Fab
+  Fab,
 } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment';
@@ -18,7 +18,7 @@ import * as gtag from 'utils/gtag';
 import {
   fetchGuideToday,
   setGuideDate,
-  fetchGuide2020Today
+  fetchGuide2020Today,
 } from 'actions/guide';
 
 class Index extends Component {
@@ -38,7 +38,7 @@ class Index extends Component {
     gtag.event({
       action: 'to_bible',
       category: 'Bible',
-      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`
+      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
     });
     Router.push('/bible');
   };
@@ -48,11 +48,10 @@ class Index extends Component {
       isFetching,
       new_2020,
       guideToday,
-      guide2020Today
+      guide2020Today,
     } = this.props.guide;
 
-    const isAlt =
-      moment().format('MM') === '03' || moment().format('MM') === '04';
+    const isAlt = moment().format('MM') > '03';
 
     return (
       <div>
@@ -80,7 +79,7 @@ class Index extends Component {
 
                 {new_2020
                   ? isAlt
-                    ? ['PL', 'PB', 'ALT'].map(item => (
+                    ? ['PL', 'PB', 'ALT'].map((item) => (
                         <Grid
                           key={item}
                           container
@@ -131,7 +130,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       ))
-                    : ['PL', 'PB'].map(item => (
+                    : ['PL', 'PB'].map((item) => (
                         <Grid
                           key={item}
                           container
@@ -174,7 +173,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       ))
-                  : ['PL', 'PB1', 'PB2'].map(item => (
+                  : ['PL', 'PB1', 'PB2'].map((item) => (
                       <Grid
                         key={item}
                         container
@@ -242,19 +241,19 @@ class Index extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     guide: state.guide,
-    bible: state.bible
+    bible: state.bible,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchGuideToday: () => dispatch(fetchGuideToday()),
-    setGuideDate: date => dispatch(setGuideDate(date)),
+    setGuideDate: (date) => dispatch(setGuideDate(date)),
     // 2020
-    fetchGuide2020Today: () => dispatch(fetchGuide2020Today())
+    fetchGuide2020Today: () => dispatch(fetchGuide2020Today()),
   };
 };
 
