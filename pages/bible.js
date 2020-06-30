@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { useSelector, useDispatch } from 'react-redux';
-import Router from 'next/router';
+import React, { useState, useEffect } from 'react'
+import Head from 'next/head'
+import { useSelector, useDispatch } from 'react-redux'
+import Router from 'next/router'
 import {
   Fade,
   AppBar,
@@ -15,57 +15,57 @@ import {
   DialogTitle,
   List,
   ListItem,
-  ListItemText
-} from '@material-ui/core';
-import Skeleton from '@material-ui/lab/Skeleton';
+  ListItemText,
+} from '@material-ui/core'
+import Skeleton from '@material-ui/lab/Skeleton'
 import {
   ArrowBack as BackIcon,
   ArrowBackIos as BackIosIcon,
   ArrowForwardIos as NextIosIcon,
-  Translate as TranslateIcon
-} from '@material-ui/icons';
-import moment from 'moment';
-import * as gtag from 'utils/gtag';
+  Translate as TranslateIcon,
+} from '@material-ui/icons'
+import moment from 'moment'
+import * as gtag from 'utils/gtag'
 
 import {
   fetchTodayChapter,
   fetchChapterByDate,
   fetchTodayChapter2020,
-  fetchChapter2020ByDate
-} from 'actions/bible';
-import { fetchGuide2020ByDate, fetchGuide2020Today } from 'actions/guide';
+  fetchChapter2020ByDate,
+} from 'actions/bible'
+import { fetchGuide2020ByDate, fetchGuide2020Today } from 'actions/guide'
 
-const HideOnScrollTop = props => {
-  const { children, window } = props;
+const HideOnScrollTop = (props) => {
+  const { children, window } = props
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+  const trigger = useScrollTrigger({ target: window ? window() : undefined })
 
   return (
     <Slide appear={false} direction="down" in={!trigger}>
       {children}
     </Slide>
-  );
-};
+  )
+}
 
-const Bible = props => {
+const Bible = (props) => {
   // Redux State
-  const isFetching = useSelector(state => state.bible.isFetching);
-  const chapters = useSelector(state => state.bible.chapters);
-  const new_2020 = useSelector(state => state.guide.new_2020);
-  const guideToday = useSelector(state => state.guide.guideToday);
-  const guide2020Today = useSelector(state => state.guide.guide2020Today);
+  const isFetching = useSelector((state) => state.bible.isFetching)
+  const chapters = useSelector((state) => state.bible.chapters)
+  const new_2020 = useSelector((state) => state.guide.new_2020)
+  const guideToday = useSelector((state) => state.guide.guideToday)
+  const guide2020Today = useSelector((state) => state.guide.guide2020Today)
   // const guideDate = useSelector(state => state.guide.guideDate);
   // const guideByDate = useSelector(state => state.guide.guideByDate);
   // const guide2020ByDate = useSelector(state => state.guide.guide2020ByDate);
   // Component State
-  const [passageModal, setPassageModal] = useState(false);
-  const [versionModal, setVersionModal] = useState(false);
-  const [bibleVersion, setBibleVersion] = useState('tb');
-  const [passage, setPassage] = useState('pl-1');
+  const [passageModal, setPassageModal] = useState(false)
+  const [versionModal, setVersionModal] = useState(false)
+  const [bibleVersion, setBibleVersion] = useState('tb')
+  const [passage, setPassage] = useState('pl-1')
   // Using Redux Dispatch
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // Fetch Today Chapter when the user reloads the `/bible` page
   useEffect(() => {
@@ -76,20 +76,20 @@ const Bible = props => {
       // } else {
       //   dispatch(fetchTodayChapter2020());
       // }
-      dispatch(fetchGuide2020Today());
-      dispatch(fetchTodayChapter2020('tb'));
+      dispatch(fetchGuide2020Today())
+      dispatch(fetchTodayChapter2020('tb'))
     } else {
       // if (guideDate) {
       //   dispatch(fetchChapterByDate(guideDate));
       // } else {
       //   dispatch(fetchTodayChapter());
       // }
-      dispatch(fetchTodayChapter());
+      dispatch(fetchTodayChapter())
     }
-  }, []);
+  }, [])
 
   // Passage Array (Conditional)
-  let passageArr = [];
+  let passageArr = []
   // Logic for fill the `passageArr` array
   if (new_2020) {
     if (
@@ -99,28 +99,28 @@ const Bible = props => {
     ) {
       switch (passage) {
         case 'pl-1':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-1')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-1')
+            .data
+          break
         case 'pl-2':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-2')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-2')
+            .data
+          break
         case 'pl-3':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-3')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-3')
+            .data
+          break
         case 'pl-4':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-4')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-4')
+            .data
+          break
         case 'pb':
-          passageArr = chapters.pb.find(item => item.passagePlace === 'pb')
-            .data;
-          break;
+          passageArr = chapters.pb.find((item) => item.passagePlace === 'pb')
+            .data
+          break
 
         default:
-          break;
+          break
       }
     } else if (
       chapters.pl !== undefined &&
@@ -129,36 +129,38 @@ const Bible = props => {
     ) {
       switch (passage) {
         case 'pl-1':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-1')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-1')
+            .data
+          break
         case 'pl-2':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-2')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-2')
+            .data
+          break
         case 'pl-3':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-3')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-3')
+            .data
+          break
         case 'pl-4':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-4')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-4')
+            .data
+          break
         case 'pb':
-          passageArr = chapters.pb.find(item => item.passagePlace === 'pb')
-            .data;
-          break;
+          passageArr = chapters.pb.find((item) => item.passagePlace === 'pb')
+            .data
+          break
         case 'alt-1':
-          passageArr = chapters.alt.find(item => item.passagePlace === 'alt-1')
-            .data;
-          break;
+          passageArr = chapters.alt.find(
+            (item) => item.passagePlace === 'alt-1'
+          ).data
+          break
         case 'alt-2':
-          passageArr = chapters.alt.find(item => item.passagePlace === 'alt-2')
-            .data;
-          break;
+          passageArr = chapters.alt.find(
+            (item) => item.passagePlace === 'alt-2'
+          ).data
+          break
 
         default:
-          break;
+          break
       }
     }
   } else {
@@ -169,73 +171,73 @@ const Bible = props => {
     ) {
       switch (passage) {
         case 'pl-1':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-1')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-1')
+            .data
+          break
         case 'pl-2':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-2')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-2')
+            .data
+          break
         case 'pl-3':
-          passageArr = chapters.pl.find(item => item.passagePlace === 'pl-3')
-            .data;
-          break;
+          passageArr = chapters.pl.find((item) => item.passagePlace === 'pl-3')
+            .data
+          break
         case 'pb1':
-          passageArr = chapters.pb1.find(item => item.passagePlace === 'pb1')
-            .data;
-          break;
+          passageArr = chapters.pb1.find((item) => item.passagePlace === 'pb1')
+            .data
+          break
         case 'pb2':
-          passageArr = chapters.pb2.find(item => item.passagePlace === 'pb2')
-            .data;
-          break;
+          passageArr = chapters.pb2.find((item) => item.passagePlace === 'pb2')
+            .data
+          break
 
         default:
-          break;
+          break
       }
     }
   }
 
   // Scroll to top function
   const topFunction = () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  };
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
 
   const nextPassage = async () => {
-    const currChapter = chapters.passage;
-    const currPassage = currChapter.find(i => i === passage);
-    const currPassageIndex = currChapter.findIndex(i => i === passage);
+    const currChapter = chapters.passage
+    const currPassage = currChapter.find((i) => i === passage)
+    const currPassageIndex = currChapter.findIndex((i) => i === passage)
 
     if (currPassage) {
-      topFunction();
-      setPassage(currChapter[currPassageIndex + 1]);
+      topFunction()
+      setPassage(currChapter[currPassageIndex + 1])
     }
 
     // Google Analytics
     gtag.event({
       action: 'next_bible',
       category: 'Bible',
-      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`
-    });
-  };
+      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
+    })
+  }
 
   const backPassage = async () => {
-    const currChapter = chapters.passage;
-    const currPassage = currChapter.find(i => i === passage);
-    const currPassageIndex = currChapter.findIndex(i => i === passage);
+    const currChapter = chapters.passage
+    const currPassage = currChapter.find((i) => i === passage)
+    const currPassageIndex = currChapter.findIndex((i) => i === passage)
 
     if (currPassage) {
-      topFunction();
-      setPassage(currChapter[currPassageIndex - 1]);
+      topFunction()
+      setPassage(currChapter[currPassageIndex - 1])
     }
 
     // Google Analytics
     gtag.event({
       action: 'back_bible',
       category: 'Bible',
-      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`
-    });
-  };
+      label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
+    })
+  }
 
   // Split the `pl` passage for the passage title
   // const plSpaceSplit = guideDate
@@ -243,32 +245,32 @@ const Bible = props => {
   //   : guideToday.pl_name.split(' ');
   const plSpaceSplit = new_2020
     ? guide2020Today.pl_name.split(' ')
-    : guideToday.pl_name.split(' ');
+    : guideToday.pl_name.split(' ')
   const altSpaceSplit = guide2020Today.alt_name
     ? guide2020Today.alt_name.split(' ')
-    : '';
+    : ''
 
   const plDashSplit =
     plSpaceSplit.length === 3
       ? plSpaceSplit[2] !== undefined && plSpaceSplit[2].split('-')
-      : plSpaceSplit[1] !== undefined && plSpaceSplit[1].split('-');
-  let plList = [];
+      : plSpaceSplit[1] !== undefined && plSpaceSplit[1].split('-')
+  let plList = []
   for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
-    plList.push(i);
+    plList.push(i)
   }
 
   const altDashSplit =
     altSpaceSplit.length !== 0
       ? altSpaceSplit[1] !== undefined && altSpaceSplit[1].split('-')
-      : '';
-  let altList = [];
+      : ''
+  let altList = []
   for (let i = Number(altDashSplit[0]); i <= Number(altDashSplit[1]); i++) {
-    altList.push(i);
+    altList.push(i)
   }
 
   const passageChapter = () => {
     if (isFetching) {
-      return 'Memuat';
+      return 'Memuat'
     } else {
       if (new_2020) {
         switch (passage) {
@@ -283,7 +285,7 @@ const Bible = props => {
                   plList.length === 0 ? plSpaceSplit[1] : plList[0]
                 } ${
                   bibleVersion !== 'tb' ? `(${bibleVersion.toUpperCase()})` : ''
-                }`;
+                }`
 
           case 'pl-2':
             return plSpaceSplit.length === 3
@@ -292,7 +294,7 @@ const Bible = props => {
                 }`
               : `${plSpaceSplit[0]} ${plList[1]} ${
                   bibleVersion !== 'tb' ? `(${bibleVersion.toUpperCase()})` : ''
-                }`;
+                }`
 
           case 'pl-3':
             return plSpaceSplit.length === 3
@@ -301,7 +303,7 @@ const Bible = props => {
                 }`
               : `${plSpaceSplit[0]} ${plList[2]} ${
                   bibleVersion !== 'tb' ? `(${bibleVersion.toUpperCase()})` : ''
-                }`;
+                }`
 
           case 'pl-4':
             return plSpaceSplit.length === 3
@@ -310,12 +312,12 @@ const Bible = props => {
                 }`
               : `${plSpaceSplit[0]} ${plList[3]} ${
                   bibleVersion !== 'tb' ? `(${bibleVersion.toUpperCase()})` : ''
-                }`;
+                }`
 
           case 'pb':
             return bibleVersion !== 'tb'
               ? `${guide2020Today.pb_name} (${bibleVersion.toUpperCase()})`
-              : guide2020Today.pb_name;
+              : guide2020Today.pb_name
 
           case 'alt-1':
             return altList.length > 1
@@ -328,7 +330,7 @@ const Bible = props => {
               ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]} ${altSpaceSplit[3]}`
               : altSpaceSplit.length > 2
               ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]}`
-              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`;
+              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
 
           case 'alt-2':
             return altList.length > 1
@@ -337,10 +339,10 @@ const Bible = props => {
                     altList[1]
                   } (${bibleVersion.toUpperCase()})`
                 : `${altSpaceSplit[0]} ${altList[1]}`
-              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`;
+              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
 
           default:
-            return '';
+            return ''
         }
       } else {
         return passage === 'pl-1'
@@ -363,10 +365,10 @@ const Bible = props => {
           ? guideToday.pb1_name
           : passage === 'pb2'
           ? guideToday.pb2_name
-          : '';
+          : ''
       }
     }
-  };
+  }
 
   return (
     <Fade in>
@@ -411,7 +413,7 @@ const Bible = props => {
                 height={50}
                 style={{ marginBottom: 20 }}
               />
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
                 <Skeleton
                   key={item}
                   variant="text"
@@ -433,14 +435,14 @@ const Bible = props => {
                   >
                     {item.content || ''}
                   </Typography>
-                );
+                )
               } else {
                 return (
                   <Typography key={index} className="regular-text bible-verse">
                     <sup className="bible-verse-sup">{item.verse || ''}</sup>{' '}
                     {item.content || ''}
                   </Typography>
-                );
+                )
               }
             })
           )}
@@ -468,7 +470,7 @@ const Bible = props => {
                 top: -30,
                 left: 0,
                 right: 0,
-                margin: '0 auto'
+                margin: '0 auto',
               }}
               disabled={isFetching}
               onClick={() => setPassageModal(true)}
@@ -477,7 +479,7 @@ const Bible = props => {
             </Fab>
             <div
               style={{
-                flexGrow: 1
+                flexGrow: 1,
               }}
             />
             <IconButton
@@ -523,20 +525,20 @@ const Bible = props => {
                   }
                   className="modal-passage-list-text"
                   secondaryTypographyProps={{
-                    className: 'modal-passage-list-text-secondary'
+                    className: 'modal-passage-list-text-secondary',
                   }}
                   onClick={() => {
-                    setPassage('pl-1');
-                    setPassageModal(false);
-                    topFunction();
+                    setPassage('pl-1')
+                    setPassageModal(false)
+                    topFunction()
                     // Google Analytics
                     gtag.event({
                       action: 'to_passage_pl_1',
                       category: 'Bible',
                       label: `Read Bible (PL-1) ${moment().format(
                         'DD-MM-YYYY HH:mm:ss'
-                      )}`
-                    });
+                      )}`,
+                    })
                   }}
                 ></ListItemText>
               </ListItem>
@@ -551,20 +553,20 @@ const Bible = props => {
                     }
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('pl-2');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('pl-2')
+                      setPassageModal(false)
+                      topFunction()
                       // Google Analytics
                       gtag.event({
                         action: 'to_passage_pl_2',
                         category: 'Bible',
                         label: `Read Bible (PL-2) ${moment().format(
                           'DD-MM-YYYY HH:mm:ss'
-                        )}`
-                      });
+                        )}`,
+                      })
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -580,20 +582,20 @@ const Bible = props => {
                     }
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('pl-3');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('pl-3')
+                      setPassageModal(false)
+                      topFunction()
                       // Google Analytics
                       gtag.event({
                         action: 'to_passage_pl_3',
                         category: 'Bible',
                         label: `Read Bible (PL-3) ${moment().format(
                           'DD-MM-YYYY HH:mm:ss'
-                        )}`
-                      });
+                        )}`,
+                      })
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -609,20 +611,20 @@ const Bible = props => {
                     }
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('pl-4');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('pl-4')
+                      setPassageModal(false)
+                      topFunction()
                       // Google Analytics
                       gtag.event({
                         action: 'to_passage_pl_4',
                         category: 'Bible',
                         label: `Read Bible (PL-4) ${moment().format(
                           'DD-MM-YYYY HH:mm:ss'
-                        )}`
-                      });
+                        )}`,
+                      })
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -637,20 +639,20 @@ const Bible = props => {
                   }
                   className="modal-passage-list-text"
                   secondaryTypographyProps={{
-                    className: 'modal-passage-list-text-secondary'
+                    className: 'modal-passage-list-text-secondary',
                   }}
                   onClick={() => {
-                    setPassage('pb');
-                    setPassageModal(false);
-                    topFunction();
+                    setPassage('pb')
+                    setPassageModal(false)
+                    topFunction()
                     // Google Analytics
                     gtag.event({
                       action: 'to_passage_pb',
                       category: 'Bible',
                       label: `Read Bible (PB) ${moment().format(
                         'DD-MM-YYYY HH:mm:ss'
-                      )}`
-                    });
+                      )}`,
+                    })
                   }}
                 ></ListItemText>
               </ListItem>
@@ -661,20 +663,20 @@ const Bible = props => {
                     secondary={guide2020Today.alt_name}
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('alt-1');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('alt-1')
+                      setPassageModal(false)
+                      topFunction()
                       // Google Analytics
                       gtag.event({
                         action: 'to_passage_alt_1',
                         category: 'Bible',
                         label: `Read Bible (PB) ${moment().format(
                           'DD-MM-YYYY HH:mm:ss'
-                        )}`
-                      });
+                        )}`,
+                      })
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -687,20 +689,20 @@ const Bible = props => {
                       secondary={`${altSpaceSplit[0]} ${altList[0]}`}
                       className="modal-passage-list-text"
                       secondaryTypographyProps={{
-                        className: 'modal-passage-list-text-secondary'
+                        className: 'modal-passage-list-text-secondary',
                       }}
                       onClick={() => {
-                        setPassage('alt-1');
-                        setPassageModal(false);
-                        topFunction();
+                        setPassage('alt-1')
+                        setPassageModal(false)
+                        topFunction()
                         // Google Analytics
                         gtag.event({
                           action: 'to_passage_alt_1',
                           category: 'Bible',
                           label: `Read Bible (PB) ${moment().format(
                             'DD-MM-YYYY HH:mm:ss'
-                          )}`
-                        });
+                          )}`,
+                        })
                       }}
                     ></ListItemText>
                   </ListItem>
@@ -710,20 +712,20 @@ const Bible = props => {
                       secondary={`${altSpaceSplit[0]} ${altList[1]}`}
                       className="modal-passage-list-text"
                       secondaryTypographyProps={{
-                        className: 'modal-passage-list-text-secondary'
+                        className: 'modal-passage-list-text-secondary',
                       }}
                       onClick={() => {
-                        setPassage('alt-2');
-                        setPassageModal(false);
-                        topFunction();
+                        setPassage('alt-2')
+                        setPassageModal(false)
+                        topFunction()
                         // Google Analytics
                         gtag.event({
                           action: 'to_passage_alt_2',
                           category: 'Bible',
                           label: `Read Bible (PB) ${moment().format(
                             'DD-MM-YYYY HH:mm:ss'
-                          )}`
-                        });
+                          )}`,
+                        })
                       }}
                     ></ListItemText>
                   </ListItem>
@@ -746,12 +748,12 @@ const Bible = props => {
                   }
                   className="modal-passage-list-text"
                   secondaryTypographyProps={{
-                    className: 'modal-passage-list-text-secondary'
+                    className: 'modal-passage-list-text-secondary',
                   }}
                   onClick={() => {
-                    setPassage('pl-1');
-                    setPassageModal(false);
-                    topFunction();
+                    setPassage('pl-1')
+                    setPassageModal(false)
+                    topFunction()
                   }}
                 ></ListItemText>
               </ListItem>
@@ -766,12 +768,12 @@ const Bible = props => {
                     }
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('pl-2');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('pl-2')
+                      setPassageModal(false)
+                      topFunction()
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -787,12 +789,12 @@ const Bible = props => {
                     }
                     className="modal-passage-list-text"
                     secondaryTypographyProps={{
-                      className: 'modal-passage-list-text-secondary'
+                      className: 'modal-passage-list-text-secondary',
                     }}
                     onClick={() => {
-                      setPassage('pl-3');
-                      setPassageModal(false);
-                      topFunction();
+                      setPassage('pl-3')
+                      setPassageModal(false)
+                      topFunction()
                     }}
                   ></ListItemText>
                 </ListItem>
@@ -803,12 +805,12 @@ const Bible = props => {
                   secondary={guideToday.pb1_name || ''}
                   className="modal-passage-list-text"
                   secondaryTypographyProps={{
-                    className: 'modal-passage-list-text-secondary'
+                    className: 'modal-passage-list-text-secondary',
                   }}
                   onClick={() => {
-                    setPassage('pb1');
-                    setPassageModal(false);
-                    topFunction();
+                    setPassage('pb1')
+                    setPassageModal(false)
+                    topFunction()
                   }}
                 ></ListItemText>
               </ListItem>
@@ -818,12 +820,12 @@ const Bible = props => {
                   secondary={guideToday.pb2_name || ''}
                   className="modal-passage-list-text"
                   secondaryTypographyProps={{
-                    className: 'modal-passage-list-text-secondary'
+                    className: 'modal-passage-list-text-secondary',
                   }}
                   onClick={() => {
-                    setPassage('pb2');
-                    setPassageModal(false);
-                    topFunction();
+                    setPassage('pb2')
+                    setPassageModal(false)
+                    topFunction()
                   }}
                 ></ListItemText>
               </ListItem>
@@ -847,13 +849,13 @@ const Bible = props => {
                 secondary="Terjemahan Baru"
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary'
+                  className: 'modal-passage-list-text-secondary',
                 }}
                 onClick={() => {
-                  dispatch(fetchTodayChapter2020('tb'));
-                  setBibleVersion('tb');
-                  setVersionModal(false);
-                  topFunction();
+                  dispatch(fetchTodayChapter2020('tb'))
+                  setBibleVersion('tb')
+                  setVersionModal(false)
+                  topFunction()
                 }}
               ></ListItemText>
             </ListItem>
@@ -863,13 +865,13 @@ const Bible = props => {
                 secondary="Bahasa Indonesia Sehari-Hari"
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary'
+                  className: 'modal-passage-list-text-secondary',
                 }}
                 onClick={() => {
-                  dispatch(fetchTodayChapter2020('bis'));
-                  setBibleVersion('bis');
-                  setVersionModal(false);
-                  topFunction();
+                  dispatch(fetchTodayChapter2020('bis'))
+                  setBibleVersion('bis')
+                  setVersionModal(false)
+                  topFunction()
                 }}
               ></ListItemText>
             </ListItem>
@@ -879,13 +881,13 @@ const Bible = props => {
                 secondary="Firman Allah Yang Hidup"
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary'
+                  className: 'modal-passage-list-text-secondary',
                 }}
                 onClick={() => {
-                  dispatch(fetchTodayChapter2020('fayh'));
-                  setBibleVersion('fayh');
-                  setVersionModal(false);
-                  topFunction();
+                  dispatch(fetchTodayChapter2020('fayh'))
+                  setBibleVersion('fayh')
+                  setVersionModal(false)
+                  topFunction()
                 }}
               ></ListItemText>
             </ListItem>
@@ -895,13 +897,13 @@ const Bible = props => {
                 secondary="The Message"
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary'
+                  className: 'modal-passage-list-text-secondary',
                 }}
                 onClick={() => {
-                  dispatch(fetchTodayChapter2020('msg'));
-                  setBibleVersion('msg');
-                  setVersionModal(false);
-                  topFunction();
+                  dispatch(fetchTodayChapter2020('msg'))
+                  setBibleVersion('msg')
+                  setVersionModal(false)
+                  topFunction()
                 }}
               ></ListItemText>
             </ListItem>
@@ -911,13 +913,13 @@ const Bible = props => {
                 secondary="New King James Version"
                 className="modal-passage-list-text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary'
+                  className: 'modal-passage-list-text-secondary',
                 }}
                 onClick={() => {
-                  dispatch(fetchTodayChapter2020('nkjv'));
-                  setBibleVersion('nkjv');
-                  setVersionModal(false);
-                  topFunction();
+                  dispatch(fetchTodayChapter2020('nkjv'))
+                  setBibleVersion('nkjv')
+                  setVersionModal(false)
+                  topFunction()
                 }}
               ></ListItemText>
             </ListItem>
@@ -925,7 +927,7 @@ const Bible = props => {
         </Dialog>
       </div>
     </Fade>
-  );
-};
+  )
+}
 
-export default Bible;
+export default Bible

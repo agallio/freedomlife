@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Head from 'next/head';
-import { connect } from 'react-redux';
-import Router from 'next/router';
+import React, { Component } from 'react'
+import Head from 'next/head'
+import { connect } from 'react-redux'
+import Router from 'next/router'
 import {
   LinearProgress,
   Card,
@@ -9,39 +9,39 @@ import {
   Typography,
   Grid,
   Fab,
-} from '@material-ui/core';
-import Skeleton from '@material-ui/lab/Skeleton';
-import moment from 'moment';
-import 'moment/locale/id';
-import * as gtag from 'utils/gtag';
+} from '@material-ui/core'
+import Skeleton from '@material-ui/lab/Skeleton'
+import moment from 'moment'
+import 'moment/locale/id'
+import * as gtag from 'utils/gtag'
 
 import {
   fetchGuideToday,
   setGuideDate,
   fetchGuide2020Today,
-} from 'actions/guide';
+} from 'actions/guide'
 
 class Index extends Component {
   componentDidMount = () => {
-    localStorage.clear();
+    localStorage.clear()
     if (this.props.guide.guideToday.date !== moment().format('DD-MM-YYYY')) {
       if (this.props.guide.new_2020) {
-        this.props.fetchGuide2020Today();
+        this.props.fetchGuide2020Today()
       } else {
-        this.props.fetchGuideToday();
+        this.props.fetchGuideToday()
       }
     }
-  };
+  }
 
   toBible = () => {
-    this.props.setGuideDate('');
+    this.props.setGuideDate('')
     gtag.event({
       action: 'to_bible',
       category: 'Bible',
       label: `Read Bible ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
-    });
-    Router.push('/bible');
-  };
+    })
+    Router.push('/bible')
+  }
 
   render() {
     const {
@@ -49,9 +49,9 @@ class Index extends Component {
       new_2020,
       guideToday,
       guide2020Today,
-    } = this.props.guide;
+    } = this.props.guide
 
-    const isAlt = moment().format('MM') > '03';
+    const isAlt = moment().format('MM') > '03'
 
     return (
       <div>
@@ -237,7 +237,7 @@ class Index extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -245,8 +245,8 @@ const mapStateToProps = (state) => {
   return {
     guide: state.guide,
     bible: state.bible,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -254,7 +254,7 @@ const mapDispatchToProps = (dispatch) => {
     setGuideDate: (date) => dispatch(setGuideDate(date)),
     // 2020
     fetchGuide2020Today: () => dispatch(fetchGuide2020Today()),
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

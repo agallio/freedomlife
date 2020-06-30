@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Head from 'next/head';
-import Router from 'next/router';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import Head from 'next/head'
+import Router from 'next/router'
+import { connect } from 'react-redux'
 import {
   Fade,
   LinearProgress,
@@ -9,19 +9,19 @@ import {
   CardContent,
   Grid,
   Typography,
-  ButtonBase
-} from '@material-ui/core';
-import Skeleton from '@material-ui/lab/Skeleton';
-import moment from 'moment';
-import 'moment/locale/id';
+  ButtonBase,
+} from '@material-ui/core'
+import Skeleton from '@material-ui/lab/Skeleton'
+import moment from 'moment'
+import 'moment/locale/id'
 
 import {
   fetchGuideByMonth,
   fetchGuideByDate,
   setGuideDate,
-  fetchGuide2020ByMonth
-} from 'actions/guide';
-import { fetchChapterByDate } from 'actions/bible';
+  fetchGuide2020ByMonth,
+} from 'actions/guide'
+import { fetchChapterByDate } from 'actions/bible'
 
 class Guide extends Component {
   componentDidMount = () => {
@@ -34,31 +34,31 @@ class Guide extends Component {
         this.props.fetchGuide2020ByMonth(
           moment().format('MM'),
           moment().format('YYYY')
-        );
+        )
       } else {
         this.props.fetchGuideByMonth(
           moment().format('MM'),
           moment().format('YYYY')
-        );
+        )
       }
     }
-  };
+  }
 
-  toBible = async date => {
-    console.log('Clicked');
+  toBible = async (date) => {
+    console.log('Clicked')
     // await this.props.setGuideDate(date);
     // await this.props.fetchGuideByDate(date);
     // await this.props.fetchChapterByDate(date);
     // Router.push('/bible');
-  };
+  }
 
   render() {
     const {
       isFetching,
       new_2020,
       guideByMonth,
-      guide2020ByMonth
-    } = this.props.guide;
+      guide2020ByMonth,
+    } = this.props.guide
 
     return (
       <Fade in>
@@ -80,11 +80,11 @@ class Guide extends Component {
               <CardContent
                 style={{
                   padding: '16px 10%',
-                  height: isFetching && '80vh'
+                  height: isFetching && '80vh',
                 }}
               >
                 {isFetching
-                  ? [1, 2, 3, 4, 5, 6].map(item => (
+                  ? [1, 2, 3, 4, 5, 6].map((item) => (
                       <Grid
                         key={item}
                         container
@@ -149,7 +149,7 @@ class Guide extends Component {
                                 style={{
                                   color:
                                     moment().format('DD-MM-YYYY') ===
-                                      item.date && '#fff'
+                                      item.date && '#fff',
                                 }}
                               >
                                 {moment(item.date, 'DD-MM-YYYY').format('dddd')}
@@ -164,7 +164,7 @@ class Guide extends Component {
                                 style={{
                                   color:
                                     moment().format('DD-MM-YYYY') ===
-                                      item.date && '#fff'
+                                      item.date && '#fff',
                                 }}
                               >
                                 {item.date.split('-')[0] || '-'}
@@ -235,7 +235,7 @@ class Guide extends Component {
                                 style={{
                                   color:
                                     moment().format('DD-MM-YYYY') ===
-                                      item.date && '#fff'
+                                      item.date && '#fff',
                                 }}
                               >
                                 {moment(item.date, 'DD-MM-YYYY').format('dddd')}
@@ -250,7 +250,7 @@ class Guide extends Component {
                                 style={{
                                   color:
                                     moment().format('DD-MM-YYYY') ===
-                                      item.date && '#fff'
+                                      item.date && '#fff',
                                 }}
                               >
                                 {item.date.split('-')[0] || '-'}
@@ -297,25 +297,25 @@ class Guide extends Component {
           </div>
         </>
       </Fade>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => {
-  return { guide: state.guide };
-};
+const mapStateToProps = (state) => {
+  return { guide: state.guide }
+}
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchGuideByMonth: (month, year) =>
       dispatch(fetchGuideByMonth(month, year)),
-    fetchChapterByDate: date => dispatch(fetchChapterByDate(date)),
-    fetchGuideByDate: date => dispatch(fetchGuideByDate(date)),
-    setGuideDate: date => dispatch(setGuideDate(date)),
+    fetchChapterByDate: (date) => dispatch(fetchChapterByDate(date)),
+    fetchGuideByDate: (date) => dispatch(fetchGuideByDate(date)),
+    setGuideDate: (date) => dispatch(setGuideDate(date)),
     // 2020
     fetchGuide2020ByMonth: (month, year) =>
-      dispatch(fetchGuide2020ByMonth(month, year))
-  };
-};
+      dispatch(fetchGuide2020ByMonth(month, year)),
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Guide);
+export default connect(mapStateToProps, mapDispatchToProps)(Guide)

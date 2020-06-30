@@ -1,54 +1,54 @@
-import React from 'react';
-import App from 'next/app';
-import Head from 'next/head';
-import Router from 'next/router';
-import withRedux from 'next-redux-wrapper';
-import { ThemeProvider } from '@material-ui/styles';
+import React from 'react'
+import App from 'next/app'
+import Head from 'next/head'
+import Router from 'next/router'
+import withRedux from 'next-redux-wrapper'
+import { ThemeProvider } from '@material-ui/styles'
 import {
   CssBaseline,
   Fade,
   BottomNavigation,
   BottomNavigationAction,
   // useMediaQuery
-} from '@material-ui/core';
-import { Provider } from 'react-redux';
+} from '@material-ui/core'
+import { Provider } from 'react-redux'
 // import { PersistGate } from 'redux-persist/integration/react';
-import HomeIcon from '@material-ui/icons/HomeRounded';
-import BookIcon from '@material-ui/icons/BookRounded';
-import WartaIcon from '@material-ui/icons/LocalLibraryRounded';
-import theme from 'theme';
-import * as gtag from 'utils/gtag';
+import HomeIcon from '@material-ui/icons/HomeRounded'
+import BookIcon from '@material-ui/icons/BookRounded'
+import WartaIcon from '@material-ui/icons/LocalLibraryRounded'
+import theme from 'theme'
+import * as gtag from 'utils/gtag'
 
 // Import SCSS
-import 'styles/index.scss';
+import 'styles/index.scss'
 
 // Redux Store
-import configureStore from 'store';
+import configureStore from 'store'
 
-const store = configureStore();
+const store = configureStore()
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
-      : {};
-    return { pathname: ctx.pathname, pageProps, maintenance: false };
+      : {}
+    return { pathname: ctx.pathname, pageProps, maintenance: false }
   }
 
   componentDidMount() {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
-      jssStyles.parentNode.removeChild(jssStyles);
+      jssStyles.parentNode.removeChild(jssStyles)
     }
   }
 
   navOnChange = (e, value) => {
-    Router.push(`${value}`);
-  };
+    Router.push(`${value}`)
+  }
 
   render() {
-    const { Component, pageProps, maintenance } = this.props;
+    const { Component, pageProps, maintenance } = this.props
 
     return (
       <React.Fragment>
@@ -117,11 +117,11 @@ class MyApp extends App {
           {/* </PersistGate> */}
         </Provider>
       </React.Fragment>
-    );
+    )
   }
 }
 
 // Google Analytics (Page View)
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
+Router.events.on('routeChangeComplete', (url) => gtag.pageview(url))
 
-export default withRedux(configureStore)(MyApp);
+export default withRedux(configureStore)(MyApp)

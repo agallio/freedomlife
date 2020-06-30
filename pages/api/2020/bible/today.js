@@ -10,7 +10,7 @@ export default async (req, res) => {
     BISBibleModel,
     FAYHBibleModel,
     MSGBibleModel,
-    NKJVBibleModel
+    NKJVBibleModel,
   } = database;
   const { version } = req.query;
 
@@ -19,7 +19,7 @@ export default async (req, res) => {
   const altArr = [];
 
   const todayDate = moment.tz('Asia/Jakarta').format('DD-MM-YYYY');
-  const query = await GuideModel2020.find({ date: todayDate }).catch(err => {
+  const query = await GuideModel2020.find({ date: todayDate }).catch((err) => {
     console.log(err);
     res.status(500).json({ err });
   });
@@ -43,28 +43,28 @@ export default async (req, res) => {
     switch (version) {
       case 'tb':
         return TBBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
       case 'bis':
         return BISBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
       case 'fayh':
         return FAYHBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
       case 'msg':
         return MSGBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
       case 'nkjv':
         return NKJVBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
 
       default:
         return TBBibleModel.find({
-          $and: [{ abbr }, { chapter }]
+          $and: [{ abbr }, { chapter }],
         });
     }
   };
@@ -81,10 +81,10 @@ export default async (req, res) => {
       chapter: passage[0].chapter,
       passagePlace: `pl-1`,
       data: passage[0].verses.filter(
-        item =>
+        (item) =>
           item.verse >= Number(plColonDashSplit[0]) &&
           item.verse <= Number(plColonDashSplit[1])
-      )
+      ),
     });
   } else if (plDashSplit.length > 1) {
     let place = 1;
@@ -95,7 +95,7 @@ export default async (req, res) => {
         book: passage[0].book,
         chapter: i,
         passagePlace: `pl-${place++}`,
-        data: passage[0].verses
+        data: passage[0].verses,
       });
     }
   } else {
@@ -105,7 +105,7 @@ export default async (req, res) => {
       book: passage[0].book,
       chapter: passage[0].chapter,
       passagePlace: `pl-1`,
-      data: passage[0].verses
+      data: passage[0].verses,
     });
   }
 
@@ -120,10 +120,10 @@ export default async (req, res) => {
       chapter: passage[0].chapter,
       passagePlace: `pb`,
       data: passage[0].verses.filter(
-        item =>
+        (item) =>
           item.verse >= Number(pbDashSplit[0]) &&
           item.verse <= Number(pbDashSplit[1])
-      )
+      ),
     });
   } else {
     const passage = await bibleVersion(pbSpaceSplit[0], pbSpaceSplit[1]);
@@ -132,7 +132,7 @@ export default async (req, res) => {
       book: passage[0].book,
       chapter: passage[0].chapter,
       passagePlace: `pb`,
-      data: passage[0].verses
+      data: passage[0].verses,
     });
   }
 
@@ -142,20 +142,17 @@ export default async (req, res) => {
     let altColonSplit = altSpaceSplit[1].split(':');
     if (altColonSplit.length > 1) {
       let altColonDashSplit = altColonSplit[1].split('-');
-      const passage = await bibleVersion(
-        altSpaceSplit[0],
-        altColonDashSplit[0]
-      );
+      const passage = await bibleVersion(altSpaceSplit[0], altColonSplit[0]);
       altArr.push({
         version: version || 'tb',
         book: passage[0].book,
         chapter: passage[0].chapter,
         passagePlace: `alt-1`,
         data: passage[0].verses.filter(
-          item =>
+          (item) =>
             item.verse >= Number(altColonDashSplit[0]) &&
             item.verse <= Number(altColonDashSplit[1])
-        )
+        ),
       });
     } else if (altDashSplit.length > 1) {
       let place = 1;
@@ -166,7 +163,7 @@ export default async (req, res) => {
           book: passage[0].book,
           chapter: i,
           passagePlace: `alt-${place++}`,
-          data: passage[0].verses
+          data: passage[0].verses,
         });
       }
     } else {
@@ -176,7 +173,7 @@ export default async (req, res) => {
         book: passage[0].book,
         chapter: passage[0].chapter,
         passagePlace: `alt-1`,
-        data: passage[0].verses
+        data: passage[0].verses,
       });
     }
   }
@@ -199,13 +196,13 @@ export default async (req, res) => {
       passage: [...plList, 'pb', ...altList],
       pl: [...plArr],
       pb: [...pbArr],
-      alt: [...altArr]
+      alt: [...altArr],
     };
   } else {
     data = {
       passage: [...plList, 'pb'],
       pl: [...plArr],
-      pb: [...pbArr]
+      pb: [...pbArr],
     };
   }
 
