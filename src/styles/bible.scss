@@ -1,0 +1,76 @@
+.bible-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.bible-passage-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  height: 100vh;
+}
+
+.bible-passage {
+  padding-top: 70px;
+  padding-bottom: 110px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.bible-title {
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  text-align: center;
+  line-height: 130% !important;
+}
+
+.bible-verse {
+  font-size: 14pt !important;
+  line-height: 180% !important;
+}
+
+.bible-verse-sup {
+  font-size: 10px;
+  margin-right: 5px;
+  color: #333;
+}
+
+.bible-passage-btn {
+  position: absolute;
+  z-index: 1;
+  top: -30px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bible-title {
+    color: #fff !important;
+  }
+
+  .bible-verse {
+    color: #fff !important;
+  }
+
+  .bible-verse-sup {
+    color: lighten($primary, 40%) !important;
+  }
+
+  .modal-passage {
+    background: #424242 !important;
+  }
+
+  .modal-passage-title {
+    color: #fff !important;
+  }
+
+  .modal-passage-list-text {
+    color: #fff !important;
+  }
+
+  .modal-passage-list-text-secondary {
+    color: #bfbfbf !important;
+  }
+}

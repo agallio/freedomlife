@@ -1,0 +1,22 @@
+.guide-box {
+  width: 85px;
+  padding: 10px 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.guide-box-primary {
+  width: 85px;
+  padding: 10px 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+  text-align: center;
+  background: #673ab7 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .guide-box {
+    background: #1f1f1f !important;
+  }
+}

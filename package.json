@@ -1,36 +1,56 @@
 {
-  "name": "nextjs",
-  "version": "4.0.0",
-  "private": true,
+  "name": "freedomlife",
+  "author": "agallio <agalliosamai@gmail.com>",
+  "license": "MIT",
+  "version": "5.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write **/*.{js,ts,tsx}"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn run type-check"
+    }
+  },
   "dependencies": {
-    "@material-ui/core": "latest",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.45",
-    "@material-ui/styles": "latest",
-    "@zeit/next-sass": "^1.0.1",
-    "axios": "^0.19.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/styles": "^4.10.0",
     "dotenv": "^8.2.0",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
-    "mongoose": "^5.9.7",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.9.22",
     "next": "latest",
-    "next-fonts": "^0.19.0",
-    "next-offline": "^4.0.6",
-    "next-redux-wrapper": "^4.0.1",
-    "nextjs-sitemap-generator": "^0.4.2",
-    "node-sass": "^4.13.0",
-    "prop-types": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-redux": "^7.1.3",
+    "next-fonts": "^1.3.0",
+    "next-offline": "^5.0.2",
+    "next-redux-wrapper": "^6.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-persist": "^6.0.0",
-    "redux-saga": "^1.1.3"
+    "redux-saga": "^1.1.3",
+    "sass": "^1.26.10"
   },
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.0.1",
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^25.1.4",
+    "@types/mongoose": "^5.7.30",
+    "@types/node": "^13.9.5",
+    "@types/react": "^16.9.27",
+    "@types/react-redux": "^7.1.9",
+    "@types/testing-library__react": "^10.0.0",
+    "babel-jest": "^25.2.3",
+    "husky": "^4.2.3",
+    "jest": "^25.2.3",
+    "jest-watch-typeahead": "^0.5.0",
+    "prettier": "^2.0.2",
+    "typescript": "^3.8.3"
   }
 }
