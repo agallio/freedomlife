@@ -94,4 +94,4 @@ You can also buy me a coffee! 😄 ☕️
 
 # License
 
-MIT License, © 2020.
+MIT License, © 2020, Agallio Samai.
