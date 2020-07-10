@@ -52,6 +52,7 @@ $ yarn start # or npm run start
 | [Material-UI](https://material-ui.com/)                    |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |
+| [MongoDB](https://www.mongodb.com/)                        |
 | Google Analytics                                           |
 
 For detailed explanation on how things work, click the technology stack name to find out.
