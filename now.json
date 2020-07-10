@@ -1,19 +1,25 @@
 {
   "name": "freedomlife",
   "version": 2,
-  "routes": [
+  "rewrites": [
     {
-      "src": "^/service-worker.js$",
-      "dest": "/_next/static/service-worker.js",
-      "headers": {
-        "cache-control": "public, max-age=43200, immutable",
-        "Service-Worker-Allowed": "/"
-      }
+      "source": "/service-worker.js",
+      "destination": "/_next/static/service-worker.js"
     }
   ],
-  "env": {
-    "DB_FL_URI": "@db-fl-uri",
-    "DB_BIBLE_URI": "@db-bible-uri",
-    "DB_FL_URI_2020": "@db-fl-uri-2020"
-  }
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=43200, immutable"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    }
+  ]
 }
