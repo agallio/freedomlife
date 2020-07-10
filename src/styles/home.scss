@@ -1,0 +1,52 @@
+// Color Theme
+$primary: #673ab7;
+$secondary: #764ec0;
+// $primary: #d81b60;
+// $secondary: #ec407a;
+$grey: #6e6e6e;
+
+// Jumbo Header
+.jumbo-header {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background: $primary;
+}
+
+.jumbo-header-overlay {
+  position: absolute;
+  width: 88%;
+  height: 75%;
+  background: $secondary;
+}
+
+// Guide Box
+.guide-passage-box {
+  width: 60px;
+  padding: 20px 10px 20px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.guide-passage-box-text {
+  font-family: 'SFProDisplay-Bold', sans-serif !important;
+  font-size: 14pt;
+  color: $primary;
+  margin: 0;
+}
+
+.guide-passage-box-fab {
+  font-family: 'SFProDisplay-Bold', sans-serif !important;
+  width: 100% !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .guide-passage-box {
+    background-color: $primary !important;
+  }
+
+  .guide-passage-box-text {
+    color: #fff !important;
+  }
+}
