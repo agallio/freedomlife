@@ -12,28 +12,28 @@ $dark: #121212;
 
 @font-face {
   font-family: 'SFProDisplay-Bold';
-  src: local('/fonts/SFProDisplay-Bold.ttf');
+  src: url('/fonts/SFProDisplay-Bold.ttf');
   font-weight: bold;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'SFProDisplay-Regular';
-  src: local('/fonts/SFProDisplay-Regular.ttf');
+  src: url('/fonts/SFProDisplay-Regular.ttf');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'SFProDisplay-Light';
-  src: local('/fonts/SFProDisplay-Light.ttf');
+  src: url('/fonts/SFProDisplay-Light.ttf');
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'SFProDisplay-LightItalic';
-  src: local('/fonts/SFProDisplay-LightItalic.ttf');
+  src: url('/fonts/SFProDisplay-LightItalic.ttf');
   font-weight: 300;
   font-display: swap;
 }
