@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
             name="description"
             content="FreedomLife, Aplikasi panduan baca Alkitab setahun habis."
           />
+          <link rel="manifest" href="/manifest.json" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
