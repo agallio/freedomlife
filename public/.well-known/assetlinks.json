@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "id.freedomlife.twa",
+    "sha256_cert_fingerprints": [
+      "D0:FC:FB:1F:CA:A6:A1:67:A2:60:A5:B4:06:10:3B:C5:86:0B:EE:33:A9:8A:C6:C2:DF:44:BA:2F:E8:04:0D:AF"
+    ]
+  }
+}]
