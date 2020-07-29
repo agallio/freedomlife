@@ -1,0 +1,9 @@
+.privacy {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .privacy {
+    color: white !important;
+  }
+}

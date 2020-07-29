@@ -62,25 +62,27 @@ const MyApp = (props: any) => {
               <div className="jumbo-header">
                 <div className="jumbo-header-overlay"></div>
                 <Component {...pageProps} />
-                <BottomNavigation
-                  showLabels
-                  value={router.pathname}
-                  onChange={navOnChange}
-                  className="styled-bottom-nav"
-                >
-                  <BottomNavigationAction
-                    className="styled-bottom-nav-action"
-                    label="Beranda"
-                    value="/"
-                    icon={<HomeIcon />}
-                  ></BottomNavigationAction>
-                  <BottomNavigationAction
-                    className="styled-bottom-nav-action"
-                    label="Panduan"
-                    value="/guide"
-                    icon={<BookIcon />}
-                  ></BottomNavigationAction>
-                </BottomNavigation>
+                {router.pathname !== '/privacy' && (
+                  <BottomNavigation
+                    showLabels
+                    value={router.pathname}
+                    onChange={navOnChange}
+                    className="styled-bottom-nav"
+                  >
+                    <BottomNavigationAction
+                      className="styled-bottom-nav-action"
+                      label="Beranda"
+                      value="/"
+                      icon={<HomeIcon />}
+                    ></BottomNavigationAction>
+                    <BottomNavigationAction
+                      className="styled-bottom-nav-action"
+                      label="Panduan"
+                      value="/guide"
+                      icon={<BookIcon />}
+                    ></BottomNavigationAction>
+                  </BottomNavigation>
+                )}
               </div>
             )}
           </Fade>
