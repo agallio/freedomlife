@@ -3,19 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "id.freedomlife.twa",
+      "package_name": "id.freedomlife.app",
       "sha256_cert_fingerprints": [
-        "D0:FC:FB:1F:CA:A6:A1:67:A2:60:A5:B4:06:10:3B:C5:86:0B:EE:33:A9:8A:C6:C2:DF:44:BA:2F:E8:04:0D:AF"
-      ]
-    }
-  },
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "id.freedomlife.twa",
-      "sha256_cert_fingerprints": [
-        "29:DA:9F:85:A2:B1:06:79:19:41:89:A0:D1:1C:B2:95:85:41:0D:90:52:7F:D2:E8:3A:42:91:43:C5:38:64:3B"
+        "F9:24:C8:A9:41:FF:CC:45:0A:A7:82:37:02:75:36:B8:83:DF:1A:36:43:99:4F:6C:3C:F7:12:67:54:4D:D7:3E"
       ]
     }
   }
