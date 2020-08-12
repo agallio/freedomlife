@@ -5,7 +5,7 @@ import { getDatabase } from '../../../src/db'
 import { GuideInterface } from '../../../src/models/guide.model'
 import { BibleInterface } from '../../../src/models/bible.model'
 
-const bibleToday = async (req: NextApiRequest, res: NextApiResponse) => {
+const bibleByDate = async (req: NextApiRequest, res: NextApiResponse) => {
   // Init Database
   const database = await getDatabase()
   const {
@@ -18,7 +18,7 @@ const bibleToday = async (req: NextApiRequest, res: NextApiResponse) => {
   } = database
 
   // Query Deconstruct
-  const { version } = req.query
+  const { date, version } = req.query
 
   let query: GuideInterface
   let pl: string, pb: string, alt: string
@@ -27,9 +27,9 @@ const bibleToday = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Get Guide
   try {
-    const todayDate = moment.tz('Asia/Jakarta').format('DD-MM-YYYY')
+    const passageDate = moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY')
     query = (await GuideModel.findOne({
-      date: todayDate,
+      date: passageDate,
     })) as GuideInterface
   } catch (err) {
     console.log(err)
@@ -274,4 +274,4 @@ const bibleToday = async (req: NextApiRequest, res: NextApiResponse) => {
   await res.json(data)
 }
 
-export default bibleToday
+export default bibleByDate

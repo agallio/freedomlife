@@ -1,15 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import momentTz from 'moment-timezone'
+import 'moment/locale/id'
 
 import { getDatabase } from '../../../../src/db'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const guideByMonth = async (req: NextApiRequest, res: NextApiResponse) => {
   const database = await getDatabase()
   const { GuideModel } = database
 
-  const { month, year } = req.query
+  const { monthNumber } = req.query
 
   GuideModel.find({
-    $and: [{ month }, { year }],
+    $and: [
+      { month: monthNumber },
+      { year: momentTz.tz('Asia/Jakarta').format('YYYY') },
+    ],
   })
     .sort('date')
     .then((guide: any) => {
@@ -21,3 +26,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(500).json(err)
     })
 }
+
+export default guideByMonth

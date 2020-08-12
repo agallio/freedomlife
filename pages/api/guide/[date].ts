@@ -1,20 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import momentTz from 'moment-timezone'
+import moment from 'moment'
 import 'moment/locale/id'
 
 import { getDatabase } from '../../../src/db'
 
-const guideToday = async (req: NextApiRequest, res: NextApiResponse) => {
+const guideByDate = async (req: NextApiRequest, res: NextApiResponse) => {
   const database = await getDatabase()
   const { GuideModel } = database
 
-  const todayDate = momentTz.tz('Asia/Jakarta').format('DD-MM-YYYY')
+  const { date } = req.query
 
-  GuideModel.find({ date: todayDate })
+  const passageDate = moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY')
+
+  GuideModel.find({ date: passageDate })
     .then((guide: any) => {
       res.json({
         ...guide[0]._doc,
-        date_name: momentTz.tz('Asia/Jakarta').format('dddd, LL'),
+        date_name: moment(date, 'DD-MM-YYYY').format('dddd, LL'),
       })
       res.end()
     })
@@ -24,4 +26,4 @@ const guideToday = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 }
 
-export default guideToday
+export default guideByDate
