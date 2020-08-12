@@ -26,7 +26,7 @@ const BibleBottomBar = ({
   nextPassage,
   openPassageModal,
 }: BibleBottomBarProps): JSX.Element => {
-  const guideToday = useSelector((state: RootState) => state.guide.guideToday)
+  const guideData = useSelector((state: RootState) => state.guide.guideData)
 
   return (
     <AppBar
@@ -69,7 +69,7 @@ const BibleBottomBar = ({
           disabled={
             isFetching
               ? true
-              : guideToday.alt_name
+              : guideData.alt_name
               ? altList.length > 1
                 ? passage === 'alt-2'
                 : passage === 'alt-1'

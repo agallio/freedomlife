@@ -10,7 +10,7 @@ import { RootState } from '../src/reducers'
 import { fetchGuideByMonth } from '../src/actions/guide'
 
 // Components
-import GuideList from '../src/components/Guide//GuideList'
+import GuideList from '../src/components/Guide/GuideList'
 
 const Guide = (): JSX.Element => {
   // Redux Store
@@ -18,18 +18,16 @@ const Guide = (): JSX.Element => {
   const guide = useSelector((state: RootState) => state.guide)
 
   // Redux Deconstructor
-  const { isFetching, guideToday, guideByMonth } = guide
+  const { isFetching, guideData, guideByMonth } = guide
 
   // Component Lifecycle
   useEffect(() => {
     if (
-      moment(guideToday.date, 'DD-MM-YYYY').format('MM') !==
+      moment(guideData.date, 'DD-MM-YYYY').format('MM') !==
         moment().format('MM') ||
       guideByMonth.length === 0
     ) {
-      dispatch(
-        fetchGuideByMonth(moment().format('MM'), moment().format('YYYY'))
-      )
+      dispatch(fetchGuideByMonth(moment().format('MM')))
     }
   }, [])
 

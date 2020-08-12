@@ -47,8 +47,9 @@ export type Guide = {
 }
 
 interface GuideState {
-  guideToday: Guide
+  guideData: Guide
   guideByMonth: Guide[]
+  guideDate: string
   isFetching: boolean
   isError: boolean
 }

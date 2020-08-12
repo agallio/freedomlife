@@ -16,7 +16,8 @@ import 'moment/locale/id'
 
 // Redux
 import { RootState } from '../src/reducers'
-import { fetchGuideToday } from '../src/actions/guide'
+import { fetchGuideToday, setGuideDate } from '../src/actions/guide'
+import { fetchTodayChapter } from '../src/actions/bible'
 
 // Google Tag Manager
 import * as gtag from '../src/utils/gtag'
@@ -27,11 +28,11 @@ export const Home = (): JSX.Element => {
   const guide = useSelector((state: RootState) => state.guide)
 
   // Redux Deconstructor
-  const { isFetching, guideToday } = guide
+  const { isFetching, guideData } = guide
 
   // Component Lifecycle
   useEffect(() => {
-    if (guideToday.date !== moment().format('DD-MM-YYYY')) {
+    if (guideData.date !== moment().format('DD-MM-YYYY')) {
       dispatch(fetchGuideToday())
     }
   }, [])
@@ -44,6 +45,8 @@ export const Home = (): JSX.Element => {
       label: 'User Read The Bible',
       value: `Read Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
     })
+    dispatch(setGuideDate(''))
+    dispatch(fetchTodayChapter('tb'))
     Router.push('/bible')
   }
 
@@ -95,11 +98,11 @@ export const Home = (): JSX.Element => {
                         style={{ fontSize: 17 }}
                       >
                         {item === 'PL'
-                          ? guideToday.pl_name
+                          ? guideData.pl_name
                           : item === 'PB'
-                          ? guideToday.pb_name
+                          ? guideData.pb_name
                           : item === 'ALT'
-                          ? guideToday.alt_name
+                          ? guideData.alt_name
                           : 'Tidak ada data'}
                       </Typography>
                     )}

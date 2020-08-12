@@ -8,8 +8,8 @@ import 'moment/locale/id'
 
 // Redux
 import { RootState } from '../src/reducers'
-import { fetchGuideToday } from '../src/actions/guide'
-import { fetchTodayChapter } from '../src/actions/bible'
+import { fetchGuideToday, fetchGuideByDate } from '../src/actions/guide'
+import { fetchTodayChapter, fetchChapterByDate } from '../src/actions/bible'
 
 // Google Tag Manager
 import * as gtag from '../src/utils/gtag'
@@ -34,13 +34,18 @@ const Bible = (): JSX.Element => {
   const bible = useSelector((state: RootState) => state.bible)
 
   // Redux Deconstructor
-  const { guideToday } = guide
+  const { guideData, guideDate } = guide
   const { isFetching, chapters } = bible
 
   // Component Lifecycle
   useEffect(() => {
-    dispatch(fetchGuideToday())
-    dispatch(fetchTodayChapter('tb'))
+    if (guideDate !== '') {
+      dispatch(fetchGuideByDate(guideDate))
+      dispatch(fetchChapterByDate('tb', guideDate))
+    } else {
+      dispatch(fetchGuideToday())
+      dispatch(fetchTodayChapter('tb'))
+    }
   }, [])
 
   // Component Methods
@@ -103,7 +108,11 @@ const Bible = (): JSX.Element => {
   }
 
   const changeVersion = (version: string) => {
-    dispatch(fetchTodayChapter(version))
+    if (guideDate) {
+      dispatch(fetchChapterByDate(version, guideDate))
+    } else {
+      dispatch(fetchTodayChapter(version))
+    }
     setBibleVersion(version)
     setVersionModal(false)
     topFunction()
@@ -125,8 +134,8 @@ const Bible = (): JSX.Element => {
       : []
   }
 
-  const plSpaceSplit = guideToday.pl_name.split(' ')
-  const altSpaceSplit = guideToday.alt_name.split(' ')
+  const plSpaceSplit = guideData.pl_name.split(' ')
+  const altSpaceSplit = guideData.alt_name.split(' ')
 
   const plDashSplit =
     plSpaceSplit.length === 3
@@ -175,7 +184,7 @@ const Bible = (): JSX.Element => {
             ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]} `
             : `${plSpaceSplit[0]} ${plList[2]} `
         case 'pb':
-          return guideToday.pb_name
+          return guideData.pb_name
         case 'alt-1':
           return altList.length > 1
             ? `${altSpaceSplit[0]} ${altList[0]}`

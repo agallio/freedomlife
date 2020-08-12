@@ -29,7 +29,7 @@ const BiblePassageDialog = ({
   changePassage,
   closePassageModal,
 }: BiblePassageDialogProps): JSX.Element => {
-  const guideToday = useSelector((state: RootState) => state.guide.guideToday)
+  const guideData = useSelector((state: RootState) => state.guide.guideData)
 
   return (
     <Dialog
@@ -114,7 +114,7 @@ const BiblePassageDialog = ({
         <ListItem button>
           <ListItemText
             primary="Perjanjian Baru"
-            secondary={guideToday.pb_name || ''}
+            secondary={guideData.pb_name || ''}
             className="modal-passage-list-text"
             secondaryTypographyProps={{
               className: 'modal-passage-list-text-secondary',
@@ -122,11 +122,11 @@ const BiblePassageDialog = ({
             onClick={() => changePassage('pb', 'pb')}
           ></ListItemText>
         </ListItem>
-        {guideToday.alt_name && altList.length === 0 && (
+        {guideData.alt_name && altList.length === 0 && (
           <ListItem button>
             <ListItemText
               primary="Tambahan"
-              secondary={guideToday.alt_name}
+              secondary={guideData.alt_name}
               className="modal-passage-list-text"
               secondaryTypographyProps={{
                 className: 'modal-passage-list-text-secondary',
@@ -135,7 +135,7 @@ const BiblePassageDialog = ({
             ></ListItemText>
           </ListItem>
         )}
-        {guideToday.alt_name && altList.length > 1 && (
+        {guideData.alt_name && altList.length > 1 && (
           <>
             <ListItem button>
               <ListItemText
