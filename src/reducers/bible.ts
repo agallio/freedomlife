@@ -12,7 +12,7 @@ const initialState = {
   isError: false,
 }
 
-export default (state = initialState, action: ActionTypes) => {
+const bibleReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case FETCH_TODAY_CHAPTER:
       return { ...state, isFetching: true, isError: false }
@@ -30,3 +30,5 @@ export default (state = initialState, action: ActionTypes) => {
       return state
   }
 }
+
+export default bibleReducer

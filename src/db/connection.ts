@@ -1,6 +1,6 @@
 import { createConnection } from 'mongoose'
 
-export default async () => {
+const connection = async () => {
   const db1 = await createConnection(process.env.DB_FL_URI as string, {
     useNewUrlParser: true,
     useFindAndModify: false,
@@ -19,3 +19,5 @@ export default async () => {
     db2,
   }
 }
+
+export default connection

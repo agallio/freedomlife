@@ -21,7 +21,7 @@ const initialState = {
   isError: false,
 }
 
-export default (state = initialState, action: ActionTypes) => {
+const guideReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     // Fetching
     case FETCH_GUIDE_TODAY:
@@ -54,3 +54,5 @@ export default (state = initialState, action: ActionTypes) => {
       return state
   }
 }
+
+export default guideReducer
