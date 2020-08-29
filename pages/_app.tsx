@@ -50,6 +50,17 @@ const MyApp = (props: any) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+        />
+        {/* PWA primary color */}
+        <meta name="theme-color" content={theme.palette.primary.main} />
+        <meta
+          name="description"
+          content="FreedomLife, Aplikasi panduan baca Alkitab setahun habis."
+        />
       </Head>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
