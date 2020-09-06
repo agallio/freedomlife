@@ -95,7 +95,7 @@ const bibleToday = async (req: NextApiRequest, res: NextApiResponse) => {
     // Get Passage
     const passage = (await bibleVersion(
       plSpaceSplit[0],
-      plColonDashSplit[0]
+      plColonSplit[0]
     )) as BibleInterface
 
     // Push Passage
