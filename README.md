@@ -4,7 +4,7 @@
 
 FreedomLife is a bible reading guide app. Users can read the bible in various translations and see guides for following days.
 
-[![Google-Play-Logo](/public/images/google-play.svg)](https://play.google.com/store/apps/details?id=id.freedomlife.app | width=128)
+<a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/public/images/google-play.svg" alt="Google Play Button" width="180"></a>
 
 # Installation
 
