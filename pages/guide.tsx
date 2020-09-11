@@ -32,23 +32,25 @@ const Guide = (): JSX.Element => {
   }, [])
 
   return (
-    <Fade in>
-      <>
-        <Head>
-          <title>Panduan Baca | FreedomLife</title>
-        </Head>
+    <>
+      <Head>
+        <title>Panduan Baca | FreedomLife</title>
+      </Head>
 
-        {isFetching && <LinearProgress color="secondary" />}
-        <div className="container" style={{ paddingBottom: 30 }}>
-          <h2 className="header-title" style={{ marginTop: 70 }}>
-            Panduan Baca
-          </h2>
-          <p className="header-subtitle">Panduan Baca Bulan Ini</p>
+      {isFetching && <LinearProgress color="secondary" />}
+      <Fade in>
+        <div>
+          <div className="container" style={{ paddingBottom: 30 }}>
+            <h2 className="header-title" style={{ marginTop: 70 }}>
+              Panduan Baca
+            </h2>
+            <p className="header-subtitle">Panduan Baca Bulan Ini</p>
+          </div>
+
+          <GuideList />
         </div>
-
-        <GuideList />
-      </>
-    </Fade>
+      </Fade>
+    </>
   )
 }
 

@@ -9,6 +9,7 @@ import {
   Typography,
   Grid,
   Fab,
+  Fade,
 } from '@material-ui/core'
 import Skeleton from '@material-ui/lab/Skeleton'
 import moment from 'moment'
@@ -58,85 +59,89 @@ export const Home = (): JSX.Element => {
       </Head>
 
       {isFetching && <LinearProgress color="secondary" />}
-      <div className="container" style={{ paddingBottom: 90 }}>
-        <h2 className="header-title" style={{ marginTop: 70 }}>
-          Freedom Life
-        </h2>
-        <p className="header-subtitle">Aplikasi Panduan Baca Alkitab Setahun</p>
+      <Fade in>
+        <div className="container" style={{ paddingBottom: 90 }}>
+          <h2 className="header-title" style={{ marginTop: 70 }}>
+            Freedom Life
+          </h2>
+          <p className="header-subtitle">
+            Aplikasi Panduan Baca Alkitab Setahun
+          </p>
 
-        <div style={{ marginTop: 40 }}>
-          <Card className="styled-card">
-            <CardContent>
-              <Typography className="bold-text primary" variant="h5">
-                Panduan Hari Ini
-              </Typography>
-              <Typography className="light-text primary" variant="subtitle1">
-                {moment().format('dddd, LL')}
-              </Typography>
+          <div style={{ marginTop: 40 }}>
+            <Card className="styled-card">
+              <CardContent>
+                <Typography className="bold-text primary" variant="h5">
+                  Panduan Hari Ini
+                </Typography>
+                <Typography className="light-text primary" variant="subtitle1">
+                  {moment().format('dddd, LL')}
+                </Typography>
 
-              {['PL', 'PB', 'ALT'].map((item) => (
-                <Grid
-                  key={item}
-                  container
-                  direction="row"
-                  alignItems="center"
-                  spacing={2}
-                  style={{ marginTop: 5 }}
-                >
-                  <Grid item xs={3} sm={2} md={2}>
-                    <div className="guide-passage-box">
-                      <h5 className="guide-passage-box-text">{item}</h5>
-                    </div>
-                  </Grid>
-                  <Grid item xs={9} sm={10} md={10}>
-                    {isFetching ? (
-                      <Skeleton variant="text" animation="wave" height={25} />
-                    ) : (
+                {['PL', 'PB', 'ALT'].map((item) => (
+                  <Grid
+                    key={item}
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={2}
+                    style={{ marginTop: 5 }}
+                  >
+                    <Grid item xs={3} sm={2} md={2}>
+                      <div className="guide-passage-box">
+                        <h5 className="guide-passage-box-text">{item}</h5>
+                      </div>
+                    </Grid>
+                    <Grid item xs={9} sm={10} md={10}>
+                      {isFetching ? (
+                        <Skeleton variant="text" animation="wave" height={25} />
+                      ) : (
+                        <Typography
+                          className="bold-text primary"
+                          variant="h6"
+                          style={{ fontSize: 17 }}
+                        >
+                          {item === 'PL'
+                            ? guideData.pl_name
+                            : item === 'PB'
+                            ? guideData.pb_name
+                            : item === 'ALT'
+                            ? guideData.alt_name
+                            : 'Tidak ada data'}
+                        </Typography>
+                      )}
                       <Typography
-                        className="bold-text primary"
-                        variant="h6"
-                        style={{ fontSize: 17 }}
+                        className="light-text primary"
+                        variant="subtitle1"
                       >
                         {item === 'PL'
-                          ? guideData.pl_name
+                          ? 'Perjanjian Lama'
                           : item === 'PB'
-                          ? guideData.pb_name
+                          ? 'Perjanjian Baru'
                           : item === 'ALT'
-                          ? guideData.alt_name
-                          : 'Tidak ada data'}
+                          ? 'Tambahan'
+                          : ''}
                       </Typography>
-                    )}
-                    <Typography
-                      className="light-text primary"
-                      variant="subtitle1"
-                    >
-                      {item === 'PL'
-                        ? 'Perjanjian Lama'
-                        : item === 'PB'
-                        ? 'Perjanjian Baru'
-                        : item === 'ALT'
-                        ? 'Tambahan'
-                        : ''}
-                    </Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
-              ))}
+                ))}
 
-              <br />
-              <Fab
-                className="guide-passage-box-fab"
-                size="small"
-                variant="extended"
-                color="primary"
-                onClick={toBible}
-                disabled={isFetching}
-              >
-                Baca
-              </Fab>
-            </CardContent>
-          </Card>
+                <br />
+                <Fab
+                  className="guide-passage-box-fab"
+                  size="small"
+                  variant="extended"
+                  color="primary"
+                  onClick={toBible}
+                  disabled={isFetching}
+                >
+                  Baca
+                </Fab>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
+      </Fade>
     </div>
   )
 }

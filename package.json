@@ -23,8 +23,8 @@
     "dotenv": "^8.2.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
-    "mongoose": "^5.9.28",
-    "next": "9.5.2",
+    "mongoose": "^5.10.4",
+    "next": "9.5.3",
     "next-fonts": "^1.4.0",
     "next-offline": "^5.0.2",
     "next-redux-wrapper": "^6.0.2",
@@ -37,20 +37,20 @@
     "sass": "^1.26.10"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.3",
-    "@testing-library/react": "^10.4.8",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.2",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.13",
     "@types/mongoose": "^5.7.36",
-    "@types/node": "^14.0.27",
-    "@types/react": "^16.9.46",
+    "@types/node": "^14.10.0",
+    "@types/react": "^16.9.49",
     "@types/react-redux": "^7.1.9",
     "@types/testing-library__react": "^10.2.0",
     "babel-jest": "^26.3.0",
-    "husky": "^4.2.5",
-    "jest": "^26.3.0",
-    "jest-watch-typeahead": "^0.6.0",
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.7"
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "jest-watch-typeahead": "^0.6.1",
+    "prettier": "^2.1.1",
+    "typescript": "^4.0.2"
   }
 }
