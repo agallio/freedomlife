@@ -43,7 +43,7 @@ export const Home = (): JSX.Element => {
     gtag.event({
       action: 'to_bible',
       category: 'Bible',
-      label: 'User Read The Bible',
+      label: 'Bible - Read',
       value: `Read Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
     })
     dispatch(setGuideDate(''))

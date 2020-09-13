@@ -68,7 +68,7 @@ const Bible = (): JSX.Element => {
     gtag.event({
       action: 'next_bible',
       category: 'Bible',
-      label: 'User Go To Next Passage',
+      label: 'Bible - Next',
       value: `Next Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
     })
   }
@@ -87,7 +87,7 @@ const Bible = (): JSX.Element => {
     gtag.event({
       action: 'back_bible',
       category: 'Bible',
-      label: 'User Go Back',
+      label: 'Bible - Back',
       value: `Back Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
     })
   }
@@ -100,7 +100,7 @@ const Bible = (): JSX.Element => {
     gtag.event({
       action: `to_passage_${code}`,
       category: 'Bible',
-      label: `User Go To ${name.toUpperCase()}`,
+      label: `Bible - To ${name.toUpperCase()}`,
       value: `Read Bible (${name.toUpperCase()}) in ${moment().format(
         'DD-MM-YYYY HH:mm:ss'
       )}`,
