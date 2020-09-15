@@ -122,6 +122,11 @@ $dark: #121212;
   background-color: #fff !important;
 }
 
+.MuiAppBar-colorSecondary {
+  color: white !important;
+  background-color: #673ab7 !important;
+}
+
 // Dark Mode
 @media (prefers-color-scheme: dark) {
   body {
