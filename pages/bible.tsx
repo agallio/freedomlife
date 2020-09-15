@@ -21,12 +21,20 @@ import BibleBottomBar from '../src/components/Bible/BibleBottomBar'
 import BiblePassageDialog from '../src/components/Bible/BiblePassageDialog'
 import BibleVersionDialog from '../src/components/Bible/BibleVersionDialog'
 
+// Types
+export interface HighlightedText {
+  verse: number
+  content: string
+}
+
 const Bible = (): JSX.Element => {
   // Local State
   const [passageModal, setPassageModal] = useState(false)
   const [versionModal, setVersionModal] = useState(false)
   const [bibleVersion, setBibleVersion] = useState('tb')
   const [passage, setPassage] = useState('pl-1')
+  const [highlighted, setHighlighted] = useState(false)
+  const [highlitedText, setHighlightedText] = useState([] as HighlightedText[])
 
   // Redux Store
   const dispatch = useDispatch()
@@ -212,16 +220,27 @@ const Bible = (): JSX.Element => {
 
         <BibleAppBar
           isFetching={isFetching}
-          appBarTitle={`${appBarTitle()} ${
+          appBarTitle={`${
             bibleVersion !== 'tb' && !isFetching
               ? `(${bibleVersion.toUpperCase()})`
               : ''
-          }`}
+          } ${appBarTitle()}`}
+          bibleVersion={bibleVersion}
+          highlighted={highlighted}
+          highlightedText={highlitedText}
+          setHighlighted={setHighlighted}
+          setHighlightedText={setHighlightedText}
           goBack={() => Router.push('/')}
           openTranslate={() => setVersionModal(true)}
         />
 
-        <BibleTypography isFetching={isFetching} passageArray={passageArray} />
+        <BibleTypography
+          isFetching={isFetching}
+          passageArray={passageArray}
+          highlightedText={highlitedText}
+          setHighlighted={setHighlighted}
+          setHighlightedText={setHighlightedText}
+        />
 
         <BibleBottomBar
           isFetching={isFetching}

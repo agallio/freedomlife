@@ -1,6 +1,7 @@
 import React from 'react'
 import { NextPageContext } from 'next'
 
+// Types
 interface ErrorProps {
   statusCode: number | undefined
 }
