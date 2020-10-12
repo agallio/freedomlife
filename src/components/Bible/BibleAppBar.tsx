@@ -71,26 +71,29 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
     let mapHighlightedContent
     let mapHighlightedVerse
 
-    const highlightedContent = highlightedText.map((item) => item.content)
-    const highlightedVerse = highlightedText.map((item) => item.verse)
-    const sortedHighlightedVerse = highlightedVerse.sort((a, b) => a - b)
-    const checkDiffVerse = sortedHighlightedVerse
+    const sortedHighlightedText = highlightedText.sort(
+      (a, b) => a.verse - b.verse
+    )
+
+    const highlightedContent = sortedHighlightedText.map((item) => item.content)
+    const highlightedVerse = sortedHighlightedText.map((item) => item.verse)
+    const checkDiffVerse = highlightedVerse
       .slice(1)
-      .map((n, i) => n - sortedHighlightedVerse[i])
+      .map((n, i) => n - highlightedVerse[i])
     const isIncreasingSequence = checkDiffVerse.every((value) => value === 1)
 
-    if (sortedHighlightedVerse.length > 1) {
+    if (highlightedVerse.length > 1) {
       if (isIncreasingSequence) {
-        mapHighlightedVerse = `${sortedHighlightedVerse[0]}-${
-          sortedHighlightedVerse[sortedHighlightedVerse.length - 1]
+        mapHighlightedVerse = `${highlightedVerse[0]}-${
+          highlightedVerse[highlightedVerse.length - 1]
         }`
         mapHighlightedContent = highlightedContent.join(' ')
       } else {
-        mapHighlightedVerse = sortedHighlightedVerse.join(', ')
+        mapHighlightedVerse = highlightedVerse.join(', ')
         mapHighlightedContent = highlightedContent.join('\n\n')
       }
     } else {
-      mapHighlightedVerse = sortedHighlightedVerse[0]
+      mapHighlightedVerse = highlightedVerse[0]
       mapHighlightedContent = highlightedContent[0]
     }
 
