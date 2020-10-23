@@ -5,12 +5,43 @@
 .persembahan-button {
   font-family: 'SFProDisplay-Bold', sans-serif !important;
   width: 100% !important;
-  color: white !important;
-  border: 1px solid white !important;
+  color: black !important;
+  border: 1px solid black !important;
+}
+
+.persembahan-text {
+  font-family: 'SFProDisplay-Regular', sans-serif !important;
+  color: black;
+}
+
+.persembahan-block {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (prefers-color-scheme: dark) {
   .persembahan {
     color: white !important;
+  }
+
+  .persembahan-button {
+    font-family: 'SFProDisplay-Bold', sans-serif !important;
+    width: 100% !important;
+    color: white !important;
+    border: 1px solid white !important;
+  }
+
+  .persembahan-text {
+    color: white;
+  }
+
+  .persembahan-block {
+    border: 1px solid white;
   }
 }
