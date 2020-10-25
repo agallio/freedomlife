@@ -67,6 +67,30 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
     setHighlightedText([])
   }
 
+  const fallbackCopyText = async (text: string) => {
+    const textArea = document.createElement('textarea')
+    textArea.value = text
+
+    textArea.style.top = '0'
+    textArea.style.left = '0'
+    textArea.style.position = 'fixed'
+
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      await document.execCommand('copy')
+      textArea.style.display = 'none'
+      setCopiedSnackbar(true)
+      setHighlighted(false)
+      setHighlightedText([])
+    } catch (e) {
+      console.error(e)
+      setCopiedSnackbar(false)
+    }
+  }
+
   const copyText = async () => {
     let mapHighlightedContent
     let mapHighlightedVerse
@@ -95,6 +119,13 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
     } else {
       mapHighlightedVerse = highlightedVerse[0]
       mapHighlightedContent = highlightedContent[0]
+    }
+
+    if (!navigator.clipboard) {
+      fallbackCopyText(
+        `"${mapHighlightedContent}" - ${appBarTitle}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
+      )
+      return
     }
 
     try {

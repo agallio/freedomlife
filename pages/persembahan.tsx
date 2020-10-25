@@ -7,7 +7,34 @@ const Persembahan = (): JSX.Element => {
   const [copiedNumber, setCopiedNumber] = useState(false)
   const [error, setError] = useState(false)
 
+  const fallbackCopyNumber = async (bank: string) => {
+    const textArea = document.createElement('textarea')
+    textArea.value = bank
+
+    textArea.style.top = '0'
+    textArea.style.left = '0'
+    textArea.style.position = 'fixed'
+
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      await document.execCommand('copy')
+      textArea.style.display = 'none'
+      setCopiedNumber(true)
+    } catch (e) {
+      console.error(e)
+      setError(true)
+    }
+  }
+
   const copyNumber = async (bank: string) => {
+    if (!navigator.clipboard) {
+      fallbackCopyNumber(bank === 'cimb' ? '800077521000' : '0600311611')
+      return
+    }
+
     try {
       await navigator.clipboard.writeText(
         bank === 'cimb' ? '800077521000' : '0600311611'
