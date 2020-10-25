@@ -1,12 +1,24 @@
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Card, CardContent, Button, Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
+import { CheckCircle as SuccessIcon } from '@material-ui/icons'
 
 const Persembahan = (): JSX.Element => {
   const [copiedNumber, setCopiedNumber] = useState(false)
   const [error, setError] = useState(false)
+  const [bank, setBank] = useState('')
 
+  // Component Lifecycle
+  useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      setCopiedNumber(false)
+      setBank('')
+    }, 2000)
+    return () => clearTimeout(timeoutId)
+  }, [copiedNumber])
+
+  // Component Methods
   const fallbackCopyNumber = async (bank: string) => {
     const textArea = document.createElement('textarea')
     textArea.value = bank
@@ -30,6 +42,8 @@ const Persembahan = (): JSX.Element => {
   }
 
   const copyNumber = async (bank: string) => {
+    setBank(bank)
+
     if (!navigator.clipboard) {
       fallbackCopyNumber(bank === 'cimb' ? '800077521000' : '0600311611')
       return
@@ -44,14 +58,6 @@ const Persembahan = (): JSX.Element => {
       console.error(e)
       setError(true)
     }
-  }
-
-  const onCopiedNumberClose = (
-    _: SyntheticEvent<Element, Event>,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') return
-    setCopiedNumber(false)
   }
 
   const onErrorClose = (_: SyntheticEvent<Element, Event>, reason?: string) => {
@@ -111,8 +117,13 @@ const Persembahan = (): JSX.Element => {
               variant="outlined"
               className="persembahan-button"
               onClick={() => copyNumber('cimb')}
+              startIcon={
+                copiedNumber && bank === 'cimb' ? <SuccessIcon /> : null
+              }
             >
-              8000-7752-1000
+              {copiedNumber && bank === 'cimb'
+                ? 'Nomor Tersalin!'
+                : '8000-7752-1000'}
             </Button>
             <p className="persembahan-text">
               a/n Gereja Kristen Kemah Daud (Klik Untuk Salin)
@@ -124,8 +135,13 @@ const Persembahan = (): JSX.Element => {
               variant="outlined"
               className="persembahan-button"
               onClick={() => copyNumber('bca')}
+              startIcon={
+                copiedNumber && bank === 'bca' ? <SuccessIcon /> : null
+              }
             >
-              0600-311-611
+              {copiedNumber && bank === 'bca'
+                ? 'Nomor Tersalin!'
+                : '0600-311-611'}
             </Button>
             <p className="persembahan-text">
               a/n Yay Pelita Bangsa (Klik Untuk Salin)
@@ -134,25 +150,10 @@ const Persembahan = (): JSX.Element => {
         </Card>
       </div>
 
-      {/* Copied Snackbar */}
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        open={copiedNumber}
-        autoHideDuration={3000}
-        onClose={onCopiedNumberClose}
-      >
-        <Alert onClose={onCopiedNumberClose} severity="success">
-          Nomor rekening bank tersalin!
-        </Alert>
-      </Snackbar>
-
       {/* Error Snackbar */}
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'center',
         }}
         open={error}
