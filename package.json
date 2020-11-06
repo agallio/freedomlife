@@ -10,6 +10,9 @@
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write **/*.{js,ts,tsx}"
   },
+  "engines": {
+    "node": "12.x.x || 14.x.x"
+  },
   "husky": {
     "hooks": {
       "pre-push": "yarn run type-check"
