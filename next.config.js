@@ -1,11 +1,4 @@
-require('dotenv').config()
-
 const nextConfig = {
-  env: {
-    DB_FL_URI: process.env.DB_FL_URI,
-    DB_BIBLE_URI: process.env.DB_BIBLE_URI,
-    GA_TRACKING_ID: process.env.GA_TRACKING_ID,
-  },
   target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest),
   workboxOpts: {
@@ -36,8 +29,8 @@ const nextConfig = {
 }
 
 module.exports = () => {
+  const withPreact = require('next-plugin-preact')
   const withOffline = require('next-offline')
-  const withFonts = require('next-fonts')
 
-  return withFonts(withOffline(nextConfig))
+  return withPreact(withOffline(nextConfig))
 }

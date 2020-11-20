@@ -1,29 +1,22 @@
-import React from 'react'
 import Router from 'next/router'
-import { useDispatch } from 'react-redux'
-import { Grid, Typography, ButtonBase } from '@material-ui/core'
-import moment from 'moment'
-import 'moment/locale/id'
+import { ButtonBase, Grid, Typography } from '@material-ui/core'
 
-// Redux
-import { Guide } from '../../reducers'
-import { setGuideDate } from '../../actions/guide'
+import { useDispatchGuide } from '../../store'
+import { dayjs } from '../../utils'
 
-interface GuideItemProps {
-  item: Guide
-  index: number
-}
+// Types
+import type { GuideItemProps } from '../../types'
 
-const GuideItem = ({ item, index }: GuideItemProps): JSX.Element => {
-  // Redux Store
-  const dispatch = useDispatch()
+const GuideItem: React.FC<GuideItemProps> = ({ item, index }) => {
+  const guideDispatch = useDispatchGuide()
 
-  // Component Methods
   const toBibleWithDate = (date: string) => {
-    if (moment(date, 'DD-MM-YYYY').isBefore(moment())) {
-      dispatch(setGuideDate(date))
-      Router.push('/bible')
-    }
+    guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
+    Router.push('/bible')
+  }
+
+  const isToday = (date: string) => {
+    return dayjs().format('DD-MM-YYYY') === date
   }
 
   return (
@@ -36,73 +29,50 @@ const GuideItem = ({ item, index }: GuideItemProps): JSX.Element => {
       spacing={4}
     >
       <Grid item xs={4} sm={4} md={4}>
-        <ButtonBase onClick={() => toBibleWithDate(item.date)}>
+        <ButtonBase onClick={() => toBibleWithDate(item.date as string)}>
           <div
-            className={
-              moment().format('DD-MM-YYYY') === item.date
-                ? 'guide-box-primary'
-                : 'guide-box'
-            }
+            className={`guidecard__box${
+              isToday(item.date as string) ? '--primary' : ''
+            }`}
           >
             <Typography
-              className={
-                moment().format('DD-MM-YYYY') === item.date
-                  ? 'bold-text'
-                  : 'bold-text primary'
-              }
-              style={{
-                color:
-                  moment().format('DD-MM-YYYY') === item.date ? '#fff' : '',
-              }}
+              className={`guidecard__box__title${
+                isToday(item.date as string) ? '--primary' : ''
+              }`}
             >
-              {moment(item.date, 'DD-MM-YYYY').format('dddd')}
+              {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
             </Typography>
             <Typography
               variant="h4"
-              className={
-                moment().format('DD-MM-YYYY') === item.date
-                  ? 'bold-text'
-                  : 'bold-text primary'
-              }
-              style={{
-                color:
-                  moment().format('DD-MM-YYYY') === item.date ? '#fff' : '',
-              }}
+              className={`guidecard__box__title${
+                isToday(item.date as string) ? '--primary' : ''
+              }`}
             >
-              {item.date.split('-')[0] || '-'}
+              {item.date?.split('-')[0] || '-'}
             </Typography>
           </div>
         </ButtonBase>
       </Grid>
       <Grid item xs={8} sm={8} md={8}>
         <Typography
-          variant="subtitle1"
-          className={
-            moment().format('DD-MM-YYYY') === item.date
-              ? 'regular-text primary'
-              : 'regular-text'
-          }
+          className={`guidecard__text${
+            isToday(item.date as string) ? '--primary' : ''
+          }`}
         >
           {item.pl_name || '-'}
         </Typography>
         <Typography
-          variant="subtitle1"
-          className={
-            moment().format('DD-MM-YYYY') === item.date
-              ? 'regular-text primary'
-              : 'regular-text'
-          }
+          className={`guidecard__text${
+            isToday(item.date as string) ? '--primary' : ''
+          }`}
         >
           {item.pb_name || '-'}
         </Typography>
         {item.alt_name && (
           <Typography
-            variant="subtitle1"
-            className={
-              moment().format('DD-MM-YYYY') === item.date
-                ? 'regular-text primary'
-                : 'regular-text'
-            }
+            className={`guidecard__text${
+              isToday(item.date as string) ? '--primary' : ''
+            }`}
           >
             {item.alt_name || '-'}
           </Typography>

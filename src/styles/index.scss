@@ -1,42 +1,13 @@
-@import 'home.scss';
-@import 'guide.scss';
-@import 'bible.scss';
-@import 'persembahan.scss';
+@import 'mixins';
 
-// Color Theme
 $primary: #673ab7;
 $secondary: #764ec0;
-// $primary: #d81b60;
-// $secondary: #ec407a;
-$grey: #6e6e6e;
-$dark: #121212;
+$gray: #6e6e6e;
 
-@font-face {
-  font-family: 'SFProDisplay-Bold';
-  src: url('/fonts/SFProDisplay-Bold.ttf');
-  font-weight: bold;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SFProDisplay-Regular';
-  src: url('/fonts/SFProDisplay-Regular.ttf');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SFProDisplay-Light';
-  src: url('/fonts/SFProDisplay-Light.ttf');
-  font-weight: 300;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SFProDisplay-LightItalic';
-  src: url('/fonts/SFProDisplay-LightItalic.ttf');
-  font-weight: 300;
-  font-display: swap;
+body {
+  @media (prefers-color-scheme: dark) {
+    background: #000000 !important;
+  }
 }
 
 .container {
@@ -44,134 +15,92 @@ $dark: #121212;
   max-width: 720px;
   margin: 0 auto;
   padding: 0 8%;
+
+  @include modifier('fluid') {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0;
+  }
 }
 
-.container-fluid {
-  position: relative;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 0;
+.header {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  background: $primary;
+
+  @include element('overlay') {
+    position: absolute;
+    width: 88%;
+    height: 75%;
+    background: $secondary;
+  }
+
+  @include element('title') {
+    font-size: 2.2em;
+    color: white;
+    margin-bottom: 0;
+    font-weight: 700 !important;
+
+    @include modifier('persembahan') {
+      font-size: 2.2em;
+      color: white;
+      margin-bottom: 0;
+      font-weight: 700 !important;
+      margin-top: 60px;
+      margin-bottom: 5px;
+      line-height: 125%;
+
+      @media (min-width: 320px) and (max-width: 425px) {
+        margin-top: 30px !important;
+      }
+    }
+  }
+
+  @include element('subtitle') {
+    font-size: 1.2em;
+    color: white;
+    margin-top: 0;
+    font-weight: 400 !important;
+
+    @media (min-width: 320px) and (max-width: 375px) {
+      font-size: 1em;
+    }
+  }
 }
 
-// Bottom Nav
-.styled-bottom-nav {
+.bottomnav {
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 1;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.14);
-}
+  @include box-shadow(0, 3px, 15px, rgba(0, 0, 0, 0.24));
 
-// Card
-.styled-card {
-  width: 100%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14) !important;
-}
-
-.styled-fluid-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14) !important;
-  border-radius: 25px 25px 0 0 !important;
-}
-
-// Typography
-.primary {
-  color: $primary !important;
-}
-
-.primary-feb {
-  color: #000 !important;
-}
-
-.bold-text {
-  font-family: 'SFProDisplay-Bold', sans-serif !important;
-}
-
-.regular-text {
-  font-family: 'SFProDisplay-Regular', sans-serif !important;
-}
-
-.light-text {
-  font-family: 'SFProDisplay-Light', sans-serif !important;
-}
-
-.light-italic-text {
-  font-family: 'SFProDisplay-LightItalic', sans-serif !important;
-}
-
-.header-title {
-  font-family: 'SFProDisplay-Bold', sans-serif;
-  font-size: 32px;
-  line-height: 36px;
-  color: white;
-  margin-bottom: 0;
-}
-
-.header-subtitle {
-  font-family: 'SFProDisplay-Regular', sans-serif;
-  font-size: 16px;
-  color: white;
-  margin-top: 0;
-}
-
-// Override
-.MuiAppBar-colorPrimary {
-  color: #000 !important;
-  background-color: #fff !important;
-}
-
-.MuiAppBar-colorSecondary {
-  color: white !important;
-  background-color: #673ab7 !important;
-}
-
-// Dark Mode
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000 !important;
-  }
-
-  .styled-card,
-  .styled-bottom-nav {
-    background-color: #121212 !important;
-  }
-
-  // Typography
-  .primary,
-  .primary-feb {
-    color: #fff !important;
-  }
-
-  .regular-text {
-    color: #b3b3b3;
-  }
-
-  // Bottom Nav
-  .styled-bottom-nav {
-    bottom: -1px !important;
-  }
-
-  .styled-bottom-nav-action {
-    color: #adadad !important;
-  }
-
-  .styled-bottom-nav-action.Mui-selected {
-    color: #fff !important;
-  }
-
-  .styled-fluid-card {
+  @media (prefers-color-scheme: dark) {
     background: #121212 !important;
   }
 
-  // Override
-  .MuiAppBar-colorPrimary {
-    color: #fff !important;
-    background-color: #212121 !important;
-  }
+  @include element('action') {
+    @media (prefers-color-scheme: dark) {
+      color: #adadad !important;
 
-  .MuiSkeleton-root {
+      &.Mui-selected {
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+// Overrides
+.MuiSkeleton-root {
+  @media (prefers-color-scheme: dark) {
     background-color: #414141 !important;
   }
 }
+
+@import 'home';
+@import 'guide';
+@import 'bible';
+@import 'persembahan';
+@import 'maintenance';

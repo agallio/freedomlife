@@ -1,12 +1,10 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Skeleton from '@material-ui/lab/Skeleton'
+import { Grid } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab'
 
-interface GuideLoadingProps {
-  item: number
-}
+// Types
+import type { GuideLoadingProps } from '../../types'
 
-const GuideLoading = ({ item }: GuideLoadingProps): JSX.Element => (
+const GuideLoading: React.FC<GuideLoadingProps> = ({ item }) => (
   <Grid
     key={item}
     container

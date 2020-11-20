@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    __source="[object Object]"
+    class="MuiLinearProgress-root MuiLinearProgress-colorSecondary MuiLinearProgress-indeterminate"
+    role="progressbar"
+  >
+    <div
+      class="MuiLinearProgress-bar MuiLinearProgress-barColorSecondary MuiLinearProgress-bar1Indeterminate"
+    />
+    <div
+      class="MuiLinearProgress-bar MuiLinearProgress-bar2Indeterminate MuiLinearProgress-barColorSecondary"
+    />
+  </div>
+  <div
+    __source="[object Object]"
+    class="container"
+    style="opacity: 1; padding-bottom: 90px; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  >
+    <h2
+      __source="[object Object]"
+      class="header__title"
+      data-testid="headerTitle"
+      style="margin-top: 65px;"
+    >
+      FreedomLife
+    </h2>
+    <p
+      __source="[object Object]"
+      class="header__subtitle"
+      data-testid="headerSubtitle"
+    >
+      Aplikasi Panduan Baca Alkitab Setahun
+    </p>
+    <div
+      __source="[object Object]"
+      style="margin-top: 40px;"
+    >
+      <div
+        __source="[object Object]"
+        class="MuiPaper-root MuiCard-root homecard MuiPaper-elevation1 MuiPaper-rounded"
+      >
+        <div
+          __source="[object Object]"
+          class="MuiCardContent-root"
+        >
+          <p
+            __source="[object Object]"
+            class="MuiTypography-root homecard__title MuiTypography-body1"
+            data-testid="homecardTitle"
+            style="font-size: 22px;"
+          >
+            Panduan Hari Ini
+          </p>
+          <p
+            __source="[object Object]"
+            class="MuiTypography-root homecard__subtitle MuiTypography-body1"
+            data-testid="homecardSubtitle"
+          >
+            Jumat, 20 November 2020
+          </p>
+          <div
+            __source="[object Object]"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+            style="margin-top: 5px;"
+          >
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 MuiGrid-grid-md-2"
+            >
+              <div
+                __source="[object Object]"
+                class="homecard__pbox"
+              >
+                <p
+                  __source="[object Object]"
+                  class="homecard__pbox__text"
+                  data-testid="homecardPBox_PL"
+                >
+                  PL
+                </p>
+              </div>
+            </div>
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9 MuiGrid-grid-sm-10 MuiGrid-grid-md-10"
+            >
+              <span
+                __source="[object Object]"
+                class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
+                style="height: 25px;"
+              />
+              <p
+                __source="[object Object]"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
+                data-testid="homecardPSub_PL"
+              >
+                Perjanjian Lama
+              </p>
+            </div>
+          </div>
+          <div
+            __source="[object Object]"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+            style="margin-top: 5px;"
+          >
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 MuiGrid-grid-md-2"
+            >
+              <div
+                __source="[object Object]"
+                class="homecard__pbox"
+              >
+                <p
+                  __source="[object Object]"
+                  class="homecard__pbox__text"
+                  data-testid="homecardPBox_PB"
+                >
+                  PB
+                </p>
+              </div>
+            </div>
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9 MuiGrid-grid-sm-10 MuiGrid-grid-md-10"
+            >
+              <span
+                __source="[object Object]"
+                class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
+                style="height: 25px;"
+              />
+              <p
+                __source="[object Object]"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
+                data-testid="homecardPSub_PB"
+              >
+                Perjanjian Baru
+              </p>
+            </div>
+          </div>
+          <div
+            __source="[object Object]"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
+            style="margin-top: 5px;"
+          >
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-sm-2 MuiGrid-grid-md-2"
+            >
+              <div
+                __source="[object Object]"
+                class="homecard__pbox"
+              >
+                <p
+                  __source="[object Object]"
+                  class="homecard__pbox__text"
+                  data-testid="homecardPBox_ALT"
+                >
+                  ALT
+                </p>
+              </div>
+            </div>
+            <div
+              __source="[object Object]"
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-9 MuiGrid-grid-sm-10 MuiGrid-grid-md-10"
+            >
+              <span
+                __source="[object Object]"
+                class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
+                style="height: 25px;"
+              />
+              <p
+                __source="[object Object]"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
+                data-testid="homecardPSub_ALT"
+              >
+                Tambahan
+              </p>
+            </div>
+          </div>
+          <br
+            __source="[object Object]"
+          />
+          <button
+            __source="[object Object]"
+            class="MuiButtonBase-root MuiFab-root homecard__button MuiFab-extended MuiFab-sizeSmall Mui-disabled MuiFab-primary Mui-disabled"
+            data-testid="homecardButton"
+            disabled=""
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="MuiFab-label"
+            >
+              Baca
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

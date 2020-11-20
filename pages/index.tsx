@@ -1,81 +1,64 @@
-import React, { useEffect } from 'react'
-import Head from 'next/head'
 import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
 import {
-  LinearProgress,
   Card,
   CardContent,
-  Typography,
-  Grid,
   Fab,
   Fade,
+  Grid,
+  LinearProgress,
+  Typography,
 } from '@material-ui/core'
-import Skeleton from '@material-ui/lab/Skeleton'
-import moment from 'moment'
-import 'moment/locale/id'
+import { Skeleton } from '@material-ui/lab'
 
-// Redux
-import { RootState } from '../src/reducers'
-import { fetchGuideToday, setGuideDate } from '../src/actions/guide'
-import { fetchTodayChapter } from '../src/actions/bible'
+import { dayjs, useRequest } from '../src/utils'
+import { useDispatchGuide } from '../src/store'
 
-// Google Tag Manager
-import * as gtag from '../src/utils/gtag'
+// Types
+import type { ApiResponse, GuideDataResponse } from '../src/types'
 
-export const Home = (): JSX.Element => {
-  // Redux Store
-  const dispatch = useDispatch()
-  const guide = useSelector((state: RootState) => state.guide)
+export const Home: React.FC = () => {
+  const guideDispatch = useDispatchGuide()
 
-  // Redux Deconstructor
-  const { isFetching, guideData } = guide
+  const { data } = useRequest<ApiResponse<GuideDataResponse>>({
+    url: '/api/guide/today',
+  })
 
-  // Component Lifecycle
-  useEffect(() => {
-    if (guideData.date !== moment().format('DD-MM-YYYY')) {
-      dispatch(fetchGuideToday())
-    }
-  }, [])
-
-  // Component Methods
   const toBible = () => {
-    gtag.event({
-      action: 'to_bible',
-      category: 'Bible',
-      label: 'Bible - Read',
-      value: `Read Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
-    })
-    dispatch(setGuideDate(''))
-    dispatch(fetchTodayChapter('tb'))
+    guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     Router.push('/bible')
   }
 
   return (
-    <div>
-      <Head>
-        <title>FreedomLife</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {isFetching && <LinearProgress color="secondary" />}
+    <>
+      {!data && <LinearProgress color="secondary" />}
       <Fade in>
         <div className="container" style={{ paddingBottom: 90 }}>
-          <h2 className="header-title" style={{ marginTop: 70 }}>
-            Freedom Life
+          <h2
+            className="header__title"
+            data-testid="headerTitle"
+            style={{ marginTop: 65 }}
+          >
+            FreedomLife
           </h2>
-          <p className="header-subtitle">
+          <p className="header__subtitle" data-testid="headerSubtitle">
             Aplikasi Panduan Baca Alkitab Setahun
           </p>
 
           <div style={{ marginTop: 40 }}>
-            <Card className="styled-card">
+            <Card className="homecard">
               <CardContent>
-                <Typography className="bold-text primary" variant="h5">
+                <Typography
+                  className="homecard__title"
+                  data-testid="homecardTitle"
+                  style={{ fontSize: 22 }}
+                >
                   Panduan Hari Ini
                 </Typography>
-                <Typography className="light-text primary" variant="subtitle1">
-                  {moment().format('dddd, LL')}
+                <Typography
+                  className="homecard__subtitle"
+                  data-testid="homecardSubtitle"
+                >
+                  {dayjs().format('dddd, DD MMMM YYYY')}
                 </Typography>
 
                 {['PL', 'PB', 'ALT'].map((item) => (
@@ -88,31 +71,35 @@ export const Home = (): JSX.Element => {
                     style={{ marginTop: 5 }}
                   >
                     <Grid item xs={3} sm={2} md={2}>
-                      <div className="guide-passage-box">
-                        <h5 className="guide-passage-box-text">{item}</h5>
+                      <div className="homecard__pbox">
+                        <p
+                          className="homecard__pbox__text"
+                          data-testid={`homecardPBox_${item}`}
+                        >
+                          {item}
+                        </p>
                       </div>
                     </Grid>
                     <Grid item xs={9} sm={10} md={10}>
-                      {isFetching ? (
+                      {!data ? (
                         <Skeleton variant="text" animation="wave" height={25} />
                       ) : (
                         <Typography
-                          className="bold-text primary"
-                          variant="h6"
+                          className="homecard__title"
                           style={{ fontSize: 17 }}
                         >
                           {item === 'PL'
-                            ? guideData.pl_name
+                            ? data.data?.pl_name
                             : item === 'PB'
-                            ? guideData.pb_name
+                            ? data.data?.pb_name
                             : item === 'ALT'
-                            ? guideData.alt_name
+                            ? data.data?.alt_name
                             : 'Tidak ada data'}
                         </Typography>
                       )}
                       <Typography
-                        className="light-text primary"
-                        variant="subtitle1"
+                        className="homecard__subtitle"
+                        data-testid={`homecardPSub_${item}`}
                       >
                         {item === 'PL'
                           ? 'Perjanjian Lama'
@@ -128,12 +115,13 @@ export const Home = (): JSX.Element => {
 
                 <br />
                 <Fab
-                  className="guide-passage-box-fab"
+                  className="homecard__button"
                   size="small"
                   variant="extended"
                   color="primary"
                   onClick={toBible}
-                  disabled={isFetching}
+                  disabled={!data}
+                  data-testid="homecardButton"
                 >
                   Baca
                 </Fab>
@@ -142,7 +130,7 @@ export const Home = (): JSX.Element => {
           </div>
         </div>
       </Fade>
-    </div>
+    </>
   )
 }
 

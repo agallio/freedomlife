@@ -1,49 +1,39 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 import Head from 'next/head'
-import Router, { useRouter } from 'next/router'
-import { Provider } from 'react-redux'
-import { ThemeProvider } from '@material-ui/core/styles'
 import {
-  CssBaseline,
-  Fade,
   BottomNavigation,
   BottomNavigationAction,
+  CssBaseline,
+  Fade,
+  ThemeProvider,
 } from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/HomeRounded'
 import BookIcon from '@material-ui/icons/BookRounded'
 
-// Styling
+// Store
+import StateProvider from '../src/store'
+
+// Types
+import type { AppProps } from 'next/app'
+
+// Styles
 import theme from '../src/theme'
 import '../src/styles/index.scss'
 
-// Redux Store
-import configureStore from '../src/store'
-
-// Google Tag Manager
-import * as gtag from '../src/utils/gtag'
-
-const store = configureStore()
-
-const MyApp = (props: any) => {
-  const { Component, pageProps } = props
-
-  const router = useRouter()
-
+const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')!
+    const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles)
+      jssStyles.parentElement?.removeChild(jssStyles)
     }
   }, [])
 
-  const navOnChange = (e: React.ChangeEvent<{}>, value: any) => {
+  const navOnChange = (e: React.ChangeEvent<unknown>, value: any) => {
     router.push(`${value}`)
   }
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>FreedomLife</title>
         <meta
@@ -59,57 +49,49 @@ const MyApp = (props: any) => {
         <meta name="theme-color" content={theme.palette.primary.main} />
         <meta
           name="description"
-          content="FreedomLife, Aplikasi panduan baca Alkitab setahun habis."
+          content="FreedomLife, Aplikasi Panduan Baca Alkitab Setahun."
         />
       </Head>
-      <Provider store={store}>
+      <StateProvider>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Fade in>
-            {router.pathname === '/bible' ? (
+            {router.pathname === '/bible' ||
+            router.pathname === '/_error' ||
+            router.pathname === '/maintenance' ? (
               <Component {...pageProps} />
             ) : (
-              <div className="jumbo-header">
-                <div className="jumbo-header-overlay"></div>
+              <div className="header">
+                <div className="header__overlay" />
                 <Component {...pageProps} />
-                {router.pathname !== '/_error' &&
-                  router.pathname !== '/persembahan' && (
-                    <BottomNavigation
-                      showLabels
-                      value={router.pathname}
-                      onChange={navOnChange}
-                      className="styled-bottom-nav"
-                    >
-                      <BottomNavigationAction
-                        className="styled-bottom-nav-action"
-                        label="Beranda"
-                        value="/"
-                        icon={<HomeIcon />}
-                      ></BottomNavigationAction>
-                      <BottomNavigationAction
-                        className="styled-bottom-nav-action"
-                        label="Panduan"
-                        value="/guide"
-                        icon={<BookIcon />}
-                      ></BottomNavigationAction>
-                    </BottomNavigation>
-                  )}
+                {router.pathname !== '/persembahan' && (
+                  <BottomNavigation
+                    showLabels
+                    value={router.pathname}
+                    onChange={navOnChange}
+                    className="bottomnav"
+                  >
+                    <BottomNavigationAction
+                      className="bottomnav__action"
+                      label="Beranda"
+                      value="/"
+                      icon={<HomeIcon />}
+                    ></BottomNavigationAction>
+                    <BottomNavigationAction
+                      className="bottomnav__action"
+                      label="Panduan"
+                      value="/guide"
+                      icon={<BookIcon />}
+                    ></BottomNavigationAction>
+                  </BottomNavigation>
+                )}
               </div>
             )}
           </Fade>
         </ThemeProvider>
-      </Provider>
-    </React.Fragment>
+      </StateProvider>
+    </>
   )
-}
-
-// Google Analytics (Page View)
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url))
-
-MyApp.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
 }
 
 export default MyApp

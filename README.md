@@ -12,9 +12,8 @@ FreedomLife is a bible reading guide app. Users can read the bible in various tr
 
 | Technology | Version          |
 | ---------- | ---------------- |
-| Node       | LTS (10 or 12)   |
+| Node       | LTS (12 or 14)   |
 | Yarn       | 1.22.4 or Higher |
-| NPM        | 6.14.4 or Higher |
 
 ### Environment Variables
 
@@ -49,9 +48,9 @@ $ yarn start # or npm run start
 | ---------------------------------------------------------- |
 | [Next.js](https://nextjs.org/)                             |
 | [TypeScript](https://www.typescriptlang.org/)              |
-| [Redux](https://redux.js.org/)                             |
-| [Redux Saga](https://redux-saga.js.org/)                   |
+| [Preact](https://preactjs.com/)                            |
 | [Material-UI](https://material-ui.com/)                    |
+| [useSWR](https://swr.vercel.app/)                          |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |
 | [MongoDB](https://www.mongodb.com/)                        |

@@ -1,44 +1,35 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { AppBar, Toolbar, IconButton, Fab } from '@material-ui/core'
+import { AppBar, Fab, IconButton, Toolbar } from '@material-ui/core'
 import {
   ArrowBackIos as BackIosIcon,
   ArrowForwardIos as NextIosIcon,
 } from '@material-ui/icons'
 
-// Redux
-import { RootState } from '../../reducers'
+import { useGuide } from '../../store'
 
-interface BibleBottomBarProps {
-  isFetching: boolean
-  passage: string
-  altList: number[]
-  backPassage: () => void
-  nextPassage: () => void
-  openPassageModal: () => void
-}
+// Types
+import type { BibleBottomBarProps } from '../../types'
 
-const BibleBottomBar = ({
-  isFetching,
+const BibleBottomBar: React.FC<BibleBottomBarProps> = ({
+  data,
   passage,
   altList,
   backPassage,
   nextPassage,
   openPassageModal,
-}: BibleBottomBarProps): JSX.Element => {
-  const guideData = useSelector((state: RootState) => state.guide.guideData)
+}) => {
+  const { guideData } = useGuide()
 
   return (
     <AppBar
+      className="bible__appbar--bottom"
       position="fixed"
-      color="primary"
       style={{ top: 'auto', bottom: -1 }}
     >
       <Toolbar>
         <IconButton
           edge="start"
           color="inherit"
-          disabled={isFetching || passage === 'pl-1'}
+          disabled={!data || passage === 'pl-1'}
           onClick={backPassage}
         >
           <BackIosIcon />
@@ -53,10 +44,10 @@ const BibleBottomBar = ({
             right: 0,
             margin: '0 auto',
           }}
-          disabled={isFetching}
+          disabled={!data}
           onClick={openPassageModal}
         >
-          {isFetching ? '' : passage.toUpperCase()}
+          {!data ? '' : passage.toUpperCase()}
         </Fab>
         <div
           style={{
@@ -67,7 +58,7 @@ const BibleBottomBar = ({
           edge="end"
           color="inherit"
           disabled={
-            isFetching
+            !data || !guideData
               ? true
               : guideData.alt_name
               ? altList.length > 1
