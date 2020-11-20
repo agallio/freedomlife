@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
                 <Typography
                   className="homecard__title"
                   data-testid="homecardTitle"
-                  variant="h5"
+                  style={{ fontSize: '1.5rem !important', lineHeight: 1 }}
                 >
                   Panduan Hari Ini
                 </Typography>
@@ -73,12 +73,12 @@ export const Home: React.FC = () => {
                   >
                     <Grid item xs={3} sm={2} md={2}>
                       <div className="homecard__pbox">
-                        <h5
+                        <p
                           className="homecard__pbox__text"
                           data-testid={`homecardPBox_${item}`}
                         >
                           {item}
-                        </h5>
+                        </p>
                       </div>
                     </Grid>
                     <Grid item xs={9} sm={10} md={10}>
