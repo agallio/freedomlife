@@ -1,5 +1,3 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
 import {
   Dialog,
   DialogTitle,
@@ -8,19 +6,12 @@ import {
   ListItemText,
 } from '@material-ui/core'
 
-import { RootState } from '../../reducers'
+import { useGuide } from '../../store'
 
-interface BiblePassageDialogProps {
-  passageModal: boolean
-  plSpaceSplit: string[]
-  altSpaceSplit: string[]
-  plList: number[]
-  altList: number[]
-  changePassage: (name: string, code: string) => void
-  closePassageModal: () => void
-}
+// Types
+import type { BiblePassageDialogProps } from '../../types'
 
-const BiblePassageDialog = ({
+const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
   passageModal,
   plSpaceSplit,
   altSpaceSplit,
@@ -28,18 +19,19 @@ const BiblePassageDialog = ({
   altList,
   changePassage,
   closePassageModal,
-}: BiblePassageDialogProps): JSX.Element => {
-  const guideData = useSelector((state: RootState) => state.guide.guideData)
+}) => {
+  const { guideData } = useGuide()
 
   return (
     <Dialog
       onClose={closePassageModal}
       open={passageModal}
-      PaperProps={{ className: 'modal-passage' }}
+      PaperProps={{ className: 'bible__modal' }}
     >
-      <DialogTitle className="modal-passage-title">
+      <DialogTitle className="bible__modal__title">
         Pilih Panduan Baca
       </DialogTitle>
+
       <List>
         <ListItem button>
           <ListItemText
@@ -53,9 +45,9 @@ const BiblePassageDialog = ({
                     plList.length === 0 ? plSpaceSplit[1] : plList[0]
                   }`
             }
-            className="modal-passage-list-text"
+            className="bible__modal__text"
             secondaryTypographyProps={{
-              className: 'modal-passage-list-text-secondary',
+              className: 'bible__modal__text--secondary',
             }}
             onClick={() => changePassage('pl-1', 'pl_1')}
           ></ListItemText>
@@ -69,9 +61,9 @@ const BiblePassageDialog = ({
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
                   : `${plSpaceSplit[0]} ${plList[1]}`
               }
-              className="modal-passage-list-text"
+              className="bible__modal__text"
               secondaryTypographyProps={{
-                className: 'modal-passage-list-text-secondary',
+                className: 'bible__modal__text--secondary',
               }}
               onClick={() => changePassage('pl-2', 'pl_2')}
             ></ListItemText>
@@ -86,9 +78,9 @@ const BiblePassageDialog = ({
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]}`
                   : `${plSpaceSplit[0]} ${plList[2]}`
               }
-              className="modal-passage-list-text"
+              className="bible__modal__text"
               secondaryTypographyProps={{
-                className: 'modal-passage-list-text-secondary',
+                className: 'bible__modal__text--secondary',
               }}
               onClick={() => changePassage('pl-3', 'pl_3')}
             ></ListItemText>
@@ -103,9 +95,9 @@ const BiblePassageDialog = ({
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[3]}`
                   : `${plSpaceSplit[0]} ${plList[3]}`
               }
-              className="modal-passage-list-text"
+              className="bible__modal__text"
               secondaryTypographyProps={{
-                className: 'modal-passage-list-text-secondary',
+                className: 'bible__modal__text--secondary',
               }}
               onClick={() => changePassage('pl-4', 'pl_4')}
             ></ListItemText>
@@ -115,9 +107,9 @@ const BiblePassageDialog = ({
           <ListItemText
             primary="Perjanjian Baru"
             secondary={guideData.pb_name || ''}
-            className="modal-passage-list-text"
+            className="bible__modal__text"
             secondaryTypographyProps={{
-              className: 'modal-passage-list-text-secondary',
+              className: 'bible__modal__text--secondary',
             }}
             onClick={() => changePassage('pb', 'pb')}
           ></ListItemText>
@@ -127,9 +119,9 @@ const BiblePassageDialog = ({
             <ListItemText
               primary="Tambahan"
               secondary={guideData.alt_name}
-              className="modal-passage-list-text"
+              className="bible__modal__text"
               secondaryTypographyProps={{
-                className: 'modal-passage-list-text-secondary',
+                className: 'bible__modal__text--secondary',
               }}
               onClick={() => changePassage('alt-1', 'alt_1')}
             ></ListItemText>
@@ -141,9 +133,9 @@ const BiblePassageDialog = ({
               <ListItemText
                 primary="Tambahan 1"
                 secondary={`${altSpaceSplit[0]} ${altList[0]}`}
-                className="modal-passage-list-text"
+                className="bible__modal__text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary',
+                  className: 'bible__modal__text--secondary',
                 }}
                 onClick={() => changePassage('alt-1', 'alt_1')}
               ></ListItemText>
@@ -152,9 +144,9 @@ const BiblePassageDialog = ({
               <ListItemText
                 primary="Tambahan 2"
                 secondary={`${altSpaceSplit[0]} ${altList[1]}`}
-                className="modal-passage-list-text"
+                className="bible__modal__text"
                 secondaryTypographyProps={{
-                  className: 'modal-passage-list-text-secondary',
+                  className: 'bible__modal__text--secondary',
                 }}
                 onClick={() => changePassage('alt-2', 'alt_2')}
               ></ListItemText>

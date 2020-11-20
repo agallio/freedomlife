@@ -1,7 +1,9 @@
 import { Model, Document, Connection } from 'mongoose'
 import createConnections from './connection'
-import GuideSchema, { GuideInterface } from '../models/guide.model'
-import BibleSchema, { BibleInterface } from '../models/bible.model'
+import GuideSchema, { GuideInterface } from './models/guide.model'
+import BibleSchema, { BibleInterface } from './models/bible.model'
+
+export type { GuideInterface, BibleInterface }
 
 type Connections = {
   db1: Connection
@@ -9,23 +11,23 @@ type Connections = {
 }
 
 export interface Database {
-  GuideModel: Model<Document, {}>
-  TBBibleModel: Model<Document, {}>
-  BISBibleModel: Model<Document, {}>
-  FAYHBibleModel: Model<Document, {}>
-  MSGBibleModel: Model<Document, {}>
-  NKJVBibleModel: Model<Document, {}>
+  GuideModel: Model<Document, unknown>
+  TBBibleModel: Model<Document, unknown>
+  BISBibleModel: Model<Document, unknown>
+  FAYHBibleModel: Model<Document, unknown>
+  MSGBibleModel: Model<Document, unknown>
+  NKJVBibleModel: Model<Document, unknown>
   connections: Connections
 }
 
 let db: Database
 
-export const getDatabase = () => {
+export const getDatabase = (): Promise<Database> => {
   if (db) return Promise.resolve(db)
   return createDatabases()
 }
 
-const createDatabases = async () => {
+const createDatabases = async (): Promise<Database> => {
   const { db1, db2 } = await createConnections()
 
   const GuideModel = db1.model<GuideInterface>('Guides_2020', GuideSchema)

@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
 import { Fade } from '@material-ui/core'
-import moment from 'moment'
-import 'moment/locale/id'
 
-// Redux
-import { RootState } from '../src/reducers'
-import { fetchGuideToday, fetchGuideByDate } from '../src/actions/guide'
-import { fetchTodayChapter, fetchChapterByDate } from '../src/actions/bible'
-
-// Google Tag Manager
-import * as gtag from '../src/utils/gtag'
+import { useGuide } from '../src/store'
+import { useRequest, useFetchedGuide } from '../src/utils'
 
 // Components
 import BibleAppBar from '../src/components/Bible/BibleAppBar'
-import BibleTypography from '../src/components/Bible/BibleTypography'
 import BibleBottomBar from '../src/components/Bible/BibleBottomBar'
-import BiblePassageDialog from '../src/components/Bible/BiblePassageDialog'
+import BibleTypography from '../src/components/Bible/BibleTypography'
 import BibleVersionDialog from '../src/components/Bible/BibleVersionDialog'
+import BiblePassageDialog from '../src/components/Bible/BiblePassageDialog'
 
 // Types
-export interface HighlightedText {
-  verse: number
-  content: string
-}
+import type {
+  ApiResponse,
+  BibleDataResponse,
+  HighlightedText,
+  VerseData,
+} from '../src/types'
 
-const Bible = (): JSX.Element => {
-  // Local State
+export const Bible: React.FC = () => {
   const [passageModal, setPassageModal] = useState(false)
   const [versionModal, setVersionModal] = useState(false)
   const [bibleVersion, setBibleVersion] = useState('tb')
@@ -36,144 +29,117 @@ const Bible = (): JSX.Element => {
   const [highlighted, setHighlighted] = useState(false)
   const [highlitedText, setHighlightedText] = useState([] as HighlightedText[])
 
-  // Redux Store
-  const dispatch = useDispatch()
-  const guide = useSelector((state: RootState) => state.guide)
-  const bible = useSelector((state: RootState) => state.bible)
+  const { error, revalidate: guideRevalidate } = useFetchedGuide()
+  const { guideData, guideDate } = useGuide()
 
-  // Redux Deconstructor
-  const { guideData, guideDate } = guide
-  const { isFetching, chapters } = bible
+  const { data, revalidate } = useRequest<ApiResponse<BibleDataResponse>>({
+    url: `/api/bible${
+      guideDate
+        ? `/${guideDate}${bibleVersion ? `?version=${bibleVersion}` : ''}`
+        : `/today${bibleVersion ? `?version=${bibleVersion}` : ''}`
+    }`,
+  })
 
-  // Component Lifecycle
   useEffect(() => {
-    if (guideDate !== '') {
-      dispatch(fetchGuideByDate(guideDate))
-      dispatch(fetchChapterByDate('tb', guideDate))
-    } else {
-      dispatch(fetchGuideToday())
-      dispatch(fetchTodayChapter('tb'))
+    if (error) {
+      Router.push('/maintenance')
     }
-  }, [])
+  }, [error])
 
-  // Component Methods
-  const topFunction = () => {
+  const scrollToTop = () => {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
   }
 
   const nextPassage = () => {
-    const currChapter = chapters.passage
-    const currPassage = currChapter.find((i) => i === passage)
-    const currPassageIndex = currChapter.findIndex((i) => i === passage)
+    const currChapter = data?.data.passage
+    const currPassage = currChapter?.find((i) => i === passage)
+    const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 
     if (currPassage) {
-      topFunction()
-      setPassage(currChapter[currPassageIndex + 1])
+      scrollToTop()
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      setPassage(currChapter![currPassageIndex! + 1])
     }
-
-    // Google Analytics
-    gtag.event({
-      action: 'next_bible',
-      category: 'Bible',
-      label: 'Bible - Next',
-      value: `Next Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
-    })
   }
 
   const backPassage = () => {
-    const currChapter = chapters.passage
-    const currPassage = currChapter.find((i) => i === passage)
-    const currPassageIndex = currChapter.findIndex((i) => i === passage)
+    const currChapter = data?.data.passage
+    const currPassage = currChapter?.find((i) => i === passage)
+    const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 
     if (currPassage) {
-      topFunction()
-      setPassage(currChapter[currPassageIndex - 1])
+      scrollToTop()
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      setPassage(currChapter![currPassageIndex! - 1])
     }
-
-    // Google Analytics
-    gtag.event({
-      action: 'back_bible',
-      category: 'Bible',
-      label: 'Bible - Back',
-      value: `Back Bible in ${moment().format('DD-MM-YYYY HH:mm:ss')}`,
-    })
   }
 
-  const changePassage = (name: string, code: string) => {
+  const changePassage = (name: string) => {
     setPassage(name)
     setPassageModal(false)
-    topFunction()
-    // Google Analytics
-    gtag.event({
-      action: `to_passage_${code}`,
-      category: 'Bible',
-      label: `Bible - To ${name.toUpperCase()}`,
-      value: `Read Bible (${name.toUpperCase()}) in ${moment().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )}`,
-    })
+    scrollToTop()
   }
 
-  const changeVersion = (version: string) => {
-    if (guideDate) {
-      dispatch(fetchChapterByDate(version, guideDate))
-    } else {
-      dispatch(fetchTodayChapter(version))
-    }
+  const changeVersion = async (version: string) => {
+    revalidate()
+    guideRevalidate()
     setBibleVersion(version)
     setVersionModal(false)
-    topFunction()
+    scrollToTop()
   }
 
-  // Realtime Update Passage Array
-  let passageArray = []
+  let passageArray: VerseData[]
   if (passage.includes('pl')) {
-    passageArray = chapters.pl.find((item) => item.passagePlace === passage)
-      ? chapters.pl.find((item) => item.passagePlace === passage)!.data
-      : []
+    passageArray =
+      data?.data.pl.find((item) => item.passagePlace === passage)?.data || []
   } else if (passage.includes('pb')) {
-    passageArray = chapters.pb.find((item) => item.passagePlace === passage)
-      ? chapters.pb.find((item) => item.passagePlace === passage)!.data
-      : []
+    passageArray =
+      data?.data.pb.find((item) => item.passagePlace === passage)?.data || []
   } else {
-    passageArray = chapters.alt.find((item) => item.passagePlace === passage)
-      ? chapters.alt.find((item) => item.passagePlace === passage)!.data
-      : []
+    passageArray =
+      data?.data.alt.find((item) => item.passagePlace === passage)?.data || []
   }
 
-  const plSpaceSplit = guideData.pl_name.split(' ')
-  const altSpaceSplit = guideData.alt_name.split(' ')
+  const plSpaceSplit = guideData?.pl_name?.split(' ')
+  const altSpaceSplit = guideData?.alt_name?.split(' ')
 
-  const plDashSplit =
-    plSpaceSplit.length === 3
-      ? plSpaceSplit[2] !== undefined
-        ? plSpaceSplit[2].split('-')
+  let plDashSplit: string[]
+  const plList: number[] = []
+  if (plSpaceSplit) {
+    plDashSplit =
+      plSpaceSplit.length === 3
+        ? plSpaceSplit[2] !== undefined
+          ? plSpaceSplit[2].split('-')
+          : []
+        : plSpaceSplit[1] !== undefined
+        ? plSpaceSplit[1].split('-')
         : []
-      : plSpaceSplit[1] !== undefined
-      ? plSpaceSplit[1].split('-')
-      : []
-  let plList: number[] = []
-  for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
-    plList.push(i)
+    for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
+      plList.push(i)
+    }
   }
 
-  const altDashSplit =
-    altSpaceSplit.length !== 0
-      ? altSpaceSplit[1] !== undefined
-        ? altSpaceSplit[1].split('-')
+  let altDashSplit: string[]
+  const altList: number[] = []
+  if (altSpaceSplit) {
+    altDashSplit =
+      altSpaceSplit.length !== 0
+        ? altSpaceSplit[1] !== undefined
+          ? altSpaceSplit[1].split('-')
+          : []
         : []
-      : []
-  let altList: number[] = []
-  for (let i = Number(altDashSplit[0]); i <= Number(altDashSplit[1]); i++) {
-    altList.push(i)
+    for (let i = Number(altDashSplit[0]); i <= Number(altDashSplit[1]); i++) {
+      altList.push(i)
+    }
   }
 
-  // Passage Title
-  const appBarTitle = (): string => {
-    if (isFetching) {
+  const appBarTitle = (): string | undefined => {
+    if (!data || !guideData) {
       return 'Memuat'
-    } else {
+    }
+
+    if (plSpaceSplit && altSpaceSplit) {
       switch (passage) {
         case 'pl-1':
           return plSpaceSplit.length === 3
@@ -192,7 +158,7 @@ const Bible = (): JSX.Element => {
             ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]} `
             : `${plSpaceSplit[0]} ${plList[2]} `
         case 'pb':
-          return guideData.pb_name
+          return guideData.pb_name as string
         case 'alt-1':
           return altList.length > 1
             ? `${altSpaceSplit[0]} ${altList[0]}`
@@ -212,62 +178,68 @@ const Bible = (): JSX.Element => {
   }
 
   return (
-    <Fade in>
-      <div className="bible-container">
-        <Head>
-          <title>Pembacaan Firman | FreedomLife</title>
-        </Head>
+    <>
+      <Head>
+        <title>Pembacaan Firman | FreedomLife</title>
+      </Head>
 
-        <BibleAppBar
-          isFetching={isFetching}
-          appBarTitle={`${
-            bibleVersion !== 'tb' && !isFetching
-              ? `(${bibleVersion.toUpperCase()})`
-              : ''
-          } ${appBarTitle()}`}
-          bibleVersion={bibleVersion}
-          highlighted={highlighted}
-          highlightedText={highlitedText}
-          setHighlighted={setHighlighted}
-          setHighlightedText={setHighlightedText}
-          goBack={() => Router.push('/')}
-          openTranslate={() => setVersionModal(true)}
-        />
+      <Fade in>
+        <div className="bible">
+          <BibleAppBar
+            data={data}
+            appBarTitle={`${
+              bibleVersion !== 'tb' && data && guideData
+                ? `(${bibleVersion.toUpperCase()})`
+                : ''
+            } ${appBarTitle()}`}
+            bibleVersion={bibleVersion}
+            highlighted={highlighted}
+            highlightedText={highlitedText}
+            setHighlighted={setHighlighted}
+            setHighlightedText={setHighlightedText}
+            goBack={() => Router.push('/')}
+            openTranslate={() => setVersionModal(true)}
+          />
 
-        <BibleTypography
-          isFetching={isFetching}
-          passageArray={passageArray}
-          highlightedText={highlitedText}
-          setHighlighted={setHighlighted}
-          setHighlightedText={setHighlightedText}
-        />
+          <BibleTypography
+            data={data}
+            passageArray={passageArray}
+            highlightedText={highlitedText}
+            setHighlighted={setHighlighted}
+            setHighlightedText={setHighlightedText}
+          />
 
-        <BibleBottomBar
-          isFetching={isFetching}
-          passage={passage}
-          altList={altList}
-          backPassage={backPassage}
-          nextPassage={nextPassage}
-          openPassageModal={() => setPassageModal(true)}
-        />
+          <BibleBottomBar
+            data={data}
+            passage={passage}
+            altList={altList}
+            backPassage={backPassage}
+            nextPassage={nextPassage}
+            openPassageModal={() => setPassageModal(true)}
+          />
 
-        <BiblePassageDialog
-          passageModal={passageModal}
-          plSpaceSplit={plSpaceSplit}
-          altSpaceSplit={altSpaceSplit}
-          plList={plList}
-          altList={altList}
-          changePassage={changePassage}
-          closePassageModal={() => setPassageModal(false)}
-        />
+          {data && guideData && (
+            <>
+              <BiblePassageDialog
+                passageModal={passageModal}
+                plSpaceSplit={plSpaceSplit as string[]}
+                altSpaceSplit={altSpaceSplit as string[]}
+                plList={plList}
+                altList={altList}
+                changePassage={changePassage}
+                closePassageModal={() => setPassageModal(false)}
+              />
 
-        <BibleVersionDialog
-          versionModal={versionModal}
-          changeVersion={changeVersion}
-          closeVersionModal={() => setVersionModal(false)}
-        />
-      </div>
-    </Fade>
+              <BibleVersionDialog
+                versionModal={versionModal}
+                changeVersion={changeVersion}
+                closeVersionModal={() => setVersionModal(false)}
+              />
+            </>
+          )}
+        </div>
+      </Fade>
+    </>
   )
 }
 

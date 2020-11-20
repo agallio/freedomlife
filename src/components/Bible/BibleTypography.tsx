@@ -1,38 +1,25 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Typography } from '@material-ui/core'
-
-// Redux
-import { ContentData } from '../../reducers'
 
 // Components
 import BibleLoading from './BibleLoading'
 
 // Types
-import { HighlightedText } from '../../../pages/bible'
+import type { BibleTypographyProps } from '../../types'
 
-interface BibleTypographyProps {
-  isFetching: boolean
-  passageArray: ContentData[]
-  highlightedText: HighlightedText[]
-  setHighlighted: React.Dispatch<React.SetStateAction<boolean>>
-  setHighlightedText: React.Dispatch<React.SetStateAction<HighlightedText[]>>
-}
-
-const BibleTypography = ({
-  isFetching,
+const BibleTypography: React.FC<BibleTypographyProps> = ({
+  data,
   passageArray,
   highlightedText,
   setHighlighted,
   setHighlightedText,
-}: BibleTypographyProps) => {
-  // Component Lifecycle
+}) => {
   useEffect(() => {
     if (highlightedText.length === 0) {
       setHighlighted(false)
     }
   }, [highlightedText])
 
-  // Component Methods
   const highlightText = (verse: number, content: string) => {
     if (highlightedText.find((item) => item.verse === verse)) {
       setHighlightedText(highlightedText.filter((item) => item.verse !== verse))
@@ -43,8 +30,8 @@ const BibleTypography = ({
   }
 
   return (
-    <div className={isFetching ? 'bible-passage-loading' : 'bible-passage'}>
-      {isFetching ? (
+    <div className={`bible__verse${!data ? '--loading' : ''}`}>
+      {!data ? (
         <BibleLoading />
       ) : (
         passageArray.map((item, index) => {
@@ -52,7 +39,7 @@ const BibleTypography = ({
             return (
               <Typography
                 key={index}
-                className="bold-text bible-title"
+                className="bible__text__title"
                 variant="h5"
               >
                 {item.content || ''}
@@ -62,10 +49,12 @@ const BibleTypography = ({
             return (
               <Typography
                 key={index}
-                className="regular-text bible-verse"
+                className="bible__text__verse"
                 onClick={() => highlightText(item.verse, item.content)}
               >
-                <sup className="bible-verse-sup">{item.verse || ''}</sup>{' '}
+                <sup className="bible__text__verse__sup">
+                  {item.verse || ''}
+                </sup>{' '}
                 <span
                   style={{
                     textDecoration: highlightedText.find(

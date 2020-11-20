@@ -1,39 +1,25 @@
-import React, { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import {
   AppBar,
-  Toolbar,
   IconButton,
-  Typography,
   Slide,
   Snackbar,
+  Toolbar,
+  Typography,
   useScrollTrigger,
 } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
 import {
   ArrowBack as BackIcon,
   Translate as TranslateIcon,
   Close as CloseIcon,
   FileCopy as CopyIcon,
 } from '@material-ui/icons'
+import { Alert } from '@material-ui/lab'
 
 // Types
-import { HighlightedText } from '../../../pages/bible'
+import type { BibleAppBarProps } from '../../types'
 
-interface BibleAppBarProps {
-  isFetching: boolean
-  appBarTitle: string
-  bibleVersion: string
-  highlighted: boolean
-  highlightedText: HighlightedText[]
-  children?: React.ReactElement
-  setHighlighted: React.Dispatch<React.SetStateAction<boolean>>
-  setHighlightedText: React.Dispatch<React.SetStateAction<HighlightedText[]>>
-  goBack: () => void
-  openTranslate: () => void
-  window?: () => Window
-}
-
-const HideOnScrollTop = (props: BibleAppBarProps): JSX.Element => {
+const HideOnScrollTop: React.FC<BibleAppBarProps> = (props) => {
   const { children, window } = props
   const trigger = useScrollTrigger({ target: window ? window() : undefined })
 
@@ -44,10 +30,9 @@ const HideOnScrollTop = (props: BibleAppBarProps): JSX.Element => {
   )
 }
 
-const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
-  // Component Props
+const BibleAppBar: React.FC<BibleAppBarProps> = (props) => {
   const {
-    isFetching,
+    data,
     appBarTitle,
     bibleVersion,
     highlighted,
@@ -58,10 +43,8 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
     openTranslate,
   } = props
 
-  // State
   const [copiedSnackbar, setCopiedSnackbar] = useState(false)
 
-  // Component Methods
   const removeHighlight = () => {
     setHighlighted(false)
     setHighlightedText([])
@@ -152,7 +135,7 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
   return (
     <>
       {highlighted ? (
-        <AppBar color="secondary">
+        <AppBar color="primary">
           <Toolbar>
             <IconButton
               edge="start"
@@ -173,7 +156,7 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
         </AppBar>
       ) : (
         <HideOnScrollTop {...props}>
-          <AppBar>
+          <AppBar className="bible__appbar">
             <Toolbar>
               <IconButton
                 edge="start"
@@ -190,7 +173,7 @@ const BibleAppBar = (props: BibleAppBarProps): JSX.Element => {
               <IconButton
                 edge="end"
                 color="inherit"
-                disabled={isFetching}
+                disabled={!data}
                 onClick={openTranslate}
               >
                 <TranslateIcon />

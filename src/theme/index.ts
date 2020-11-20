@@ -1,8 +1,15 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { deepPurple, red } from '@material-ui/core/colors'
 
-// Create a theme instance.
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "'Inter'",
+      '-apple-system',
+      'BlinkMacSystemFont',
+      'sans-serif',
+    ].join(','),
+  },
   palette: {
     primary: {
       light: deepPurple[300],

@@ -1,29 +1,43 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import moment from 'moment'
-import 'moment/locale/id'
 
 import { getDatabase } from '../../../src/db'
 
-const guideByDate = async (req: NextApiRequest, res: NextApiResponse) => {
+const guideByDate = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const database = await getDatabase()
   const { GuideModel } = database
 
   const { date } = req.query
 
-  const passageDate = moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY')
+  try {
+    const guide = await GuideModel.findOne({ date })
 
-  GuideModel.find({ date: passageDate })
-    .then((guide: any) => {
+    if (guide) {
       res.json({
-        ...guide[0]._doc,
-        date_name: moment(date, 'DD-MM-YYYY').format('dddd, LL'),
+        status: 200,
+        ok: true,
+        data: guide,
+        error: null,
       })
-      res.end()
+    } else {
+      res.status(404).json({
+        status: 404,
+        ok: false,
+        data: null,
+        error: { message: 'Guide Not Found. (guide/date)' },
+      })
+    }
+  } catch (e) {
+    console.error(e)
+    res.status(500).json({
+      status: 500,
+      ok: false,
+      data: null,
+      error: { message: 'Internal Server Error. (guide/date)' },
     })
-    .catch((err: any) => {
-      console.log(err)
-      res.status(500).json(err)
-    })
+  }
 }
 
 export default guideByDate

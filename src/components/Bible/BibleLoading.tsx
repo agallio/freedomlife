@@ -1,7 +1,7 @@
 import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
 
-const BibleLoading = () => (
+const BibleLoading: React.FC = () => (
   <>
     <Skeleton
       variant="text"

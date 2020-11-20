@@ -1,30 +1,46 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import momentTz from 'moment-timezone'
-import 'moment/locale/id'
 
 import { getDatabase } from '../../../../src/db'
+import { dayjs } from '../../../../src/utils'
 
-const guideByMonth = async (req: NextApiRequest, res: NextApiResponse) => {
+const guideByMonth = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const database = await getDatabase()
   const { GuideModel } = database
 
   const { monthNumber } = req.query
 
-  GuideModel.find({
-    $and: [
-      { month: monthNumber },
-      { year: momentTz.tz('Asia/Jakarta').format('YYYY') },
-    ],
-  })
-    .sort('date')
-    .then((guide: any) => {
-      res.json(guide)
-      res.end()
+  try {
+    const guides = await GuideModel.find({
+      $and: [{ month: monthNumber }, { year: dayjs().format('YYYY') }],
+    }).sort('date')
+
+    if (guides) {
+      res.json({
+        status: 200,
+        ok: true,
+        data: guides,
+        error: null,
+      })
+    } else {
+      res.status(404).json({
+        status: 404,
+        ok: false,
+        data: null,
+        error: { message: 'Guide Not Found. (guide/month)' },
+      })
+    }
+  } catch (e) {
+    console.error(e)
+    res.status(500).json({
+      status: 500,
+      ok: false,
+      data: null,
+      error: { message: 'Internal Server Error. (guide/month)' },
     })
-    .catch((err: any) => {
-      console.log(err)
-      res.status(500).json(err)
-    })
+  }
 }
 
 export default guideByMonth
