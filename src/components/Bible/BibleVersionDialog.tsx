@@ -25,8 +25,8 @@ const BibleVersionDialog: React.FC<BibleVersionDialogProps> = ({
     <List>
       <ListItem button>
         <ListItemText
-          primary="TB"
-          secondary="Terjemahan Baru"
+          primary="Terjemahan Baru"
+          secondary="TB"
           className="bible__modal__text"
           secondaryTypographyProps={{
             className: 'bible__modal__text--secondary',
@@ -36,8 +36,8 @@ const BibleVersionDialog: React.FC<BibleVersionDialogProps> = ({
       </ListItem>
       <ListItem button>
         <ListItemText
-          primary="BIS"
-          secondary="Bahasa Indonesia Sehari-Hari"
+          primary="Bahasa Indonesia Sehari-Hari"
+          secondary="BIS"
           className="bible__modal__text"
           secondaryTypographyProps={{
             className: 'bible__modal__text--secondary',
@@ -47,8 +47,8 @@ const BibleVersionDialog: React.FC<BibleVersionDialogProps> = ({
       </ListItem>
       <ListItem button>
         <ListItemText
-          primary="FAYH"
-          secondary="Firman Allah Yang Hidup"
+          primary="Firman Allah Yang Hidup"
+          secondary="FAYH"
           className="bible__modal__text"
           secondaryTypographyProps={{
             className: 'bible__modal__text--secondary',
@@ -58,8 +58,8 @@ const BibleVersionDialog: React.FC<BibleVersionDialogProps> = ({
       </ListItem>
       <ListItem button>
         <ListItemText
-          primary="MSG"
-          secondary="The Message"
+          primary="The Message"
+          secondary="MSG"
           className="bible__modal__text"
           secondaryTypographyProps={{
             className: 'bible__modal__text--secondary',
@@ -69,8 +69,8 @@ const BibleVersionDialog: React.FC<BibleVersionDialogProps> = ({
       </ListItem>
       <ListItem button>
         <ListItemText
-          primary="NKJV"
-          secondary="New King James Version"
+          primary="New King James Version"
+          secondary="NKJV"
           className="bible__modal__text"
           secondaryTypographyProps={{
             className: 'bible__modal__text--secondary',

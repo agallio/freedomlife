@@ -35,8 +35,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
       <List>
         <ListItem button>
           <ListItemText
-            primary="Perjanjian Lama 1"
-            secondary={
+            primary={
               plSpaceSplit.length === 3
                 ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
                     plList.length === 0 ? plSpaceSplit[2] : plList[0]
@@ -45,6 +44,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                     plList.length === 0 ? plSpaceSplit[1] : plList[0]
                   }`
             }
+            secondary="Perjanjian Lama 1"
             className="bible__modal__text"
             secondaryTypographyProps={{
               className: 'bible__modal__text--secondary',
@@ -55,12 +55,12 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
         {plList.length > 1 && (
           <ListItem button>
             <ListItemText
-              primary="Perjanjian Lama 2"
-              secondary={
+              primary={
                 plSpaceSplit.length === 3
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
                   : `${plSpaceSplit[0]} ${plList[1]}`
               }
+              secondary="Perjanjian Lama 2"
               className="bible__modal__text"
               secondaryTypographyProps={{
                 className: 'bible__modal__text--secondary',
@@ -72,12 +72,12 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
         {plList.length > 2 && (
           <ListItem button>
             <ListItemText
-              primary="Perjanjian Lama 3"
-              secondary={
+              primary={
                 plSpaceSplit.length === 3
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]}`
                   : `${plSpaceSplit[0]} ${plList[2]}`
               }
+              secondary="Perjanjian Lama 3"
               className="bible__modal__text"
               secondaryTypographyProps={{
                 className: 'bible__modal__text--secondary',
@@ -89,12 +89,12 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
         {plList.length > 3 && (
           <ListItem button>
             <ListItemText
-              primary="Perjanjian Lama 4"
-              secondary={
+              primary={
                 plSpaceSplit.length === 3
                   ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[3]}`
                   : `${plSpaceSplit[0]} ${plList[3]}`
               }
+              secondary="Perjanjian Lama 4"
               className="bible__modal__text"
               secondaryTypographyProps={{
                 className: 'bible__modal__text--secondary',
@@ -105,8 +105,8 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
         )}
         <ListItem button>
           <ListItemText
-            primary="Perjanjian Baru"
-            secondary={guideData.pb_name || ''}
+            primary={guideData.pb_name || ''}
+            secondary="Perjanjian Baru"
             className="bible__modal__text"
             secondaryTypographyProps={{
               className: 'bible__modal__text--secondary',
@@ -117,8 +117,8 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
         {guideData.alt_name && altList.length === 0 && (
           <ListItem button>
             <ListItemText
-              primary="Tambahan"
-              secondary={guideData.alt_name}
+              primary={guideData.alt_name}
+              secondary="Tambahan"
               className="bible__modal__text"
               secondaryTypographyProps={{
                 className: 'bible__modal__text--secondary',
@@ -131,8 +131,8 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
           <>
             <ListItem button>
               <ListItemText
-                primary="Tambahan 1"
-                secondary={`${altSpaceSplit[0]} ${altList[0]}`}
+                primary={`${altSpaceSplit[0]} ${altList[0]}`}
+                secondary="Tambahan 1"
                 className="bible__modal__text"
                 secondaryTypographyProps={{
                   className: 'bible__modal__text--secondary',
@@ -142,8 +142,8 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
             </ListItem>
             <ListItem button>
               <ListItemText
-                primary="Tambahan 2"
-                secondary={`${altSpaceSplit[0]} ${altList[1]}`}
+                primary={`${altSpaceSplit[0]} ${altList[1]}`}
+                secondary="Tambahan 2"
                 className="bible__modal__text"
                 secondaryTypographyProps={{
                   className: 'bible__modal__text--secondary',
