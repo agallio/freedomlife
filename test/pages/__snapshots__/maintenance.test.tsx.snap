@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Maintenance Page matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    __source="[object Object]"
+    class="maintenance"
+  >
+    <img
+      __source="[object Object]"
+      alt="logo"
+      class="maintenance__logo"
+      src="icon-512x512.png"
+    />
+    <hr
+      __source="[object Object]"
+      class="MuiDivider-root maintenance__divider MuiDivider-vertical"
+    />
+    <p
+      __source="[object Object]"
+      class="MuiTypography-root maintenance__text MuiTypography-body1"
+      data-testid="maintenanceText"
+    >
+      Situs Sedang Dalam Perbaikan
+    </p>
+  </div>
+</DocumentFragment>
+`;
