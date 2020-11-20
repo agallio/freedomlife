@@ -50,14 +50,13 @@ export const Home: React.FC = () => {
                 <Typography
                   className="homecard__title"
                   data-testid="homecardTitle"
-                  style={{ fontSize: '1.5rem !important', lineHeight: 1 }}
+                  style={{ fontSize: '1.5rem !important' }}
                 >
                   Panduan Hari Ini
                 </Typography>
                 <Typography
                   className="homecard__subtitle"
                   data-testid="homecardSubtitle"
-                  variant="subtitle1"
                 >
                   {dayjs().format('dddd, DD MMMM YYYY')}
                 </Typography>
@@ -87,7 +86,6 @@ export const Home: React.FC = () => {
                       ) : (
                         <Typography
                           className="homecard__title"
-                          variant="h6"
                           style={{ fontSize: 17 }}
                         >
                           {item === 'PL'
@@ -101,7 +99,6 @@ export const Home: React.FC = () => {
                       )}
                       <Typography
                         className="homecard__subtitle"
-                        variant="subtitle1"
                         data-testid={`homecardPSub_${item}`}
                       >
                         {item === 'PL'

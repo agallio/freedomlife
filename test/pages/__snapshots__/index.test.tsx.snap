@@ -50,17 +50,16 @@ exports[`Home Page matches snapshot 1`] = `
             __source="[object Object]"
             class="MuiTypography-root homecard__title MuiTypography-body1"
             data-testid="homecardTitle"
-            style="line-height: 1;"
           >
             Panduan Hari Ini
           </p>
-          <h6
+          <p
             __source="[object Object]"
-            class="MuiTypography-root homecard__subtitle MuiTypography-subtitle1"
+            class="MuiTypography-root homecard__subtitle MuiTypography-body1"
             data-testid="homecardSubtitle"
           >
             Jumat, 20 November 2020
-          </h6>
+          </p>
           <div
             __source="[object Object]"
             class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-align-items-xs-center"
@@ -92,13 +91,13 @@ exports[`Home Page matches snapshot 1`] = `
                 class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
                 style="height: 25px;"
               />
-              <h6
+              <p
                 __source="[object Object]"
-                class="MuiTypography-root homecard__subtitle MuiTypography-subtitle1"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
                 data-testid="homecardPSub_PL"
               >
                 Perjanjian Lama
-              </h6>
+              </p>
             </div>
           </div>
           <div
@@ -132,13 +131,13 @@ exports[`Home Page matches snapshot 1`] = `
                 class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
                 style="height: 25px;"
               />
-              <h6
+              <p
                 __source="[object Object]"
-                class="MuiTypography-root homecard__subtitle MuiTypography-subtitle1"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
                 data-testid="homecardPSub_PB"
               >
                 Perjanjian Baru
-              </h6>
+              </p>
             </div>
           </div>
           <div
@@ -172,13 +171,13 @@ exports[`Home Page matches snapshot 1`] = `
                 class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"
                 style="height: 25px;"
               />
-              <h6
+              <p
                 __source="[object Object]"
-                class="MuiTypography-root homecard__subtitle MuiTypography-subtitle1"
+                class="MuiTypography-root homecard__subtitle MuiTypography-body1"
                 data-testid="homecardPSub_ALT"
               >
                 Tambahan
-              </h6>
+              </p>
             </div>
           </div>
           <br
