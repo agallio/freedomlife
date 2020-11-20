@@ -50,6 +50,7 @@ exports[`Home Page matches snapshot 1`] = `
             __source="[object Object]"
             class="MuiTypography-root homecard__title MuiTypography-body1"
             data-testid="homecardTitle"
+            style="font-size: 22px;"
           >
             Panduan Hari Ini
           </p>

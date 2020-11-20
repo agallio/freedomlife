@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
                 <Typography
                   className="homecard__title"
                   data-testid="homecardTitle"
-                  style={{ fontSize: '1.5rem !important' }}
+                  style={{ fontSize: 22 }}
                 >
                   Panduan Hari Ini
                 </Typography>
