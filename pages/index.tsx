@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 
-import { dayjs, useRequest } from '../src/utils'
+import { gtag, dayjs, useRequest } from '../src/utils'
 import { useDispatchGuide } from '../src/store'
 
 // Types
@@ -26,6 +26,14 @@ export const Home: React.FC = () => {
   const toBible = () => {
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     Router.push('/bible')
+
+    // Google Analytics
+    gtag.event({
+      action: 'to_bible',
+      category: 'Bible',
+      label: 'Bible - Read',
+      value: `Read Bible in ${dayjs().format('DD-MM-YYYY HH:mm:ss')}`,
+    })
   }
 
   return (

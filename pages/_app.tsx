@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
+import Router from 'next/router'
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -9,6 +10,8 @@ import {
 } from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/HomeRounded'
 import BookIcon from '@material-ui/icons/BookRounded'
+
+import { gtag } from '../src/utils'
 
 // Store
 import StateProvider from '../src/store'
@@ -93,5 +96,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     </>
   )
 }
+
+Router.events.on('routeChangeComplete', (url) => gtag.pageview(url))
 
 export default MyApp

@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { Fade } from '@material-ui/core'
 
 import { useGuide } from '../src/store'
-import { useRequest, useFetchedGuide } from '../src/utils'
+import { gtag, dayjs, useRequest, useFetchedGuide } from '../src/utils'
 
 // Components
 import BibleAppBar from '../src/components/Bible/BibleAppBar'
@@ -61,6 +61,14 @@ export const Bible: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setPassage(currChapter![currPassageIndex! + 1])
     }
+
+    // Google Analytics
+    gtag.event({
+      action: 'next_bible',
+      category: 'Bible',
+      label: 'Bible - Next',
+      value: `Next Bible in ${dayjs().format('DD-MM-YYYY HH:mm:ss')}`,
+    })
   }
 
   const backPassage = () => {
@@ -73,12 +81,30 @@ export const Bible: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setPassage(currChapter![currPassageIndex! - 1])
     }
+
+    // Google Analytics
+    gtag.event({
+      action: 'back_bible',
+      category: 'Bible',
+      label: 'Bible - Back',
+      value: `Back Bible in ${dayjs().format('DD-MM-YYYY HH:mm:ss')}`,
+    })
   }
 
-  const changePassage = (name: string) => {
+  const changePassage = (name: string, code: string) => {
     setPassage(name)
     setPassageModal(false)
     scrollToTop()
+
+    // Google Analytics
+    gtag.event({
+      action: `to_passage_${code}`,
+      category: 'Bible',
+      label: `Bible - To ${name.toUpperCase()}`,
+      value: `Read Bible (${name.toUpperCase()}) in ${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )}`,
+    })
   }
 
   const changeVersion = async (version: string) => {
