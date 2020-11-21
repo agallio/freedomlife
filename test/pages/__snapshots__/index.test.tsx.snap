@@ -59,7 +59,7 @@ exports[`Home Page matches snapshot 1`] = `
             class="MuiTypography-root homecard__subtitle MuiTypography-body1"
             data-testid="homecardSubtitle"
           >
-            Sabtu, 21 November 2020
+            Minggu, 22 November 2020
           </p>
           <div
             __source="[object Object]"

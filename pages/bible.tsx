@@ -33,15 +33,14 @@ export const Bible: React.FC = () => {
   const { guideData, guideDate } = useGuide()
 
   const { data, revalidate } = useRequest<ApiResponse<BibleDataResponse>>({
-    url: `/api/bible${
-      guideDate
-        ? `/${guideDate}${bibleVersion ? `?version=${bibleVersion}` : ''}`
-        : `/today${bibleVersion ? `?version=${bibleVersion}` : ''}`
-    }`,
+    url: `/api/bible/${
+      guideDate || dayjs().format('DD-MM-YYYY')
+    }?version=${bibleVersion}`,
   })
 
   useEffect(() => {
     if (error) {
+      console.error(error)
       Router.push('/maintenance')
     }
   }, [error])

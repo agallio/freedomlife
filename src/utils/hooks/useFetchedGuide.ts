@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import { dayjs } from '..'
 import useRequest from './useRequest'
 import { useDispatchGuide, useGuide } from '../../store'
 
@@ -17,7 +18,7 @@ const useFetchedGuide = (): FetchedGuideHooks => {
   const { data, error, isValidating, response, revalidate } = useRequest<
     ApiResponse<GuideDataResponse>
   >({
-    url: `/api/guide/${guideDate ? guideDate : 'today'}`,
+    url: `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`,
   })
 
   useEffect(() => {

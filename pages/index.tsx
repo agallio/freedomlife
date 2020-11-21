@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
   const guideDispatch = useDispatchGuide()
 
   const { data } = useRequest<ApiResponse<GuideDataResponse>>({
-    url: '/api/guide/today',
+    url: `/api/guide/${dayjs().format('DD-MM-YYYY')}`,
   })
 
   const toBible = () => {
