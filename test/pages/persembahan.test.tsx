@@ -2,11 +2,6 @@ import { render } from '../testUtils'
 import { Persembahan } from '../../pages/persembahan'
 
 describe('Persembahan Page', () => {
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Persembahan />, {})
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   describe('Header', () => {
     it('title rendered as "Persembahan & Perpuluhan"', () => {
       const { getByTestId } = render(<Persembahan />, {})

@@ -16,11 +16,6 @@ Object.defineProperty(window, 'matchMedia', {
 })
 
 describe('Maintenance Page', () => {
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Maintenance />, {})
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   it('text value is correct', () => {
     const { getByTestId } = render(<Maintenance />, {})
     const maintenanceText = getByTestId('maintenanceText')

@@ -2,11 +2,6 @@ import { render } from '../testUtils'
 import { Guide } from '../../pages/guide'
 
 describe('Guide Page', () => {
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Guide />, {})
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   describe('Header', () => {
     it('title rendered as "Panduan Baca"', () => {
       const { getByTestId } = render(<Guide />, {})

@@ -3,11 +3,6 @@ import { Home } from '../../pages/index'
 import { dayjs } from '../../src/utils'
 
 describe('Home Page', () => {
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Home />, {})
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   describe('Header', () => {
     it('title rendered as "FreedomLife"', () => {
       const { getByTestId } = render(<Home />, {})
