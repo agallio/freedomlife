@@ -164,38 +164,53 @@ export const Bible: React.FC = () => {
       return 'Memuat'
     }
 
-    if (plSpaceSplit && altSpaceSplit) {
+    if (plSpaceSplit || altSpaceSplit) {
       switch (passage) {
         case 'pl-1':
-          return plSpaceSplit.length === 3
-            ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                plList.length === 0 ? plSpaceSplit[2] : plList[0]
-              }`
-            : `${plSpaceSplit[0]} ${
-                plList.length === 0 ? plSpaceSplit[1] : plList[0]
-              }`
+          if (plSpaceSplit) {
+            return plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
+                  plList.length === 0 ? plSpaceSplit[2] : plList[0]
+                }`
+              : `${plSpaceSplit[0]} ${
+                  plList.length === 0 ? plSpaceSplit[1] : plList[0]
+                }`
+          }
+          return 'Memuat'
         case 'pl-2':
-          return plSpaceSplit.length === 3
-            ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
-            : `${plSpaceSplit[0]} ${plList[1]}`
+          if (plSpaceSplit) {
+            return plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
+              : `${plSpaceSplit[0]} ${plList[1]}`
+          }
+          return 'Memuat'
         case 'pl-3':
-          return plSpaceSplit.length === 3
-            ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]} `
-            : `${plSpaceSplit[0]} ${plList[2]} `
+          if (plSpaceSplit) {
+            return plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]} `
+              : `${plSpaceSplit[0]} ${plList[2]} `
+          }
+          return 'Memuat'
         case 'pb':
           return guideData.pb_name as string
         case 'alt-1':
-          return altList.length > 1
-            ? `${altSpaceSplit[0]} ${altList[0]}`
-            : altSpaceSplit.length > 3
-            ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]} ${altSpaceSplit[3]}`
-            : altSpaceSplit.length > 2
-            ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]}`
-            : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+          if (altSpaceSplit) {
+            return altList.length > 1
+              ? `${altSpaceSplit[0]} ${altList[0]}`
+              : altSpaceSplit.length > 3
+              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]} ${altSpaceSplit[3]}`
+              : altSpaceSplit.length > 2
+              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]}`
+              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+          }
+          return 'Memuat'
         case 'alt-2':
-          return altList.length > 1
-            ? `${altSpaceSplit[0]} ${altList[1]}`
-            : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+          if (altSpaceSplit) {
+            return altList.length > 1
+              ? `${altSpaceSplit[0]} ${altList[1]}`
+              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+          }
+          return 'Memuat'
         default:
           return 'Memuat'
       }
