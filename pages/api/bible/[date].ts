@@ -1,11 +1,11 @@
-import { Model, Document } from 'mongoose'
+import { Model } from 'mongoose'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { getDatabase, GuideInterface, BibleInterface } from '../../../src/db'
 
 const getGuideByDate = async (
   date: string,
-  GuideModel: Model<Document, unknown>
+  GuideModel: Model<GuideInterface, unknown>
 ): Promise<GuideInterface | boolean> => {
   try {
     const guide = (await GuideModel.findOne({
@@ -70,28 +70,28 @@ const bibleToday = async (
     switch (version) {
       case 'tb':
         return TBBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
       case 'bis':
         return BISBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
       case 'fayh':
         return FAYHBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
       case 'msg':
         return MSGBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
       case 'nkjv':
         return NKJVBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
 
       default:
         return TBBibleModel.findOne({
-          $and: [{ abbr }, { chapter }],
+          $and: [{ abbr }, { chapter: String(chapter) }],
         })
     }
   }

@@ -12,7 +12,7 @@ const guideByDate = async (
   const { date } = req.query
 
   try {
-    const guide = await GuideModel.findOne({ date })
+    const guide = await GuideModel.findOne({ date: String(date) })
 
     if (guide) {
       res.json({

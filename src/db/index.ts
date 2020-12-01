@@ -1,4 +1,4 @@
-import { Model, Document, Connection } from 'mongoose'
+import { Model, Connection } from 'mongoose'
 import createConnections from './connection'
 import GuideSchema, { GuideInterface } from './models/guide.model'
 import BibleSchema, { BibleInterface } from './models/bible.model'
@@ -11,12 +11,12 @@ type Connections = {
 }
 
 export interface Database {
-  GuideModel: Model<Document, unknown>
-  TBBibleModel: Model<Document, unknown>
-  BISBibleModel: Model<Document, unknown>
-  FAYHBibleModel: Model<Document, unknown>
-  MSGBibleModel: Model<Document, unknown>
-  NKJVBibleModel: Model<Document, unknown>
+  GuideModel: Model<GuideInterface, unknown>
+  TBBibleModel: Model<BibleInterface, unknown>
+  BISBibleModel: Model<BibleInterface, unknown>
+  FAYHBibleModel: Model<BibleInterface, unknown>
+  MSGBibleModel: Model<BibleInterface, unknown>
+  NKJVBibleModel: Model<BibleInterface, unknown>
   connections: Connections
 }
 

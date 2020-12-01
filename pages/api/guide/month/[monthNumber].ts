@@ -14,7 +14,7 @@ const guideByMonth = async (
 
   try {
     const guides = await GuideModel.find({
-      $and: [{ month: monthNumber }, { year: dayjs().format('YYYY') }],
+      $and: [{ month: String(monthNumber) }, { year: dayjs().format('YYYY') }],
     }).sort('date')
 
     if (guides) {
