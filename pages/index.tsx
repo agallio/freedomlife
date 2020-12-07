@@ -46,7 +46,7 @@ export const Home: React.FC = () => {
             data-testid="headerTitle"
             style={{ marginTop: 65 }}
           >
-            FreedomLife
+            FreedomLife 🎄
           </h2>
           <p className="header__subtitle" data-testid="headerSubtitle">
             Aplikasi Panduan Baca Alkitab Setahun

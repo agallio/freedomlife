@@ -4,10 +4,17 @@ import { dayjs } from '../../src/utils'
 
 describe('Home Page', () => {
   describe('Header', () => {
-    it('title rendered as "FreedomLife"', () => {
+    // it('title rendered as "FreedomLife"', () => {
+    //   const { getByTestId } = render(<Home />, {})
+    //   const headerTitle = getByTestId('headerTitle')
+    //   expect(headerTitle.textContent).toBe('FreedomLife')
+    // })
+
+    // Christmas Edition
+    it('title rendered as "FreedomLife 🎄"', () => {
       const { getByTestId } = render(<Home />, {})
       const headerTitle = getByTestId('headerTitle')
-      expect(headerTitle.textContent).toBe('FreedomLife')
+      expect(headerTitle.textContent).toBe('FreedomLife 🎄')
     })
 
     it('subtitle rendered as "Aplikasi Panduan Baca Alkitab Setahun"', () => {

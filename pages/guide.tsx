@@ -17,7 +17,7 @@ export const Guide: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Panduan Baca | FreedomLife</title>
+        <title>🎄 Panduan Baca | FreedomLife</title>
       </Head>
 
       {!data && <LinearProgress color="secondary" />}
@@ -29,7 +29,7 @@ export const Guide: React.FC = () => {
               data-testid="headerTitle"
               style={{ marginTop: 65 }}
             >
-              Panduan Baca
+              Panduan Baca 🎁
             </h2>
             <p className="header__subtitle" data-testid="headerSubtitle">
               Panduan Baca Bulan Ini

@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { deepPurple, red } from '@material-ui/core/colors'
+import { pink, red } from '@material-ui/core/colors'
 
 const theme = createMuiTheme({
   typography: {
@@ -11,14 +11,20 @@ const theme = createMuiTheme({
     ].join(','),
   },
   palette: {
+    // primary: {
+    //   light: deepPurple[300],
+    //   main: deepPurple[500],
+    //   dark: deepPurple[700],
+    // },
+    // secondary: {
+    //   // main: red.A700,
+    // },
     primary: {
-      light: deepPurple[300],
-      main: deepPurple[500],
-      dark: deepPurple[700],
+      light: '#33a095',
+      main: '#00897b',
+      dark: '#005f56',
     },
-    secondary: {
-      main: red.A700,
-    },
+    secondary: pink,
     error: {
       main: red.A400,
     },

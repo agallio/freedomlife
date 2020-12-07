@@ -220,7 +220,7 @@ export const Bible: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Pembacaan Firman | FreedomLife</title>
+        <title>🎄 Pembacaan Firman | FreedomLife</title>
       </Head>
 
       <Fade in>

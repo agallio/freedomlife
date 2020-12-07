@@ -3,10 +3,17 @@ import { Guide } from '../../pages/guide'
 
 describe('Guide Page', () => {
   describe('Header', () => {
-    it('title rendered as "Panduan Baca"', () => {
+    // it('title rendered as "Panduan Baca"', () => {
+    //   const { getByTestId } = render(<Guide />, {})
+    //   const headerTitle = getByTestId('headerTitle')
+    //   expect(headerTitle.textContent).toBe('Panduan Baca')
+    // })
+
+    // Christmas Edition
+    it('title rendered as "Panduan Baca 🎁"', () => {
       const { getByTestId } = render(<Guide />, {})
       const headerTitle = getByTestId('headerTitle')
-      expect(headerTitle.textContent).toBe('Panduan Baca')
+      expect(headerTitle.textContent).toBe('Panduan Baca 🎁')
     })
 
     it('subtitle rendered as "Panduan Baca Bulan Ini"', () => {

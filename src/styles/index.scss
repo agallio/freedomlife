@@ -1,8 +1,12 @@
 @import 'mixins';
 
-$primary: #673ab7;
-$secondary: #764ec0;
 $gray: #6e6e6e;
+// $primary: #673ab7;
+// $secondary: #764ec0;
+
+// Christmas Edition
+$primary: #00897b;
+$secondary: #33a095;
 
 body {
   @media (prefers-color-scheme: dark) {
