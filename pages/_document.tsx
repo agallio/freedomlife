@@ -8,6 +8,8 @@ import Document, {
 } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 
+import SEO from '../src/components/SEO'
+
 export default class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -45,6 +47,25 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
             rel="stylesheet"
           />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#673ab7" />
+          <meta name="msapplication-TileColor" content="#673ab7" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
@@ -64,6 +85,7 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          <SEO />
           <Main />
           <NextScript />
         </body>

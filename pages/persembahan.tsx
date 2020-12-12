@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { Card, CardContent, Button, Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { CheckCircle as SuccessIcon } from '@material-ui/icons'
+import { NextSeo } from 'next-seo'
 
 export const Persembahan: React.FC = () => {
   const [copiedNumber, setCopiedNumber] = useState(false)
@@ -68,6 +69,25 @@ export const Persembahan: React.FC = () => {
       <Head>
         <title>Persembahan | FreedomLife</title>
       </Head>
+      <NextSeo
+        title="Persembahan | FreedomLife"
+        description={'Persembahan & Perpuluhan'}
+        openGraph={{
+          url: 'https://freedomlife.id/bible',
+          title: 'Persembahan | FreedomLife',
+          description: 'Persembahan & Perpuluhan',
+          site_name: 'FreedomLife',
+          images: [
+            {
+              url: 'http://freedomlife.id/images/og-persembahan.png',
+              alt: 'Persembahan - FreedomLife',
+            },
+          ],
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <div className="container" style={{ paddingBottom: 30 }}>
         <h2 className="header__title--persembahan" data-testid="headerTitle">

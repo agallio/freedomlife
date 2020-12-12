@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import { Fade } from '@material-ui/core'
+import { NextSeo } from 'next-seo'
 
 import { useGuide } from '../src/store'
 import { gtag, dayjs, useRequest, useFetchedGuide } from '../src/utils'
@@ -222,6 +223,25 @@ export const Bible: React.FC = () => {
       <Head>
         <title>🎄 Pembacaan Firman | FreedomLife</title>
       </Head>
+      <NextSeo
+        title="🎄 Pembacaan Firman | FreedomLife"
+        description="Pembacaan Firman Hari Ini"
+        openGraph={{
+          url: 'https://freedomlife.id/bible',
+          title: '🎄 Pembacaan Firman | FreedomLife',
+          description: 'Pembacaan Firman Hari Ini',
+          site_name: 'FreedomLife',
+          images: [
+            {
+              url: 'http://freedomlife.id/images/og-bible.png',
+              alt: 'Pembacaan Firman - FreedomLife',
+            },
+          ],
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       <Fade in>
         <div className="bible">

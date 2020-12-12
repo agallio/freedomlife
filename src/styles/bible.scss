@@ -53,6 +53,7 @@
     @include element('verse') {
       font-size: 14pt !important;
       line-height: 180% !important;
+      cursor: pointer;
 
       @include element('sup') {
         font-size: 10px;

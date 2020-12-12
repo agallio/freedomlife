@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Fade, LinearProgress } from '@material-ui/core'
+import { NextSeo } from 'next-seo'
 
 import { useRequest, dayjs } from '../src/utils'
 
@@ -19,6 +20,25 @@ export const Guide: React.FC = () => {
       <Head>
         <title>🎄 Panduan Baca | FreedomLife</title>
       </Head>
+      <NextSeo
+        title="🎄 Panduan Baca | FreedomLife"
+        description="Panduan Baca Bulan Ini"
+        openGraph={{
+          url: 'https://freedomlife.id/guide',
+          title: '🎄 Panduan Baca | FreedomLife',
+          description: 'Panduan Baca Bulan Ini',
+          site_name: 'FreedomLife',
+          images: [
+            {
+              url: 'http://freedomlife.id/images/og-guide.png',
+              alt: 'Panduan Baca - FreedomLife',
+            },
+          ],
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+      />
 
       {!data && <LinearProgress color="secondary" />}
       <Fade in>
