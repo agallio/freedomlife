@@ -8,8 +8,6 @@ import Document, {
 } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 
-import SEO from '../src/components/SEO'
-
 export default class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -85,7 +83,6 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          <SEO />
           <Main />
           <NextScript />
         </body>

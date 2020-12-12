@@ -11,13 +11,15 @@ import {
 import HomeIcon from '@material-ui/icons/HomeRounded'
 import BookIcon from '@material-ui/icons/BookRounded'
 
+// Types
+import type { AppProps } from 'next/app'
+
+// Utilitites
 import { gtag } from '../src/utils'
+import SEO from '../src/components/SEO'
 
 // Store
 import StateProvider from '../src/store'
-
-// Types
-import type { AppProps } from 'next/app'
 
 // Styles
 import theme from '../src/theme'
@@ -55,6 +57,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
           content="FreedomLife, Aplikasi Panduan Baca Alkitab Setahun."
         />
       </Head>
+      <SEO />
+
       <StateProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
