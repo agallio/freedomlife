@@ -32,14 +32,14 @@ After you get the API keys you can follow these steps below.
 
 ```bash
 # install the dependencies
-$ yarn install # or npm install
+$ yarn install
 
 # development (localhost:3000)
-$ yarn dev # or npm run dev
+$ yarn dev
 
 # build for production and launch server
-$ yarn build # or npm run build
-$ yarn start # or npm run start
+$ yarn build
+$ yarn start
 ```
 
 # What's Inside?
