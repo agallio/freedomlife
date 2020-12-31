@@ -48,7 +48,6 @@ $ yarn start
 | ---------------------------------------------------------- |
 | [Next.js](https://nextjs.org/)                             |
 | [TypeScript](https://www.typescriptlang.org/)              |
-| [Preact](https://preactjs.com/)                            |
 | [Material-UI](https://material-ui.com/)                    |
 | [useSWR](https://swr.vercel.app/)                          |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
@@ -96,4 +95,4 @@ You can also buy me a coffee! 😄 ☕️
 
 # License
 
-MIT License, © 2020, Agallio Samai.
+MIT License, © 2021, Agallio Samai.
