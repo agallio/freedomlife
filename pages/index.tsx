@@ -5,8 +5,8 @@ import {
   Fab,
   Fade,
   Grid,
-  LinearProgress,
   Typography,
+  LinearProgress,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 
@@ -69,7 +69,7 @@ export const Home: React.FC = () => {
                   {dayjs().format('dddd, DD MMMM YYYY')}
                 </Typography>
 
-                {['PL', 'PB', 'ALT'].map((item) => (
+                {['PL', 'PB', 'IN'].map((item) => (
                   <Grid
                     key={item}
                     container
@@ -100,8 +100,8 @@ export const Home: React.FC = () => {
                             ? data.data?.pl_name
                             : item === 'PB'
                             ? data.data?.pb_name
-                            : item === 'ALT'
-                            ? data.data?.alt_name
+                            : item === 'IN'
+                            ? data.data?.in_name
                             : 'Tidak ada data'}
                         </Typography>
                       )}
@@ -113,8 +113,8 @@ export const Home: React.FC = () => {
                           ? 'Perjanjian Lama'
                           : item === 'PB'
                           ? 'Perjanjian Baru'
-                          : item === 'ALT'
-                          ? 'Tambahan'
+                          : item === 'IN'
+                          ? 'Kitab Injil'
                           : ''}
                       </Typography>
                     </Grid>

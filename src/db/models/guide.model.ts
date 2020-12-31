@@ -7,10 +7,10 @@ export interface GuideInterface extends Document {
   date: string
   pl: string
   pb: string
-  alt: string
+  in: string
   pl_name: string
   pb_name: string
-  alt_name: string
+  in_name: string
 }
 
 const guideSchema: Schema = new Schema({
@@ -20,10 +20,10 @@ const guideSchema: Schema = new Schema({
   date: String,
   pl: String,
   pb: String,
-  alt: String,
+  in: String,
   pl_name: String,
   pb_name: String,
-  alt_name: String,
+  in_name: String,
 })
 
 export default guideSchema

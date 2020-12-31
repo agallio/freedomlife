@@ -9,10 +9,10 @@ type GuideInitialState = {
     date?: string
     pl?: string
     pb?: string
-    alt?: string
+    in?: string
     pl_name?: string
     pb_name?: string
-    alt_name?: string
+    in_name?: string
   }
   guideDate: string
 }

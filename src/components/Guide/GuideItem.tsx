@@ -68,13 +68,13 @@ const GuideItem: React.FC<GuideItemProps> = ({ item, index }) => {
         >
           {item.pb_name || '-'}
         </Typography>
-        {item.alt_name && (
+        {item.in_name && (
           <Typography
             className={`guidecard__text${
               isToday(item.date as string) ? '--primary' : ''
             }`}
           >
-            {item.alt_name || '-'}
+            {item.in_name || '-'}
           </Typography>
         )}
       </Grid>

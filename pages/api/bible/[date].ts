@@ -5,6 +5,7 @@ import { getDatabase, GuideInterface, BibleInterface } from '../../../src/db'
 
 const getGuideByDate = async (
   date: string,
+  // @ts-ignore
   GuideModel: Model<GuideInterface, unknown>
 ): Promise<GuideInterface | boolean> => {
   try {
@@ -56,15 +57,15 @@ const bibleToday = async (
 
   const pl = guideByDate.pl
   const pb = guideByDate.pb
-  const alt = guideByDate.alt
+  const inj = guideByDate.in
 
   const plSpaceSplit = pl.split(' ')
   const pbSpaceSplit = pb.split(' ')
-  const altSpaceSplit = alt ? alt.split(' ') : []
+  const injSpaceSplit = inj.split(' ')
 
   const plArr = []
   const pbArr = []
-  const altArr = []
+  const injArr = []
 
   const bibleVersion = (abbr: string, chapter: string | number) => {
     switch (version) {
@@ -235,28 +236,28 @@ const bibleToday = async (
     }
   }
 
-  if (alt && altSpaceSplit.length > 1) {
-    const altDashSplit = altSpaceSplit[1].split('-')
-    const altColonSplit = altSpaceSplit[1].split(':')
+  if (injSpaceSplit.length > 1) {
+    const injDashSplit = injSpaceSplit[1].split('-')
+    const injColonSplit = injSpaceSplit[1].split(':')
 
-    if (altColonSplit.length > 1) {
-      const altColonDashSplit = altColonSplit[1].split('-')
+    if (injColonSplit.length > 1) {
+      const injColonDashSplit = injColonSplit[1].split('-')
 
       try {
         const passage = (await bibleVersion(
-          altSpaceSplit[0],
-          altColonSplit[0]
+          injSpaceSplit[0],
+          injColonSplit[0]
         )) as BibleInterface
 
-        altArr.push({
+        injArr.push({
           version: version || 'tb',
           book: passage.book,
           chapter: passage.chapter,
-          passagePlace: `alt-1`,
+          passagePlace: `in-1`,
           data: passage.verses.filter(
             (item) =>
-              item.verse >= Number(altColonDashSplit[0]) &&
-              item.verse <= Number(altColonDashSplit[1])
+              item.verse >= Number(injColonDashSplit[0]) &&
+              item.verse <= Number(injColonDashSplit[1])
           ),
         })
       } catch (e) {
@@ -265,23 +266,23 @@ const bibleToday = async (
           status: 500,
           ok: false,
           data: null,
-          error: { message: 'Internal Server Error. (bible/today/alt-colon)' },
+          error: { message: 'Internal Server Error. (bible/today/in-colon)' },
         })
       }
-    } else if (altDashSplit.length > 1) {
+    } else if (injDashSplit.length > 1) {
       let place = 1
-      for (let i = Number(altDashSplit[0]); i <= Number(altDashSplit[1]); i++) {
+      for (let i = Number(injDashSplit[0]); i <= Number(injDashSplit[1]); i++) {
         try {
           const passage = (await bibleVersion(
-            altSpaceSplit[0],
+            injSpaceSplit[0],
             i
           )) as BibleInterface
 
-          altArr.push({
+          injArr.push({
             version: version || 'tb',
             book: passage.book,
             chapter: i,
-            passagePlace: `alt-${place++}`,
+            passagePlace: `in-${place++}`,
             data: passage.verses,
           })
         } catch (e) {
@@ -291,7 +292,7 @@ const bibleToday = async (
             ok: false,
             data: null,
             error: {
-              message: `Internal Server Error. (bible/today/alt-${place})`,
+              message: `Internal Server Error. (bible/today/in-${place})`,
             },
           })
         }
@@ -299,15 +300,15 @@ const bibleToday = async (
     } else {
       try {
         const passage = (await bibleVersion(
-          altSpaceSplit[0],
-          altSpaceSplit[1]
+          injSpaceSplit[0],
+          injSpaceSplit[1]
         )) as BibleInterface
 
-        altArr.push({
+        injArr.push({
           version: version || 'tb',
           book: passage.book,
           chapter: passage.chapter,
-          passagePlace: `alt-1`,
+          passagePlace: `in-1`,
           data: passage.verses,
         })
       } catch (e) {
@@ -316,7 +317,7 @@ const bibleToday = async (
           status: 500,
           ok: false,
           data: null,
-          error: { message: 'Internal Server Error. (bible/today/alt)' },
+          error: { message: 'Internal Server Error. (bible/today/in)' },
         })
       }
     }
@@ -327,27 +328,16 @@ const bibleToday = async (
     plList.push(`pl-${i}`)
   }
 
-  const altList = []
-  if (alt) {
-    for (let i = 1; i <= altArr.length; i++) {
-      altList.push(`alt-${i}`)
-    }
+  const injList = []
+  for (let i = 1; i <= injArr.length; i++) {
+    injList.push(`in-${i}`)
   }
 
-  let data
-  if (alt) {
-    data = {
-      passage: [...plList, 'pb', ...altList],
-      pl: [...plArr],
-      pb: [...pbArr],
-      alt: [...altArr],
-    }
-  } else {
-    data = {
-      passage: [...plList, 'pb'],
-      pl: [...plArr],
-      pb: [...pbArr],
-    }
+  const data = {
+    passage: [...plList, 'pb', ...injList],
+    pl: [...plArr],
+    pb: [...pbArr],
+    in: [...injArr],
   }
 
   await res.json({

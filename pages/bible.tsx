@@ -124,11 +124,11 @@ export const Bible: React.FC = () => {
       data?.data.pb.find((item) => item.passagePlace === passage)?.data || []
   } else {
     passageArray =
-      data?.data.alt.find((item) => item.passagePlace === passage)?.data || []
+      data?.data.in.find((item) => item.passagePlace === passage)?.data || []
   }
 
   const plSpaceSplit = guideData?.pl_name?.split(' ')
-  const altSpaceSplit = guideData?.alt_name?.split(' ')
+  const inSpaceSplit = guideData?.in_name?.split(' ')
 
   let plDashSplit: string[]
   const plList: number[] = []
@@ -146,17 +146,17 @@ export const Bible: React.FC = () => {
     }
   }
 
-  let altDashSplit: string[]
-  const altList: number[] = []
-  if (altSpaceSplit) {
-    altDashSplit =
-      altSpaceSplit.length !== 0
-        ? altSpaceSplit[1] !== undefined
-          ? altSpaceSplit[1].split('-')
+  let inDashSplit: string[]
+  const inList: number[] = []
+  if (inSpaceSplit) {
+    inDashSplit =
+      inSpaceSplit.length !== 0
+        ? inSpaceSplit[1] !== undefined
+          ? inSpaceSplit[1].split('-')
           : []
         : []
-    for (let i = Number(altDashSplit[0]); i <= Number(altDashSplit[1]); i++) {
-      altList.push(i)
+    for (let i = Number(inDashSplit[0]); i <= Number(inDashSplit[1]); i++) {
+      inList.push(i)
     }
   }
 
@@ -165,7 +165,7 @@ export const Bible: React.FC = () => {
       return 'Memuat'
     }
 
-    if (plSpaceSplit || altSpaceSplit) {
+    if (plSpaceSplit || inSpaceSplit) {
       switch (passage) {
         case 'pl-1':
           if (plSpaceSplit) {
@@ -194,22 +194,22 @@ export const Bible: React.FC = () => {
           return 'Memuat'
         case 'pb':
           return guideData.pb_name as string
-        case 'alt-1':
-          if (altSpaceSplit) {
-            return altList.length > 1
-              ? `${altSpaceSplit[0]} ${altList[0]}`
-              : altSpaceSplit.length > 3
-              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]} ${altSpaceSplit[3]}`
-              : altSpaceSplit.length > 2
-              ? `${altSpaceSplit[0]} ${altSpaceSplit[1]} ${altSpaceSplit[2]}`
-              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+        case 'in-1':
+          if (inSpaceSplit) {
+            return inList.length > 1
+              ? `${inSpaceSplit[0]} ${inList[0]}`
+              : inSpaceSplit.length > 3
+              ? `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inSpaceSplit[2]} ${inSpaceSplit[3]}`
+              : inSpaceSplit.length > 2
+              ? `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inSpaceSplit[2]}`
+              : `${inSpaceSplit[0]} ${inSpaceSplit[1]}`
           }
           return 'Memuat'
-        case 'alt-2':
-          if (altSpaceSplit) {
-            return altList.length > 1
-              ? `${altSpaceSplit[0]} ${altList[1]}`
-              : `${altSpaceSplit[0]} ${altSpaceSplit[1]}`
+        case 'in-2':
+          if (inSpaceSplit) {
+            return inList.length > 1
+              ? `${inSpaceSplit[0]} ${inList[1]}`
+              : `${inSpaceSplit[0]} ${inSpaceSplit[1]}`
           }
           return 'Memuat'
         default:
@@ -272,7 +272,7 @@ export const Bible: React.FC = () => {
           <BibleBottomBar
             data={data}
             passage={passage}
-            altList={altList}
+            inList={inList}
             backPassage={backPassage}
             nextPassage={nextPassage}
             openPassageModal={() => setPassageModal(true)}
@@ -283,9 +283,9 @@ export const Bible: React.FC = () => {
               <BiblePassageDialog
                 passageModal={passageModal}
                 plSpaceSplit={plSpaceSplit as string[]}
-                altSpaceSplit={altSpaceSplit as string[]}
+                inSpaceSplit={inSpaceSplit as string[]}
                 plList={plList}
-                altList={altList}
+                inList={inList}
                 changePassage={changePassage}
                 closePassageModal={() => setPassageModal(false)}
               />

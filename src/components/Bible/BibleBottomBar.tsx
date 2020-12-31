@@ -12,7 +12,7 @@ import type { BibleBottomBarProps } from '../../types'
 const BibleBottomBar: React.FC<BibleBottomBarProps> = ({
   data,
   passage,
-  altList,
+  inList,
   backPassage,
   nextPassage,
   openPassageModal,
@@ -60,10 +60,10 @@ const BibleBottomBar: React.FC<BibleBottomBarProps> = ({
           disabled={
             !data || !guideData
               ? true
-              : guideData.alt_name
-              ? altList.length > 1
-                ? passage === 'alt-2'
-                : passage === 'alt-1'
+              : guideData.in_name
+              ? inList.length > 1
+                ? passage === 'in-2'
+                : passage === 'in-1'
               : passage === 'pb2' || passage === 'pb'
           }
           onClick={nextPassage}

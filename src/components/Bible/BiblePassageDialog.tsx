@@ -14,9 +14,9 @@ import type { BiblePassageDialogProps } from '../../types'
 const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
   passageModal,
   plSpaceSplit,
-  altSpaceSplit,
+  inSpaceSplit,
   plList,
-  altList,
+  inList,
   changePassage,
   closePassageModal,
 }) => {
@@ -114,41 +114,41 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
             onClick={() => changePassage('pb', 'pb')}
           ></ListItemText>
         </ListItem>
-        {guideData.alt_name && altList.length === 0 && (
+        {guideData.in_name && inList.length === 0 && (
           <ListItem button>
             <ListItemText
-              primary={guideData.alt_name}
-              secondary="Tambahan"
+              primary={guideData.in_name}
+              secondary="Kitab Injil"
               className="bible__modal__text"
               secondaryTypographyProps={{
                 className: 'bible__modal__text--secondary',
               }}
-              onClick={() => changePassage('alt-1', 'alt_1')}
+              onClick={() => changePassage('in-1', 'in_1')}
             ></ListItemText>
           </ListItem>
         )}
-        {guideData.alt_name && altList.length > 1 && (
+        {guideData.in_name && inList.length > 1 && (
           <>
             <ListItem button>
               <ListItemText
-                primary={`${altSpaceSplit[0]} ${altList[0]}`}
-                secondary="Tambahan 1"
+                primary={`${inSpaceSplit[0]} ${inList[0]}`}
+                secondary="Kitab Injil 1"
                 className="bible__modal__text"
                 secondaryTypographyProps={{
                   className: 'bible__modal__text--secondary',
                 }}
-                onClick={() => changePassage('alt-1', 'alt_1')}
+                onClick={() => changePassage('in-1', 'in_1')}
               ></ListItemText>
             </ListItem>
             <ListItem button>
               <ListItemText
-                primary={`${altSpaceSplit[0]} ${altList[1]}`}
-                secondary="Tambahan 2"
+                primary={`${inSpaceSplit[0]} ${inList[1]}`}
+                secondary="Kitab Injil 2"
                 className="bible__modal__text"
                 secondaryTypographyProps={{
                   className: 'bible__modal__text--secondary',
                 }}
-                onClick={() => changePassage('alt-2', 'alt_2')}
+                onClick={() => changePassage('in-2', 'in_2')}
               ></ListItemText>
             </ListItem>
           </>

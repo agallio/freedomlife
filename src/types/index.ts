@@ -31,7 +31,7 @@ export interface BibleTypographyProps {
 export interface BibleBottomBarProps {
   data: ApiResponse<BibleDataResponse> | undefined
   passage: string
-  altList: number[]
+  inList: number[]
   backPassage: () => void
   nextPassage: () => void
   openPassageModal: () => void
@@ -40,9 +40,9 @@ export interface BibleBottomBarProps {
 export interface BiblePassageDialogProps {
   passageModal: boolean
   plSpaceSplit: string[]
-  altSpaceSplit: string[]
+  inSpaceSplit: string[]
   plList: number[]
-  altList: number[]
+  inList: number[]
   changePassage: (name: string, code: string) => void
   closePassageModal: () => void
 }
@@ -74,10 +74,10 @@ export type GuideDataResponse = {
   date?: string
   pl?: string
   pb?: string
-  alt?: string
+  in?: string
   pl_name?: string
   pb_name?: string
-  alt_name?: string
+  in_name?: string
 }
 
 export type VerseData = {
@@ -98,7 +98,7 @@ export type BibleDataResponse = {
   passage: string[]
   pl: ChaptersData[]
   pb: ChaptersData[]
-  alt: ChaptersData[]
+  in: ChaptersData[]
 }
 
 type ErrorResponse = {

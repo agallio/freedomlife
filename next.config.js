@@ -29,8 +29,7 @@ const nextConfig = {
 }
 
 module.exports = () => {
-  const withPreact = require('next-plugin-preact')
   const withOffline = require('next-offline')
 
-  return withPreact(withOffline(nextConfig))
+  return withOffline(nextConfig)
 }
