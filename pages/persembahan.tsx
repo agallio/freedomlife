@@ -44,13 +44,13 @@ export const Persembahan: React.FC = () => {
     setBank(bank)
 
     if (!navigator.clipboard) {
-      fallbackCopyNumber(bank === 'cimb' ? '800077521000' : '0600311611')
+      fallbackCopyNumber(bank === 'cimb' ? '800077521000' : '0171217007')
       return
     }
 
     try {
       await navigator.clipboard.writeText(
-        bank === 'cimb' ? '800077521000' : '0600311611'
+        bank === 'cimb' ? '800077521000' : '0171217007'
       )
       setCopiedNumber(true)
     } catch (e) {
@@ -90,10 +90,10 @@ export const Persembahan: React.FC = () => {
       />
 
       <div className="container" style={{ paddingBottom: 30 }}>
-        <h2 className="header__title--persembahan" data-testid="headerTitle">
+        <h2 className="header__title--persembahan">
           Persembahan &amp; Perpuluhan
         </h2>
-        <p className="header__subtitle" data-testid="headerSubtitle">
+        <p className="header__subtitle">
           Gereja Kristen Kemah Daud - Yogyakarta
         </p>
       </div>
@@ -101,23 +101,16 @@ export const Persembahan: React.FC = () => {
       <div className="container--fluid">
         <Card className="guidecard">
           <CardContent className="persembahan" style={{ padding: '16px 10%' }}>
-            <p className="persembahan__text" data-testid="persembahanBrief">
+            <p className="persembahan__text">
               Dukungan untuk pekerjaan pelayanan Gereja Kristen Kemah Daud
               Yogyakarta dapat dilakukan melalui scan QRIS dibawah ini :
             </p>
 
             <img src="/images/qris.jpeg" alt="qris" style={{ width: '100%' }} />
-            <p
-              className="persembahan__text"
-              style={{ fontSize: 13 }}
-              data-testid="persembahanInfo"
-            >
+            <p className="persembahan__text" style={{ fontSize: 13 }}>
               Melalui aplikasi m-Banking / Digital Payment seperti :
             </p>
-            <div
-              className="persembahan__block"
-              data-testid="persembahanInfo_Wallet"
-            >
+            <div className="persembahan__block">
               <b>
                 <i>Gopay, OVO, DANA &amp; LinkAja</i>
               </b>
@@ -125,23 +118,17 @@ export const Persembahan: React.FC = () => {
             <p
               className="persembahan__text"
               style={{ fontSize: 13, textAlign: 'center' }}
-              data-testid="persembahanInfo_Admin"
             >
               (Bebas biaya administrasi untuk semua platform pembayaran)
             </p>
 
             <hr />
-            <p className="persembahan__text" data-testid="persembahanInfo_Bank">
+            <p className="persembahan__text">
               Atau dapat juga dilakukan melalui transfer pada rekening bank
               dibawah ini :
             </p>
 
-            <h1
-              className="persembahan__text--bank"
-              data-testid="persembahanInfo_CIMB"
-            >
-              CIMB Niaga
-            </h1>
+            <h1 className="persembahan__text--bank">CIMB Niaga</h1>
             <Button
               variant="outlined"
               className="persembahan__button"
@@ -149,23 +136,15 @@ export const Persembahan: React.FC = () => {
               startIcon={
                 copiedNumber && bank === 'cimb' ? <SuccessIcon /> : null
               }
-              data-testid="persembahanInfo_CIMB_btn"
             >
               {copiedNumber && bank === 'cimb'
                 ? 'Nomor Tersalin!'
                 : '8000-7752-1000'}
             </Button>
-            <p
-              className="persembahan__text"
-              data-testid="persembahanInfo_CIMB_name"
-            >
+            <p className="persembahan__text">
               a/n Gereja Kristen Kemah Daud (Klik Untuk Salin)
             </p>
-            <h1
-              className="bold-text"
-              style={{ margin: '10px 0' }}
-              data-testid="persembahanInfo_BCA"
-            >
+            <h1 className="bold-text" style={{ margin: '10px 0' }}>
               BCA
             </h1>
             <Button
@@ -175,17 +154,13 @@ export const Persembahan: React.FC = () => {
               startIcon={
                 copiedNumber && bank === 'bca' ? <SuccessIcon /> : null
               }
-              data-testid="persembahanInfo_BCA_btn"
             >
               {copiedNumber && bank === 'bca'
                 ? 'Nomor Tersalin!'
-                : '0600-311-611'}
+                : '017-121-7007'}
             </Button>
-            <p
-              className="persembahan__text"
-              data-testid="persembahanInfo_BCA_name"
-            >
-              a/n Yay Pelita Bangsa (Klik Untuk Salin)
+            <p className="persembahan__text">
+              a/n GKKD Glory of God Yogyakarta (Klik Untuk Salin)
             </p>
           </CardContent>
         </Card>
