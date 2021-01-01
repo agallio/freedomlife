@@ -41,14 +41,10 @@ export const Home: React.FC = () => {
       {!data && <LinearProgress color="secondary" />}
       <Fade in>
         <div className="container" style={{ paddingBottom: 90 }}>
-          <h2
-            className="header__title"
-            data-testid="headerTitle"
-            style={{ marginTop: 65 }}
-          >
+          <h2 className="header__title" style={{ marginTop: 65 }}>
             FreedomLife 🎄
           </h2>
-          <p className="header__subtitle" data-testid="headerSubtitle">
+          <p className="header__subtitle">
             Aplikasi Panduan Baca Alkitab Setahun
           </p>
 
@@ -57,15 +53,11 @@ export const Home: React.FC = () => {
               <CardContent>
                 <Typography
                   className="homecard__title"
-                  data-testid="homecardTitle"
                   style={{ fontSize: 22 }}
                 >
                   Panduan Hari Ini
                 </Typography>
-                <Typography
-                  className="homecard__subtitle"
-                  data-testid="homecardSubtitle"
-                >
+                <Typography className="homecard__subtitle">
                   {dayjs().format('dddd, DD MMMM YYYY')}
                 </Typography>
 
@@ -80,12 +72,7 @@ export const Home: React.FC = () => {
                   >
                     <Grid item xs={3} sm={2} md={2}>
                       <div className="homecard__pbox">
-                        <p
-                          className="homecard__pbox__text"
-                          data-testid={`homecardPBox_${item}`}
-                        >
-                          {item}
-                        </p>
+                        <p className="homecard__pbox__text">{item}</p>
                       </div>
                     </Grid>
                     <Grid item xs={9} sm={10} md={10}>
@@ -105,10 +92,7 @@ export const Home: React.FC = () => {
                             : 'Tidak ada data'}
                         </Typography>
                       )}
-                      <Typography
-                        className="homecard__subtitle"
-                        data-testid={`homecardPSub_${item}`}
-                      >
+                      <Typography className="homecard__subtitle">
                         {item === 'PL'
                           ? 'Perjanjian Lama'
                           : item === 'PB'
@@ -129,7 +113,6 @@ export const Home: React.FC = () => {
                   color="primary"
                   onClick={toBible}
                   disabled={!data}
-                  data-testid="homecardButton"
                 >
                   Baca
                 </Fab>

@@ -44,16 +44,10 @@ export const Guide: React.FC = () => {
       <Fade in>
         <>
           <div className="container" style={{ paddingBottom: 25 }}>
-            <h2
-              className="header__title"
-              data-testid="headerTitle"
-              style={{ marginTop: 65 }}
-            >
+            <h2 className="header__title" style={{ marginTop: 65 }}>
               Panduan Baca 🎁
             </h2>
-            <p className="header__subtitle" data-testid="headerSubtitle">
-              Panduan Baca Bulan Ini
-            </p>
+            <p className="header__subtitle">Panduan Baca Bulan Ini</p>
           </div>
 
           <GuideList data={data} />

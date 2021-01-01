@@ -17,7 +17,7 @@ export const Maintenance: React.FC = () => {
         className="maintenance__logo"
       />
       <Divider orientation="vertical" className="maintenance__divider" />
-      <Typography className="maintenance__text" data-testid="maintenanceText">
+      <Typography className="maintenance__text">
         Situs Sedang Dalam Perbaikan
       </Typography>
     </div>
