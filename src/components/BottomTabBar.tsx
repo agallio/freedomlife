@@ -54,7 +54,7 @@ const BottomTabBar: React.FC = () => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/'
-              ? 'bg-green-600 dark:bg-green-500 text-white'
+              ? 'bg-green-500 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/')}
@@ -68,7 +68,7 @@ const BottomTabBar: React.FC = () => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/read'
-              ? 'bg-green-600 dark:bg-green-500 text-white'
+              ? 'bg-green-500 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/read')}
@@ -82,7 +82,7 @@ const BottomTabBar: React.FC = () => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/guide'
-              ? 'bg-green-600 dark:bg-green-500 text-white'
+              ? 'bg-green-500 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/guide')}
