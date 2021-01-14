@@ -1,0 +1,72 @@
+@tailwind base;
+
+/* Write your own custom base styles here */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url(/fonts/inter-var-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+html {
+  @apply bg-gray-50;
+}
+
+html.dark {
+  @apply bg-gray-800;
+}
+
+html.light {
+  @apply bg-gray-50;
+}
+
+body {
+  @apply p-0 m-0 bg-gray-50 dark:bg-gray-800;
+}
+
+#__next {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+/* Write your own custom component styles here */
+.react-modal-sheet-container {
+  background-color: #f9fafb !important;
+}
+
+.dark .react-modal-sheet-container {
+  background-color: #374151 !important;
+}
+
+.react-modal-sheet-content {
+  @apply w-full max-w-md mx-auto;
+}
+
+.react-modal-sheet-header {
+  height: 40px;
+  @apply relative w-full flex items-center justify-center;
+}
+
+.react-modal-sheet-drag-indicator {
+  width: 18px;
+  height: 4px;
+  border-radius: 99px;
+  background-color: #ddd;
+}
+
+.dark .react-modal-sheet-drag-indicator {
+  background-color: #6b7280;
+}
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */

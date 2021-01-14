@@ -48,7 +48,8 @@ $ yarn start
 | ---------------------------------------------------------- |
 | [Next.js](https://nextjs.org/)                             |
 | [TypeScript](https://www.typescriptlang.org/)              |
-| [Material-UI](https://material-ui.com/)                    |
+| [Tailwind CSS](https://tailwindcss.com/)                   |
+| [Framer Motion](https://www.framer.com/motion/)            |
 | [useSWR](https://swr.vercel.app/)                          |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |

@@ -6,11 +6,11 @@ const SeoConfig = {
   openGraph: {
     type: 'website',
     locale: 'id_ID',
-    url: 'https://freedomlife.id',
+    url: 'https://new.freedomlife.id',
     site_name: 'FreedomLife',
     images: [
       {
-        url: 'http://freedomlife.id/images/og-freedomlife.png',
+        url: 'http://new.freedomlife.id/images/og-freedomlife.png',
         alt: 'FreedomLife',
       },
     ],

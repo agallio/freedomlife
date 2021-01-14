@@ -1,10 +1,8 @@
 {
   "name": "freedomlife",
-  "author": "agallio",
-  "license": "MIT",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
@@ -19,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test-all"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -29,34 +27,38 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "@material-ui/styles": "^4.11.2",
     "axios": "^0.21.1",
-    "dayjs": "^1.9.8",
-    "mongoose": "^5.11.9",
-    "next": "latest",
+    "dayjs": "^1.10.3",
+    "framer-motion": "^3.2.1",
+    "mongodb": "^3.6.3",
+    "next": "^10.0.5",
     "next-offline": "^5.0.3",
     "next-seo": "^4.17.0",
+    "next-themes": "^0.0.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "sass": "^1.32.0",
-    "swr": "^0.3.11"
+    "react-hot-toast": "^1.0.1",
+    "react-media-hook": "^0.4.9",
+    "react-modal-sheet": "^1.2.0",
+    "swr": "^0.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.19",
-    "@types/mongoose": "^5.10.3",
-    "@types/node": "^14.14.17",
+    "@tailwindcss/forms": "^0.2.1",
+    "@types/mongodb": "^3.6.3",
+    "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
-    "eslint": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "autoprefixer": "10.2.1",
+    "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-react": "^7.22.0",
-    "husky": "^4.3.6",
+    "husky": "^4.3.7",
     "lint-staged": "^10.5.3",
+    "postcss": "8.2.4",
     "prettier": "^2.2.1",
+    "tailwindcss": "^2.0.2",
     "typescript": "^4.1.3"
-  }
+  },
+  "license": "MIT"
 }

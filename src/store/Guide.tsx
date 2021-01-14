@@ -1,7 +1,7 @@
 import { createContext, Dispatch, useContext, useReducer } from 'react'
 import { ActionTypes } from '.'
 
-type GuideInitialState = {
+interface GuideInitialState {
   guideData: {
     month?: string
     month_name?: string
@@ -15,11 +15,13 @@ type GuideInitialState = {
     in_name?: string
   }
   guideDate: string
+  guidePassage: string
 }
 
 const guideInitialState = {
   guideData: {},
   guideDate: '',
+  guidePassage: 'kej-1',
 }
 
 const GuideState = createContext<GuideInitialState>(guideInitialState)
@@ -33,6 +35,8 @@ const reducer = (state: GuideInitialState, action: ActionTypes) => {
       return { ...state, guideData: action.data }
     case 'SET_GUIDE_DATE':
       return { ...state, guideDate: action.data }
+    case 'SET_GUIDE_PASSAGE':
+      return { ...state, guidePassage: action.data, guideDate: '' }
 
     default:
       throw new Error(`Unkown action: ${action.type}`)

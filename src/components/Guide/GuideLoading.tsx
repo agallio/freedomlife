@@ -1,33 +1,40 @@
-import { Grid } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import { useTheme } from 'next-themes'
 
-// Types
-import type { GuideLoadingProps } from '../../types'
+const GuideLoading: React.FC = () => {
+  const { theme } = useTheme()
 
-const GuideLoading: React.FC<GuideLoadingProps> = ({ item }) => (
-  <Grid
-    key={item}
-    container
-    direction="row"
-    justify="flex-start"
-    alignItems="center"
-    spacing={4}
-  >
-    <Grid item sm={4} md={4}>
-      <Skeleton
-        variant="rect"
-        animation="wave"
-        width={105}
-        height={90}
-        style={{ borderRadius: 5 }}
-      />
-    </Grid>
-    <Grid item sm={8} md={8}>
-      <Skeleton variant="text" animation="wave" width={150} />
-      <Skeleton variant="text" animation="wave" width={150} />
-      <Skeleton variant="text" animation="wave" width={150} />
-    </Grid>
-  </Grid>
-)
+  return (
+    <>
+      {[1, 2].map((item) => (
+        <div
+          key={item}
+          className="flex flex-col shadow-md rounded-lg mt-4 bg-white dark:bg-gray-700"
+        >
+          <div
+            className="flex items-center justify-between w-full px-4 py-2 rounded-t-lg animate-pulse"
+            style={{
+              borderBottom:
+                theme === 'light' ? '1px solid #e2e2e2' : '1px solid #6B7280',
+            }}
+          >
+            <div className="flex flex-col w-10/12">
+              <div className="w-2/4 h-5 bg-gray-200 rounded-lg dark:bg-gray-500" />
+              <div className="mt-2 w-2/3 h-4 bg-gray-200 rounded-lg dark:bg-gray-500" />
+            </div>
+            <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-500" />
+          </div>
+          <div className="px-4 py-3 animate-pulse">
+            {[1, 2, 3].map((item) => (
+              <div key={item}>
+                <div className="w-2/4 h-5 bg-gray-200 rounded-lg dark:bg-gray-500" />
+                <div className="my-3 w-2/3 h-4 bg-gray-200 rounded-lg dark:bg-gray-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
 
 export default GuideLoading

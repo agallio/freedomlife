@@ -1,15 +1,12 @@
 import { useEffect } from 'react'
 
-import { dayjs } from '..'
+import dayjs from '../dayjs'
 import useRequest from './useRequest'
-import { useDispatchGuide, useGuide } from '../../store'
+import { useDispatchGuide, useGuide } from '@/store/index'
 
 // Types
-import type {
-  ApiResponse,
-  FetchedGuideHooks,
-  GuideDataResponse,
-} from '../../types'
+import type { FetchedGuideHooks } from '@/types/utils'
+import type { ApiResponse, GuideDataResponse } from '@/types/api'
 
 const useFetchedGuide = (): FetchedGuideHooks => {
   const guideDispatch = useDispatchGuide()

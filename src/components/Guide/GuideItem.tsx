@@ -1,84 +1,144 @@
-import Router from 'next/router'
-import { ButtonBase, Grid, Typography } from '@material-ui/core'
+import { useTheme } from 'next-themes'
 
-import { useDispatchGuide } from '../../store'
-import { dayjs } from '../../utils'
+import OpenBookIcon from '@/components/Icons/OpenBookIcon'
+import dayjs from '@/utils/dayjs'
 
-// Types
-import type { GuideItemProps } from '../../types'
+import type { GuideItemProps } from '@/types/components'
 
-const GuideItem: React.FC<GuideItemProps> = ({ item, index }) => {
-  const guideDispatch = useDispatchGuide()
-
-  const toBibleWithDate = (date: string) => {
-    guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
-    Router.push('/bible')
-  }
+const GuideItem: React.FC<GuideItemProps> = ({
+  item,
+  index,
+  toBibleWithDate,
+}) => {
+  const { theme } = useTheme()
 
   const isToday = (date: string) => {
     return dayjs().format('DD-MM-YYYY') === date
   }
 
   return (
-    <Grid
-      container
+    <div
       key={index}
-      direction="row"
-      justify="flex-start"
-      alignItems="center"
-      spacing={4}
+      className="flex flex-col shadow-md rounded-lg mt-4"
+      style={{
+        background: isToday(item.date as string)
+          ? 'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)'
+          : theme === 'light'
+          ? '#ffffff'
+          : '#4B5563',
+      }}
     >
-      <Grid item xs={4} sm={4} md={4}>
-        <ButtonBase onClick={() => toBibleWithDate(item.date as string)}>
-          <div
-            className={`guidecard__box${
-              isToday(item.date as string) ? '--primary' : ''
+      <div
+        className="flex items-center justify-between w-full px-4 py-2 rounded-t-lg"
+        style={{
+          backdropFilter: 'saturate(55%) blur(20px)',
+          WebkitBackdropFilter: 'saturate(55%) blur(20px)',
+          borderBottom: isToday(item.date as string)
+            ? ''
+            : theme === 'light'
+            ? '1px solid #e2e2e2'
+            : '1px solid #6B7280',
+        }}
+      >
+        <div className="flex flex-col">
+          <h2
+            className={`text-lg font-bold sm:text-xl ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
             }`}
           >
-            <Typography
-              className={`guidecard__box__title${
-                isToday(item.date as string) ? '--primary' : ''
-              }`}
-            >
-              {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
-            </Typography>
-            <Typography
-              variant="h4"
-              className={`guidecard__box__title${
-                isToday(item.date as string) ? '--primary' : ''
-              }`}
-            >
-              {item.date?.split('-')[0] || '-'}
-            </Typography>
-          </div>
-        </ButtonBase>
-      </Grid>
-      <Grid item xs={8} sm={8} md={8}>
-        <Typography
-          className={`guidecard__text${
-            isToday(item.date as string) ? '--primary' : ''
-          }`}
+            {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
+          </h2>
+          <p
+            className={`text-sm sm:text-md ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            {dayjs(item.date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
+          </p>
+        </div>
+
+        <button
+          className={`flex items-center justify-center w-9 h-9 ${
+            isToday(item.date as string)
+              ? 'bg-white bg-opacity-40 text-green-700 transition duration-300 hover:bg-opacity-70'
+              : 'bg-green-600 text-white transition duration-300 hover:bg-green-700'
+          } rounded-full p-1 focus:outline-none`}
+          style={{
+            backdropFilter: 'saturate(100%) blur(20px)',
+            WebkitBackdropFilter: 'saturate(100%) blur(20px)',
+          }}
+          onClick={() => toBibleWithDate(item.date as string)}
         >
-          {item.pl_name || '-'}
-        </Typography>
-        <Typography
-          className={`guidecard__text${
-            isToday(item.date as string) ? '--primary' : ''
-          }`}
-        >
-          {item.pb_name || '-'}
-        </Typography>
-        {item.in_name && (
-          <Typography
-            className={`guidecard__text${
-              isToday(item.date as string) ? '--primary' : ''
+          <OpenBookIcon className="w-6" />
+        </button>
+      </div>
+      <div className="px-4 py-3">
+        <div className="flex flex-col mb-2">
+          <h5
+            className={`font-bold sm:text-lg ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            {item.pl_name || '-'}
+          </h5>
+          <p
+            className={`text-sm sm:text-md ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            Perjanjian Lama
+          </p>
+        </div>
+        <div className="flex flex-col mb-2">
+          <h5
+            className={`font-bold sm:text-lg ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            {item.pb_name || '-'}
+          </h5>
+          <p
+            className={`text-sm sm:text-md ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            Perjanjian Baru
+          </p>
+        </div>
+        <div className="flex flex-col">
+          <h5
+            className={`font-bold sm:text-lg ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
             }`}
           >
             {item.in_name || '-'}
-          </Typography>
-        )}
-      </Grid>
-    </Grid>
+          </h5>
+          <p
+            className={`text-sm sm:text-md ${
+              isToday(item.date as string)
+                ? 'text-white'
+                : 'text-green-700 dark:text-white'
+            }`}
+          >
+            Kitab Injil
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
 
