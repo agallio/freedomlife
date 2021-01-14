@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { BibleInterface, getDatabase } from '@/db/index'
+import { getDatabase } from '@/db/index'
+import type { BibleInterface } from '@/types/db'
 
 const biblePassage = async (
   req: NextApiRequest,

@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import type { Collection } from 'mongodb'
 
-import { getDatabase, GuideInterface, BibleInterface } from '@/db/index'
+import { getDatabase } from '@/db/index'
+import type { GuideInterface, BibleInterface } from '@/types/db'
 
 const getGuideByDate = async (
   date: string,

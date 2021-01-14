@@ -1,9 +1,5 @@
 import { Collection } from 'mongodb'
 import connectToDatabase from './connection'
-import { GuideInterface } from './models/guide.model'
-import { BibleInterface } from './models/bible.model'
-
-export type { GuideInterface, BibleInterface }
 
 export interface Database {
   GuideModel: Collection<any>
