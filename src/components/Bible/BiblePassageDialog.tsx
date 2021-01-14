@@ -255,7 +255,8 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                   />
                   {searchChapter && (
                     <CloseIcon
-                      className="w-8 h-8 bg-white rounded-r-lg pr-3 text-gray-500 dark:bg-gray-600 dark:text-white hover:text-opacity-50"
+                      aria-label="Bersihkan Pencarian"
+                      className="w-8 h-12 bg-white rounded-r-lg pr-3 text-gray-500 dark:bg-gray-600 dark:text-white hover:text-opacity-50"
                       onClick={() => {
                         setSearchChapter('')
                         setChapterSelected({ name: '', abbr: '', passage: 0 })
