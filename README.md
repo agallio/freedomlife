@@ -1,6 +1,6 @@
 # FreedomLife
 
-[![FreedomLife-Logo](/public/icon-128x128.png)](https://freedomlife.id)
+[![FreedomLife-Logo](/public/icon-192x192.png)](https://freedomlife.id)
 
 FreedomLife is a bible reading guide app. Users can read the bible in various translations and see guides for following days.
 
