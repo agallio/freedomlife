@@ -55,6 +55,7 @@ const BibleTypography: React.FC<BibleTypographyProps> = ({
               <p
                 key={index}
                 style={{ lineHeight: '180%' }}
+                className="cursor-pointer"
                 onClick={() => highlightText(item.verse, item.content)}
               >
                 <sup className="mr-3 relative -top-1 font-light text-xs text-green-700 dark:text-green-300">
