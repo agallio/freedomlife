@@ -49,24 +49,26 @@ const BottomTabBar: React.FC = () => {
     >
       <div className="flex items-center justify-center w-full mx-auto sm:max-w-md">
         <motion.button
+          aria-label="Beranda"
           animate={router.pathname === '/' ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/'
-              ? 'bg-green-500 text-white'
+              ? 'bg-green-600 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/')}
         >
           <HomeIcon className="w-6" />
-          {router.pathname === '/' && <p className="font-bold ml-2">Beranda</p>}
+          {router.pathname === '/' && <p className="ml-2">Beranda</p>}
         </motion.button>
         <motion.button
+          aria-label="Baca"
           animate={router.pathname === '/read' ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/read'
-              ? 'bg-green-500 text-white'
+              ? 'bg-green-600 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/read')}
@@ -75,19 +77,18 @@ const BottomTabBar: React.FC = () => {
           {router.pathname === '/read' && <p className="ml-2">Baca</p>}
         </motion.button>
         <motion.button
+          aria-label="Panduan"
           animate={router.pathname === '/guide' ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/guide'
-              ? 'bg-green-500 text-white'
+              ? 'bg-green-600 dark:bg-green-500 text-white'
               : 'bg-white text-green-700 transition transform duration-300 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 items-center justify-center rounded-full focus:outline-none`}
           onClick={() => handleChangeRoute('/guide')}
         >
           <BookIcon className="w-6" />
-          {router.pathname === '/guide' && (
-            <p className="font-bold ml-2">Panduan</p>
-          )}
+          {router.pathname === '/guide' && <p className="ml-2">Panduan</p>}
         </motion.button>
       </div>
     </footer>
