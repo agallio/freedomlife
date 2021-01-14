@@ -51,6 +51,7 @@ const NewYearBox: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
         layoutId="card-footer"
       >
         <button
+          aria-label="Buka Dialog Tahun Baru"
           className="w-full h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-52"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',

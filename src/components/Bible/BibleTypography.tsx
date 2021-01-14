@@ -43,12 +43,12 @@ const BibleTypography: React.FC<BibleTypographyProps> = ({
         passageArray!.map((item, index) => {
           if (item.type === 'title') {
             return (
-              <h5
+              <h1
                 key={index}
                 className={`text-center font-bold my-4 leading-relaxed text-${getHeaderFontSize()}`}
               >
                 {item.content || ''}
-              </h5>
+              </h1>
             )
           } else {
             return (

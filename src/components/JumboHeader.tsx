@@ -30,6 +30,7 @@ const JumboHeader: React.FC<JumboHeaderProps> = ({
         </h1>
         {isHome && isMounted && (
           <button
+            aria-label="Ganti Mode Warna"
             className="w-10 h-10 p-3 bg-green-700 text-white rounded-lg transition transform duration-300 hover:bg-green-900 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-700"
             onClick={switchTheme}
           >

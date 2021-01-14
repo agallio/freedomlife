@@ -62,6 +62,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
         </div>
 
         <button
+          aria-label="Baca Panduan"
           className={`flex items-center justify-center w-9 h-9 ${
             isToday(item.date as string)
               ? 'bg-white bg-opacity-40 text-green-700 transition duration-300 hover:bg-opacity-70'
@@ -78,7 +79,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
       </div>
       <div className="px-4 py-3">
         <div className="flex flex-col mb-2">
-          <h5
+          <h1
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
@@ -86,7 +87,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
             }`}
           >
             {item.pl_name || '-'}
-          </h5>
+          </h1>
           <p
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
@@ -98,7 +99,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
           </p>
         </div>
         <div className="flex flex-col mb-2">
-          <h5
+          <h1
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
@@ -106,7 +107,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
             }`}
           >
             {item.pb_name || '-'}
-          </h5>
+          </h1>
           <p
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
@@ -118,7 +119,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
           </p>
         </div>
         <div className="flex flex-col">
-          <h5
+          <h1
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
@@ -126,7 +127,7 @@ const GuideItem: React.FC<GuideItemProps> = ({
             }`}
           >
             {item.in_name || '-'}
-          </h5>
+          </h1>
           <p
             className={`text-sm sm:text-md ${
               isToday(item.date as string)

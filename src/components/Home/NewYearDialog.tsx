@@ -43,6 +43,7 @@ const NewYearDialog: React.FC<{ handleClose: () => void }> = ({
                 </h2>
               </div>
               <button
+                aria-label="Tutup Dialog"
                 className={`flex items-center justify-center w-7 h-7 rounded-full p-1 focus:outline-none bg-white bg-opacity-20 text-white hover:bg-opacity-30`}
                 style={{
                   backdropFilter: 'saturate(100%) blur(20px)',
@@ -114,6 +115,7 @@ const NewYearDialog: React.FC<{ handleClose: () => void }> = ({
             layoutId="card-footer"
           >
             <button
+              aria-label="Tutup Dialog"
               className="w-full bg-white bg-opacity-20 text-white py-1 uppercase rounded-full text-sm font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-52"
               style={{
                 backdropFilter: 'saturate(100%) blur(20px)',

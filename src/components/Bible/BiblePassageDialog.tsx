@@ -70,6 +70,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                     }}
                   >
                     <button
+                      aria-label="Keluar Dari Panduan Baca"
                       className="w-full bg-white bg-opacity-20 text-white py-1 uppercase rounded-full text-sm font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-full"
                       style={{
                         backdropFilter: 'saturate(100%) blur(20px)',
@@ -187,6 +188,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
               chapterSelected.passage ? (
               <div>
                 <button
+                  aria-label="Kembali"
                   className="px-4 py-2 mt-2 flex items-center justify-center text-green-700 focus:outline-none sm:px-0 dark:text-white"
                   onClick={() =>
                     setChapterSelected({ name: '', abbr: '', passage: 0 })

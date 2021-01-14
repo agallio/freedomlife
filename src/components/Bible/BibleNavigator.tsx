@@ -24,6 +24,7 @@ const BibleNavigator: React.FC<BibleNavigatorProps> = ({
     >
       <div className="flex items-center justify-between max-w-sm mx-7 sm:max-w-md sm:mx-auto landscape:mx-auto">
         <button
+          aria-label="Pasal Sebelumnya"
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
             !data ||
             !bibleData ||
@@ -41,6 +42,7 @@ const BibleNavigator: React.FC<BibleNavigatorProps> = ({
           <ChevronLeftIcon />
         </button>
         <button
+          aria-label="Pasal Selanjutnya"
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
             !data ||
             !bibleData ||

@@ -45,6 +45,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
                 : ''}
             </p>
             <button
+              aria-label="Tutup"
               className="text-white focus:outline-none"
               onClick={handleExitGuide}
             >
@@ -61,6 +62,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
         {highlighted ? (
           <>
             <button
+              aria-label="Tutup"
               className="w-5 h-5 focus:text-green-600 sm:w-6 sm:h-6 focus:outline-none"
               onClick={removeHighlight}
             >
@@ -68,6 +70,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
             </button>
             <div className="py-1">{highlightedText.length} Ayat Disorot</div>
             <button
+              aria-label="Salin Ayat"
               className="w-5 h-5 focus:text-green-600 sm:w-6 sm:h-6 focus:outline-none"
               onClick={copyText}
             >
@@ -77,18 +80,21 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
         ) : (
           <>
             <button
+              aria-label="Buka Dialog Versi"
               className="w-5 h-5 transition transform duration-300 hover:text-green-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
               onClick={handleOpenTranslate}
             >
               <TranslateIcon />
             </button>
             <button
+              aria-label="Buka Dialog Kitab"
               className="bg-green-500 text-white py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-green-600 focus:outline-none sm:py-2 sm:px-6"
               onClick={handleOpenPassage}
             >
               {passageTitle}
             </button>
             <button
+              aria-label="Buka Dialog Pengaturan"
               className="w-5 h-5 transition transform duration-300 hover:text-green-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
               onClick={handleOpenSetting}
             >

@@ -36,6 +36,7 @@ const BibleSettingDialog: React.FC<BibleSettingDialogProps> = ({
           </p>
           <div className="flex items-center justify-between mx-4 sm:mx-1">
             <button
+              aria-label="Kecilkan"
               className="text-green-600 transition transform duration-300 hover:text-green-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
               onClick={handleMinusFontSize}
               disabled={verseFontSize === 'sm'}
@@ -46,6 +47,7 @@ const BibleSettingDialog: React.FC<BibleSettingDialogProps> = ({
               {getFontSizeName}
             </div>
             <button
+              aria-label="Besarkan"
               className="text-green-600 transition transform duration-300 hover:text-green-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
               onClick={handlePlusFontSize}
               disabled={verseFontSize === '3xl'}

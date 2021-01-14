@@ -59,7 +59,7 @@ const BottomTabBar: React.FC = () => {
           onClick={() => handleChangeRoute('/')}
         >
           <HomeIcon className="w-6" />
-          {router.pathname === '/' && <p className="ml-2">Beranda</p>}
+          {router.pathname === '/' && <p className="font-bold ml-2">Beranda</p>}
         </motion.button>
         <motion.button
           animate={router.pathname === '/read' ? 'open' : 'close'}
@@ -85,7 +85,9 @@ const BottomTabBar: React.FC = () => {
           onClick={() => handleChangeRoute('/guide')}
         >
           <BookIcon className="w-6" />
-          {router.pathname === '/guide' && <p className="ml-2">Panduan</p>}
+          {router.pathname === '/guide' && (
+            <p className="font-bold ml-2">Panduan</p>
+          )}
         </motion.button>
       </div>
     </footer>
