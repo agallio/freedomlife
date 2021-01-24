@@ -644,13 +644,13 @@ const Read: React.FC = () => {
         title="Pembacaan Firman | FreedomLife"
         description="Pembacaan Firman Hari Ini"
         openGraph={{
-          url: 'https://new.freedomlife.id/read',
+          url: 'https://freedomlife.id/read',
           title: 'Pembacaan Firman | FreedomLife',
           description: 'Pembacaan Firman Hari Ini',
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://new.freedomlife.id/images/og-read.png',
+              url: 'http://freedomlife.id/images/og-read.png',
               alt: 'Pembacaan Firman - FreedomLife',
             },
           ],

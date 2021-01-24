@@ -36,13 +36,13 @@ const Guide: React.FC = () => {
         title="Panduan Baca | FreedomLife"
         description="Panduan Baca Bulan Ini"
         openGraph={{
-          url: 'https://new.freedomlife.id/guide',
+          url: 'https://freedomlife.id/guide',
           title: 'Panduan Baca | FreedomLife',
           description: 'Panduan Baca Bulan Ini',
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://new.freedomlife.id/images/og-guide.png',
+              url: 'http://freedomlife.id/images/og-guide.png',
               alt: 'Panduan Baca - FreedomLife',
             },
           ],
