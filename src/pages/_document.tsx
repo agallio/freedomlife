@@ -47,7 +47,7 @@ export default class MyDocument extends Document {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#673ab7" />
           <meta name="msapplication-TileColor" content="#673ab7" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {/* <script
+          <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
           />
@@ -62,7 +62,7 @@ export default class MyDocument extends Document {
             });
           `,
             }}
-          /> */}
+          />
         </Head>
         <body>
           <Main />
