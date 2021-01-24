@@ -28,11 +28,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/persembahan",
-      "destination": "https://freedomlife.id/persembahan"
-    }
   ]
 }
