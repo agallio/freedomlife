@@ -12,7 +12,7 @@ import BottomTabBar from '@/components/BottomTabBar'
 
 import '@/styles/index.css'
 
-const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
+const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <Head>
@@ -39,7 +39,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
           <AnimateSharedLayout type="crossfade">
             <Toaster />
             <Component {...pageProps} />
-            <BottomTabBar />
+            {router.pathname !== '/persembahan' && <BottomTabBar />}
           </AnimateSharedLayout>
         </ThemeProvider>
       </StateProvider>
