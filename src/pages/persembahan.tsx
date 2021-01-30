@@ -130,21 +130,21 @@ const Persembahan: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col shadow-md rounded-lg mt-8 p-4">
-            <p>
+          <div className="flex flex-col shadow-md rounded-lg mt-8 p-4 dark:bg-gray-600">
+            <p className="dark:text-white">
               Atau dapat juga dilakukan melalui transfer pada rekening bank
               dibawah ini:
             </p>
 
             <div className="mt-6">
-              <p className="font-bold text-lg">CIMB Niaga</p>
-              <p className="text-gray-600 mb-2">
+              <p className="font-bold text-lg dark:text-white">CIMB Niaga</p>
+              <p className="text-gray-600 mb-2 dark:text-gray-200">
                 a/n Gereja Kristen Kemah Daud
               </p>
-              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300">
-                <p>8000-7752-1000</p>
+              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
+                <p className="dark:text-white">8000-7752-1000</p>
                 <button
-                  className="text-green-600 hover:text-green-800 focus:outline-none"
+                  className="text-green-600 hover:text-green-800 focus:outline-none dark:text-green-400 dark:hover:text-green-500"
                   onClick={() => copyNumber('cimb')}
                 >
                   <CopyIcon className="w-6 h-6" />
@@ -153,14 +153,14 @@ const Persembahan: React.FC = () => {
             </div>
 
             <div className="mt-4 mb-6">
-              <p className="font-bold text-lg">BCA</p>
-              <p className="text-gray-600 mb-2">
+              <p className="font-bold text-lg dark:text-white">BCA</p>
+              <p className="text-gray-600 mb-2 dark:text-gray-200">
                 a/n GKKD Glory of God Yogyakarta
               </p>
-              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300">
-                017-121-7007
+              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
+                <p className="dark:text-white">017-121-7007</p>
                 <button
-                  className="text-green-600 hover:text-green-800 focus:outline-none"
+                  className="text-green-600 hover:text-green-800 focus:outline-none dark:text-green-400 dark:hover:text-green-500"
                   onClick={() => copyNumber('bca')}
                 >
                   <CopyIcon className="w-6 h-6" />
