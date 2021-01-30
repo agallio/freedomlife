@@ -12,7 +12,7 @@ FreedomLife is a bible reading guide app. Users can read the bible with or witho
 
 | Technology | Version          |
 | ---------- | ---------------- |
-| Node       | LTS (14)         |
+| Node       | LTS (12 or 14)   |
 | Yarn       | 1.22.4 or Higher |
 
 ### Environment Variables
