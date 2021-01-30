@@ -2,7 +2,7 @@
 
 [![FreedomLife-Logo](/public/images/og-freedomlife.png)](https://freedomlife.id)
 
-FreedomLife is a bible reading guide app. Users can read the bible in various translations and see guides for following days.
+FreedomLife is a bible reading guide app. Users can read the bible with or without guide in various translations and see guides for following days.
 
 <a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/public/images/google-play.svg" alt="Google Play Button" width="180"></a>
 
@@ -12,7 +12,7 @@ FreedomLife is a bible reading guide app. Users can read the bible in various tr
 
 | Technology | Version          |
 | ---------- | ---------------- |
-| Node       | LTS (12 or 14)   |
+| Node       | LTS (14)         |
 | Yarn       | 1.22.4 or Higher |
 
 ### Environment Variables
