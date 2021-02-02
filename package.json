@@ -27,9 +27,11 @@
     ]
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.4.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "framer-motion": "^3.2.1",
+    "gray-matter": "^4.0.2",
     "mongodb": "^3.6.3",
     "next": "^10.0.5",
     "next-offline": "^5.0.3",
@@ -40,6 +42,8 @@
     "react-hot-toast": "^1.0.2",
     "react-media-hook": "^0.4.9",
     "react-modal-sheet": "^1.2.0",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
     "swr": "^0.4.0"
   },
   "devDependencies": {

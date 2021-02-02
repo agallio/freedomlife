@@ -13,6 +13,7 @@ import dayjs from '@/utils/dayjs'
 import useRequest from '@/utils/hooks/useRequest'
 
 import type { ApiResponse, GuideDataResponse } from '@/types/api'
+import NewUserBox from '@/components/Home/NewUserBox'
 
 const Home: React.FC = () => {
   const guideDispatch = useDispatchGuide()
@@ -48,6 +49,8 @@ const Home: React.FC = () => {
 
       <main>
         <HomeBox data={data} toBible={toBible} />
+
+        <NewUserBox />
 
         <NewYearBox handleOpen={() => setOpen(true)} />
 

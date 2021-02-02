@@ -16,6 +16,10 @@
 @tailwind components;
 /* Stop purging. */
 
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 html {
   @apply bg-gray-50;
 }
@@ -63,6 +67,14 @@ body {
 
 .dark .react-modal-sheet-drag-indicator {
   background-color: #6b7280;
+}
+
+.prose h2 {
+  @apply text-green-700;
+}
+
+.prose h3 {
+  @apply text-green-700;
 }
 
 /* Start purging... */

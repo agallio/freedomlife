@@ -38,7 +38,9 @@ const JumboHeader: React.FC<JumboHeaderProps> = ({
           </button>
         )}
       </div>
-      <p className="text-lg text-green-700 dark:text-white">{subtitle}</p>
+      {subtitle && (
+        <p className="text-lg text-green-700 dark:text-white">{subtitle}</p>
+      )}
     </header>
   )
 }
