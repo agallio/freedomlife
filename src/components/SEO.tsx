@@ -1,16 +1,17 @@
 import { DefaultSeo } from 'next-seo'
 
 const SeoConfig = {
-  title: 'FreedomLife',
-  description: 'Aplikasi Panduan Baca Alkitab Setahun',
+  title: 'FreedomLife — Alkitab & Panduan Baca',
+  description: 'Aplikasi Alkitab beserta panduan baca selama setahun.',
   openGraph: {
     type: 'website',
     locale: 'id_ID',
     url: 'https://freedomlife.id',
+    title: 'FreedomLife — Alkitab & Panduan Baca',
     site_name: 'FreedomLife',
     images: [
       {
-        url: 'http://freedomlife.id/images/og-freedomlife.png',
+        url: 'http://freedomlife.id/images/og-index.png',
         alt: 'FreedomLife',
       },
     ],

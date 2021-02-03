@@ -16,21 +16,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <Head>
-        <title>FreedomLife</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-        <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-        />
-        <meta name="theme-color" content="#ffffff" />
-        <meta
-          name="description"
-          content="FreedomLife, Aplikasi Panduan Baca Alkitab Setahun."
-        />
+        <meta name="title" content="FreedomLife — Alkitab &amp; Panduan Baca" />
       </Head>
       <SEO />
 

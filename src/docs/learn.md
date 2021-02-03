@@ -3,7 +3,7 @@ title: 'Bagaimana Cara Menggunakan Aplikasi FreedomLife?'
 date: '2021-02-02T06:19:33.919Z'
 ---
 
-Halo, selamat datang di tutorial cara menggunakan aplikasi FreedomLife yang baru! Anda akan belajar bagaimana menggunakan fitur-fitur dasar yang tersedia di dalam aplikasi ini.
+Halo, selamat datang di tata cara menggunakan aplikasi FreedomLife yang baru! Anda akan belajar bagaimana menggunakan fitur-fitur dasar yang tersedia di dalam aplikasi ini.
 
 ## Mengganti Tampilan (Mode Gelap-Terang)
 
@@ -53,7 +53,7 @@ Anda dapat keluar dari panduan baca dengan menekan tombol "x" saat panduan baca 
 
 ![Panduan Baca Aktif](/images/docs/panduan-baca-aktif.png)
 
-Atau Anda juga dapat keluar dari panduan baca dengan menekan tombol "Keluar Dari Panduan Baca" saat berada di dialog "Pilih Panduan Baca" seperti di tutorial di atas.
+Atau Anda juga dapat keluar dari panduan baca dengan menekan tombol "Keluar Dari Panduan Baca" saat berada di dialog "Pilih Panduan Baca" seperti yang ada pada langkah di atas.
 
 ---
 
