@@ -323,10 +323,7 @@ const Read: React.FC = () => {
     }
 
     // Splitbee Analytics
-    splitbee.track('Bible - Next', {
-      category: 'Bible',
-      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
-    })
+    splitbee.track('Bible - Next')
   }
 
   const backPassage = () => {
@@ -377,10 +374,7 @@ const Read: React.FC = () => {
     }
 
     // Splitbee Analytics
-    splitbee.track('Bible - Back', {
-      category: 'Bible',
-      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
-    })
+    splitbee.track('Bible - Back')
   }
 
   const changePassage = (name: string) => {
@@ -389,10 +383,7 @@ const Read: React.FC = () => {
     scrollToTop()
 
     // Splitbee Analytics
-    splitbee.track(`Bible - To ${name.toUpperCase()}`, {
-      category: 'Bible',
-      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
-    })
+    splitbee.track(`Bible - To ${name.toUpperCase()}`)
   }
 
   const changeVersion = (version: string) => {

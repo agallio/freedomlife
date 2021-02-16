@@ -1,6 +1,7 @@
 import Router from 'next/router'
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
+import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
@@ -21,6 +22,7 @@ const Guide: React.FC = () => {
   })
 
   const toBibleWithDate = (date: string) => {
+    splitbee.track(`Navigate To Bible (${date})`)
     guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
     Router.push('/read?guide=true')
     document.body.scrollTop = 0

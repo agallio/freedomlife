@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { AnimatePresence } from 'framer-motion'
+import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
@@ -14,6 +15,7 @@ import useRequest from '@/utils/hooks/useRequest'
 
 import type { ApiResponse, GuideDataResponse } from '@/types/api'
 import NewUserBox from '@/components/Home/NewUserBox'
+import SplitbeeBadge from '@/components/Home/SplitbeeBadge'
 
 const Home: React.FC = () => {
   const guideDispatch = useDispatchGuide()
@@ -24,6 +26,7 @@ const Home: React.FC = () => {
   })
 
   const toBible = () => {
+    splitbee.track('Navigate To Bible')
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: '' })
     Router.push('/read?guide=true')
@@ -57,6 +60,8 @@ const Home: React.FC = () => {
         <AnimatePresence>
           {open && <NewYearDialog handleClose={() => setOpen(false)} />}
         </AnimatePresence>
+
+        <SplitbeeBadge />
       </main>
     </div>
   )

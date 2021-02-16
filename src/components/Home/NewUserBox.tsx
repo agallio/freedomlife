@@ -1,8 +1,14 @@
 import Router from 'next/router'
+import splitbee from '@splitbee/web'
 
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
 const NewUserBox: React.FC = () => {
+  const toLearn = () => {
+    splitbee.track('Navigate To Learn')
+    Router.push('/learn')
+  }
+
   return (
     <div className="flex flex-col shadow-md rounded-lg mt-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
       <div
@@ -40,7 +46,7 @@ const NewUserBox: React.FC = () => {
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',
           }}
-          onClick={() => Router.push('/learn')}
+          onClick={toLearn}
         >
           Pelajari Lebih Lanjut
         </button>
