@@ -97,7 +97,7 @@ export interface BiblePassageDialogProps {
       passage: number
     }>
   >
-  changePassage: (name: string, code: string) => void
+  changePassage: (name: string) => void
   changeChapter: (val: string) => void
   handleClosePassage: () => void
   handleExitGuide: () => void

@@ -55,7 +55,7 @@ $ yarn start
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |
 | [MongoDB](https://www.mongodb.com/)                        |
-| Google Analytics                                           |
+| [Splitbee](https://splitbee.io/)                           |
 
 For detailed explanation on how things work, click the technology stack name to find out.
 

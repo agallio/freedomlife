@@ -88,7 +88,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                       ? 'bg-green-500 text-white hover:bg-green-600'
                       : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                   } sm:mx-1`}
-                  onClick={() => changePassage('pl-1', 'pl_1')}
+                  onClick={() => changePassage('pl-1')}
                 >
                   <h3 className="text-lg">
                     {plSpaceSplit
@@ -110,7 +110,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                         ? 'bg-green-500 text-white hover:bg-green-600'
                         : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-2', 'pl_2')}
+                    onClick={() => changePassage('pl-2')}
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
@@ -129,7 +129,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                         ? 'bg-green-500 text-white hover:bg-green-600'
                         : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-3', 'pl_3')}
+                    onClick={() => changePassage('pl-3')}
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
@@ -148,7 +148,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                         ? 'bg-green-500 text-white hover:bg-green-600'
                         : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-4', 'pl_4')}
+                    onClick={() => changePassage('pl-4')}
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
@@ -166,7 +166,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                       ? 'bg-green-500 text-white hover:bg-green-600'
                       : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                   } sm:mx-1`}
-                  onClick={() => changePassage('pb', 'pb')}
+                  onClick={() => changePassage('pb')}
                 >
                   <h3 className="text-lg">{guideData?.pb_name || ''}</h3>
                   <p className="text-sm font-light">Perjanjian Baru</p>
@@ -177,7 +177,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
                       ? 'bg-green-500 text-white hover:bg-green-600'
                       : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500 dark:hover:text-white'
                   } sm:mx-1`}
-                  onClick={() => changePassage('in-1', 'in_1')}
+                  onClick={() => changePassage('in-1')}
                 >
                   <h3 className="text-lg">{guideData?.in_name || ''}</h3>
                   <p className="text-sm font-light">Kitab Injil</p>

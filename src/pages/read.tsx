@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
+import splitbee from '@splitbee/web'
 
 import BibleNavbar from '../components/Bible/BibleNavbar'
 import BibleTypography from '../components/Bible/BibleTypography'
@@ -17,7 +18,6 @@ import useLocalStorage from '../utils/hooks/useLocalStorage'
 import useFetchedGuide from '../utils/hooks/useFetchedGuide'
 import useRequest from '../utils/hooks/useRequest'
 import dayjs from '../utils/dayjs'
-import * as gtag from '../utils/gtag'
 
 import { useDispatchGuide, useGuide } from '../store'
 
@@ -322,12 +322,10 @@ const Read: React.FC = () => {
       }
     }
 
-    // Google Analytics
-    gtag.event({
-      action: 'next_bible',
+    // Splitbee Analytics
+    splitbee.track('Bible - Next', {
       category: 'Bible',
-      label: 'Bible - Next',
-      value: `Next Bible in ${dayjs().format('DD-MM-YYYY HH:mm:ss')}`,
+      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
     })
   }
 
@@ -378,28 +376,22 @@ const Read: React.FC = () => {
       }
     }
 
-    // Google Analytics
-    gtag.event({
-      action: 'back_bible',
+    // Splitbee Analytics
+    splitbee.track('Bible - Back', {
       category: 'Bible',
-      label: 'Bible - Back',
-      value: `Back Bible in ${dayjs().format('DD-MM-YYYY HH:mm:ss')}`,
+      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
     })
   }
 
-  const changePassage = (name: string, code: string) => {
+  const changePassage = (name: string) => {
     setPassage(name)
     setOpenPassage(false)
     scrollToTop()
 
-    // Google Analytics
-    gtag.event({
-      action: `to_passage_${code}`,
+    // Splitbee Analytics
+    splitbee.track(`Bible - To ${name.toUpperCase()}`, {
       category: 'Bible',
-      label: `Bible - To ${name.toUpperCase()}`,
-      value: `Read Bible (${name.toUpperCase()}) in ${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )}`,
+      datetime: dayjs().format('DD-MM-YYYY HH:mm:ss'),
     })
   }
 
