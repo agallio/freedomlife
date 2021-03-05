@@ -29,7 +29,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
         highlighted
           ? 'bg-green-600 border-green-600 text-white'
           : 'bg-white border-gray-100 dark:bg-gray-700 dark:border-gray-800 dark:bg-opacity-70'
-      } ${inGuide ? 'h-24' : 'h-12 sm:h-14'}`}
+      } ${inGuide ? 'h-25' : 'h-12 sm:h-14'}`}
       style={{
         backdropFilter: 'saturate(180%) blur(20px)',
         WebkitBackdropFilter: 'saturate(180%) blur(20px)',
@@ -56,7 +56,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
       )}
       <div
         className={`flex items-center justify-between max-w-sm mx-6 ${
-          inGuide ? 'py-4' : 'h-full'
+          inGuide ? 'py-3' : 'h-full'
         } sm:max-w-md sm:mx-auto landscape:mx-auto`}
       >
         {highlighted ? (
