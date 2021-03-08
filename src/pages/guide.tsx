@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
-import splitbee from '@splitbee/web'
+// import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
@@ -22,7 +22,7 @@ const Guide: React.FC = () => {
   })
 
   const toBibleWithDate = (date: string) => {
-    splitbee.track(`Navigate To Bible (${date})`)
+    // splitbee.track(`Navigate To Bible (${date})`)
     guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
     Router.push('/read?guide=true')
     document.body.scrollTop = 0
@@ -54,7 +54,7 @@ const Guide: React.FC = () => {
         }}
       />
 
-      <div className="max-w-sm p-6 mx-auto sm:max-w-md sm:py-6">
+      <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16">
         <JumboHeader title="Panduan Baca" subtitle="Panduan Baca Bulan Ini" />
 
         {!data ? (
