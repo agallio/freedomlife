@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { AnimatePresence } from 'framer-motion'
-import splitbee from '@splitbee/web'
+// import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
-import NewYearBox from '@/components/Home/NewYearBox'
 import NewYearDialog from '@/components/Home/NewYearDialog'
+// import NewYearBox from '@/components/Home/NewYearBox'
 
 import { useDispatchGuide } from '../store'
 
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   })
 
   const toBible = () => {
-    splitbee.track('Navigate To Bible')
+    // splitbee.track('Navigate To Bible')
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: '' })
     Router.push('/read?guide=true')
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
 
         <NewUserBox />
 
-        <NewYearBox handleOpen={() => setOpen(true)} />
+        {/* <NewYearBox handleOpen={() => setOpen(true)} /> */}
 
         <AnimatePresence>
           {open && <NewYearDialog handleClose={() => setOpen(false)} />}

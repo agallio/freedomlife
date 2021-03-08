@@ -1,11 +1,11 @@
 import Router from 'next/router'
-import splitbee from '@splitbee/web'
+// import splitbee from '@splitbee/web'
 
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
 const NewUserBox: React.FC = () => {
   const toLearn = () => {
-    splitbee.track('Navigate To Learn')
+    // splitbee.track('Navigate To Learn')
     Router.push('/learn')
   }
 
