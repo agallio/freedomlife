@@ -79,12 +79,5 @@ module.exports = {
       }),
     },
   },
-  variants: {
-    extend: {
-      backgroundOpacity: ['dark'],
-      opacity: ['dark', 'disabled'],
-      typography: ['dark'],
-    },
-  },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }

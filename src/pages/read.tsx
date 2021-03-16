@@ -256,6 +256,7 @@ const Read: React.FC = () => {
 
   const handleOpenPassage = () => {
     if (data && guideData && bibleData) {
+      document.body.style.overflow = 'hidden'
       setOpenPassage(true)
       setChapterSelected({ name: '', abbr: '', passage: 0 })
     }
@@ -378,6 +379,7 @@ const Read: React.FC = () => {
   }
 
   const changePassage = (name: string) => {
+    document.body.style.overflow = 'visible'
     setPassage(name)
     setOpenPassage(false)
     scrollToTop()
@@ -387,6 +389,7 @@ const Read: React.FC = () => {
   }
 
   const changeVersion = (version: string) => {
+    document.body.style.overflow = 'visible'
     revalidate()
     guideRevalidate()
     setBibleVersion(version)
@@ -395,6 +398,7 @@ const Read: React.FC = () => {
   }
 
   const changeChapter = (chapter: string) => {
+    document.body.style.overflow = 'visible'
     localStorage.setItem('last_chapter', chapter)
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: chapter })
     bibleRevalidate()
@@ -555,6 +559,7 @@ const Read: React.FC = () => {
           return
       }
 
+      document.body.style.overflow = 'visible'
       setOpenPassage(false)
       router.push('/read')
       toast.success('Panduan Baca Nonaktif', {
@@ -649,9 +654,15 @@ const Read: React.FC = () => {
         inGuide={inGuide}
         guideDate={guideDate}
         handleExitGuide={handleExitGuide}
-        handleOpenTranslate={() => setOpenTranslate(true)}
+        handleOpenTranslate={() => {
+          document.body.style.overflow = 'hidden'
+          setOpenTranslate(true)
+        }}
         handleOpenPassage={handleOpenPassage}
-        handleOpenSetting={() => setOpenSetting(true)}
+        handleOpenSetting={() => {
+          document.body.style.overflow = 'hidden'
+          setOpenSetting(true)
+        }}
         removeHighlight={removeHighlight}
         copyText={copyText}
         passageTitle={`${passageTitle()} 
@@ -689,7 +700,10 @@ const Read: React.FC = () => {
         openTranslate={openTranslate}
         inGuide={inGuide}
         bibleVersion={bibleVersion}
-        handleCloseTranslate={() => setOpenTranslate(false)}
+        handleCloseTranslate={() => {
+          document.body.style.overflow = 'visible'
+          setOpenTranslate(false)
+        }}
         changeVersion={changeVersion}
       />
 
@@ -706,7 +720,10 @@ const Read: React.FC = () => {
         setChapterSelected={setChapterSelected}
         changePassage={changePassage}
         changeChapter={changeChapter}
-        handleClosePassage={() => setOpenPassage(false)}
+        handleClosePassage={() => {
+          document.body.style.overflow = 'visible'
+          setOpenPassage(false)
+        }}
         handleExitGuide={handleExitGuide}
       />
 
@@ -717,7 +734,10 @@ const Read: React.FC = () => {
         handleMinusFontSize={handleMinusFontSize}
         handlePlusFontSize={handlePlusFontSize}
         setVerseFontSize={setVerseFontSize}
-        handleCloseSetting={() => setOpenSetting(false)}
+        handleCloseSetting={() => {
+          document.body.style.overflow = 'visible'
+          setOpenSetting(false)
+        }}
       />
     </>
   )
