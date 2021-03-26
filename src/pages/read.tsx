@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
-import splitbee from '@splitbee/web'
 
 import BibleNavbar from '../components/Bible/BibleNavbar'
 import BibleTypography from '../components/Bible/BibleTypography'
@@ -18,6 +17,7 @@ import useLocalStorage from '../utils/hooks/useLocalStorage'
 import useFetchedGuide from '../utils/hooks/useFetchedGuide'
 import useRequest from '../utils/hooks/useRequest'
 import dayjs from '../utils/dayjs'
+import * as gtag from '../utils/gtag'
 
 import { useDispatchGuide, useGuide } from '../store'
 
@@ -323,8 +323,15 @@ const Read: React.FC = () => {
       }
     }
 
-    // Splitbee Analytics
-    splitbee.track('Bible - Next')
+    // Google Tag Event
+    gtag.event({
+      action: `to`,
+      category: 'Read',
+      label: `Read - Next`,
+      value: `User move to the next passage. (${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )})`,
+    })
   }
 
   const backPassage = () => {
@@ -374,8 +381,15 @@ const Read: React.FC = () => {
       }
     }
 
-    // Splitbee Analytics
-    splitbee.track('Bible - Back')
+    // Google Tag Event
+    gtag.event({
+      action: `to`,
+      category: 'Read',
+      label: `Read - Previous`,
+      value: `User move to the previous passage. (${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )})`,
+    })
   }
 
   const changePassage = (name: string) => {
@@ -384,8 +398,15 @@ const Read: React.FC = () => {
     setOpenPassage(false)
     scrollToTop()
 
-    // Splitbee Analytics
-    splitbee.track(`Bible - To ${name.toUpperCase()}`)
+    // Google Tag Event
+    gtag.event({
+      action: `to`,
+      category: 'Read',
+      label: `Read - To ${name.toUpperCase()}`,
+      value: `User move to ${name.toUpperCase()}. (${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )})`,
+    })
   }
 
   const changeVersion = (version: string) => {

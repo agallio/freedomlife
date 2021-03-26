@@ -1,12 +1,23 @@
 import Router from 'next/router'
-// import splitbee from '@splitbee/web'
+
+import dayjs from '@/utils/dayjs'
+import * as gtag from '@/utils/gtag'
 
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
 const NewUserBox: React.FC = () => {
   const toLearn = () => {
-    // splitbee.track('Navigate To Learn')
     Router.push('/learn')
+
+    // Google Tag Event
+    gtag.event({
+      action: 'to_learn',
+      category: 'Learn',
+      label: 'Navigate To Learn',
+      value: `User learn how to use FreedomLife. ${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )}`,
+    })
   }
 
   return (

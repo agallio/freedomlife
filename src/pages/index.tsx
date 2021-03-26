@@ -12,6 +12,7 @@ import { useDispatchGuide } from '../store'
 
 import dayjs from '@/utils/dayjs'
 import useRequest from '@/utils/hooks/useRequest'
+import * as gtag from '@/utils/gtag'
 
 import type { ApiResponse, GuideDataResponse } from '@/types/api'
 import NewUserBox from '@/components/Home/NewUserBox'
@@ -26,12 +27,21 @@ const Home: React.FC = () => {
   })
 
   const toBible = () => {
-    // splitbee.track('Navigate To Bible')
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: '' })
     Router.push('/read?guide=true')
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
+
+    // Google Tag Event
+    gtag.event({
+      action: 'to_read',
+      category: 'Read',
+      label: 'Navigate To Read - Today',
+      value: `User read today's guide. ${dayjs().format(
+        'DD-MM-YYYY HH:mm:ss'
+      )}`,
+    })
   }
 
   useEffect(() => {
