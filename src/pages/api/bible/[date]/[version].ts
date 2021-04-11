@@ -51,14 +51,12 @@ const bibleByDate = async (
       const plColonDashSplit = plColonSplit[1].split('-')
 
       try {
-        const {
-          data: plData,
-          error: plError,
-        } = await supabase
+        const { data: plData, error: plError } = await supabase
           .from<SupabaseBibles>('bibles')
           .select()
           .filter('abbr', 'eq', plSpaceSplit[0])
           .filter('chapter', 'eq', String(plColonDashSplit[0]))
+          .filter('version', 'eq', version || 'tb')
 
         if (plError) {
           return res
@@ -90,14 +88,12 @@ const bibleByDate = async (
 
       for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
         try {
-          const {
-            data: plData,
-            error: plError,
-          } = await supabase
+          const { data: plData, error: plError } = await supabase
             .from<SupabaseBibles>('bibles')
             .select()
             .filter('abbr', 'eq', plSpaceSplit[0])
             .filter('chapter', 'eq', i)
+            .filter('version', 'eq', version || 'tb')
 
           if (plError) {
             return res
@@ -123,14 +119,12 @@ const bibleByDate = async (
       }
     } else {
       try {
-        const {
-          data: plData,
-          error: plError,
-        } = await supabase
+        const { data: plData, error: plError } = await supabase
           .from<SupabaseBibles>('bibles')
           .select()
           .filter('abbr', 'eq', plSpaceSplit[0])
           .filter('chapter', 'eq', plSpaceSplit[1])
+          .filter('version', 'eq', version || 'tb')
 
         if (plError) {
           return res.status(500).json({ data: null, error: `${plError} (pl)` })
@@ -159,14 +153,12 @@ const bibleByDate = async (
       const pbDashSplit = pbColonSplit[1].split('-')
 
       try {
-        const {
-          data: pbData,
-          error: pbError,
-        } = await supabase
+        const { data: pbData, error: pbError } = await supabase
           .from<SupabaseBibles>('bibles')
           .select()
           .filter('abbr', 'eq', pbSpaceSplit[0])
           .filter('chapter', 'eq', pbColonSplit[0])
+          .filter('version', 'eq', version || 'tb')
 
         if (pbError) {
           return res
@@ -195,14 +187,12 @@ const bibleByDate = async (
       }
     } else {
       try {
-        const {
-          data: pbData,
-          error: pbError,
-        } = await supabase
+        const { data: pbData, error: pbError } = await supabase
           .from<SupabaseBibles>('bibles')
           .select()
           .filter('abbr', 'eq', pbSpaceSplit[0])
           .filter('chapter', 'eq', pbSpaceSplit[1])
+          .filter('version', 'eq', version || 'tb')
 
         if (pbError) {
           return res.status(500).json({ data: null, error: `${pbError} (pb)` })
@@ -234,14 +224,12 @@ const bibleByDate = async (
         const injColonDashSplit = injColonSplit[1].split('-')
 
         try {
-          const {
-            data: inData,
-            error: inError,
-          } = await supabase
+          const { data: inData, error: inError } = await supabase
             .from<SupabaseBibles>('bibles')
             .select()
             .filter('abbr', 'eq', injSpaceSplit[0])
             .filter('chapter', 'eq', injColonSplit[0])
+            .filter('version', 'eq', version || 'tb')
 
           if (inError) {
             return res
@@ -277,14 +265,12 @@ const bibleByDate = async (
           i++
         ) {
           try {
-            const {
-              data: inData,
-              error: inError,
-            } = await supabase
+            const { data: inData, error: inError } = await supabase
               .from<SupabaseBibles>('bibles')
               .select()
               .filter('abbr', 'eq', injSpaceSplit[0])
               .filter('chapter', 'eq', i)
+              .filter('version', 'eq', version || 'tb')
 
             if (inError) {
               return res
@@ -311,14 +297,12 @@ const bibleByDate = async (
         }
       } else {
         try {
-          const {
-            data: inData,
-            error: inError,
-          } = await supabase
+          const { data: inData, error: inError } = await supabase
             .from<SupabaseBibles>('bibles')
             .select()
             .filter('abbr', 'eq', injSpaceSplit[0])
             .filter('chapter', 'eq', injSpaceSplit[1])
+            .filter('version', 'eq', version || 'tb')
 
           if (inError) {
             return res
@@ -362,10 +346,7 @@ const bibleByDate = async (
       in: [...injArr],
     }
 
-    res.setHeader(
-      'Cache-Control',
-      'max-age=604800, s-maxage=604800, stale-while-revalidate'
-    )
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
     return res.json({ data, error: null })
   }
 }

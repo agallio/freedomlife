@@ -64,7 +64,7 @@ const Read = (): JSX.Element => {
   const { data, revalidate } = useRequest<ApiResponse<BibleGuideDataResponse>>({
     url: `/api/bible/${
       guideDate || dayjs().format('DD-MM-YYYY')
-    }?version=${bibleVersion}`,
+    }/${bibleVersion}`,
   })
   const { data: bibleData, revalidate: bibleRevalidate } = useRequest<
     ApiResponse<BibleDataResponse>

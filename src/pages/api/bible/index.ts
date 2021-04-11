@@ -27,10 +27,7 @@ const biblePassage = async (
 
   if (data) {
     try {
-      res.setHeader(
-        'Cache-Control',
-        'max-age=604800, s-maxage=604800, stale-while-revalidate'
-      )
+      res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
       return res.json({
         data: {
           version: version || 'tb',
