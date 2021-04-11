@@ -5,9 +5,9 @@ import { NextSeo } from 'next-seo'
 import JumboHeader from '@/components/JumboHeader'
 import { getDocBySlug, markdownToHtml } from '@/utils/learn'
 
-const Learn: React.FC<{ post: { title: string; content: string } }> = ({
-  post,
-}) => {
+import type { LearnPageProps } from '@/types/components'
+
+const Learn = ({ post }: LearnPageProps): JSX.Element => {
   const goHome = () => {
     Router.push('/')
   }

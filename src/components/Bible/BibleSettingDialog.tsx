@@ -6,7 +6,7 @@ import PlusIcon from '../Icons/PlusIcon'
 
 import type { BibleSettingDialogProps } from '@/types/components'
 
-const BibleSettingDialog: React.FC<BibleSettingDialogProps> = ({
+const BibleSettingDialog = ({
   openSetting,
   verseFontSize,
   getFontSizeName,
@@ -14,7 +14,7 @@ const BibleSettingDialog: React.FC<BibleSettingDialogProps> = ({
   handlePlusFontSize,
   setVerseFontSize,
   handleCloseSetting,
-}) => {
+}: BibleSettingDialogProps): JSX.Element => {
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (

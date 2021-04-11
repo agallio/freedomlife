@@ -12,7 +12,7 @@ import { useGuide } from '@/store/index'
 
 import type { BiblePassageDialogProps } from '@/types/components'
 
-const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
+const BiblePassageDialog = ({
   openPassage,
   inGuide,
   passage,
@@ -27,7 +27,7 @@ const BiblePassageDialog: React.FC<BiblePassageDialogProps> = ({
   changeChapter,
   handleClosePassage,
   handleExitGuide,
-}) => {
+}: BiblePassageDialogProps): JSX.Element => {
   const { guideData, guideDate } = useGuide()
 
   return (

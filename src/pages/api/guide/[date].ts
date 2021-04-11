@@ -1,41 +1,38 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { getDatabase } from '@/db/index'
+import { supabase } from '@/utils/supabase'
 
 const guideByDate = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const { GuideModel } = await getDatabase()
+  if (req.method !== 'GET') {
+    return res.status(405).json({ data: null, error: 'Method not allowed.' })
+  }
 
   const { date } = req.query
 
-  try {
-    const guide = await GuideModel.findOne({ date: String(date) })
+  if (!date) {
+    return res
+      .status(404)
+      .json({ data: null, error: "Param 'date' is missing" })
+  }
 
-    if (guide) {
-      res.json({
-        status: 200,
-        ok: true,
-        data: guide,
-        error: null,
-      })
-    } else {
-      res.status(404).json({
-        status: 404,
-        ok: false,
-        data: null,
-        error: { message: 'Guide Not Found. (guide/date)' },
-      })
-    }
-  } catch (e) {
-    console.error(e)
-    res.status(500).json({
-      status: 500,
-      ok: false,
-      data: null,
-      error: { message: 'Internal Server Error. (guide/date)' },
-    })
+  const { data, error } = await supabase
+    .from('guides')
+    .select()
+    .filter('date', 'eq', String(date))
+
+  if (error) return res.status(500).json({ data: null, error: error.message })
+
+  if (data) {
+    res.setHeader(
+      'Cache-Control',
+      'max-age=604800, s-maxage=604800, stale-while-revalidate'
+    )
+    return res.json({ data: data[0], error: null })
+  } else {
+    return res.status(404).json({ data: null, error: 'Guide not found.' })
   }
 }
 

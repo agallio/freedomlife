@@ -1,7 +1,6 @@
-const PlusIcon: React.FC<{ outline?: boolean; className?: string }> = ({
-  outline,
-  className,
-}) => (
+import type { IconProps } from '@/types/components'
+
+const PlusIcon = ({ outline, className }: IconProps): JSX.Element => (
   <>
     {outline ? (
       <svg

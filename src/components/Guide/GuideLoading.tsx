@@ -1,4 +1,4 @@
-const GuideLoading: React.FC = () => (
+const GuideLoading = (): JSX.Element => (
   <>
     {[1, 2].map((item) => (
       <div

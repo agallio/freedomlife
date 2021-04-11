@@ -30,7 +30,7 @@ import type {
   VerseData,
 } from '../types/api'
 
-const Read: React.FC = () => {
+const Read = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
   const router = useRouter()
   const { theme } = useTheme()
@@ -107,7 +107,7 @@ const Read: React.FC = () => {
       }
     }
   } else {
-    passageArray = bibleData?.data.data
+    passageArray = bibleData?.data?.data
   }
 
   const handleMinusFontSize = () => {
@@ -271,7 +271,7 @@ const Read: React.FC = () => {
     removeHighlight()
 
     if (inGuide) {
-      const currChapter = data?.data.passage
+      const currChapter = data?.data?.passage
       const currPassage = currChapter?.find((i) => i === passage)
       const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 
@@ -338,7 +338,7 @@ const Read: React.FC = () => {
     removeHighlight()
 
     if (inGuide) {
-      const currChapter = data?.data.passage
+      const currChapter = data?.data?.passage
       const currPassage = currChapter?.find((i) => i === passage)
       const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 

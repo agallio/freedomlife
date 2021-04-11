@@ -4,13 +4,13 @@ import Sheet from 'react-modal-sheet'
 
 import type { BibleTranslateDialogProps } from '@/types/components'
 
-const BibleTranslateDialog: React.FC<BibleTranslateDialogProps> = ({
+const BibleTranslateDialog = ({
   openTranslate,
   inGuide,
   bibleVersion,
   handleCloseTranslate,
   changeVersion,
-}) => {
+}: BibleTranslateDialogProps): JSX.Element => {
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (

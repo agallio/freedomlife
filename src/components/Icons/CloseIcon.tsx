@@ -1,7 +1,6 @@
-const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({
-  className,
-  onClick,
-}) => (
+import type { IconProps } from '@/types/components'
+
+const CloseIcon = ({ className, onClick }: IconProps): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

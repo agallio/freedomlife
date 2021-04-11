@@ -1,46 +1,48 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { getDatabase } from '@/db/index'
+import { supabase } from '@/utils/supabase'
 import dayjs from '@/utils/dayjs'
 
 const guideByMonth = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const { GuideModel } = await getDatabase()
+  if (req.method !== 'GET') {
+    return res.status(405).json({ data: null, error: 'Method not allowed.' })
+  }
 
   const { monthNumber } = req.query
 
-  try {
-    const guides = await GuideModel.find({
-      $and: [{ month: monthNumber }, { year: dayjs().format('YYYY') }],
-    })
-      .sort({ date: 1 })
-      .toArray()
+  if (!monthNumber) {
+    return res
+      .status(400)
+      .json({ data: null, error: "Param 'monthNumber' is missing." })
+  }
 
-    if (guides) {
-      res.json({
-        status: 200,
-        ok: true,
-        data: guides,
-        error: null,
-      })
-    } else {
-      res.status(404).json({
-        status: 404,
-        ok: false,
-        data: null,
-        error: { message: 'Guide Not Found. (guide/month)' },
-      })
-    }
-  } catch (e) {
-    console.error(e)
-    res.status(500).json({
-      status: 500,
-      ok: false,
+  if (Number(monthNumber) < 1 || Number(monthNumber) > 12) {
+    return res.status(400).json({
       data: null,
-      error: { message: 'Internal Server Error. (guide/month)' },
+      error: "Param 'monthNumber' should be between 1 to 12.",
     })
+  }
+
+  const { data, error } = await supabase
+    .from('guides')
+    .select()
+    .filter('month', 'eq', monthNumber)
+    .filter('year', 'eq', dayjs().format('YYYY'))
+    .order('date', { ascending: true })
+
+  if (error) return res.status(500).json({ data: null, error: error.message })
+
+  if (data) {
+    res.setHeader(
+      'Cache-Control',
+      'max-age=604800, s-maxage=604800, stale-while-revalidate'
+    )
+    return res.json({ data, error: null })
+  } else {
+    return res.status(404).json({ data: null, error: 'Guides not found.' })
   }
 }
 

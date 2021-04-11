@@ -6,11 +6,11 @@ import SunIcon from './Icons/SunIcon'
 
 import type { JumboHeaderProps } from '@/types/components'
 
-const JumboHeader: React.FC<JumboHeaderProps> = ({
+const JumboHeader = ({
   isHome,
   title,
   subtitle,
-}) => {
+}: JumboHeaderProps): JSX.Element => {
   const [isMounted, setIsMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 

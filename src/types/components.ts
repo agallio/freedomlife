@@ -112,3 +112,13 @@ export interface BibleSettingDialogProps {
   setVerseFontSize: (size: string) => void
   handleCloseSetting: () => void
 }
+
+export interface IconProps {
+  className?: string
+  outline?: boolean
+  onClick?: () => void
+}
+
+export interface LearnPageProps {
+  post: { title: string; content: string }
+}

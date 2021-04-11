@@ -21,6 +21,6 @@ const SeoConfig = {
   },
 }
 
-const SEO: React.FC = () => <DefaultSeo {...SeoConfig} />
+const SEO = (): JSX.Element => <DefaultSeo {...SeoConfig} />
 
 export default SEO

@@ -24,14 +24,6 @@ const nextConfig = {
         source: '/service-worker.js',
         destination: '/_next/static/service-worker.js',
       },
-      // {
-      //   destination: 'https://cdn.splitbee.io/sb.js',
-      //   source: '/sb.js',
-      // },
-      // {
-      //   destination: 'https://hive.splitbee.io/:slug',
-      //   source: '/sb-api/:slug',
-      // },
     ]
   },
   webpack: (config, { dev, isServer }) => {

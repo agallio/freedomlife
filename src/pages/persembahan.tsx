@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 import JumboHeader from '@/components/JumboHeader'
 import CopyIcon from '@/components/Icons/CopyIcon'
 
-const Persembahan: React.FC = () => {
+const Persembahan = (): JSX.Element => {
   const { theme } = useTheme()
 
   const fallbackCopyNumber = async (bank: string, bankText: string) => {
