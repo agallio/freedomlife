@@ -2,7 +2,7 @@ import dayjs from '@/utils/dayjs'
 
 import type { HomeBoxProps } from '@/types/components'
 
-const HomeBox: React.FC<HomeBoxProps> = ({ data, toBible }) => {
+const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
   return (
     <div
       className="flex flex-col shadow-md rounded-lg mt-4"

@@ -15,7 +15,7 @@ import { useDispatchGuide } from '../store'
 
 import type { ApiResponse, GuideDataResponse } from '@/types/api'
 
-const Guide: React.FC = () => {
+const Guide = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
 
   const { data } = useRequest<ApiResponse<GuideDataResponse[]>>({
@@ -70,7 +70,7 @@ const Guide: React.FC = () => {
         {!data ? (
           <GuideLoading />
         ) : (
-          data.data.map((item, index) => (
+          data.data!.map((item, index) => (
             <GuideItem
               key={index}
               item={item}

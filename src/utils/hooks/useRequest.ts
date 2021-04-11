@@ -48,7 +48,7 @@ export default function useRequest<Data = unknown, Error = unknown>(
   )
 
   return {
-    data: response && response.data,
+    data: response?.data,
     response,
     error,
     isValidating,

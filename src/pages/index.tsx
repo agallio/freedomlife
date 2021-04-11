@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { AnimatePresence } from 'framer-motion'
-// import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
 import NewYearDialog from '@/components/Home/NewYearDialog'
-// import NewYearBox from '@/components/Home/NewYearBox'
+import NewUserBox from '@/components/Home/NewUserBox'
 
 import { useDispatchGuide } from '../store'
 
@@ -15,10 +14,8 @@ import useRequest from '@/utils/hooks/useRequest'
 import * as gtag from '@/utils/gtag'
 
 import type { ApiResponse, GuideDataResponse } from '@/types/api'
-import NewUserBox from '@/components/Home/NewUserBox'
-import SplitbeeBadge from '@/components/Home/SplitbeeBadge'
 
-const Home: React.FC = () => {
+const Home = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
   const [open, setOpen] = useState(false)
 
@@ -65,13 +62,9 @@ const Home: React.FC = () => {
 
         <NewUserBox />
 
-        {/* <NewYearBox handleOpen={() => setOpen(true)} /> */}
-
         <AnimatePresence>
           {open && <NewYearDialog handleClose={() => setOpen(false)} />}
         </AnimatePresence>
-
-        <SplitbeeBadge />
       </main>
     </div>
   )

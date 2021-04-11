@@ -9,7 +9,7 @@ import { useGuide } from '@/store/index'
 
 import type { BibleNavbarProps } from '@/types/components'
 
-const BibleNavbar: React.FC<BibleNavbarProps> = ({
+const BibleNavbar = ({
   highlighted,
   highlightedText,
   inGuide,
@@ -20,7 +20,7 @@ const BibleNavbar: React.FC<BibleNavbarProps> = ({
   handleOpenTranslate,
   handleOpenPassage,
   handleOpenSetting,
-}) => {
+}: BibleNavbarProps): JSX.Element => {
   const { guideDate } = useGuide()
 
   return (

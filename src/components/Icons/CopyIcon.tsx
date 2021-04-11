@@ -1,7 +1,6 @@
-const CopyIcon: React.FC<{ outline?: boolean; className?: string }> = ({
-  outline,
-  className,
-}) => (
+import type { IconProps } from '@/types/components'
+
+const CopyIcon = ({ outline, className }: IconProps): JSX.Element => (
   <>
     {outline ? (
       <svg

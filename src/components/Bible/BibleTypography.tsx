@@ -1,6 +1,6 @@
 import type { BibleTypographyProps } from '@/types/components'
 
-const BibleTypography: React.FC<BibleTypographyProps> = ({
+const BibleTypography = ({
   inGuide,
   verseFontSize,
   maintenance,
@@ -10,7 +10,7 @@ const BibleTypography: React.FC<BibleTypographyProps> = ({
   highlightedText,
   getHeaderFontSize,
   highlightText,
-}) => {
+}: BibleTypographyProps): JSX.Element => {
   return (
     <div
       className={`max-w-sm mx-auto ${

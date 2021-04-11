@@ -54,8 +54,7 @@ $ yarn start
 | [useSWR](https://swr.vercel.app/)                          |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |
-| [MongoDB](https://www.mongodb.com/)                        |
-| [Splitbee](https://splitbee.io/)                           |
+| [Supabase](https://www.supabase.io/)                       |
 
 For detailed explanation on how things work, click the technology stack name to find out.
 

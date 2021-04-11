@@ -5,7 +5,7 @@ import { useGuide } from '@/store/index'
 
 import type { BibleNavigatorProps } from '@/types/components'
 
-const BibleNavigator: React.FC<BibleNavigatorProps> = ({
+const BibleNavigator = ({
   chevronRef,
   data,
   bibleData,
@@ -13,7 +13,7 @@ const BibleNavigator: React.FC<BibleNavigatorProps> = ({
   passage,
   backPassage,
   nextPassage,
-}) => {
+}: BibleNavigatorProps): JSX.Element => {
   const { guidePassage } = useGuide()
 
   return (

@@ -6,7 +6,7 @@ import BookIcon from './Icons/BookIcon'
 import HomeIcon from './Icons/HomeIcon'
 import OpenBookIcon from './Icons/OpenBookIcon'
 
-const BottomTabBar: React.FC = () => {
+const BottomTabBar = (): JSX.Element => {
   const router = useRouter()
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const footerRef = useRef<HTMLElement>(null)

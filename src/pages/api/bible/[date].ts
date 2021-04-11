@@ -1,350 +1,373 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import type { Collection } from 'mongodb'
 
-import { getDatabase } from '@/db/index'
-import type { GuideInterface, BibleInterface } from '@/types/db'
+import { supabase } from '@/utils/supabase'
+import { SupabaseBibles, SupabaseGuides } from '@/types/api'
 
-const getGuideByDate = async (
-  date: string,
-  GuideModel: Collection<any>
-): Promise<GuideInterface | boolean> => {
-  try {
-    const guide = (await GuideModel.findOne({
-      date,
-    })) as GuideInterface
-
-    if (guide) {
-      return guide
-    } else {
-      return false
-    }
-  } catch (e) {
-    console.error(e)
-    return false
-  }
-}
-
-const bibleToday = async (
+const bibleByDate = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const {
-    GuideModel,
-    TBBibleModel,
-    BISBibleModel,
-    FAYHBibleModel,
-    MSGBibleModel,
-    NKJVBibleModel,
-  } = await getDatabase()
+  if (req.method !== 'GET') {
+    return res.status(405).json({ data: null, error: 'Method not allowed.' })
+  }
 
   const { date, version } = req.query
 
-  const guideByDate = (await getGuideByDate(
-    date as string,
-    GuideModel
-  )) as GuideInterface
-
-  if (!guideByDate) {
-    res.status(404).json({
-      status: 404,
-      ok: false,
-      data: null,
-      error: { message: "Unable to find today's guide. (bible/today)" },
-    })
-    return
+  if (!date) {
+    return res
+      .status(404)
+      .json({ data: null, error: "Param 'date' is missing" })
   }
 
-  const pl = guideByDate.pl
-  const pb = guideByDate.pb
-  const inj = guideByDate.in
+  const {
+    data: guideByDateData,
+    error: guideByDateError,
+  } = await supabase
+    .from<SupabaseGuides>('guides')
+    .select()
+    .filter('date', 'eq', String(date))
 
-  const plSpaceSplit = pl.split(' ')
-  const pbSpaceSplit = pb.split(' ')
-  const injSpaceSplit = inj.split(' ')
-
-  const plArr = []
-  const pbArr = []
-  const injArr = []
-
-  const bibleVersion = (abbr: string, chapter: string | number) => {
-    switch (version) {
-      case 'tb':
-        return TBBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-      case 'bis':
-        return BISBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-      case 'fayh':
-        return FAYHBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-      case 'msg':
-        return MSGBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-      case 'nkjv':
-        return NKJVBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-
-      default:
-        return TBBibleModel.findOne({
-          $and: [{ abbr }, { chapter: String(chapter) }],
-        })
-    }
+  if (guideByDateError) {
+    return res.status(500).json({ data: null, error: guideByDateError.message })
   }
 
-  const plDashSplit = plSpaceSplit[1].split('-')
-  const plColonSplit = plSpaceSplit[1].split(':')
-  if (plColonSplit.length > 1) {
-    const plColonDashSplit = plColonSplit[1].split('-')
+  if (guideByDateData) {
+    const pl = guideByDateData[0].pl
+    const pb = guideByDateData[0].pb
+    const inj = guideByDateData[0].in
 
-    try {
-      const passage = (await bibleVersion(
-        plSpaceSplit[0],
-        plColonDashSplit[0]
-      )) as BibleInterface
+    const plSpaceSplit = pl.split(' ')
+    const pbSpaceSplit = pb.split(' ')
+    const injSpaceSplit = inj.split(' ')
 
-      plArr.push({
-        version: version || 'tb',
-        book: passage.book,
-        chapter: passage.chapter,
-        passagePlace: `pl-1`,
-        data: passage.verses.filter(
-          (item) =>
-            item.verse >= Number(plColonDashSplit[0]) &&
-            item.verse <= Number(plColonDashSplit[1])
-        ),
-      })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({
-        status: 500,
-        ok: false,
-        data: null,
-        error: { message: 'Internal Server Error. (bible/today/pl-colon)' },
-      })
-    }
-  } else if (plDashSplit.length > 1) {
-    let place = 1
-    for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
-      try {
-        const passage = (await bibleVersion(
-          plSpaceSplit[0],
-          i
-        )) as BibleInterface
+    const plArr = []
+    const pbArr = []
+    const injArr = []
 
-        plArr.push({
-          version: version || 'tb',
-          book: passage.book,
-          chapter: i,
-          passagePlace: `pl-${place++}`,
-          data: passage.verses,
-        })
-      } catch (e) {
-        console.error(e)
-        res.status(500).json({
-          status: 500,
-          ok: false,
-          data: null,
-          error: {
-            message: `Internal Server Error. (bible/today/pl-${place})`,
-          },
-        })
-      }
-    }
-  } else {
-    try {
-      const passage = (await bibleVersion(
-        plSpaceSplit[0],
-        plSpaceSplit[1]
-      )) as BibleInterface
-
-      plArr.push({
-        version: version || 'tb',
-        book: passage.book,
-        chapter: passage.chapter,
-        passagePlace: `pl-1`,
-        data: passage.verses,
-      })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({
-        status: 500,
-        ok: false,
-        data: null,
-        error: { message: 'Internal Server Error. (bible/today/pl)' },
-      })
-    }
-  }
-
-  const pbColonSplit = pbSpaceSplit[1].split(':')
-  if (pbColonSplit.length > 1) {
-    const pbDashSplit = pbColonSplit[1].split('-')
-
-    try {
-      const passage = (await bibleVersion(
-        pbSpaceSplit[0],
-        pbColonSplit[0]
-      )) as BibleInterface
-
-      pbArr.push({
-        version: version || 'tb',
-        book: passage.book,
-        chapter: passage.chapter,
-        passagePlace: `pb`,
-        data: passage.verses.filter(
-          (item) =>
-            item.verse >= Number(pbDashSplit[0]) &&
-            item.verse <= Number(pbDashSplit[1])
-        ),
-      })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({
-        status: 500,
-        ok: false,
-        data: null,
-        error: { message: 'Internal Server Error. (bible/today/pb-colon)' },
-      })
-    }
-  } else {
-    try {
-      const passage = (await bibleVersion(
-        pbSpaceSplit[0],
-        pbSpaceSplit[1]
-      )) as BibleInterface
-
-      pbArr.push({
-        version: version || 'tb',
-        book: passage.book,
-        chapter: passage.chapter,
-        passagePlace: `pb`,
-        data: passage.verses,
-      })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({
-        status: 500,
-        ok: false,
-        data: null,
-        error: { message: 'Internal Server Error. (bible/today/pb)' },
-      })
-    }
-  }
-
-  if (injSpaceSplit.length > 1) {
-    const injDashSplit = injSpaceSplit[1].split('-')
-    const injColonSplit = injSpaceSplit[1].split(':')
-
-    if (injColonSplit.length > 1) {
-      const injColonDashSplit = injColonSplit[1].split('-')
+    // Perjanjian Lama (PL)
+    const plDashSplit = plSpaceSplit[1].split('-')
+    const plColonSplit = plSpaceSplit[1].split(':')
+    if (plColonSplit.length > 1) {
+      const plColonDashSplit = plColonSplit[1].split('-')
 
       try {
-        const passage = (await bibleVersion(
-          injSpaceSplit[0],
-          injColonSplit[0]
-        )) as BibleInterface
+        const {
+          data: plData,
+          error: plError,
+        } = await supabase
+          .from<SupabaseBibles>('bibles')
+          .select()
+          .filter('abbr', 'eq', plSpaceSplit[0])
+          .filter('chapter', 'eq', String(plColonDashSplit[0]))
 
-        injArr.push({
-          version: version || 'tb',
-          book: passage.book,
-          chapter: passage.chapter,
-          passagePlace: `in-1`,
-          data: passage.verses.filter(
-            (item) =>
-              item.verse >= Number(injColonDashSplit[0]) &&
-              item.verse <= Number(injColonDashSplit[1])
-          ),
-        })
-      } catch (e) {
-        console.error(e)
-        res.status(500).json({
-          status: 500,
-          ok: false,
-          data: null,
-          error: { message: 'Internal Server Error. (bible/today/in-colon)' },
-        })
-      }
-    } else if (injDashSplit.length > 1) {
-      let place = 1
-      for (let i = Number(injDashSplit[0]); i <= Number(injDashSplit[1]); i++) {
-        try {
-          const passage = (await bibleVersion(
-            injSpaceSplit[0],
-            i
-          )) as BibleInterface
+        if (plError) {
+          return res
+            .status(500)
+            .json({ data: null, error: `${plError} (pl-colon)` })
+        }
 
-          injArr.push({
+        if (plData) {
+          plArr.push({
             version: version || 'tb',
-            book: passage.book,
-            chapter: i,
-            passagePlace: `in-${place++}`,
-            data: passage.verses,
+            book: plData[0].book,
+            chapter: plData[0].chapter,
+            passagePlace: `pl-1`,
+            data: plData[0].verses.filter(
+              (item) =>
+                item.verse >= Number(plColonDashSplit[0]) &&
+                item.verse <= Number(plColonDashSplit[1])
+            ),
           })
+        }
+      } catch (e) {
+        console.error(e)
+        return res
+          .status(500)
+          .json({ data: null, error: 'Internal server error. (pl-colon)' })
+      }
+    } else if (plDashSplit.length > 1) {
+      let place = 1
+
+      for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
+        try {
+          const {
+            data: plData,
+            error: plError,
+          } = await supabase
+            .from<SupabaseBibles>('bibles')
+            .select()
+            .filter('abbr', 'eq', plSpaceSplit[0])
+            .filter('chapter', 'eq', i)
+
+          if (plError) {
+            return res
+              .status(500)
+              .json({ data: null, error: `${plError} (pl-${place})` })
+          }
+
+          if (plData) {
+            plArr.push({
+              version: version || 'tb',
+              book: plData[0].book,
+              chapter: i,
+              passagePlace: `pl-${place++}`,
+              data: plData[0].verses,
+            })
+          }
         } catch (e) {
           console.error(e)
-          res.status(500).json({
-            status: 500,
-            ok: false,
-            data: null,
-            error: {
-              message: `Internal Server Error. (bible/today/in-${place})`,
-            },
-          })
+          return res
+            .status(500)
+            .json({ data: null, error: `Internal server error. (pl-${place})` })
         }
       }
     } else {
       try {
-        const passage = (await bibleVersion(
-          injSpaceSplit[0],
-          injSpaceSplit[1]
-        )) as BibleInterface
+        const {
+          data: plData,
+          error: plError,
+        } = await supabase
+          .from<SupabaseBibles>('bibles')
+          .select()
+          .filter('abbr', 'eq', plSpaceSplit[0])
+          .filter('chapter', 'eq', plSpaceSplit[1])
 
-        injArr.push({
-          version: version || 'tb',
-          book: passage.book,
-          chapter: passage.chapter,
-          passagePlace: `in-1`,
-          data: passage.verses,
-        })
+        if (plError) {
+          return res.status(500).json({ data: null, error: `${plError} (pl)` })
+        }
+
+        if (plData) {
+          plArr.push({
+            version: version || 'tb',
+            book: plData[0].book,
+            chapter: plData[0].chapter,
+            passagePlace: `pl-1`,
+            data: plData[0].verses,
+          })
+        }
       } catch (e) {
         console.error(e)
-        res.status(500).json({
-          status: 500,
-          ok: false,
-          data: null,
-          error: { message: 'Internal Server Error. (bible/today/in)' },
-        })
+        return res
+          .status(500)
+          .json({ data: null, error: 'Internal server error. (pl)' })
       }
     }
-  }
 
-  const plList = []
-  for (let i = 1; i <= plArr.length; i++) {
-    plList.push(`pl-${i}`)
-  }
+    // Perjanjian Baru (PB)
+    const pbColonSplit = pbSpaceSplit[1].split(':')
+    if (pbColonSplit.length > 1) {
+      const pbDashSplit = pbColonSplit[1].split('-')
 
-  const injList = []
-  for (let i = 1; i <= injArr.length; i++) {
-    injList.push(`in-${i}`)
-  }
+      try {
+        const {
+          data: pbData,
+          error: pbError,
+        } = await supabase
+          .from<SupabaseBibles>('bibles')
+          .select()
+          .filter('abbr', 'eq', pbSpaceSplit[0])
+          .filter('chapter', 'eq', pbColonSplit[0])
 
-  const data = {
-    passage: [...plList, 'pb', ...injList],
-    pl: [...plArr],
-    pb: [...pbArr],
-    in: [...injArr],
-  }
+        if (pbError) {
+          return res
+            .status(500)
+            .json({ data: null, error: `${pbError} (pb-colon)` })
+        }
 
-  await res.json({
-    status: 200,
-    ok: true,
-    data,
-    error: null,
-  })
+        if (pbData) {
+          pbArr.push({
+            version: version || 'tb',
+            book: pbData[0].book,
+            chapter: pbData[0].chapter,
+            passagePlace: `pb`,
+            data: pbData[0].verses.filter(
+              (item) =>
+                item.verse >= Number(pbDashSplit[0]) &&
+                item.verse <= Number(pbDashSplit[1])
+            ),
+          })
+        }
+      } catch (e) {
+        console.error(e)
+        return res
+          .status(500)
+          .json({ data: null, error: 'Internal server error. (pb-colon)' })
+      }
+    } else {
+      try {
+        const {
+          data: pbData,
+          error: pbError,
+        } = await supabase
+          .from<SupabaseBibles>('bibles')
+          .select()
+          .filter('abbr', 'eq', pbSpaceSplit[0])
+          .filter('chapter', 'eq', pbSpaceSplit[1])
+
+        if (pbError) {
+          return res.status(500).json({ data: null, error: `${pbError} (pb)` })
+        }
+
+        if (pbData) {
+          pbArr.push({
+            version: version || 'tb',
+            book: pbData[0].book,
+            chapter: pbData[0].chapter,
+            passagePlace: `pb`,
+            data: pbData[0].verses,
+          })
+        }
+      } catch (e) {
+        console.error(e)
+        return res
+          .status(500)
+          .json({ data: null, error: 'Internal server error. (pb)' })
+      }
+    }
+
+    // Kitab Injil (IN)
+    if (injSpaceSplit.length > 1) {
+      const injDashSplit = injSpaceSplit[1].split('-')
+      const injColonSplit = injSpaceSplit[1].split(':')
+
+      if (injColonSplit.length > 1) {
+        const injColonDashSplit = injColonSplit[1].split('-')
+
+        try {
+          const {
+            data: inData,
+            error: inError,
+          } = await supabase
+            .from<SupabaseBibles>('bibles')
+            .select()
+            .filter('abbr', 'eq', injSpaceSplit[0])
+            .filter('chapter', 'eq', injColonSplit[0])
+
+          if (inError) {
+            return res
+              .status(500)
+              .json({ data: null, error: `${inError} (in-colon)` })
+          }
+
+          if (inData) {
+            injArr.push({
+              version: version || 'tb',
+              book: inData[0].book,
+              chapter: inData[0].chapter,
+              passagePlace: `in-1`,
+              data: inData[0].verses.filter(
+                (item) =>
+                  item.verse >= Number(injColonDashSplit[0]) &&
+                  item.verse <= Number(injColonDashSplit[1])
+              ),
+            })
+          }
+        } catch (e) {
+          console.error(e)
+          return res
+            .status(500)
+            .json({ data: null, error: 'Internal server error. (in-colon)' })
+        }
+      } else if (injDashSplit.length > 1) {
+        let place = 1
+
+        for (
+          let i = Number(injDashSplit[0]);
+          i <= Number(injDashSplit[1]);
+          i++
+        ) {
+          try {
+            const {
+              data: inData,
+              error: inError,
+            } = await supabase
+              .from<SupabaseBibles>('bibles')
+              .select()
+              .filter('abbr', 'eq', injSpaceSplit[0])
+              .filter('chapter', 'eq', i)
+
+            if (inError) {
+              return res
+                .status(500)
+                .json({ data: null, error: `${inError} (in-${place})` })
+            }
+
+            if (inData) {
+              injArr.push({
+                version: version || 'tb',
+                book: inData[0].book,
+                chapter: i,
+                passagePlace: `in-${place++}`,
+                data: inData[0].verses,
+              })
+            }
+          } catch (e) {
+            console.error(e)
+            return res.status(500).json({
+              data: null,
+              error: `Internal server error. (in-${place})`,
+            })
+          }
+        }
+      } else {
+        try {
+          const {
+            data: inData,
+            error: inError,
+          } = await supabase
+            .from<SupabaseBibles>('bibles')
+            .select()
+            .filter('abbr', 'eq', injSpaceSplit[0])
+            .filter('chapter', 'eq', injSpaceSplit[1])
+
+          if (inError) {
+            return res
+              .status(500)
+              .json({ data: null, error: `${inError} (in})` })
+          }
+
+          if (inData) {
+            injArr.push({
+              version: version || 'tb',
+              book: inData[0].book,
+              chapter: inData[0].chapter,
+              passagePlace: `in-1`,
+              data: inData[0].verses,
+            })
+          }
+        } catch (e) {
+          console.error(e)
+          return res.status(500).json({
+            data: null,
+            error: 'Internal server error. (in)',
+          })
+        }
+      }
+    }
+
+    const plList = []
+    for (let i = 1; i <= plArr.length; i++) {
+      plList.push(`pl-${i}`)
+    }
+
+    const injList = []
+    for (let i = 1; i <= injArr.length; i++) {
+      injList.push(`in-${i}`)
+    }
+
+    const data = {
+      passage: [...plList, 'pb', ...injList],
+      pl: [...plArr],
+      pb: [...pbArr],
+      in: [...injArr],
+    }
+
+    res.setHeader(
+      'Cache-Control',
+      'max-age=604800, s-maxage=604800, stale-while-revalidate'
+    )
+    return res.json({ data, error: null })
+  }
 }
 
-export default bibleToday
+export default bibleByDate

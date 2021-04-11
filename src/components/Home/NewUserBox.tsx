@@ -5,7 +5,7 @@ import * as gtag from '@/utils/gtag'
 
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
-const NewUserBox: React.FC = () => {
+const NewUserBox = (): JSX.Element => {
   const toLearn = () => {
     Router.push('/learn')
 

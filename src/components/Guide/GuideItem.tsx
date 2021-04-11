@@ -5,11 +5,11 @@ import dayjs from '@/utils/dayjs'
 
 import type { GuideItemProps } from '@/types/components'
 
-const GuideItem: React.FC<GuideItemProps> = ({
+const GuideItem = ({
   item,
   index,
   toBibleWithDate,
-}) => {
+}: GuideItemProps): JSX.Element => {
   const { theme } = useTheme()
 
   const isToday = (date: string) => {

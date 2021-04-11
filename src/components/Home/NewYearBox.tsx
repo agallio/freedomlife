@@ -2,7 +2,11 @@ import { motion } from 'framer-motion'
 
 import NYIcon from '../Icons/NYIcon'
 
-const NewYearBox: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
+const NewYearBox = ({
+  handleOpen,
+}: {
+  handleOpen: () => void
+}): JSX.Element => {
   return (
     <motion.div
       className="flex flex-col shadow-md rounded-lg mt-4"

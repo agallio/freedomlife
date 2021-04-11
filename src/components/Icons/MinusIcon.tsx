@@ -1,7 +1,6 @@
-const MinusIcon: React.FC<{ outline?: boolean; className?: string }> = ({
-  outline,
-  className,
-}) => (
+import type { IconProps } from '@/types/components'
+
+const MinusIcon = ({ outline, className }: IconProps): JSX.Element => (
   <>
     {outline ? (
       <svg

@@ -1,4 +1,6 @@
-const NewUserIcon: React.FC<{ className?: string }> = ({ className }) => {
+import type { IconProps } from '@/types/components'
+
+const NewUserIcon = ({ className }: IconProps): JSX.Element => {
   return (
     <svg
       id="b142cff6-7277-4db1-8c84-b82a10fcabd4"

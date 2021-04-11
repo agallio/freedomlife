@@ -1,4 +1,6 @@
-const NYIcon: React.FC<{ className?: string }> = ({ className }) => {
+import type { IconProps } from '@/types/components'
+
+const NYIcon = ({ className }: IconProps): JSX.Element => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

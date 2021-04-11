@@ -1,7 +1,6 @@
-const HomeIcon: React.FC<{ outline?: boolean; className?: string }> = ({
-  outline,
-  className,
-}) => (
+import type { IconProps } from '@/types/components'
+
+const HomeIcon = ({ outline, className }: IconProps): JSX.Element => (
   <>
     {outline ? (
       <svg

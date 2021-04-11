@@ -1,4 +1,6 @@
-const ChevronRightIcon: React.FC<{ className?: string }> = ({ className }) => (
+import type { IconProps } from '@/types/components'
+
+const ChevronRightIcon = ({ className }: IconProps): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

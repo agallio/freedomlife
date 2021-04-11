@@ -3,9 +3,11 @@ import { motion } from 'framer-motion'
 import CloseIcon from '../Icons/CloseIcon'
 import NYIcon from '../Icons/NYIcon'
 
-const NewYearDialog: React.FC<{ handleClose: () => void }> = ({
+const NewYearDialog = ({
   handleClose,
-}) => {
+}: {
+  handleClose: () => void
+}): JSX.Element => {
   return (
     <>
       <motion.div

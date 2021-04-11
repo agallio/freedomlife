@@ -1,3 +1,29 @@
+export interface SupabaseBibles {
+  id: string
+  abbr: string
+  book: string
+  chapter: string
+  version: string
+  verses: {
+    content: string
+    type: string
+    verse: number
+  }[]
+}
+
+export interface SupabaseGuides {
+  id: string
+  month: string
+  year: string
+  date: string
+  pl: string
+  pb: string
+  in: string
+  pl_name: string
+  pb_name: string
+  in_name: string
+}
+
 // API
 export interface GuideDataResponse {
   month_name?: string
@@ -40,13 +66,7 @@ export interface BibleDataResponse {
   data: VerseData[]
 }
 
-interface ErrorResponse {
-  message: string
-}
-
 export interface ApiResponse<Data = unknown> {
-  status: number
-  ok: boolean
-  data: Data
-  error: ErrorResponse | null
+  data: Data | null
+  error: string | null
 }
