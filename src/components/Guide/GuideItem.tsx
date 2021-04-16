@@ -67,7 +67,9 @@ const GuideItem = ({
             isToday(item.date as string)
               ? 'bg-white bg-opacity-40 text-green-700 transition duration-300 hover:bg-opacity-70'
               : 'bg-green-600 text-white transition duration-300 hover:bg-green-700'
-          } rounded-full p-1 focus:outline-none`}
+          } rounded-full p-1 focus:outline-none umami--click--to-bible-${
+            item.date
+          }`}
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

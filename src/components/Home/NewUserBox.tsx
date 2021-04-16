@@ -1,24 +1,9 @@
 import Router from 'next/router'
 
-import dayjs from '@/utils/dayjs'
-import * as gtag from '@/utils/gtag'
-
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
 const NewUserBox = (): JSX.Element => {
-  const toLearn = () => {
-    Router.push('/learn')
-
-    // Google Tag Event
-    gtag.event({
-      action: 'to_learn',
-      category: 'Learn',
-      label: 'Navigate To Learn',
-      value: `User learn how to use FreedomLife. ${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )}`,
-    })
-  }
+  const toLearn = () => Router.push('/learn')
 
   return (
     <div className="flex flex-col shadow-md rounded-lg mt-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
@@ -52,7 +37,7 @@ const NewUserBox = (): JSX.Element => {
       >
         <button
           aria-label="Buka Dialog Tahun Baru"
-          className="w-full h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-60"
+          className="w-full h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-60 umami--click--to-learn"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

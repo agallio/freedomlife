@@ -9,7 +9,6 @@ import GuideItem from '@/components/Guide/GuideItem'
 
 import useRequest from '@/utils/hooks/useRequest'
 import dayjs from '@/utils/dayjs'
-import * as gtag from '@/utils/gtag'
 
 import { useDispatchGuide } from '../store'
 
@@ -27,16 +26,6 @@ const Guide = (): JSX.Element => {
     Router.push('/read?guide=true')
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
-
-    // Google Tag Event
-    gtag.event({
-      action: `to_read_${date}`,
-      category: 'Read',
-      label: `Read - ${date}`,
-      value: `User read the ${date} guide. (${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )})`,
-    })
   }
 
   return (

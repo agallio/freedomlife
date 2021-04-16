@@ -33,7 +33,7 @@ const BibleNavigator = ({
               : guidePassage === 'kej-1' || !guidePassage)
               ? 'invisible'
               : ''
-          }`}
+          } umami--click--to-prev-passage`}
           onClick={(e) => {
             e.preventDefault()
             backPassage()
@@ -50,7 +50,7 @@ const BibleNavigator = ({
             guidePassage === 'why-22'
               ? 'invisible'
               : ''
-          }`}
+          } umami--click--to-next-passage`}
           onClick={nextPassage}
         >
           <ChevronRightIcon />

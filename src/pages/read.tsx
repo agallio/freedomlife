@@ -17,7 +17,6 @@ import useLocalStorage from '../utils/hooks/useLocalStorage'
 import useFetchedGuide from '../utils/hooks/useFetchedGuide'
 import useRequest from '../utils/hooks/useRequest'
 import dayjs from '../utils/dayjs'
-import * as gtag from '../utils/gtag'
 
 import { useDispatchGuide, useGuide } from '../store'
 
@@ -322,16 +321,6 @@ const Read = (): JSX.Element => {
         }
       }
     }
-
-    // Google Tag Event
-    gtag.event({
-      action: `to`,
-      category: 'Read',
-      label: `Read - Next`,
-      value: `User move to the next passage. (${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )})`,
-    })
   }
 
   const backPassage = () => {
@@ -380,16 +369,6 @@ const Read = (): JSX.Element => {
         }
       }
     }
-
-    // Google Tag Event
-    gtag.event({
-      action: `to`,
-      category: 'Read',
-      label: `Read - Previous`,
-      value: `User move to the previous passage. (${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )})`,
-    })
   }
 
   const changePassage = (name: string) => {
@@ -397,16 +376,6 @@ const Read = (): JSX.Element => {
     setPassage(name)
     setOpenPassage(false)
     scrollToTop()
-
-    // Google Tag Event
-    gtag.event({
-      action: `to`,
-      category: 'Read',
-      label: `Read - To ${name.toUpperCase()}`,
-      value: `User move to ${name.toUpperCase()}. (${dayjs().format(
-        'DD-MM-YYYY HH:mm:ss'
-      )})`,
-    })
   }
 
   const changeVersion = (version: string) => {

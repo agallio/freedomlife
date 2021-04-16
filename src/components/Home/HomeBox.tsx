@@ -100,7 +100,7 @@ const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
           >
             <button
               aria-label="Baca Panduan"
-              className="w-24 h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30"
+              className="w-24 h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 umami--click--to-bible"
               style={{
                 backdropFilter: 'saturate(100%) blur(20px)',
                 WebkitBackdropFilter: 'saturate(100%) blur(20px)',
