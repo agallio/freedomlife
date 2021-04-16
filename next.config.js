@@ -1,8 +1,9 @@
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.agallio.xyz;
   child-src *.googletagmanager.com;
-  style-src 'self' 'unsafe-inline' *.googleapis.com;
+  style-src 'self' 'unsafe-inline' *.googleapis.com *.freedomlife.id *.agallio.xyz;
+  worker-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
