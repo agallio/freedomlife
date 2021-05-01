@@ -12,12 +12,12 @@
     "postinstall": "husky install"
   },
   "engines": {
-    "node": "12.x.x",
+    "node": "14.x.x",
     "npm": "please-use-yarn",
     "yarn": ">= 1.22.4"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^1.11.8",
+    "@supabase/supabase-js": "^1.11.9",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/typography": "^0.4.0",
     "axios": "^0.21.1",
