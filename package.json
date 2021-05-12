@@ -16,6 +16,10 @@
     "npm": "please-use-yarn",
     "yarn": ">= 1.22.4"
   },
+  "volta": {
+    "node": "14.17.0",
+    "yarn": "1.22.10"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^1.11.10",
     "@tailwindcss/forms": "^0.3.2",
