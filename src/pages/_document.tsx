@@ -28,6 +28,13 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link
+            rel="preload"
+            href="/fonts/lato-black.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
             rel="apple-touch-icon"
             sizes="180x180"
             href="/apple-touch-icon.png"

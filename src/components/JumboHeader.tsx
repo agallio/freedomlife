@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
@@ -8,8 +9,8 @@ import type { JumboHeaderProps } from '@/types/components'
 
 const JumboHeader = ({
   isHome,
-  title,
   subtitle,
+  description,
 }: JumboHeaderProps): JSX.Element => {
   const [isMounted, setIsMounted] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -24,10 +25,18 @@ const JumboHeader = ({
 
   return (
     <header className="flex flex-col">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-green-700 sm:text-4xl dark:text-white">
-          {title}
-        </h1>
+      <div className={`flex justify-between items-center mb-4`}>
+        <div className="flex items-center justify-center">
+          <Image
+            src="/android-chrome-512x512.png"
+            alt="FreedomLife Logo"
+            width={35}
+            height={35}
+          />
+          <h1 className="ml-[5px] text-3xl font-logo text-gray-800 dark:text-white">
+            freedomlife
+          </h1>
+        </div>
         {isHome && isMounted && (
           <button
             aria-label="Ganti Mode Warna"
@@ -39,7 +48,14 @@ const JumboHeader = ({
         )}
       </div>
       {subtitle && (
-        <p className="text-lg text-green-700 dark:text-white">{subtitle}</p>
+        <p className="text-xl font-semibold text-green-700 dark:text-white">
+          {subtitle}
+        </p>
+      )}
+      {description && (
+        <p className="text-md font-light text-green-700 dark:text-white">
+          {description}
+        </p>
       )}
     </header>
   )

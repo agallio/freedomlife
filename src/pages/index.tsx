@@ -40,11 +40,7 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
-      <JumboHeader
-        isHome
-        title="FreedomLife"
-        subtitle="Panduan Baca Alkitab Setahun"
-      />
+      <JumboHeader isHome />
 
       <main>
         <HomeBox data={data} toBible={toBible} />

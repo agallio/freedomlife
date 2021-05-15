@@ -1,6 +1,6 @@
 # FreedomLife
 
-[![FreedomLife-Logo](/public/images/og-freedomlife.png)](https://freedomlife.id)
+[![FreedomLife-Logo](/public/images/og-index.png)](https://freedomlife.id)
 
 FreedomLife is a bible reading guide app. Users can read the bible with or without guide in various translations and see guides for following days.
 
@@ -90,6 +90,8 @@ Give a star to this repository would be a great help!
 Don't forget to share this application to your social media accounts if you find it helpful!
 
 You can also buy me a coffee! 😄 ☕️
+
+**[Saweria](https://saweria.co/agallio)**
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/agallio)
 <a href="https://www.buymeacoffee.com/agallio" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

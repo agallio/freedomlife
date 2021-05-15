@@ -92,8 +92,8 @@ const Persembahan = (): JSX.Element => {
 
       <div className="max-w-sm p-6 mx-auto mb-6 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
         <JumboHeader
-          title="Persembahan &amp; Persepuluhan"
-          subtitle="Gereja Kristen Kemah Daud - Yogyakarta"
+          subtitle="Persembahan &amp; Persepuluhan"
+          description="Gereja Kristen Kemah Daud - Yogyakarta"
         />
 
         <main className="mt-4">

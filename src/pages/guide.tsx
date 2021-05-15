@@ -54,7 +54,7 @@ const Guide = (): JSX.Element => {
       />
 
       <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16">
-        <JumboHeader title="Panduan Baca" subtitle="Panduan Baca Bulan Ini" />
+        <JumboHeader subtitle="Panduan Baca Bulan Ini" />
 
         {!data ? (
           <GuideLoading />

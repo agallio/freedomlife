@@ -16,6 +16,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', ...fontFamily.sans],
+        logo: ['Lato', 'sans-serif'],
       },
       screens: {
         landscape: { raw: '(orientation: landscape)' },

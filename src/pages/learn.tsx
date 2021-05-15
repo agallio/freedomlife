@@ -45,7 +45,7 @@ const Learn = ({ post }: LearnPageProps): JSX.Element => {
         >
           Kembali
         </button>
-        <JumboHeader title={post.title} />
+        <JumboHeader subtitle={post.title} />
         <div className="mt-8 mb-8 prose dark:prose-dark">
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
