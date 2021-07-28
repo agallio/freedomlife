@@ -139,6 +139,7 @@ const BiblePassageDialog = ({
         <div
           id="modalPassageContent"
           className={`${inGuide ? 'pt-14' : 'pt-24'} overflow-auto sm:px-4`}
+          style={{ maxHeight: 480 }}
         >
           {inGuide ? (
             <>
