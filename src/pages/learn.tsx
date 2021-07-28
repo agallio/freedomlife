@@ -38,7 +38,7 @@ const Learn = ({ post }: LearnPageProps): JSX.Element => {
         }}
       />
 
-      <div className="max-w-md p-6 mx-auto sm:py-6 md:mb-16 landscape:mx-auto">
+      <div className="max-w-sm p-6 mx-auto sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
         <button
           className="py-2 px-4 mb-8 border border-green-700 rounded-lg text-green-700 transform transition hover:bg-green-100 dark:border dark:border-white dark:text-white dark:hover:bg-gray-700 focus:outline-none"
           onClick={goHome}

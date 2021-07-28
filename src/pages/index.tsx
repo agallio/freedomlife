@@ -39,7 +39,7 @@ const Home = (): JSX.Element => {
   }, [open])
 
   return (
-    <div className="max-w-md p-6 mx-auto mb-20 sm:py-6 md:mb-16 landscape:mx-auto">
+    <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
       <JumboHeader isHome />
 
       <main>
