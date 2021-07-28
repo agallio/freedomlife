@@ -608,8 +608,6 @@ const Read = (): JSX.Element => {
     }
   }, [router.query.guide])
 
-  console.log(JSON.stringify(passageTitle()))
-
   return (
     <>
       <Head>

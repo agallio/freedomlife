@@ -37,6 +37,7 @@ const BiblePassageDialog = ({
       defaultSnap={() => 500}
       snapPoints={({ minHeight }) => [500, minHeight]}
       style={{ position: 'fixed', zIndex: 40 }}
+      skipInitialTransition
     >
       <div>
         <div
