@@ -255,7 +255,6 @@ const Read = (): JSX.Element => {
 
   const handleOpenPassage = () => {
     if (data && guideData && bibleData) {
-      document.body.style.overflow = 'hidden'
       setOpenPassage(true)
       setChapterSelected({ name: '', abbr: '', passage: 0 })
     }
@@ -372,14 +371,12 @@ const Read = (): JSX.Element => {
   }
 
   const changePassage = (name: string) => {
-    document.body.style.overflow = 'visible'
     setPassage(name)
     setOpenPassage(false)
     scrollToTop()
   }
 
   const changeVersion = (version: string) => {
-    document.body.style.overflow = 'visible'
     revalidate()
     guideRevalidate()
     setBibleVersion(version)
@@ -388,7 +385,6 @@ const Read = (): JSX.Element => {
   }
 
   const changeChapter = (chapter: string) => {
-    document.body.style.overflow = 'visible'
     localStorage.setItem('last_chapter', chapter)
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: chapter })
     bibleRevalidate()
@@ -549,7 +545,6 @@ const Read = (): JSX.Element => {
           return
       }
 
-      document.body.style.overflow = 'visible'
       setOpenPassage(false)
       router.push('/read')
       toast.success('Panduan Baca Nonaktif', {
@@ -644,15 +639,9 @@ const Read = (): JSX.Element => {
         inGuide={inGuide}
         guideDate={guideDate}
         handleExitGuide={handleExitGuide}
-        handleOpenTranslate={() => {
-          document.body.style.overflow = 'hidden'
-          setOpenTranslate(true)
-        }}
+        handleOpenTranslate={() => setOpenTranslate(true)}
         handleOpenPassage={handleOpenPassage}
-        handleOpenSetting={() => {
-          document.body.style.overflow = 'hidden'
-          setOpenSetting(true)
-        }}
+        handleOpenSetting={() => setOpenSetting(true)}
         removeHighlight={removeHighlight}
         copyText={copyText}
         passageTitle={`${passageTitle()} 
@@ -688,12 +677,8 @@ const Read = (): JSX.Element => {
 
       <BibleTranslateDialog
         openTranslate={openTranslate}
-        inGuide={inGuide}
         bibleVersion={bibleVersion}
-        handleCloseTranslate={() => {
-          document.body.style.overflow = 'visible'
-          setOpenTranslate(false)
-        }}
+        handleCloseTranslate={() => setOpenTranslate(false)}
         changeVersion={changeVersion}
       />
 
@@ -710,10 +695,7 @@ const Read = (): JSX.Element => {
         setChapterSelected={setChapterSelected}
         changePassage={changePassage}
         changeChapter={changeChapter}
-        handleClosePassage={() => {
-          document.body.style.overflow = 'visible'
-          setOpenPassage(false)
-        }}
+        handleClosePassage={() => setOpenPassage(false)}
         handleExitGuide={handleExitGuide}
       />
 
@@ -724,10 +706,7 @@ const Read = (): JSX.Element => {
         handleMinusFontSize={handleMinusFontSize}
         handlePlusFontSize={handlePlusFontSize}
         setVerseFontSize={setVerseFontSize}
-        handleCloseSetting={() => {
-          document.body.style.overflow = 'visible'
-          setOpenSetting(false)
-        }}
+        handleCloseSetting={() => setOpenSetting(false)}
       />
     </>
   )

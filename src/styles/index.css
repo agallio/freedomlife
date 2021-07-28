@@ -1,6 +1,6 @@
 @tailwind base;
 
-/* Write your own custom base styles here */
+/* start: custom base styles */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -20,20 +20,28 @@
   src: url(/fonts/lato-black.woff2) format('woff2');
 }
 
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
+:root {
+  --rsbs-max-w: 28rem;
+  --rsbs-ml: auto;
+  --rsbs-mr: auto;
+}
 
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+/* end: custom base styles */
 
+@tailwind components;
+
+/* start: custom component styles */
 html {
   @apply bg-gray-50;
 }
 
 html.dark {
   @apply bg-gray-800;
+  --rsbs-bg: #374151;
+  --rsbs-handle-bg: #6b7280;
 }
 
 html.light {
@@ -48,35 +56,6 @@ body {
   @apply bg-gray-50 dark:bg-gray-800;
 }
 
-/* Write your own custom component styles here */
-.react-modal-sheet-container {
-  background-color: #f9fafb !important;
-}
-
-.dark .react-modal-sheet-container {
-  background-color: #374151 !important;
-}
-
-.react-modal-sheet-content {
-  @apply w-full max-w-md mx-auto;
-}
-
-.react-modal-sheet-header {
-  height: 40px;
-  @apply relative w-full flex items-center justify-center;
-}
-
-.react-modal-sheet-drag-indicator {
-  width: 18px;
-  height: 4px;
-  border-radius: 99px;
-  background-color: #ddd;
-}
-
-.dark .react-modal-sheet-drag-indicator {
-  background-color: #6b7280;
-}
-
 .prose h2 {
   @apply text-green-700;
 }
@@ -84,9 +63,6 @@ body {
 .prose h3 {
   @apply text-green-700;
 }
+/* end: custom component styles */
 
-/* Start purging... */
 @tailwind utilities;
-/* Stop purging. */
-
-/* Your own custom utilities */

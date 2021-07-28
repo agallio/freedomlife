@@ -11,6 +11,7 @@ import SEO from '@/components/SEO'
 import BottomTabBar from '@/components/BottomTabBar'
 
 import '@/styles/index.css'
+import 'react-spring-bottom-sheet/dist/style.css'
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
