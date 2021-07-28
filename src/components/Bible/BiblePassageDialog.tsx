@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 
 import ChevronLeftIcon from '../Icons/ChevronLeftIcon'
@@ -30,49 +29,6 @@ const BiblePassageDialog = ({
   handleExitGuide,
 }: BiblePassageDialogProps): JSX.Element => {
   const { guideData, guideDate } = useGuide()
-
-  const passageItemMemo = useMemo(() => {
-    return searchChapter.length > 0
-      ? bibleList
-          .filter((item) =>
-            item.name.toLowerCase().includes(searchChapter.toLowerCase())
-          )
-          .map((item) => (
-            <motion.li
-              layout
-              key={item.name}
-              onClick={() => handleSelectChapter({ ...item })}
-              initial={{ borderRadius: '0.5rem' }}
-              transition={{ duration: 0.2 }}
-              className="bg-white text-green-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
-            >
-              <motion.div transition={{ duration: 0.2 }}>
-                <motion.div
-                  layout
-                  transition={{ duration: 0.2 }}
-                  className="p-3"
-                >
-                  <h3>{item.name}</h3>
-                </motion.div>
-              </motion.div>
-            </motion.li>
-          ))
-      : bibleList.map((item) => (
-          <motion.li
-            layout
-            key={item.name}
-            onClick={() => handleSelectChapter({ ...item })}
-            transition={{ duration: 0.2 }}
-            className="bg-white text-green-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white"
-          >
-            <motion.div transition={{ duration: 0.2 }}>
-              <motion.div layout transition={{ duration: 0.2 }} className="p-3">
-                <h3>{item.name}</h3>
-              </motion.div>
-            </motion.div>
-          </motion.li>
-        ))
-  }, [bibleList, searchChapter, handleSelectChapter])
 
   return (
     <BottomSheet
@@ -326,7 +282,52 @@ const BiblePassageDialog = ({
               transition={{ duration: 0.2 }}
             >
               <motion.ul layout transition={{ duration: 0.2 }}>
-                {passageItemMemo}
+                {searchChapter.length > 0
+                  ? bibleList
+                      .filter((item) =>
+                        item.name
+                          .toLowerCase()
+                          .includes(searchChapter.toLowerCase())
+                      )
+                      .map((item) => (
+                        <motion.li
+                          layout
+                          key={item.name}
+                          onClick={() => handleSelectChapter({ ...item })}
+                          initial={{ borderRadius: '0.5rem' }}
+                          transition={{ duration: 0.2 }}
+                          className="bg-white text-green-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
+                        >
+                          <motion.div transition={{ duration: 0.2 }}>
+                            <motion.div
+                              layout
+                              transition={{ duration: 0.2 }}
+                              className="p-3"
+                            >
+                              <h3>{item.name}</h3>
+                            </motion.div>
+                          </motion.div>
+                        </motion.li>
+                      ))
+                  : bibleList.map((item) => (
+                      <motion.li
+                        layout
+                        key={item.name}
+                        onClick={() => handleSelectChapter({ ...item })}
+                        transition={{ duration: 0.2 }}
+                        className="bg-white text-green-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white"
+                      >
+                        <motion.div transition={{ duration: 0.2 }}>
+                          <motion.div
+                            layout
+                            transition={{ duration: 0.2 }}
+                            className="p-3"
+                          >
+                            <h3>{item.name}</h3>
+                          </motion.div>
+                        </motion.div>
+                      </motion.li>
+                    ))}
               </motion.ul>
             </motion.div>
           )}
