@@ -25,7 +25,8 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           <AnimateSharedLayout type="crossfade">
             <Toaster />
             <Component {...pageProps} />
-            {router.pathname !== '/persembahan' &&
+            {router.pathname !== '/404' &&
+              router.pathname !== '/persembahan' &&
               router.pathname !== '/learn' && <BottomTabBar />}
           </AnimateSharedLayout>
         </ThemeProvider>

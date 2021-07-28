@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
@@ -8,12 +9,13 @@ import SunIcon from './Icons/SunIcon'
 import type { JumboHeaderProps } from '@/types/components'
 
 const JumboHeader = ({
+  isNotFound,
   isHome,
   subtitle,
   description,
 }: JumboHeaderProps): JSX.Element => {
   const [isMounted, setIsMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme: theme, setTheme } = useTheme()
 
   useEffect(() => setIsMounted(true), [])
 
@@ -26,17 +28,33 @@ const JumboHeader = ({
   return (
     <header className="flex flex-col">
       <div className={`flex justify-between items-center mb-4`}>
-        <div className="flex items-center justify-center">
-          <Image
-            src="/android-chrome-512x512.png"
-            alt="FreedomLife Logo"
-            width={35}
-            height={35}
-          />
-          <h1 className="ml-[5px] text-3xl font-logo text-gray-800 dark:text-white">
-            freedomlife
-          </h1>
-        </div>
+        {!isNotFound ? (
+          <div className="flex items-center justify-center">
+            <Image
+              src="/android-chrome-512x512.png"
+              alt="FreedomLife Logo"
+              width={35}
+              height={35}
+            />
+            <h1 className="ml-[5px] text-3xl font-logo text-gray-800 dark:text-white">
+              freedomlife
+            </h1>
+          </div>
+        ) : (
+          <Link href="/" passHref>
+            <div className="flex items-center justify-center">
+              <Image
+                src="/android-chrome-512x512.png"
+                alt="FreedomLife Logo"
+                width={55}
+                height={55}
+              />
+              <h1 className="ml-[5px] text-5xl font-logo text-gray-800 dark:text-white">
+                freedomlife
+              </h1>
+            </div>
+          </Link>
+        )}
         {isHome && isMounted && (
           <button
             aria-label="Ganti Mode Warna"

@@ -90,6 +90,7 @@ const BibleNavbar = ({
               aria-label="Buka Dialog Kitab"
               className="bg-green-500 text-white py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-green-600 focus:outline-none sm:py-2 sm:px-6"
               onClick={handleOpenPassage}
+              style={{ minWidth: '8rem' }}
             >
               {passageTitle}
             </button>
