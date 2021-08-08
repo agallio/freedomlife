@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { supabase } from '@/utils/supabase'
+import rateLimit from '@/utils/rate-limit'
 
-import { SupabaseBibles } from '@/types/api'
+import type { SupabaseBibles } from '@/types/api'
+
+const limiter = rateLimit()
 
 const biblePassage = async (
   req: NextApiRequest,
@@ -14,6 +17,13 @@ const biblePassage = async (
 
   const { passage, version } = req.query
 
+  if (!passage || !version) {
+    return res.status(400).json({
+      data: null,
+      error: `Param 'passage' and/or 'version' is missing.`,
+    })
+  }
+
   const passageSplit = (passage as string).split('-')
 
   const { data, error } = await supabase
@@ -24,6 +34,12 @@ const biblePassage = async (
     .filter('chapter', 'eq', passageSplit[1])
 
   if (error) return res.status(500).json({ data: null, error: error.message })
+
+  try {
+    await limiter.check(res, 25, 'API_RATE_LIMIT')
+  } catch (e) {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
 
   if (data) {
     try {

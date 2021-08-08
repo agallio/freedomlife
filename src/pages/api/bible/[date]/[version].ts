@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { supabase } from '@/utils/supabase'
-import { SupabaseBibles, SupabaseGuides } from '@/types/api'
+import rateLimit from '@/utils/rate-limit'
+
+import type { SupabaseBibles, SupabaseGuides } from '@/types/api'
+
+const limiter = rateLimit()
 
 const bibleByDate = async (
   req: NextApiRequest,
@@ -19,10 +23,7 @@ const bibleByDate = async (
       .json({ data: null, error: "Param 'date' is missing" })
   }
 
-  const {
-    data: guideByDateData,
-    error: guideByDateError,
-  } = await supabase
+  const { data: guideByDateData, error: guideByDateError } = await supabase
     .from<SupabaseGuides>('guides')
     .select()
     .filter('date', 'eq', String(date))
@@ -344,6 +345,12 @@ const bibleByDate = async (
       pl: [...plArr],
       pb: [...pbArr],
       in: [...injArr],
+    }
+
+    try {
+      await limiter.check(res, 25, 'API_RATE_LIMIT')
+    } catch (e) {
+      return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
     }
 
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
