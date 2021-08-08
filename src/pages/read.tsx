@@ -32,7 +32,7 @@ import type {
 const Read = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
   const router = useRouter()
-  const { theme } = useTheme()
+  const { resolvedTheme: theme } = useTheme()
 
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [chapterSelected, setChapterSelected] = useState({

@@ -10,7 +10,7 @@ const GuideItem = ({
   index,
   toBibleWithDate,
 }: GuideItemProps): JSX.Element => {
-  const { theme } = useTheme()
+  const { resolvedTheme: theme } = useTheme()
 
   const isToday = (date: string) => {
     return dayjs().format('DD-MM-YYYY') === date

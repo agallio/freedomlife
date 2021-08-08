@@ -15,6 +15,7 @@ export interface HighlightedText {
 }
 
 export interface JumboHeaderProps {
+  isNotFound?: boolean
   isHome?: boolean
   subtitle?: string
   description?: string

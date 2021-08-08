@@ -8,7 +8,7 @@ import JumboHeader from '@/components/JumboHeader'
 import CopyIcon from '@/components/Icons/CopyIcon'
 
 const Persembahan = (): JSX.Element => {
-  const { theme } = useTheme()
+  const { resolvedTheme: theme } = useTheme()
 
   const fallbackCopyNumber = async (bank: string, bankText: string) => {
     const textArea = document.createElement('textarea')

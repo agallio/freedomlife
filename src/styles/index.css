@@ -1,6 +1,6 @@
 @tailwind base;
 
-/* Write your own custom base styles here */
+/* start: custom base styles */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -19,10 +19,6 @@
   font-display: optional;
   src: url(/fonts/lato-black.woff2) format('woff2');
 }
-
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
 
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -47,8 +43,11 @@ body {
 #__next {
   @apply bg-gray-50 dark:bg-gray-800;
 }
+/* end: custom base styles */
 
-/* Write your own custom component styles here */
+@tailwind components;
+
+/* start: custom component styles */
 .react-modal-sheet-container {
   background-color: #f9fafb !important;
 }
@@ -85,8 +84,15 @@ body {
   @apply text-green-700;
 }
 
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */
+.full-height {
+  min-height: 100vh;
+}
 
-/* Your own custom utilities */
+@supports (-webkit-touch-callout: none) {
+  .full-height {
+    min-height: -webkit-fill-available;
+  }
+}
+/* end: custom component styles */
+
+@tailwind utilities;
