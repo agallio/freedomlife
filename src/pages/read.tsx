@@ -5,29 +5,30 @@ import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
 
-import BibleNavbar from '../components/Bible/BibleNavbar'
-import BibleTypography from '../components/Bible/BibleTypography'
-import BibleNavigator from '../components/Bible/BibleNavigator'
-import BibleTranslateDialog from '../components/Bible/BibleTranslateDialog'
-import BiblePassageDialog from '../components/Bible/BiblePassageDialog'
-import BibleSettingDialog from '../components/Bible/BibleSettingDialog'
+import BibleNavbar from '@/components/Bible/BibleNavbar'
+import BibleTypography from '@/components/Bible/BibleTypography'
+import BibleNavigator from '@/components/Bible/BibleNavigator'
+import BibleTranslateDialog from '@/components/Bible/BibleTranslateDialog'
+import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
+import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
+import PageTransition from '@/components/PageTransition'
 
-import { bibleList } from '../utils/constants'
-import useLocalStorage from '../utils/hooks/useLocalStorage'
-import useFetchedGuide from '../utils/hooks/useFetchedGuide'
-import useRequest from '../utils/hooks/useRequest'
-import dayjs from '../utils/dayjs'
+import { bibleList } from '@/utils/constants'
+import useLocalStorage from '@/utils/hooks/useLocalStorage'
+import useFetchedGuide from '@/utils/hooks/useFetchedGuide'
+import useRequest from '@/utils/hooks/useRequest'
+import dayjs from '@/utils/dayjs'
 
 import { useDispatchGuide, useGuide } from '../store'
 
-import type { BibleList } from '../types/utils'
-import type { HighlightedText } from '../types/components'
+import type { BibleList } from '@/types/utils'
+import type { HighlightedText } from '@/types/components'
 import type {
   ApiResponse,
   BibleDataResponse,
   BibleGuideDataResponse,
   VerseData,
-} from '../types/api'
+} from '@/types/api'
 
 const Read = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
@@ -666,17 +667,19 @@ const Read = (): JSX.Element => {
               }`}
       />
 
-      <BibleTypography
-        inGuide={inGuide}
-        verseFontSize={verseFontSize}
-        maintenance={maintenance}
-        data={data}
-        bibleData={bibleData}
-        passageArray={passageArray}
-        highlightedText={highlightedText}
-        getHeaderFontSize={getHeaderFontSize}
-        highlightText={highlightText}
-      />
+      <PageTransition>
+        <BibleTypography
+          inGuide={inGuide}
+          verseFontSize={verseFontSize}
+          maintenance={maintenance}
+          data={data}
+          bibleData={bibleData}
+          passageArray={passageArray}
+          highlightedText={highlightedText}
+          getHeaderFontSize={getHeaderFontSize}
+          highlightText={highlightText}
+        />
+      </PageTransition>
 
       <BibleNavigator
         chevronRef={chevronRef}

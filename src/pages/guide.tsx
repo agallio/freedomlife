@@ -5,6 +5,7 @@ import { NextSeo } from 'next-seo'
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
 import GuideItem from '@/components/Guide/GuideItem'
+import PageTransition from '@/components/PageTransition'
 
 import useRequest from '@/utils/hooks/useRequest'
 import dayjs from '@/utils/dayjs'
@@ -56,18 +57,20 @@ const Guide = (): JSX.Element => {
       <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16">
         <JumboHeader subtitle="Panduan Baca Bulan Ini" />
 
-        {!data ? (
-          <GuideLoading />
-        ) : (
-          data.data!.map((item, index) => (
-            <GuideItem
-              key={index}
-              item={item}
-              index={index}
-              toBibleWithDate={toBibleWithDate}
-            />
-          ))
-        )}
+        <PageTransition>
+          {!data ? (
+            <GuideLoading />
+          ) : (
+            data.data!.map((item, index) => (
+              <GuideItem
+                key={index}
+                item={item}
+                index={index}
+                toBibleWithDate={toBibleWithDate}
+              />
+            ))
+          )}
+        </PageTransition>
       </div>
     </>
   )

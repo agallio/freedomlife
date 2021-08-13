@@ -7,6 +7,7 @@ import HomeBox from '@/components/Home/HomeBox'
 // import NewYearDialog from '@/components/Home/NewYearDialog'
 import NewUserBox from '@/components/Home/NewUserBox'
 import Footer from '@/components/Footer'
+import PageTransition from '@/components/PageTransition'
 
 import { useDispatchGuide } from '../store'
 
@@ -43,17 +44,19 @@ const Home = (): JSX.Element => {
     <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
       <JumboHeader isHome />
 
-      <main>
-        <HomeBox data={data} toBible={toBible} />
+      <PageTransition>
+        <main>
+          <HomeBox data={data} toBible={toBible} />
 
-        <NewUserBox />
+          <NewUserBox />
 
-        {/* <AnimatePresence>
+          {/* <AnimatePresence>
           {open && <NewYearDialog handleClose={() => setOpen(false)} />}
         </AnimatePresence> */}
-      </main>
+        </main>
 
-      <Footer />
+        <Footer />
+      </PageTransition>
     </div>
   )
 }
