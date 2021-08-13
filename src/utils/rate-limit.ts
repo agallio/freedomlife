@@ -7,7 +7,15 @@ interface Options {
   interval?: number
 }
 
-const rateLimit = (options?: Options) => {
+interface RateLimit {
+  check: (
+    res: NextApiResponse,
+    limit: number,
+    token: string
+  ) => Promise<void | null>
+}
+
+const rateLimit = (options?: Options): RateLimit => {
   const tokenCache = new LRU({
     max: options?.uniqueTokenPerInterval || 500,
     maxAge: options?.interval || 60000,

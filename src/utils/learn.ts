@@ -36,6 +36,8 @@ export function getDocBySlug(slug: string, fields: string[] = []): Items {
 }
 
 export async function markdownToHtml(markdown: string): Promise<string> {
+  // Ignoring TypeScript `typeof` checker here because it's not possible to.
+  // @ts-ignore
   const result = await remark().use(html).process(markdown)
   return result.toString()
 }

@@ -566,12 +566,14 @@ const Read = (): JSX.Element => {
         prevScrollPos > currentScrollPos ||
         prevScrollPos === currentScrollPos
       ) {
-        chevronRef.current!.style.bottom = '6rem'
+        chevronRef.current!.style.bottom =
+          'calc(6rem + env(safe-area-inset-bottom))'
       } else {
         chevronRef.current!.style.bottom = '1.25rem'
       }
     } else {
-      chevronRef.current!.style.bottom = '6rem'
+      chevronRef.current!.style.bottom =
+        'calc(6rem + env(safe-area-inset-bottom))'
     }
     setPrevScrollPos(currentScrollPos)
   }

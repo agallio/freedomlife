@@ -23,12 +23,12 @@ const BottomTabBar = (): JSX.Element => {
     const currentScrollPos = window.pageYOffset
     if (prevScrollPos >= 0 && currentScrollPos >= 0) {
       if (prevScrollPos > currentScrollPos) {
-        footerRef.current!.style.bottom = '0'
+        footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
       } else {
         footerRef.current!.style.bottom = '-100px'
       }
     } else {
-      footerRef.current!.style.bottom = '0'
+      footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
     }
     setPrevScrollPos(currentScrollPos)
   }
