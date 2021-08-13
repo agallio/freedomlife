@@ -318,7 +318,7 @@ const BiblePassageDialog = ({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop />
+      <Sheet.Backdrop onTap={handleClosePassage} />
     </Sheet>
   )
 }
