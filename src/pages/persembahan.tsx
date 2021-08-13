@@ -72,16 +72,17 @@ const Persembahan = (): JSX.Element => {
       </Head>
       <NextSeo
         title="Persembahan | FreedomLife"
-        description={'Persembahan & Perpuluhan'}
+        description="Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta."
         openGraph={{
           url: 'https://freedomlife.id/persembahan',
           title: 'Persembahan | FreedomLife',
-          description: 'Persembahan & Perpuluhan',
+          description:
+            'Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta.',
           site_name: 'FreedomLife',
           images: [
             {
               url: 'http://freedomlife.id/images/og-persembahan.png',
-              alt: 'Persembahan - FreedomLife',
+              alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Persembahan dan Perpuluhan'`,
             },
           ],
         }}

@@ -15,21 +15,21 @@ const Learn = ({ post }: LearnPageProps): JSX.Element => {
   return (
     <>
       <Head>
-        <title>Tata Cara Penggunaan | FreedomLife</title>
+        <title>Panduan Penggunaan | FreedomLife</title>
       </Head>
       <NextSeo
-        title="Bagaimana Cara Menggunakan FreedomLife?"
-        description="Lihat dan pelajari tata cara menggunakan aplikasi FreedomLife."
+        title="Panduan Penggunaan | FreedomLife"
+        description="Halaman panduan penggunaan aplikasi FreedomLife. Pelajari bagaimana cara menggunakan aplikasi FreedomLife."
         openGraph={{
           url: 'https://freedomlife.id/learn',
-          title: 'Bagaimana Cara Menggunakan FreedomLife?',
+          title: 'Panduan Penggunaan | FreedomLife',
           description:
-            'Lihat dan pelajari tata cara menggunakan aplikasi FreedomLife.',
+            'Halaman panduan penggunaan aplikasi FreedomLife. Pelajari bagaimana cara menggunakan aplikasi FreedomLife.',
           site_name: 'FreedomLife',
           images: [
             {
               url: 'http://freedomlife.id/images/og-learn.png',
-              alt: 'agaimana Cara Menggunakan FreedomLife?',
+              alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Cara Penggunaan'`,
             },
           ],
         }}

@@ -622,16 +622,17 @@ const Read = (): JSX.Element => {
       </Head>
       <NextSeo
         title="Pembacaan Firman | FreedomLife"
-        description="Pembacaan Firman Hari Ini"
+        description="Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 5 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca."
         openGraph={{
           url: 'https://freedomlife.id/read',
           title: 'Pembacaan Firman | FreedomLife',
-          description: 'Pembacaan Firman Hari Ini',
+          description:
+            'Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 5 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca.',
           site_name: 'FreedomLife',
           images: [
             {
               url: 'http://freedomlife.id/images/og-read.png',
-              alt: 'Pembacaan Firman - FreedomLife',
+              alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Baca Firman Hari Ini'`,
             },
           ],
         }}

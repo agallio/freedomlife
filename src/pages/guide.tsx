@@ -1,7 +1,6 @@
 import Router from 'next/router'
 import Head from 'next/head'
 import { NextSeo } from 'next-seo'
-// import splitbee from '@splitbee/web'
 
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
@@ -35,16 +34,17 @@ const Guide = (): JSX.Element => {
       </Head>
       <NextSeo
         title="Panduan Baca | FreedomLife"
-        description="Panduan Baca Bulan Ini"
+        description="Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi."
         openGraph={{
           url: 'https://freedomlife.id/guide',
           title: 'Panduan Baca | FreedomLife',
-          description: 'Panduan Baca Bulan Ini',
+          description:
+            'Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi.',
           site_name: 'FreedomLife',
           images: [
             {
               url: 'http://freedomlife.id/images/og-guide.png',
-              alt: 'Panduan Baca - FreedomLife',
+              alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Panduan Baca Bulan Ini'`,
             },
           ],
         }}

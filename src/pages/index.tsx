@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+// import { useEffect } from 'react'
 import Router from 'next/router'
-import { AnimatePresence } from 'framer-motion'
+// import { AnimatePresence } from 'framer-motion'
 
 import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
-import NewYearDialog from '@/components/Home/NewYearDialog'
+// import NewYearDialog from '@/components/Home/NewYearDialog'
 import NewUserBox from '@/components/Home/NewUserBox'
+import Footer from '@/components/Footer'
 
 import { useDispatchGuide } from '../store'
 
@@ -16,7 +17,7 @@ import type { ApiResponse, GuideDataResponse } from '@/types/api'
 
 const Home = (): JSX.Element => {
   const guideDispatch = useDispatchGuide()
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
 
   const { data } = useRequest<ApiResponse<GuideDataResponse>>({
     url: `/api/guide/${dayjs().format('DD-MM-YYYY')}`,
@@ -30,16 +31,16 @@ const Home = (): JSX.Element => {
     document.documentElement.scrollTop = 0
   }
 
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-  }, [open])
+  // useEffect(() => {
+  //   if (open) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'unset'
+  //   }
+  // }, [open])
 
   return (
-    <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
+    <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
       <JumboHeader isHome />
 
       <main>
@@ -47,10 +48,12 @@ const Home = (): JSX.Element => {
 
         <NewUserBox />
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {open && <NewYearDialog handleClose={() => setOpen(false)} />}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </main>
+
+      <Footer />
     </div>
   )
 }
