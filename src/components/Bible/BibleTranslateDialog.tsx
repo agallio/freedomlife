@@ -36,7 +36,47 @@ const BibleTranslateDialog = ({
         </Sheet.Header>
         <Sheet.Content>
           <div className="overflow-auto">
-            {['tb', 'bis', 'fayh', 'msg', 'nkjv'].map((item) => (
+            <h4 className="px-4 mt-4 tracking-wide text-green-700 dark:text-white">
+              Bahasa Indonesia
+            </h4>
+            {['tb', 'bis', 'fayh', 'vmd'].map((item) => (
+              <div
+                key={item}
+                className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                  bibleVersion === item
+                    ? 'bg-green-500 text-white hover:bg-green-600'
+                    : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500'
+                } ${
+                  item === 'vmd' && 'flex justify-between items-center'
+                } sm:mx-1`}
+                onClick={() => changeVersion(item)}
+              >
+                <span>
+                  {item === 'tb'
+                    ? 'Terjemahan Baru (TB)'
+                    : item === 'bis'
+                    ? 'Bahasa Indonesia Sehari-Hari (BIS)'
+                    : item === 'fayh'
+                    ? 'Firman Allah Yang Hidup (FAYH)'
+                    : 'Versi Mudah Dibaca (VMD)'}
+                </span>
+                {item === 'vmd' && (
+                  <span
+                    className={`py-1 px-2 text-sm rounded tracking-wide ${
+                      bibleVersion === item
+                        ? 'bg-white text-green-600'
+                        : 'bg-green-500 text-white'
+                    }`}
+                  >
+                    BARU!
+                  </span>
+                )}
+              </div>
+            ))}
+            <h4 className="px-4 mt-6 tracking-wide text-green-700 dark:text-white">
+              Bahasa Inggris
+            </h4>
+            {['msg', 'nkjv'].map((item) => (
               <div
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${

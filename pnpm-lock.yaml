@@ -1,10 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@supabase/supabase-js': ^1.21.1
+  '@supabase/supabase-js': ^1.21.2
   '@tailwindcss/forms': ^0.3.3
   '@tailwindcss/typography': ^0.4.1
-  '@types/react': ^17.0.17
+  '@types/react': ^17.0.18
   '@typescript-eslint/eslint-plugin': ^4.29.1
   '@typescript-eslint/parser': ^4.29.1
   autoprefixer: ^10.3.1
@@ -38,7 +38,7 @@ specifiers:
   typescript: ^4.3.5
 
 dependencies:
-  '@supabase/supabase-js': 1.21.1
+  '@supabase/supabase-js': 1.21.2
   '@tailwindcss/forms': 0.3.3_tailwindcss@2.2.7
   '@tailwindcss/typography': 0.4.1_tailwindcss@2.2.7
   axios: 0.21.1
@@ -61,7 +61,7 @@ dependencies:
   swr: 0.5.6_react@17.0.2
 
 devDependencies:
-  '@types/react': 17.0.17
+  '@types/react': 17.0.18
   '@typescript-eslint/eslint-plugin': 4.29.1_d4376362794b743c19f4cba25c7fc6f5
   '@typescript-eslint/parser': 4.29.1_eslint@7.32.0+typescript@4.3.5
   autoprefixer: 10.3.1_postcss@8.3.6
@@ -1434,8 +1434,8 @@ packages:
       cross-fetch: 3.1.4
     dev: false
 
-  /@supabase/postgrest-js/0.33.0:
-    resolution: {integrity: sha512-og6Evdkan7Qp6+tOch7Pyq+ZWMnrCQtPHWwPpsN5A3iYQSro2yn21Yvazs9qAFoWAeTGNkuTOVpShT5Mbc9WcQ==}
+  /@supabase/postgrest-js/0.33.1:
+    resolution: {integrity: sha512-VDOYv9RgGJmbI/qz6NNwayJqazLss/g0pVdf1KEAhE+Hvo6DggkrwUy4H+yiClszPcTxKiW5sDSaE5Urq2Q7nA==}
     dependencies:
       cross-fetch: 3.1.4
     dev: false
@@ -1453,11 +1453,11 @@ packages:
       cross-fetch: 3.1.4
     dev: false
 
-  /@supabase/supabase-js/1.21.1:
-    resolution: {integrity: sha512-hHDV9XA/H9ZFxflqo+1/uUg0bY6xlVePj0acG+kDLcrONWPcQ4zDAqprZONU99MDxeH2cTFaJEbxvF8eNAEMDw==}
+  /@supabase/supabase-js/1.21.2:
+    resolution: {integrity: sha512-HyQ8SKSWYiFUFfivvrKAZ5kMFju8zYAupIJukC/O+0YTSJ77hNBZeFli22Cpu3f4Bw9LbNawO+yfTffaMNEcaw==}
     dependencies:
       '@supabase/gotrue-js': 1.17.0
-      '@supabase/postgrest-js': 0.33.0
+      '@supabase/postgrest-js': 0.33.1
       '@supabase/realtime-js': 1.1.2
       '@supabase/storage-js': 1.4.0
     dev: false
@@ -1524,8 +1524,8 @@ packages:
     resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
     dev: true
 
-  /@types/react/17.0.17:
-    resolution: {integrity: sha512-nrfi7I13cAmrd0wje8czYpf5SFbryczCtPzFc6ijqvdjKcyA3tCvGxwchOUlxb2ucBPuJ9Y3oUqKrRqZvrz0lw==}
+  /@types/react/17.0.18:
+    resolution: {integrity: sha512-YTLgu7oS5zvSqq49X5Iue5oAbVGhgPc5Au29SJC4VeE17V6gASoOxVkUDy9pXFMRFxCWCD9fLeweNFizo3UzOg==}
     dependencies:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.1

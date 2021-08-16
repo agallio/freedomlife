@@ -6,6 +6,7 @@ import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
 // import NewYearDialog from '@/components/Home/NewYearDialog'
 import NewUserBox from '@/components/Home/NewUserBox'
+import NewTranslationBox from '@/components/Home/NewTranslationBox'
 import Footer from '@/components/Footer'
 import PageTransition from '@/components/PageTransition'
 
@@ -46,6 +47,8 @@ const Home = (): JSX.Element => {
 
       <PageTransition>
         <main>
+          <NewTranslationBox />
+
           <HomeBox data={data} toBible={toBible} />
 
           <NewUserBox />

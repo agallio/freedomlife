@@ -5,7 +5,7 @@ import type { HomeBoxProps } from '@/types/components'
 const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
   return (
     <div
-      className="flex flex-col shadow-md rounded-lg mt-4"
+      className="flex flex-col shadow-md rounded-lg mt-6"
       style={{
         background:
           'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)',
@@ -100,7 +100,7 @@ const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
           >
             <button
               aria-label="Baca Panduan"
-              className="w-24 h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 umami--click--to-bible"
+              className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-24 focus:outline-none hover:bg-opacity-30 umami--click--to-bible"
               style={{
                 backdropFilter: 'saturate(100%) blur(20px)',
                 WebkitBackdropFilter: 'saturate(100%) blur(20px)',

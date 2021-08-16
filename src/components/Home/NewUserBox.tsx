@@ -6,7 +6,7 @@ const NewUserBox = (): JSX.Element => {
   const toLearn = () => Router.push('/learn')
 
   return (
-    <div className="flex flex-col shadow-md rounded-lg mt-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
+    <div className="flex flex-col shadow-md rounded-lg mt-6 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
       <div
         className="flex items-center justify-between w-full px-4 py-2 rounded-t-lg"
         style={{
@@ -23,7 +23,7 @@ const NewUserBox = (): JSX.Element => {
 
       <div className="px-4 py-3 flex flex-col items-center justify-center mb-4">
         <NewUserIcon className="w-44 h-44 sm:w-36" />
-        <h1 className="text-white text-center">
+        <h1 className="text-white text-center text-sm">
           Baru pertama kali buka FreedomLife? <br /> Yuk belajar cara pakainya!
         </h1>
       </div>
@@ -37,7 +37,7 @@ const NewUserBox = (): JSX.Element => {
       >
         <button
           aria-label="Buka Dialog Tahun Baru"
-          className="w-full h-10 bg-white bg-opacity-20 text-white py-1 uppercase rounded-full font-bold transition duration-300 focus:outline-none hover:bg-opacity-30 sm:w-60 umami--click--to-learn"
+          className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md focus:outline-none hover:bg-opacity-30 sm:w-60 umami--click--to-learn"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',
