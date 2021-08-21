@@ -6,7 +6,7 @@ import { useGuide } from '@/store/index'
 import type { BibleNavigatorProps } from '@/types/components'
 
 const BibleNavigator = ({
-  chevronRef,
+  // chevronRef,
   data,
   bibleData,
   inGuide,
@@ -18,7 +18,7 @@ const BibleNavigator = ({
 
   return (
     <footer
-      ref={chevronRef}
+      // ref={chevronRef}
       className="fixed justify-between bottom-24 left-0 w-full"
       style={{ transition: 'bottom 0.3s' }}
     >

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
 
@@ -35,7 +35,7 @@ const Read = (): JSX.Element => {
   const router = useRouter()
   const { resolvedTheme: theme } = useTheme()
 
-  const [prevScrollPos, setPrevScrollPos] = useState(0)
+  // const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [chapterSelected, setChapterSelected] = useState({
     name: '',
     abbr: '',
@@ -57,7 +57,7 @@ const Read = (): JSX.Element => {
   const [bibleVersion, setBibleVersion] = useState('tb')
   const [passage, setPassage] = useState('pl-1')
   const [maintenance, setMaintenance] = useState(false)
-  const chevronRef = useRef<HTMLElement>(null)
+  // const chevronRef = useRef<HTMLElement>(null)
 
   const { error, revalidate: guideRevalidate } = useFetchedGuide()
   const { guideData, guideDate, guidePassage } = useGuide()
@@ -560,32 +560,32 @@ const Read = (): JSX.Element => {
     }
   }
 
-  const handleScroll = () => {
-    const currentScrollPos = window.pageYOffset
-    if (prevScrollPos >= 0 && currentScrollPos >= 0) {
-      if (
-        prevScrollPos > currentScrollPos ||
-        prevScrollPos === currentScrollPos
-      ) {
-        chevronRef.current!.style.bottom =
-          'calc(6rem + env(safe-area-inset-bottom))'
-      } else {
-        chevronRef.current!.style.bottom = '1.25rem'
-      }
-    } else {
-      chevronRef.current!.style.bottom =
-        'calc(6rem + env(safe-area-inset-bottom))'
-    }
-    setPrevScrollPos(currentScrollPos)
-  }
+  // const handleScroll = () => {
+  //   const currentScrollPos = window.pageYOffset
+  //   if (prevScrollPos >= 0 && currentScrollPos >= 0) {
+  //     if (
+  //       prevScrollPos > currentScrollPos ||
+  //       prevScrollPos === currentScrollPos
+  //     ) {
+  //       chevronRef.current!.style.bottom =
+  //         'calc(6rem + env(safe-area-inset-bottom))'
+  //     } else {
+  //       chevronRef.current!.style.bottom = '1.25rem'
+  //     }
+  //   } else {
+  //     chevronRef.current!.style.bottom =
+  //       'calc(6rem + env(safe-area-inset-bottom))'
+  //   }
+  //   setPrevScrollPos(currentScrollPos)
+  // }
 
-  useEffect(() => {
-    const watchScroll = () => window.addEventListener('scroll', handleScroll)
-    watchScroll()
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  })
+  // useEffect(() => {
+  //   const watchScroll = () => window.addEventListener('scroll', handleScroll)
+  //   watchScroll()
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // })
 
   useEffect(() => {
     if (error) {
@@ -682,7 +682,7 @@ const Read = (): JSX.Element => {
       </PageTransition>
 
       <BibleNavigator
-        chevronRef={chevronRef}
+        // chevronRef={chevronRef}
         data={data}
         bibleData={bibleData}
         inGuide={inGuide}

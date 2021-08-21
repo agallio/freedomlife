@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+// import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
@@ -8,8 +8,8 @@ import OpenBookIcon from './Icons/OpenBookIcon'
 
 const BottomTabBar = (): JSX.Element => {
   const router = useRouter()
-  const [prevScrollPos, setPrevScrollPos] = useState(0)
-  const footerRef = useRef<HTMLElement>(null)
+  // const [prevScrollPos, setPrevScrollPos] = useState(0)
+  // const footerRef = useRef<HTMLElement>(null)
 
   const motionVariants = { open: { width: 140 }, close: { width: 55 } }
 
@@ -19,31 +19,31 @@ const BottomTabBar = (): JSX.Element => {
     document.documentElement.scrollTop = 0
   }
 
-  const handleScroll = () => {
-    const currentScrollPos = window.pageYOffset
-    if (prevScrollPos >= 0 && currentScrollPos >= 0) {
-      if (prevScrollPos > currentScrollPos) {
-        footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
-      } else {
-        footerRef.current!.style.bottom = '-100px'
-      }
-    } else {
-      footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
-    }
-    setPrevScrollPos(currentScrollPos)
-  }
+  // const handleScroll = () => {
+  //   const currentScrollPos = window.pageYOffset
+  //   if (prevScrollPos >= 0 && currentScrollPos >= 0) {
+  //     if (prevScrollPos > currentScrollPos) {
+  //       footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
+  //     } else {
+  //       footerRef.current!.style.bottom = '-100px'
+  //     }
+  //   } else {
+  //     footerRef.current!.style.bottom = 'env(safe-area-inset-bottom)'
+  //   }
+  //   setPrevScrollPos(currentScrollPos)
+  // }
 
-  useEffect(() => {
-    const watchScroll = () => window.addEventListener('scroll', handleScroll)
-    watchScroll()
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  })
+  // useEffect(() => {
+  //   const watchScroll = () => window.addEventListener('scroll', handleScroll)
+  //   watchScroll()
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // })
 
   return (
     <footer
-      ref={footerRef}
+      // ref={footerRef}
       className="fixed flex left-0 bottom-0 w-full p-6 z-10"
       style={{ transition: 'bottom 0.3s' }}
     >

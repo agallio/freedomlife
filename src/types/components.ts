@@ -59,7 +59,7 @@ export interface BibleTypographyProps {
 }
 
 export interface BibleNavigatorProps {
-  chevronRef: RefObject<HTMLElement>
+  chevronRef?: RefObject<HTMLElement>
   data: ApiResponse<BibleGuideDataResponse> | undefined
   bibleData: ApiResponse<BibleDataResponse> | undefined
   inGuide: boolean
