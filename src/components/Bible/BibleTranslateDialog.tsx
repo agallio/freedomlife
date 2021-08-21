@@ -18,7 +18,7 @@ const BibleTranslateDialog = ({
       <Sheet.Container
         style={{
           height: !mediaLandscape
-            ? 'calc(100% - env(safe-area-inset-top) - 30%)'
+            ? 'calc(100% - env(safe-area-inset-top) - 20%)'
             : 'calc(100% - env(safe-area-inset-top) - 32px)',
         }}
       >
@@ -76,25 +76,36 @@ const BibleTranslateDialog = ({
             <h4 className="px-4 mt-6 tracking-wide text-green-700 dark:text-white">
               Bahasa Inggris
             </h4>
-            {['msg', 'nkjv'].map((item) => (
+            {['msg', 'nkjv', 'amp'].map((item) => (
               <div
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                   bibleVersion === item
                     ? 'bg-green-500 text-white hover:bg-green-600'
                     : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500'
+                } ${
+                  item === 'amp' && 'flex justify-between items-center'
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
-                {item === 'tb'
-                  ? 'Terjemahan Baru (TB)'
-                  : item === 'bis'
-                  ? 'Bahasa Indonesia Sehari-Hari (BIS)'
-                  : item === 'fayh'
-                  ? 'Firman Allah Yang Hidup (FAYH)'
-                  : item === 'msg'
-                  ? 'The Message (MSG)'
-                  : 'New King James Version (NKJV)'}
+                <span>
+                  {item === 'msg'
+                    ? 'The Message (MSG)'
+                    : item === 'nkjv'
+                    ? 'New King James Version (NKJV)'
+                    : 'Amplified Bible (AMP)'}
+                </span>
+                {item === 'amp' && (
+                  <span
+                    className={`py-1 px-2 text-sm rounded tracking-wide ${
+                      bibleVersion === item
+                        ? 'bg-white text-green-600'
+                        : 'bg-green-500 text-white'
+                    }`}
+                  >
+                    BARU!
+                  </span>
+                )}
               </div>
             ))}
           </div>
