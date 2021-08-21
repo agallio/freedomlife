@@ -15,7 +15,7 @@ const BibleTypography = ({
     <div
       className={`max-w-sm mx-auto ${
         inGuide ? 'mt-28' : 'mt-16'
-      } text-${verseFontSize} mb-36 px-3 sm:max-w-md dark:text-white`}
+      } text-${verseFontSize} mb-[10rem] px-3 sm:max-w-md dark:text-white`}
     >
       {maintenance ? (
         <p>Terjadi Kesalahan. Coba beberapa saat lagi.</p>
