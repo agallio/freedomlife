@@ -56,7 +56,7 @@ const bibleByDate = async (
           .from<SupabaseBibles>('bibles')
           .select()
           .filter('abbr', 'eq', plSpaceSplit[0])
-          .filter('chapter', 'eq', String(plColonDashSplit[0]))
+          .filter('chapter', 'eq', String(plColonSplit[0]))
           .filter('version', 'eq', version || 'tb')
 
         if (plError) {
