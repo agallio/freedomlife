@@ -59,14 +59,14 @@ const Read = (): JSX.Element => {
   const [maintenance, setMaintenance] = useState(false)
   // const chevronRef = useRef<HTMLElement>(null)
 
-  const { error, revalidate: guideRevalidate } = useFetchedGuide()
+  const { error, mutate: guideMutate } = useFetchedGuide()
   const { guideData, guideDate, guidePassage } = useGuide()
-  const { data, revalidate } = useRequest<ApiResponse<BibleGuideDataResponse>>({
+  const { data, mutate } = useRequest<ApiResponse<BibleGuideDataResponse>>({
     url: `/api/bible/${
       guideDate || dayjs().format('DD-MM-YYYY')
     }/${bibleVersion}`,
   })
-  const { data: bibleData, revalidate: bibleRevalidate } = useRequest<
+  const { data: bibleData, mutate: bibleMutate } = useRequest<
     ApiResponse<BibleDataResponse>
   >({
     url: `/api/bible?passage=${
@@ -286,7 +286,7 @@ const Read = (): JSX.Element => {
           type: 'SET_GUIDE_PASSAGE',
           data: 'kej-2',
         })
-        bibleRevalidate()
+        bibleMutate()
         scrollToTop()
         return
       }
@@ -308,7 +308,7 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nowAbbr}-${nowChapter + 1}`,
           })
-          bibleRevalidate()
+          bibleMutate()
           scrollToTop()
         } else {
           const nextChapter = bibleList[chapterIndex + 1]
@@ -317,7 +317,7 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nextChapter.abbr}-1`,
           })
-          bibleRevalidate()
+          bibleMutate()
           scrollToTop()
         }
       }
@@ -352,7 +352,7 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nowAbbr}-${nowChapter - 1}`,
           })
-          bibleRevalidate()
+          bibleMutate()
           scrollToTop()
         } else {
           const prevChapter = bibleList[chapterIndex - 1]
@@ -365,7 +365,7 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${prevChapter.abbr}-${prevChapterLastPassage}`,
           })
-          bibleRevalidate()
+          bibleMutate()
           scrollToTop()
         }
       }
@@ -381,8 +381,8 @@ const Read = (): JSX.Element => {
 
   const changeVersion = (version: string) => {
     document.body.style.overflow = 'visible'
-    revalidate()
-    guideRevalidate()
+    mutate()
+    guideMutate()
     setBibleVersion(version)
     setOpenTranslate(false)
     scrollToTop()
@@ -392,7 +392,7 @@ const Read = (): JSX.Element => {
     document.body.style.overflow = 'visible'
     localStorage.setItem('last_chapter', chapter)
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: chapter })
-    bibleRevalidate()
+    bibleMutate()
     setOpenPassage(false)
     scrollToTop()
   }
@@ -601,7 +601,7 @@ const Read = (): JSX.Element => {
   }, [highlightedText])
 
   useEffect(() => {
-    bibleRevalidate()
+    bibleMutate()
   }, [guidePassage])
 
   useEffect(() => {
@@ -612,7 +612,7 @@ const Read = (): JSX.Element => {
         type: 'SET_GUIDE_PASSAGE',
         data: localStorage.getItem('last_chapter'),
       })
-      bibleRevalidate()
+      bibleMutate()
     }
   }, [router.query.guide])
 

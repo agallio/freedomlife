@@ -1,5 +1,5 @@
-import { AxiosError, AxiosResponse } from 'axios'
-import { ApiResponse, GuideDataResponse } from './api'
+import type { AxiosError } from 'axios'
+import type { ApiResponse, GuideDataResponse } from './api'
 
 export interface BibleList {
   name: string
@@ -12,6 +12,5 @@ export interface FetchedGuideHooks {
   data: ApiResponse<GuideDataResponse> | undefined
   error: AxiosError<unknown> | undefined
   isValidating: boolean
-  response: AxiosResponse<ApiResponse<GuideDataResponse>> | undefined
-  revalidate: () => Promise<boolean>
+  mutate: any
 }

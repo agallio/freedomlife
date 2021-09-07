@@ -12,7 +12,7 @@ const useFetchedGuide = (): FetchedGuideHooks => {
   const guideDispatch = useDispatchGuide()
   const { guideDate } = useGuide()
 
-  const { data, error, isValidating, response, revalidate } = useRequest<
+  const { data, error, isValidating, mutate } = useRequest<
     ApiResponse<GuideDataResponse>
   >({
     url: `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`,
@@ -22,7 +22,7 @@ const useFetchedGuide = (): FetchedGuideHooks => {
     guideDispatch({ type: 'SET_GUIDE_DATA', data: data?.data })
   }, [data])
 
-  return { data, error, isValidating, response, revalidate }
+  return { data, error, isValidating, mutate }
 }
 
 export default useFetchedGuide
