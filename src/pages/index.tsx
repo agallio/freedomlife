@@ -42,7 +42,7 @@ const Home = (): JSX.Element => {
   // }, [open])
 
   return (
-    <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
+    <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 md:mb-28 landscape:mx-auto">
       <JumboHeader isHome />
 
       <PageTransition>
