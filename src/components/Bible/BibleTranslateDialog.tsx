@@ -6,7 +6,6 @@ import type { BibleTranslateDialogProps } from '@/types/components'
 
 const BibleTranslateDialog = ({
   openTranslate,
-  inGuide,
   bibleVersion,
   handleCloseTranslate,
   changeVersion,
@@ -18,7 +17,7 @@ const BibleTranslateDialog = ({
       <Sheet.Container
         style={{
           height: !mediaLandscape
-            ? 'calc(100% - env(safe-area-inset-top) - 20%)'
+            ? 'calc(100% - env(safe-area-inset-top) - 5%)'
             : 'calc(100% - env(safe-area-inset-top) - 32px)',
         }}
       >
@@ -26,11 +25,7 @@ const BibleTranslateDialog = ({
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
-          <h3
-            className={`mx-4 ${
-              inGuide ? '' : 'mb-2'
-            } text-green-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white`}
-          >
+          <h3 className="mx-4 mb-2 text-green-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white">
             Pilih Terjemahan
           </h3>
         </Sheet.Header>
@@ -76,7 +71,7 @@ const BibleTranslateDialog = ({
             <h4 className="px-4 mt-6 tracking-wide text-green-700 dark:text-white">
               Bahasa Inggris
             </h4>
-            {['msg', 'nkjv', 'amp'].map((item) => (
+            {['msg', 'nkjv', 'amp', 'niv'].map((item) => (
               <div
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
@@ -84,7 +79,8 @@ const BibleTranslateDialog = ({
                     ? 'bg-green-500 text-white hover:bg-green-600'
                     : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500'
                 } ${
-                  item === 'amp' && 'flex justify-between items-center'
+                  (item === 'amp' || item === 'niv') &&
+                  'flex justify-between items-center'
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
@@ -93,9 +89,11 @@ const BibleTranslateDialog = ({
                     ? 'The Message (MSG)'
                     : item === 'nkjv'
                     ? 'New King James Version (NKJV)'
-                    : 'Amplified Bible (AMP)'}
+                    : item === 'amp'
+                    ? 'Amplified Bible (AMP)'
+                    : 'New International Version (NIV)'}
                 </span>
-                {item === 'amp' && (
+                {(item === 'amp' || item === 'niv') && (
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
                       bibleVersion === item
