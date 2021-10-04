@@ -71,7 +71,6 @@ export interface BibleNavigatorProps {
 
 export interface BibleTranslateDialogProps {
   openTranslate: boolean
-  inGuide: boolean
   bibleVersion: string
   handleCloseTranslate: () => void
   changeVersion: (version: string) => void

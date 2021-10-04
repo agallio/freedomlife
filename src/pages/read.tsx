@@ -13,11 +13,12 @@ import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
 import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
 import PageTransition from '@/components/PageTransition'
 
+import dayjs from '@/utils/dayjs'
 import { bibleList } from '@/utils/constants'
 import useLocalStorage from '@/utils/hooks/useLocalStorage'
 import useFetchedGuide from '@/utils/hooks/useFetchedGuide'
 import useRequest from '@/utils/hooks/useRequest'
-import dayjs from '@/utils/dayjs'
+import useDidMountEffect from '@/utils/hooks/useDidMountEffect'
 
 import { useDispatchGuide, useGuide } from '../store'
 
@@ -594,13 +595,13 @@ const Read = (): JSX.Element => {
     }
   }, [error])
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     if (highlightedText.length === 0) {
       setHighlighted(false)
     }
   }, [highlightedText])
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     bibleMutate()
   }, [guidePassage])
 
@@ -694,7 +695,6 @@ const Read = (): JSX.Element => {
 
       <BibleTranslateDialog
         openTranslate={openTranslate}
-        inGuide={inGuide}
         bibleVersion={bibleVersion}
         handleCloseTranslate={() => {
           document.body.style.overflow = 'visible'
