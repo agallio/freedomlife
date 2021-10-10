@@ -1,20 +1,25 @@
+// Core
 import ChevronLeftIcon from '../Icons/ChevronLeftIcon'
 import ChevronRightIcon from '../Icons/ChevronRightIcon'
 
-import { useGuide } from '@/store/index'
+// Context
+import { useGuide } from '@/store/Guide'
 
+// Types
 import type { BibleNavigatorProps } from '@/types/components'
 
 const BibleNavigator = ({
   // chevronRef,
-  data,
-  bibleData,
   inGuide,
   passage,
+  isBibleByDateLoading,
+  isBibleByPassageLoading,
   backPassage,
   nextPassage,
 }: BibleNavigatorProps): JSX.Element => {
-  const { guidePassage } = useGuide()
+  const {
+    guideState: { guidePassage },
+  } = useGuide()
 
   return (
     <footer
@@ -26,8 +31,8 @@ const BibleNavigator = ({
         <button
           aria-label="Pasal Sebelumnya"
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
-            !data ||
-            !bibleData ||
+            isBibleByDateLoading ||
+            isBibleByPassageLoading ||
             (inGuide
               ? passage === 'pl-1'
               : guidePassage === 'kej-1' || !guidePassage)
@@ -44,8 +49,8 @@ const BibleNavigator = ({
         <button
           aria-label="Pasal Selanjutnya"
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
-            !data ||
-            !bibleData ||
+            isBibleByDateLoading ||
+            isBibleByPassageLoading ||
             (inGuide && passage === 'in-1') ||
             guidePassage === 'why-22'
               ? 'invisible'

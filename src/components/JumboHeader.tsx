@@ -1,11 +1,14 @@
+// Core
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
 
+// Icon Components
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
 
+// Types
 import type { JumboHeaderProps } from '@/types/components'
 
 const JumboHeader = ({
@@ -58,8 +61,9 @@ const JumboHeader = ({
         {isHome && isMounted && (
           <button
             aria-label="Ganti Mode Warna"
-            className="w-10 h-10 p-3 bg-green-700 text-white rounded-lg transition transform duration-300 hover:bg-green-900 focus:outline-none dark:bg-gray-600 dark:hover:bg-gray-700"
+            className="w-10 h-10 p-3 bg-green-400 text-green-900 rounded-lg transition transform duration-300 focus:outline-none hover:bg-green-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
             onClick={switchTheme}
+            style={{ transition: 'var(--transition-default)' }}
           >
             {theme === 'light' ? <MoonIcon /> : <SunIcon />}
           </button>

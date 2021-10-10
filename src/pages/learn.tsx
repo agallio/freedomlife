@@ -1,10 +1,17 @@
+// Core
 import Head from 'next/head'
 import Router from 'next/router'
+
+// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 
+// Components
 import JumboHeader from '@/components/JumboHeader'
+
+// Utils
 import { getDocBySlug, markdownToHtml } from '@/utils/learn'
 
+// Types
 import type { LearnPageProps } from '@/types/components'
 
 const Learn = ({ post }: LearnPageProps): JSX.Element => {

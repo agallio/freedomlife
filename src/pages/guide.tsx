@@ -1,25 +1,26 @@
+// Core
 import Router from 'next/router'
 import Head from 'next/head'
+
+// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 
+// Components
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
 import GuideItem from '@/components/Guide/GuideItem'
 import PageTransition from '@/components/PageTransition'
 
-import useRequest from '@/utils/hooks/useRequest'
-import dayjs from '@/utils/dayjs'
+// Context
+import { useGuide } from '../store/Guide'
 
-import { useDispatchGuide } from '../store'
-
-import type { ApiResponse, GuideDataResponse } from '@/types/api'
+// Utils —— Hooks
+import { useGuides } from '@/utils/hooks/useFetchedGuide'
 
 const Guide = (): JSX.Element => {
-  const guideDispatch = useDispatchGuide()
+  const { guideDispatch } = useGuide()
 
-  const { data } = useRequest<ApiResponse<GuideDataResponse[]>>({
-    url: `/api/guide/month/${dayjs().format('MM')}`,
-  })
+  const { data } = useGuides()
 
   const toBibleWithDate = (date: string) => {
     guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
@@ -61,7 +62,7 @@ const Guide = (): JSX.Element => {
           {!data ? (
             <GuideLoading />
           ) : (
-            data.data!.map((item, index) => (
+            data.map((item, index) => (
               <GuideItem
                 key={index}
                 item={item}

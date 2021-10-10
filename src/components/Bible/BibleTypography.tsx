@@ -1,16 +1,40 @@
+// Types
+import type { VerseData } from '@/types/api'
 import type { BibleTypographyProps } from '@/types/components'
 
 const BibleTypography = ({
   inGuide,
-  verseFontSize,
+  passage,
   maintenance,
-  data,
-  bibleData,
-  passageArray,
+  verseFontSize,
   highlightedText,
+  isGuideByDateLoading,
+  isBibleByDateLoading,
+  isBibleByPassageLoading,
+  bibleByDateData,
+  bibleByPassageData,
   getHeaderFontSize,
   highlightText,
 }: BibleTypographyProps): JSX.Element => {
+  let passageArray: VerseData[] | undefined
+  if (inGuide) {
+    if (passage.includes('pl')) {
+      passageArray =
+        bibleByDateData?.pl?.find((item) => item.passagePlace === passage)
+          ?.data || []
+    } else if (passage.includes('pb')) {
+      passageArray =
+        bibleByDateData?.pb?.find((item) => item.passagePlace === passage)
+          ?.data || []
+    } else {
+      passageArray =
+        bibleByDateData?.in?.find((item) => item.passagePlace === passage)
+          ?.data || []
+    }
+  } else {
+    passageArray = bibleByPassageData?.data
+  }
+
   return (
     <div
       className={`max-w-sm mx-auto ${
@@ -19,7 +43,10 @@ const BibleTypography = ({
     >
       {maintenance ? (
         <p>Terjadi Kesalahan. Coba beberapa saat lagi.</p>
-      ) : !data || !bibleData ? (
+      ) : isGuideByDateLoading ||
+        isBibleByDateLoading ||
+        isBibleByPassageLoading ||
+        !passageArray ? (
         <div className="flex flex-col items-center animate-pulse">
           {Array.from(Array(15).keys()).map((item) => {
             if (item === 0) {

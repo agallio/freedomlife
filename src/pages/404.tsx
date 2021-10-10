@@ -1,5 +1,7 @@
+// Core
 import Head from 'next/head'
 
+// Components
 import JumboHeader from '@/components/JumboHeader'
 
 const NotFound = (): JSX.Element => {

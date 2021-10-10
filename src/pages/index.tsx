@@ -1,30 +1,36 @@
-// import { useEffect } from 'react'
+// Core
 import Router from 'next/router'
+import { useEffect } from 'react'
+
+// 3rd Party Libs
 // import { AnimatePresence } from 'framer-motion'
 
+// Components
 import JumboHeader from '@/components/JumboHeader'
 import HomeBox from '@/components/Home/HomeBox'
-// import NewYearDialog from '@/components/Home/NewYearDialog'
 import NewUserBox from '@/components/Home/NewUserBox'
 import NewTranslationBox from '@/components/Home/NewTranslationBox'
 import Footer from '@/components/Footer'
 import PageTransition from '@/components/PageTransition'
+// import NewYearDialog from '@/components/Home/NewYearDialog'
 
-import { useDispatchGuide } from '../store'
+// Context
+import { useGuide } from '../store/Guide'
 
-import dayjs from '@/utils/dayjs'
-import useRequest from '@/utils/hooks/useRequest'
-
-import type { ApiResponse, GuideDataResponse } from '@/types/api'
+// Utils —— Hooks
+import { useGuideByDate } from '@/utils/hooks/useFetchedGuide'
 
 const Home = (): JSX.Element => {
-  const guideDispatch = useDispatchGuide()
+  // Context
+  const { guideDispatch } = useGuide()
+
+  // State
   // const [open, setOpen] = useState(false)
 
-  const { data } = useRequest<ApiResponse<GuideDataResponse>>({
-    url: `/api/guide/${dayjs().format('DD-MM-YYYY')}`,
-  })
+  // Query
+  const { data, isLoading, isError, refetch } = useGuideByDate()
 
+  // Method
   const toBible = () => {
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: '' })
@@ -32,6 +38,11 @@ const Home = (): JSX.Element => {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
   }
+
+  // Lifecycles —— Side Effects
+  useEffect(() => {
+    refetch()
+  }, [])
 
   // useEffect(() => {
   //   if (open) {
@@ -47,18 +58,23 @@ const Home = (): JSX.Element => {
 
       <PageTransition>
         <main>
-          <NewTranslationBox />
+          {!isError ? <NewTranslationBox /> : null}
 
-          <HomeBox data={data} toBible={toBible} />
+          <HomeBox
+            data={data}
+            isLoading={isLoading}
+            isError={isError}
+            toBible={toBible}
+          />
 
-          <NewUserBox />
+          {!isError ? <NewUserBox /> : null}
 
           {/* <AnimatePresence>
-          {open && <NewYearDialog handleClose={() => setOpen(false)} />}
-        </AnimatePresence> */}
+            {open && <NewYearDialog handleClose={() => setOpen(false)} />}
+          </AnimatePresence> */}
         </main>
 
-        <Footer />
+        {!isError ? <Footer /> : null}
       </PageTransition>
     </div>
   )

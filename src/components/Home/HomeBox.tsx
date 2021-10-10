@@ -1,8 +1,34 @@
+// Utils
 import dayjs from '@/utils/dayjs'
 
+// Types
 import type { HomeBoxProps } from '@/types/components'
 
-const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
+const HomeBox = ({
+  data,
+  isError,
+  isLoading,
+  toBible,
+}: HomeBoxProps): JSX.Element => {
+  if (isError) {
+    return (
+      <div
+        className="flex flex-col shadow-md rounded-lg mt-2"
+        style={{
+          background:
+            'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)',
+        }}
+      >
+        <p className="px-4 py-4 text-sm">
+          <b>
+            FreedomLife sedang dalam masa perbaikan. Mohon tunggu beberapa saat
+            lagi.
+          </b>
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div
       className="flex flex-col shadow-md rounded-lg mt-6"
@@ -27,7 +53,7 @@ const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
           </p>
         </div>
       </div>
-      {!data ? (
+      {isLoading ? (
         <>
           <div className="px-4 py-3 animate-pulse">
             {[1, 2, 3].map((item) => (
@@ -72,11 +98,11 @@ const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
               <div key={item} className="flex flex-col mb-2">
                 <h1 className="font-bold text-white sm:text-lg">
                   {item === 'PL'
-                    ? data.data?.pl_name
+                    ? data?.pl_name
                     : item === 'PB'
-                    ? data.data?.pb_name
+                    ? data?.pb_name
                     : item === 'IN'
-                    ? data.data?.in_name
+                    ? data?.in_name
                     : 'Tidak ada data'}
                 </h1>
                 <p className="text-sm text-white sm:text-md">
@@ -100,7 +126,7 @@ const HomeBox = ({ data, toBible }: HomeBoxProps): JSX.Element => {
           >
             <button
               aria-label="Baca Panduan"
-              className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-24 focus:outline-none hover:bg-opacity-30 umami--click--to-bible"
+              className="w-full h-10 bg-green-800 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-24 focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-bible"
               style={{
                 backdropFilter: 'saturate(100%) blur(20px)',
                 WebkitBackdropFilter: 'saturate(100%) blur(20px)',

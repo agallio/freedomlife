@@ -1,9 +1,13 @@
+// Core
 import Head from 'next/head'
 import Image from 'next/image'
+
+// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
 
+// Components
 import JumboHeader from '@/components/JumboHeader'
 import CopyIcon from '@/components/Icons/CopyIcon'
 
