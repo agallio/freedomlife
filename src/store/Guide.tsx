@@ -1,21 +1,21 @@
-import { createContext, Dispatch, useContext, useReducer } from 'react'
-import { ActionTypes } from '.'
+import { createContext, useContext, useReducer } from 'react'
+
+import { GuideDataResponse } from '@/types/api'
 
 interface GuideInitialState {
-  guideData: {
-    month?: string
-    month_name?: string
-    year?: string
-    date?: string
-    pl?: string
-    pb?: string
-    in?: string
-    pl_name?: string
-    pb_name?: string
-    in_name?: string
-  }
+  guideData: GuideDataResponse
   guideDate: string
   guidePassage: string
+}
+
+type GuideAction =
+  | { type: 'SET_GUIDE_DATA'; data: GuideDataResponse }
+  | { type: 'SET_GUIDE_DATE'; data: string }
+  | { type: 'SET_GUIDE_PASSAGE'; data: string }
+
+interface GuideContextType {
+  guideState: GuideInitialState
+  guideDispatch: (_: GuideAction) => void
 }
 
 const guideInitialState = {
@@ -24,12 +24,12 @@ const guideInitialState = {
   guidePassage: 'kej-1',
 }
 
-const GuideState = createContext<GuideInitialState>(guideInitialState)
-const GuideDispatch = createContext<Dispatch<{ type: string; data: any }>>(
-  () => null
-)
+const GuideContext = createContext<GuideContextType>({
+  guideState: guideInitialState,
+  guideDispatch: () => null,
+})
 
-const reducer = (state: GuideInitialState, action: ActionTypes) => {
+const reducer = (state: GuideInitialState, action: GuideAction) => {
   switch (action.type) {
     case 'SET_GUIDE_DATA':
       return { ...state, guideData: action.data }
@@ -39,20 +39,24 @@ const reducer = (state: GuideInitialState, action: ActionTypes) => {
       return { ...state, guidePassage: action.data, guideDate: '' }
 
     default:
-      throw new Error(`Unkown action: ${action.type}`)
+      return state
   }
 }
 
 export const GuideProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, guideInitialState)
+  const [guideState, guideDispatch] = useReducer(reducer, guideInitialState)
 
   return (
-    <GuideDispatch.Provider value={dispatch}>
-      <GuideState.Provider value={state}>{children}</GuideState.Provider>
-    </GuideDispatch.Provider>
+    <GuideContext.Provider value={{ guideState, guideDispatch }}>
+      {children}
+    </GuideContext.Provider>
   )
 }
 
-export const useGuide = (): GuideInitialState => useContext(GuideState)
-export const useDispatchGuide = (): Dispatch<{ type: string; data: any }> =>
-  useContext(GuideDispatch)
+export const useGuide = (): GuideContextType => {
+  const context = useContext(GuideContext)
+  if (context === undefined) {
+    throw new Error('useGuide must be used within a GuideProvider')
+  }
+  return context
+}

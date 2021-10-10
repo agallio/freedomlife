@@ -1,3 +1,4 @@
+// Core
 import Document, {
   DocumentContext,
   DocumentInitialProps,

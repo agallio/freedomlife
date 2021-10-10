@@ -37,9 +37,9 @@
     "react-hot-toast": "^2.1.1",
     "react-media-hook": "^0.4.9",
     "react-modal-sheet": "^1.4.1",
+    "react-query": "^3.26.0",
     "remark": "^13.0.0",
-    "remark-html": "^13.0.1",
-    "swr": "^1.0.1"
+    "remark-html": "^13.0.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.27",
@@ -52,7 +52,7 @@
     "eslint-plugin-react": "^7.26.1",
     "globby": "^11.0.4",
     "husky": "^7.0.2",
-    "postcss": "^8.3.8",
+    "postcss": "^8.3.9",
     "prettier": "^2.4.1",
     "tailwindcss": "^2.2.16",
     "typescript": "^4.4.3"

@@ -1,7 +1,9 @@
+// 3rd Party Libs
 import { motion } from 'framer-motion'
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
+// Types
 import type { BibleTranslateDialogProps } from '@/types/components'
 
 const BibleTranslateDialog = ({
@@ -39,8 +41,8 @@ const BibleTranslateDialog = ({
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                   bibleVersion === item
-                    ? 'bg-green-500 text-white hover:bg-green-600'
-                    : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500'
+                    ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
+                    : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700'
                 } ${
                   item === 'vmd' && 'flex justify-between items-center'
                 } sm:mx-1`}
@@ -59,8 +61,8 @@ const BibleTranslateDialog = ({
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
                       bibleVersion === item
-                        ? 'bg-white text-green-600'
-                        : 'bg-green-500 text-white'
+                        ? 'bg-white text-green-700'
+                        : 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
                     }`}
                   >
                     BARU!
@@ -76,8 +78,8 @@ const BibleTranslateDialog = ({
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                   bibleVersion === item
-                    ? 'bg-green-500 text-white hover:bg-green-600'
-                    : 'bg-white text-green-700 hover:bg-green-500 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-green-500'
+                    ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
+                    : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700'
                 } ${
                   (item === 'amp' || item === 'niv') &&
                   'flex justify-between items-center'
@@ -97,8 +99,8 @@ const BibleTranslateDialog = ({
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
                       bibleVersion === item
-                        ? 'bg-white text-green-600'
-                        : 'bg-green-500 text-white'
+                        ? 'bg-white text-green-700'
+                        : 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
                     }`}
                   >
                     BARU!

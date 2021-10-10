@@ -1,5 +1,9 @@
 @tailwind base;
 
+:root {
+  --transition-default: 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
 /* start: custom base styles */
 @font-face {
   font-family: 'Inter';
@@ -26,22 +30,28 @@
 
 html {
   @apply bg-gray-50;
+  transition: var(--transition-default);
+  scroll-behavior: smooth;
 }
 
 html.dark {
   @apply bg-gray-800;
+  transition: var(--transition-default);
 }
 
 html.light {
   @apply bg-gray-50;
+  transition: var(--transition-default);
 }
 
 body {
   @apply p-0 m-0 bg-gray-50 dark:bg-gray-800;
+  transition: var(--transition-default);
 }
 
 #__next {
   @apply bg-gray-50 dark:bg-gray-800;
+  transition: var(--transition-default);
 }
 /* end: custom base styles */
 

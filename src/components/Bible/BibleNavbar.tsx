@@ -1,18 +1,23 @@
+// Icon Components
 import CloseIcon from '../Icons/CloseIcon'
 import CopyIcon from '../Icons/CopyIcon'
 import SettingIcon from '../Icons/SettingIcon'
 import TranslateIcon from '../Icons/TranslateIcon'
 
+// Utils
 import dayjs from '@/utils/dayjs'
 
-import { useGuide } from '@/store/index'
+// Context
+import { useGuide } from '@/store/Guide'
 
+// Types
 import type { BibleNavbarProps } from '@/types/components'
 
 const BibleNavbar = ({
   highlighted,
   highlightedText,
   inGuide,
+  bibleVersion,
   passageTitle,
   handleExitGuide,
   removeHighlight,
@@ -21,7 +26,9 @@ const BibleNavbar = ({
   handleOpenPassage,
   handleOpenSetting,
 }: BibleNavbarProps): JSX.Element => {
-  const { guideDate } = useGuide()
+  const {
+    guideState: { guideDate },
+  } = useGuide()
 
   return (
     <header
@@ -36,9 +43,9 @@ const BibleNavbar = ({
       }}
     >
       {inGuide && (
-        <div className="bg-green-500 px-4">
+        <div className="bg-green-300 text-green-900 dark:bg-green-700 dark:text-white px-4">
           <div className="flex items-center justify-between max-w-sm sm:max-w-md sm:mx-auto">
-            <p className="text-white py-1">
+            <p className="py-1">
               Panduan Baca Aktif{' '}
               {guideDate
                 ? `(${dayjs(guideDate, 'DD-MM-YYYY').format('DD MMMM YYYY')})`
@@ -46,7 +53,7 @@ const BibleNavbar = ({
             </p>
             <button
               aria-label="Tutup"
-              className="text-white focus:outline-none"
+              className="focus:outline-none"
               onClick={handleExitGuide}
             >
               <CloseIcon className="w-4" />
@@ -88,11 +95,16 @@ const BibleNavbar = ({
             </button>
             <button
               aria-label="Buka Dialog Kitab"
-              className="bg-green-500 text-white py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-green-600 focus:outline-none sm:py-2 sm:px-6"
+              className="bg-green-300 text-green-900 py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-green-400 dark:bg-green-700 dark:text-white focus:outline-none sm:py-2 sm:px-6"
               onClick={handleOpenPassage}
               style={{ minWidth: '8rem' }}
             >
-              {passageTitle}
+              {passageTitle()}
+              {passageTitle() !== 'Memuat'
+                ? bibleVersion !== 'tb'
+                  ? ` (${bibleVersion.toUpperCase()})`
+                  : ''
+                : ''}
             </button>
             <button
               aria-label="Buka Dialog Pengaturan"

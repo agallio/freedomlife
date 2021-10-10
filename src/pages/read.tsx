@@ -1,10 +1,14 @@
+// Core
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { NextSeo } from 'next-seo'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { useTheme } from 'next-themes'
+import { useEffect, useMemo, useState } from 'react'
 
+// 3rd Party Libs
+import { NextSeo } from 'next-seo'
+import { useTheme } from 'next-themes'
+import toast from 'react-hot-toast'
+
+// Components
 import BibleNavbar from '@/components/Bible/BibleNavbar'
 import BibleTypography from '@/components/Bible/BibleTypography'
 import BibleNavigator from '@/components/Bible/BibleNavigator'
@@ -13,30 +17,36 @@ import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
 import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
 import PageTransition from '@/components/PageTransition'
 
-import dayjs from '@/utils/dayjs'
+// Utils —— Constants
 import { bibleList } from '@/utils/constants'
+
+// Utils —— Hooks
+import { useGuideByDate } from '@/utils/hooks/useFetchedGuide'
+import {
+  useBibleByDate,
+  useBibleByPassage,
+} from '@/utils/hooks/useFetchedBible'
 import useLocalStorage from '@/utils/hooks/useLocalStorage'
-import useFetchedGuide from '@/utils/hooks/useFetchedGuide'
-import useRequest from '@/utils/hooks/useRequest'
-import useDidMountEffect from '@/utils/hooks/useDidMountEffect'
 
-import { useDispatchGuide, useGuide } from '../store'
+// Context
+import { useGuide } from '../store/Guide'
 
+// Types
 import type { BibleList } from '@/types/utils'
 import type { HighlightedText } from '@/types/components'
-import type {
-  ApiResponse,
-  BibleDataResponse,
-  BibleGuideDataResponse,
-  VerseData,
-} from '@/types/api'
 
 const Read = (): JSX.Element => {
-  const guideDispatch = useDispatchGuide()
+  // Core Configs
   const router = useRouter()
   const { resolvedTheme: theme } = useTheme()
 
-  // const [prevScrollPos, setPrevScrollPos] = useState(0)
+  // Context
+  const {
+    guideState: { guideData, guideDate, guidePassage },
+    guideDispatch,
+  } = useGuide()
+
+  // States
   const [chapterSelected, setChapterSelected] = useState({
     name: '',
     abbr: '',
@@ -58,59 +68,56 @@ const Read = (): JSX.Element => {
   const [bibleVersion, setBibleVersion] = useState('tb')
   const [passage, setPassage] = useState('pl-1')
   const [maintenance, setMaintenance] = useState(false)
+  // const [prevScrollPos, setPrevScrollPos] = useState(0)
+
+  // Refs
   // const chevronRef = useRef<HTMLElement>(null)
 
-  const { error, mutate: guideMutate } = useFetchedGuide()
-  const { guideData, guideDate, guidePassage } = useGuide()
-  const { data, mutate } = useRequest<ApiResponse<BibleGuideDataResponse>>({
-    url: `/api/bible/${
-      guideDate || dayjs().format('DD-MM-YYYY')
-    }/${bibleVersion}`,
-  })
-  const { data: bibleData, mutate: bibleMutate } = useRequest<
-    ApiResponse<BibleDataResponse>
-  >({
-    url: `/api/bible?passage=${
-      guidePassage || 'kej-1'
-    }&version=${bibleVersion}`,
-  })
+  // Queries (Data Fetching)
+  const {
+    error,
+    isLoading: isGuideByDateLoading,
+    refetch: guideRefetch,
+  } = useGuideByDate()
+  const {
+    data: bibleByDateData,
+    isLoading: isBibleByDateLoading,
+    refetch: bibleByDateRefetch,
+  } = useBibleByDate(bibleVersion)
+  const {
+    data: bibleByPassageData,
+    isLoading: isBibleByPassageLoading,
+    refetch: bibleByPassageRefetch,
+  } = useBibleByPassage(bibleVersion)
 
-  let passageArray: VerseData[] | undefined
-  let plDashSplit: string[]
-  const plList: number[] = []
-  const plSpaceSplit = inGuide && guideData?.pl_name?.split(' ')
-  if (inGuide) {
-    if (passage.includes('pl')) {
-      passageArray =
-        data?.data?.pl?.find((item) => item.passagePlace === passage)?.data ||
-        []
-    } else if (passage.includes('pb')) {
-      passageArray =
-        data?.data?.pb?.find((item) => item.passagePlace === passage)?.data ||
-        []
-    } else {
-      passageArray =
-        data?.data?.in?.find((item) => item.passagePlace === passage)?.data ||
-        []
-    }
+  // Memoized Value
+  const plSpaceSplit = useMemo(
+    () => inGuide && guideData?.pl_name?.split(' '),
+    [inGuide, guideData]
+  )
 
+  const plDashSplit = useMemo(() => {
     if (plSpaceSplit) {
-      plDashSplit =
-        plSpaceSplit.length === 3
-          ? plSpaceSplit[2] !== undefined
-            ? plSpaceSplit[2].split('-')
-            : []
-          : plSpaceSplit[1] !== undefined
-          ? plSpaceSplit[1].split('-')
+      return plSpaceSplit.length === 3
+        ? plSpaceSplit[2] !== undefined
+          ? plSpaceSplit[2].split('-')
           : []
-      for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
-        plList.push(i)
-      }
+        : plSpaceSplit[1] !== undefined
+        ? plSpaceSplit[1].split('-')
+        : []
     }
-  } else {
-    passageArray = bibleData?.data?.data
-  }
+    return []
+  }, [plSpaceSplit])
 
+  const plList = useMemo(() => {
+    const arr = []
+    for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
+      arr.push(i)
+    }
+    return arr
+  }, [plDashSplit])
+
+  // Methods
   const handleMinusFontSize = () => {
     switch (verseFontSize) {
       case 'base':
@@ -200,7 +207,11 @@ const Read = (): JSX.Element => {
   }
 
   const passageTitle = (): string | undefined => {
-    if (!data || !guideData || !bibleData) {
+    if (
+      isGuideByDateLoading ||
+      isBibleByDateLoading ||
+      isBibleByPassageLoading
+    ) {
       return 'Memuat'
     }
 
@@ -256,7 +267,16 @@ const Read = (): JSX.Element => {
   }
 
   const handleOpenPassage = () => {
-    if (data && guideData && bibleData) {
+    if (inGuide) {
+      if (guideData && bibleByDateData) {
+        document.body.style.overflow = 'hidden'
+        setOpenPassage(true)
+        setChapterSelected({ name: '', abbr: '', passage: 0 })
+        return
+      }
+    }
+
+    if (bibleByPassageData) {
       document.body.style.overflow = 'hidden'
       setOpenPassage(true)
       setChapterSelected({ name: '', abbr: '', passage: 0 })
@@ -272,7 +292,7 @@ const Read = (): JSX.Element => {
     removeHighlight()
 
     if (inGuide) {
-      const currChapter = data?.data?.passage
+      const currChapter = bibleByDateData?.passage
       const currPassage = currChapter?.find((i) => i === passage)
       const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 
@@ -287,7 +307,6 @@ const Read = (): JSX.Element => {
           type: 'SET_GUIDE_PASSAGE',
           data: 'kej-2',
         })
-        bibleMutate()
         scrollToTop()
         return
       }
@@ -309,7 +328,6 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nowAbbr}-${nowChapter + 1}`,
           })
-          bibleMutate()
           scrollToTop()
         } else {
           const nextChapter = bibleList[chapterIndex + 1]
@@ -318,7 +336,6 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nextChapter.abbr}-1`,
           })
-          bibleMutate()
           scrollToTop()
         }
       }
@@ -329,7 +346,7 @@ const Read = (): JSX.Element => {
     removeHighlight()
 
     if (inGuide) {
-      const currChapter = data?.data?.passage
+      const currChapter = bibleByDateData?.passage
       const currPassage = currChapter?.find((i) => i === passage)
       const currPassageIndex = currChapter?.findIndex((i) => i === passage)
 
@@ -353,7 +370,6 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${nowAbbr}-${nowChapter - 1}`,
           })
-          bibleMutate()
           scrollToTop()
         } else {
           const prevChapter = bibleList[chapterIndex - 1]
@@ -366,7 +382,6 @@ const Read = (): JSX.Element => {
             type: 'SET_GUIDE_PASSAGE',
             data: `${prevChapter.abbr}-${prevChapterLastPassage}`,
           })
-          bibleMutate()
           scrollToTop()
         }
       }
@@ -382,8 +397,6 @@ const Read = (): JSX.Element => {
 
   const changeVersion = (version: string) => {
     document.body.style.overflow = 'visible'
-    mutate()
-    guideMutate()
     setBibleVersion(version)
     setOpenTranslate(false)
     scrollToTop()
@@ -393,7 +406,6 @@ const Read = (): JSX.Element => {
     document.body.style.overflow = 'visible'
     localStorage.setItem('last_chapter', chapter)
     guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: chapter })
-    bibleMutate()
     setOpenPassage(false)
     scrollToTop()
   }
@@ -561,32 +573,10 @@ const Read = (): JSX.Element => {
     }
   }
 
-  // const handleScroll = () => {
-  //   const currentScrollPos = window.pageYOffset
-  //   if (prevScrollPos >= 0 && currentScrollPos >= 0) {
-  //     if (
-  //       prevScrollPos > currentScrollPos ||
-  //       prevScrollPos === currentScrollPos
-  //     ) {
-  //       chevronRef.current!.style.bottom =
-  //         'calc(6rem + env(safe-area-inset-bottom))'
-  //     } else {
-  //       chevronRef.current!.style.bottom = '1.25rem'
-  //     }
-  //   } else {
-  //     chevronRef.current!.style.bottom =
-  //       'calc(6rem + env(safe-area-inset-bottom))'
-  //   }
-  //   setPrevScrollPos(currentScrollPos)
-  // }
-
-  // useEffect(() => {
-  //   const watchScroll = () => window.addEventListener('scroll', handleScroll)
-  //   watchScroll()
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // })
+  // Lifecycles —— Side Effects
+  useEffect(() => {
+    guideRefetch()
+  }, [])
 
   useEffect(() => {
     if (error) {
@@ -595,27 +585,36 @@ const Read = (): JSX.Element => {
     }
   }, [error])
 
-  useDidMountEffect(() => {
+  useEffect(() => {
+    const queryLength = router.asPath.split('?').length
+
+    setInGuide(queryLength > 1 ? true : false)
+    if (queryLength > 1) {
+      bibleByDateRefetch()
+      return
+    }
+
+    guideDispatch({
+      type: 'SET_GUIDE_PASSAGE',
+      data: localStorage.getItem('last_chapter') || '',
+    })
+    bibleByPassageRefetch()
+  }, [router])
+
+  useEffect(() => {
+    const queryLength = router.asPath.split('?').length
+    if (queryLength > 1) {
+      bibleByDateRefetch()
+      return
+    }
+    bibleByPassageRefetch()
+  }, [router.asPath, guidePassage, bibleVersion])
+
+  useEffect(() => {
     if (highlightedText.length === 0) {
       setHighlighted(false)
     }
   }, [highlightedText])
-
-  useDidMountEffect(() => {
-    bibleMutate()
-  }, [guidePassage])
-
-  useEffect(() => {
-    setInGuide(router.query.guide === 'true' ? true : false)
-
-    if (!router.query.guide) {
-      guideDispatch({
-        type: 'SET_GUIDE_PASSAGE',
-        data: localStorage.getItem('last_chapter'),
-      })
-      bibleMutate()
-    }
-  }, [router.query.guide])
 
   return (
     <>
@@ -648,6 +647,8 @@ const Read = (): JSX.Element => {
         highlightedText={highlightedText}
         inGuide={inGuide}
         guideDate={guideDate}
+        bibleVersion={bibleVersion}
+        passageTitle={passageTitle}
         handleExitGuide={handleExitGuide}
         handleOpenTranslate={() => {
           document.body.style.overflow = 'hidden'
@@ -660,23 +661,20 @@ const Read = (): JSX.Element => {
         }}
         removeHighlight={removeHighlight}
         copyText={copyText}
-        passageTitle={`${passageTitle()} 
-              ${
-                data && guideData && bibleData && bibleVersion !== 'tb'
-                  ? `(${bibleVersion.toUpperCase()})`
-                  : ''
-              }`}
       />
 
       <PageTransition>
         <BibleTypography
           inGuide={inGuide}
-          verseFontSize={verseFontSize}
+          passage={passage}
           maintenance={maintenance}
-          data={data}
-          bibleData={bibleData}
-          passageArray={passageArray}
+          verseFontSize={verseFontSize}
           highlightedText={highlightedText}
+          isGuideByDateLoading={isGuideByDateLoading}
+          isBibleByDateLoading={isBibleByDateLoading}
+          isBibleByPassageLoading={isBibleByPassageLoading}
+          bibleByDateData={bibleByDateData}
+          bibleByPassageData={bibleByPassageData}
           getHeaderFontSize={getHeaderFontSize}
           highlightText={highlightText}
         />
@@ -684,11 +682,11 @@ const Read = (): JSX.Element => {
 
       <BibleNavigator
         // chevronRef={chevronRef}
-        data={data}
-        bibleData={bibleData}
         inGuide={inGuide}
         passage={passage}
         guidePassage={guidePassage}
+        isBibleByDateLoading={isBibleByDateLoading}
+        isBibleByPassageLoading={isBibleByPassageLoading}
         backPassage={backPassage}
         nextPassage={nextPassage}
       />

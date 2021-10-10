@@ -1,8 +1,13 @@
+// 3rd Party Libs
 import { useTheme } from 'next-themes'
 
+// Components
 import OpenBookIcon from '@/components/Icons/OpenBookIcon'
+
+// Utils
 import dayjs from '@/utils/dayjs'
 
+// Types
 import type { GuideItemProps } from '@/types/components'
 
 const GuideItem = ({
@@ -66,7 +71,7 @@ const GuideItem = ({
           className={`flex items-center justify-center w-9 h-9 ${
             isToday(item.date as string)
               ? 'bg-white bg-opacity-40 text-green-700 transition duration-300 hover:bg-opacity-70'
-              : 'bg-green-600 text-white transition duration-300 hover:bg-green-700'
+              : 'bg-green-300 text-green-900 transition duration-300 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-600'
           } rounded-full p-1 focus:outline-none umami--click--to-bible-${
             item.date
           }`}

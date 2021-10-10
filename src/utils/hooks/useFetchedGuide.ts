@@ -1,28 +1,62 @@
+// Core
 import { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import axios, { AxiosError } from 'axios'
 
+// Utils
 import dayjs from '../dayjs'
-import useRequest from './useRequest'
-import { useDispatchGuide, useGuide } from '@/store/index'
+
+// Context
+import { useGuide } from '@/store/Guide'
 
 // Types
-import type { FetchedGuideHooks } from '@/types/utils'
-import type { ApiResponse, GuideDataResponse } from '@/types/api'
+import type { QueryResult } from '@/types/utils'
+import type { GuideDataResponse } from '@/types/api'
 
-const useFetchedGuide = (): FetchedGuideHooks => {
-  const guideDispatch = useDispatchGuide()
-  const { guideDate } = useGuide()
+const getGuides = async () => {
+  const { data } = await axios.get(`/api/guide/month/${dayjs().format('MM')}`)
+  return data
+}
 
-  const { data, error, isValidating, mutate } = useRequest<
-    ApiResponse<GuideDataResponse>
-  >({
-    url: `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`,
+const getGuideByDate = async (guideDate: string) => {
+  const { data } = await axios.get(
+    `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`
+  )
+  return data
+}
+
+export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
+  const { data, error, isError, isLoading, refetch } = useQuery<
+    { data: GuideDataResponse[] },
+    AxiosError
+  >('guides', getGuides)
+
+  return { data: data?.data, error, isError, isLoading, refetch }
+}
+
+export const useGuideByDate = (): QueryResult<
+  GuideDataResponse | undefined
+> => {
+  const {
+    guideState: { guideDate },
+    guideDispatch,
+  } = useGuide()
+
+  const { data, error, isError, isLoading, refetch } = useQuery<
+    {
+      data: GuideDataResponse
+    },
+    AxiosError
+  >(['guides', guideDate], () => getGuideByDate(guideDate), {
+    retry: false,
+    enabled: false,
   })
 
   useEffect(() => {
-    guideDispatch({ type: 'SET_GUIDE_DATA', data: data?.data })
+    if (data) {
+      guideDispatch({ type: 'SET_GUIDE_DATA', data: data.data })
+    }
   }, [data])
 
-  return { data, error, isValidating, mutate }
+  return { data: data?.data, error, isError, isLoading, refetch }
 }
-
-export default useFetchedGuide

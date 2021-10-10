@@ -1,16 +1,25 @@
+// Core
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { AnimateSharedLayout } from 'framer-motion'
-import { Toaster } from 'react-hot-toast'
+
+// 3rd Party Libs
 import { ThemeProvider } from 'next-themes'
+import { Toaster } from 'react-hot-toast'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { AnimateSharedLayout } from 'framer-motion'
 
-import StateProvider from '../store'
+// Context
+import { GuideProvider } from '../store/Guide'
 
+// Components
 import SEO from '@/components/SEO'
 import BottomTabBar from '@/components/BottomTabBar'
 
+// Styles
 import '@/styles/index.css'
+
+const queryClient = new QueryClient()
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
@@ -20,17 +29,19 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       </Head>
       <SEO />
 
-      <StateProvider>
-        <ThemeProvider attribute="class">
-          <AnimateSharedLayout type="crossfade">
-            <Toaster />
-            <Component {...pageProps} />
-            {router.pathname !== '/404' &&
-              router.pathname !== '/persembahan' &&
-              router.pathname !== '/learn' && <BottomTabBar />}
-          </AnimateSharedLayout>
-        </ThemeProvider>
-      </StateProvider>
+      <QueryClientProvider client={queryClient}>
+        <GuideProvider>
+          <ThemeProvider attribute="class">
+            <AnimateSharedLayout type="crossfade">
+              <Toaster />
+              <Component {...pageProps} />
+              {router.pathname !== '/404' &&
+                router.pathname !== '/persembahan' &&
+                router.pathname !== '/learn' && <BottomTabBar />}
+            </AnimateSharedLayout>
+          </ThemeProvider>
+        </GuideProvider>
+      </QueryClientProvider>
     </>
   )
 }

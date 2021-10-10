@@ -65,8 +65,3 @@ export interface BibleDataResponse {
   chapter: number
   data: VerseData[]
 }
-
-export interface ApiResponse<Data = unknown> {
-  data: Data | null
-  error: string | null
-}

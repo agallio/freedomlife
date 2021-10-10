@@ -1,5 +1,7 @@
+// Core
 import Router from 'next/router'
 
+// Components
 import NewUserIcon from '@/components/Icons/NewUserIcon'
 
 const NewUserBox = (): JSX.Element => {
@@ -37,7 +39,7 @@ const NewUserBox = (): JSX.Element => {
       >
         <button
           aria-label="Buka Dialog Tahun Baru"
-          className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md focus:outline-none hover:bg-opacity-30 sm:w-60 umami--click--to-learn"
+          className="w-full h-10 bg-blue-900 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md focus:outline-none hover:bg-opacity-30 sm:w-60 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-learn"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

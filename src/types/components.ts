@@ -1,10 +1,8 @@
 import { Dispatch, RefObject, SetStateAction } from 'react'
 import {
-  ApiResponse,
   BibleDataResponse,
   BibleGuideDataResponse,
   GuideDataResponse,
-  VerseData,
 } from './api'
 import { BibleList } from './utils'
 
@@ -22,7 +20,9 @@ export interface JumboHeaderProps {
 }
 
 export interface HomeBoxProps {
-  data: ApiResponse<GuideDataResponse> | undefined
+  data: GuideDataResponse | undefined
+  isLoading: boolean
+  isError: boolean
   toBible: () => void
 }
 
@@ -36,8 +36,9 @@ export interface BibleNavbarProps {
   highlighted: boolean
   highlightedText: HighlightedText[]
   inGuide: boolean
+  bibleVersion: string
   guideDate: string
-  passageTitle: string
+  passageTitle: () => string | undefined
   handleExitGuide: () => void
   removeHighlight: () => void
   copyText: () => void
@@ -48,23 +49,26 @@ export interface BibleNavbarProps {
 
 export interface BibleTypographyProps {
   inGuide: boolean
-  verseFontSize: string
+  passage: string
   maintenance: boolean
-  data: ApiResponse<BibleGuideDataResponse> | undefined
-  bibleData: ApiResponse<BibleDataResponse> | undefined
-  passageArray: VerseData[] | undefined
+  verseFontSize: string
   highlightedText: HighlightedText[]
+  isGuideByDateLoading: boolean
+  isBibleByDateLoading: boolean
+  isBibleByPassageLoading: boolean
+  bibleByDateData: BibleGuideDataResponse | undefined
+  bibleByPassageData: BibleDataResponse | undefined
   getHeaderFontSize: () => void
   highlightText: (verse: number, content: string) => void
 }
 
 export interface BibleNavigatorProps {
   chevronRef?: RefObject<HTMLElement>
-  data: ApiResponse<BibleGuideDataResponse> | undefined
-  bibleData: ApiResponse<BibleDataResponse> | undefined
   inGuide: boolean
   passage: string
   guidePassage: string
+  isBibleByDateLoading: boolean
+  isBibleByPassageLoading: boolean
   backPassage: () => void
   nextPassage: () => void
 }
