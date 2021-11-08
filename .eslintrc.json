@@ -4,7 +4,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
     "prettier"
   ],
   "env": {
@@ -12,6 +14,11 @@
     "browser": true,
     "jest": true,
     "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   },
   "rules": {
     "no-console": 0,
