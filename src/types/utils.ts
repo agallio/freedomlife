@@ -10,7 +10,7 @@ export interface BibleList {
 // Fetched Hooks
 export interface QueryResult<T> {
   data: T
-  error: AxiosError<never> | null
+  error: AxiosError<any> | null
   isError: boolean
   isLoading: boolean
   refetch: (options?: {
