@@ -49,7 +49,6 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
-  target: 'serverless',
   transformManifest: (manifest) => ['/'].concat(manifest),
   workboxOpts: {
     swDest: process.env.NEXT_EXPORT

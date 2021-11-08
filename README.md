@@ -10,10 +10,10 @@ FreedomLife is a bible reading guide app. Users can read the bible with or witho
 
 ### Requirements
 
-| Technology | Version          |
-| ---------- | ---------------- |
-| Node       | LTS (12 or 14)   |
-| Yarn       | 1.22.4 or Higher |
+| Technology | Version              |
+| ---------- | -------------------- |
+| node       | LTS (14 recommended) |
+| pnpm       | 6.19.0 or Higher     |
 
 ### Environment Variables
 
@@ -32,14 +32,14 @@ After you get the API keys you can follow these steps below.
 
 ```bash
 # install the dependencies
-$ yarn install
+$ pnpm install
 
 # development (localhost:3000)
-$ yarn dev
+$ pnpm dev
 
 # build for production and launch server
-$ yarn build
-$ yarn start
+$ pnpm build
+$ pnpm start
 ```
 
 # What's Inside?
@@ -49,12 +49,12 @@ $ yarn start
 | [Next.js](https://nextjs.org/)                             |
 | [Preact](https://preactjs.com/)                            |
 | [TypeScript](https://www.typescriptlang.org/)              |
-| [Tailwind CSS](https://tailwindcss.com/)                   |
+| [TailwindCSS](https://tailwindcss.com/)                    |
 | [Framer Motion](https://www.framer.com/motion/)            |
-| [useSWR](https://swr.vercel.app/)                          |
+| [react-query](https://react-query.tanstack.com/)           |
+| [Supabase](https://www.supabase.io/)                       |
 | [Workbox](https://developers.google.com/web/tools/workbox) |
 | [Vercel](https://vercel.com/)                              |
-| [Supabase](https://www.supabase.io/)                       |
 
 For detailed explanation on how things work, click the technology stack name to find out.
 
@@ -62,14 +62,17 @@ For detailed explanation on how things work, click the technology stack name to 
 
 Indonesian
 
-- [x] Terjemahan Baru (TB)
-- [x] Kabar Baik Bahasa Indonesia Sehari-Hari (BIS)
-- [x] Firman Allah Yang Hidup (FAYH)
+- Terjemahan Baru (TB)
+- Kabar Baik Bahasa Indonesia Sehari-Hari (BIS)
+- Firman Allah Yang Hidup (FAYH)
+- Versi Mudah Dibaca (VMD)
 
 International
 
-- [x] New King James Version (NKJV)
-- [x] The Message (MSG)
+- New King James Version (NKJV)
+- The Message (MSG)
+- Amplified Bible (AMP)
+- New International Version (NIV)
 
 You need more translations? You can contact me at the contact section below.
 
