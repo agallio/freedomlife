@@ -31,7 +31,6 @@
 html {
   @apply bg-gray-50;
   transition: var(--transition-default);
-  scroll-behavior: smooth;
 }
 
 html.dark {

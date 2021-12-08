@@ -7,9 +7,6 @@ import TranslateIcon from '../Icons/TranslateIcon'
 // Utils
 import dayjs from '@/utils/dayjs'
 
-// Context
-import { useGuide } from '@/store/Guide'
-
 // Types
 import type { BibleNavbarProps } from '@/types/components'
 
@@ -18,6 +15,7 @@ const BibleNavbar = ({
   highlightedText,
   inGuide,
   bibleVersion,
+  guideDate,
   passageTitle,
   handleExitGuide,
   removeHighlight,
@@ -26,10 +24,6 @@ const BibleNavbar = ({
   handleOpenPassage,
   handleOpenSetting,
 }: BibleNavbarProps): JSX.Element => {
-  const {
-    guideState: { guideDate },
-  } = useGuide()
-
   return (
     <header
       className={`fixed top-0 left-0 w-full border-b bg-opacity-60 z-40 ${

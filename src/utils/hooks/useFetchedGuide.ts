@@ -29,27 +29,34 @@ export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
   const { data, error, isError, isLoading, refetch } = useQuery<
     { data: GuideDataResponse[] },
     AxiosError
-  >('guides', getGuides)
+  >('guides', getGuides, {
+    retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  })
 
   return { data: data?.data, error, isError, isLoading, refetch }
 }
 
-export const useGuideByDate = (): QueryResult<
-  GuideDataResponse | undefined
-> => {
+export const useGuideByDate = (options?: {
+  home?: boolean
+}): QueryResult<GuideDataResponse | undefined> => {
   const {
     guideState: { guideDate },
     guideDispatch,
   } = useGuide()
+
+  const date = options?.home ? dayjs().format('DD-MM-YYYY') : guideDate
 
   const { data, error, isError, isLoading, refetch } = useQuery<
     {
       data: GuideDataResponse
     },
     AxiosError
-  >(['guides', guideDate], () => getGuideByDate(guideDate), {
+  >(['guides', date], () => getGuideByDate(date), {
     retry: false,
     enabled: false,
+    refetchOnWindowFocus: false,
   })
 
   useEffect(() => {
