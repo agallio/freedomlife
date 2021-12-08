@@ -7,7 +7,6 @@ import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { AnimateSharedLayout } from 'framer-motion'
 
 // Context
 import { GuideProvider } from '../store/Guide'
@@ -32,13 +31,11 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       <QueryClientProvider client={queryClient}>
         <GuideProvider>
           <ThemeProvider attribute="class">
-            <AnimateSharedLayout type="crossfade">
-              <Toaster />
-              <Component {...pageProps} />
-              {router.pathname !== '/404' &&
-                router.pathname !== '/persembahan' &&
-                router.pathname !== '/learn' && <BottomTabBar />}
-            </AnimateSharedLayout>
+            <Toaster />
+            <Component {...pageProps} />
+            {router.pathname !== '/404' &&
+              router.pathname !== '/persembahan' &&
+              router.pathname !== '/learn' && <BottomTabBar />}
           </ThemeProvider>
         </GuideProvider>
       </QueryClientProvider>

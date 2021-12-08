@@ -252,6 +252,8 @@ const Read = (): JSX.Element => {
         }
       }
     } else {
+      if (!bibleByPassageData) return 'Memuat'
+
       return bibleList.find((item) =>
         item.abbr === guidePassage ? guidePassage.split('-')[0] : 'kej-1'
       )
@@ -575,10 +577,6 @@ const Read = (): JSX.Element => {
 
   // Lifecycles —— Side Effects
   useEffect(() => {
-    guideRefetch()
-  }, [])
-
-  useEffect(() => {
     if (error) {
       console.error(error)
       setMaintenance(true)
@@ -586,29 +584,33 @@ const Read = (): JSX.Element => {
   }, [error])
 
   useEffect(() => {
-    const queryLength = router.asPath.split('?').length
+    if (router.isReady) {
+      const { guide } = router.query
+      const isGuide = guide === 'true'
 
-    setInGuide(queryLength > 1 ? true : false)
-    if (queryLength > 1) {
+      setInGuide(isGuide)
+
+      if (!isGuide) {
+        // TODO: handle first render double hit should be only one hit.
+        guideDispatch({
+          type: 'SET_GUIDE_PASSAGE',
+          data: localStorage.getItem('last_chapter') || 'kej-1',
+        })
+        bibleByPassageRefetch()
+        return
+      }
+
+      if (!guideData.date) {
+        guideRefetch()
+      } else if (typeof guideData.date !== undefined && guideDate !== '') {
+        if (guideData.date !== guideDate) {
+          guideRefetch()
+        }
+      }
+
       bibleByDateRefetch()
-      return
     }
-
-    guideDispatch({
-      type: 'SET_GUIDE_PASSAGE',
-      data: localStorage.getItem('last_chapter') || '',
-    })
-    bibleByPassageRefetch()
-  }, [router])
-
-  useEffect(() => {
-    const queryLength = router.asPath.split('?').length
-    if (queryLength > 1) {
-      bibleByDateRefetch()
-      return
-    }
-    bibleByPassageRefetch()
-  }, [router.asPath, guidePassage, bibleVersion])
+  }, [router, bibleVersion, guidePassage])
 
   useEffect(() => {
     if (highlightedText.length === 0) {

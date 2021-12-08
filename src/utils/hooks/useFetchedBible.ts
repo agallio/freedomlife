@@ -39,7 +39,7 @@ export const useBibleByDate = (
   >(
     ['bibles', guideDate, bibleVersion],
     () => getBibleByDate(guideDate, bibleVersion),
-    { enabled: false }
+    { enabled: false, refetchOnWindowFocus: false }
   )
 
   return { data: data?.data, error, isError, isLoading, refetch }
@@ -58,7 +58,7 @@ export const useBibleByPassage = (
   >(
     ['bibles', guidePassage, bibleVersion],
     () => getBibleByPassage(guidePassage, bibleVersion),
-    { enabled: false }
+    { enabled: false, refetchOnWindowFocus: false }
   )
 
   return { data: data?.data, error, isError, isLoading, refetch }

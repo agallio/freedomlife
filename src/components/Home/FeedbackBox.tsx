@@ -1,5 +1,10 @@
+import HomeCard from '../Card/HomeCard'
+
 const FeedbackBox = (): JSX.Element => (
-  <div className="mt-6 rounded-lg shadow-md bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">
+  <HomeCard
+    top="6"
+    className="bg-gradient-to-r from-yellow-800 via-yellow-600 to-yellow-400"
+  >
     <div className="px-4 py-3 text-white">
       <p className="font-semibold tracking-wide">
         Beri Kami Saran &amp; Masukan!
@@ -28,7 +33,7 @@ const FeedbackBox = (): JSX.Element => (
         Kirim Saran &amp; Masukan
       </button>
     </div>
-  </div>
+  </HomeCard>
 )
 
 export default FeedbackBox
