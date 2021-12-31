@@ -84,7 +84,7 @@ const BibleTypography = ({
                 className="cursor-pointer leading-[200%]"
                 onClick={() => highlightText(item.verse, item.content)}
               >
-                <sup className="mr-3 relative -top-1 font-light text-xs text-green-700 dark:text-green-300">
+                <sup className="mr-3 relative -top-1 font-light text-xs text-emerald-700 dark:text-emerald-300">
                   {item.verse || ''}
                 </sup>
                 <span

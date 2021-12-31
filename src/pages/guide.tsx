@@ -9,6 +9,7 @@ import { NextSeo } from 'next-seo'
 import JumboHeader from '@/components/JumboHeader'
 import GuideLoading from '@/components/Guide/GuideLoading'
 import GuideItem from '@/components/Guide/GuideItem'
+import GuideError from '@/components/Guide/GuideError'
 import PageTransition from '@/components/PageTransition'
 
 // Context
@@ -20,7 +21,7 @@ import { useGuides } from '@/utils/hooks/useFetchedGuide'
 const Guide = (): JSX.Element => {
   const { guideDispatch } = useGuide()
 
-  const { data } = useGuides()
+  const { data, isError } = useGuides()
 
   const toBibleWithDate = (date: string) => {
     guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
@@ -55,11 +56,13 @@ const Guide = (): JSX.Element => {
         }}
       />
 
-      <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6 md:mb-16">
+      <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6">
         <JumboHeader subtitle="Panduan Baca Bulan Ini" />
 
         <PageTransition>
-          {!data ? (
+          {isError ? (
+            <GuideError />
+          ) : !data ? (
             <GuideLoading />
           ) : (
             data.map((item, index) => (

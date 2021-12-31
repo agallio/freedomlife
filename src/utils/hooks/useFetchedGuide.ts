@@ -35,7 +35,13 @@ export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
     refetchOnWindowFocus: false,
   })
 
-  return { data: data?.data, error, isError, isLoading, refetch }
+  return {
+    data: data?.data,
+    error,
+    isError,
+    isLoading,
+    refetch,
+  }
 }
 
 export const useGuideByDate = (options?: {
@@ -65,5 +71,12 @@ export const useGuideByDate = (options?: {
     }
   }, [data])
 
-  return { data: data?.data, error, isError, isLoading, refetch }
+  return {
+    data: data?.data,
+    error,
+    isError,
+    isGuideError: error?.response?.data.error === 'Guide not found.',
+    isLoading,
+    refetch,
+  }
 }

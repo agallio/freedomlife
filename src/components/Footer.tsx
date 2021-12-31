@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 
+import ExternalLink from './ExternalLink'
+
 const Footer = (): JSX.Element => {
   const { resolvedTheme: theme } = useTheme()
 
@@ -38,6 +40,12 @@ const Footer = (): JSX.Element => {
       <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
         Lisensi MIT © 2021 — FreedomLife
       </p>
+      <ExternalLink
+        href="https://agallio.xyz"
+        className="mt-2 text-xs text-gray-600 dark:text-gray-300"
+      >
+        @agallio ↗
+      </ExternalLink>
     </div>
   )
 }

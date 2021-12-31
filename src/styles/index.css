@@ -86,11 +86,11 @@ body {
 }
 
 .prose h2 {
-  @apply text-green-700;
+  @apply text-emerald-700;
 }
 
 .prose h3 {
-  @apply text-green-700;
+  @apply text-emerald-700;
 }
 
 .full-height {
