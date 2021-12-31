@@ -32,8 +32,8 @@ const BottomTabBar = (): JSX.Element => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/'
-              ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
-              : 'bg-white text-green-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
+              ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => handleChangeRoute('/')}
@@ -49,8 +49,8 @@ const BottomTabBar = (): JSX.Element => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/read'
-              ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
-              : 'bg-white text-green-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
+              ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => handleChangeRoute('/read')}
@@ -66,8 +66,8 @@ const BottomTabBar = (): JSX.Element => {
           variants={motionVariants}
           className={`flex ${
             router.pathname === '/guide'
-              ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
-              : 'bg-white text-green-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
+              ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 items-center justify-center rounded-full focus:outline-none`}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => handleChangeRoute('/guide')}

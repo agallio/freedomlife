@@ -49,12 +49,12 @@ const BiblePassageDialog = ({
           <h3
             className={`mx-4 ${
               inGuide ? '' : 'mb-2'
-            } text-green-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white`}
+            } text-emerald-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white`}
           >
             {inGuide ? 'Pilih Panduan Baca' : 'Pilih Kitab & Pasal'}
           </h3>
           {inGuide && (
-            <p className="mx-4 mb-2 text-green-700 sm:max-w-md sm:mx-auto dark:text-white">
+            <p className="mx-4 mb-2 text-emerald-700 sm:max-w-md sm:mx-auto dark:text-white">
               {guideDate
                 ? dayjs(guideDate, 'DD-MM-YYYY').format('DD MMMM YYYY')
                 : dayjs().format('DD MMMM YYYY')}
@@ -65,8 +65,8 @@ const BiblePassageDialog = ({
           <div id="modalPassageContent" className="overflow-auto">
             {inGuide ? (
               <>
-                <div className="rounded-lg shadow-md mx-4 my-4 bg-green-200 sm:mx-1 dark:bg-gray-800">
-                  <p className="p-4 text-sm text-green-900 dark:text-white">
+                <div className="rounded-lg shadow-md mx-4 my-4 bg-emerald-200 sm:mx-1 dark:bg-gray-800">
+                  <p className="p-4 text-sm text-emerald-900 dark:text-white">
                     Anda sedang membaca menggunakan panduan. Jika Anda ingin
                     membaca pasal diluar panduan silakan tekan tombol keluar
                     dibawah ini.
@@ -80,7 +80,7 @@ const BiblePassageDialog = ({
                   >
                     <button
                       aria-label="Keluar Dari Panduan Baca"
-                      className="w-full bg-green-800 bg-opacity-80 text-white py-1 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
+                      className="w-full bg-emerald-800 bg-opacity-80 text-white py-1 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
                       style={{
                         backdropFilter: 'saturate(100%) blur(20px)',
                         WebkitBackdropFilter: 'saturate(100%) blur(20px)',
@@ -94,8 +94,8 @@ const BiblePassageDialog = ({
                 <div
                   className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                     passage === 'pl-1'
-                      ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                      : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
                   onClick={() => changePassage('pl-1')}
                 >
@@ -116,8 +116,8 @@ const BiblePassageDialog = ({
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-2'
-                        ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                        : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() => changePassage('pl-2')}
                   >
@@ -135,8 +135,8 @@ const BiblePassageDialog = ({
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-3'
-                        ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                        : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() => changePassage('pl-3')}
                   >
@@ -154,8 +154,8 @@ const BiblePassageDialog = ({
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-4'
-                        ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                        : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() => changePassage('pl-4')}
                   >
@@ -172,8 +172,8 @@ const BiblePassageDialog = ({
                 <div
                   className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                     passage === 'pb'
-                      ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                      : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
                   onClick={() => changePassage('pb')}
                 >
@@ -183,8 +183,8 @@ const BiblePassageDialog = ({
                 <div
                   className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                     passage === 'in-1'
-                      ? 'bg-green-300 text-green-900 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-800'
-                      : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700 dark:hover:text-white'
+                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
                   onClick={() => changePassage('in-1')}
                 >
@@ -198,7 +198,7 @@ const BiblePassageDialog = ({
               <div>
                 <button
                   aria-label="Kembali"
-                  className="px-4 py-2 mt-2 flex items-center justify-center text-green-700 focus:outline-none sm:px-0 dark:text-white"
+                  className="px-4 py-2 mt-2 flex items-center justify-center text-emerald-700 focus:outline-none sm:px-0 dark:text-white"
                   onClick={() =>
                     setChapterSelected({ name: '', abbr: '', passage: 0 })
                   }
@@ -227,7 +227,7 @@ const BiblePassageDialog = ({
                         ).map((item) => (
                           <div
                             key={item}
-                            className="w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-green-300 hover:text-green-900 hover:border-green-400 dark:border-gray-400 dark:text-white dark:hover:bg-green-700 dark:hover:border-green-600"
+                            className="w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-emerald-300 hover:text-emerald-900 hover:border-emerald-400 dark:border-gray-400 dark:text-white dark:hover:bg-emerald-700 dark:hover:border-emerald-600"
                             onClick={() =>
                               changeChapter(`${chapterSelected.abbr}-${item}`)
                             }
@@ -288,7 +288,7 @@ const BiblePassageDialog = ({
                             onClick={() => handleSelectChapter({ ...item })}
                             initial={{ borderRadius: '0.5rem' }}
                             transition={{ duration: 0.2 }}
-                            className="bg-white text-green-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
+                            className="bg-white text-emerald-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
                           >
                             <motion.div transition={{ duration: 0.2 }}>
                               <motion.div
@@ -307,7 +307,7 @@ const BiblePassageDialog = ({
                           key={item.name}
                           onClick={() => handleSelectChapter({ ...item })}
                           transition={{ duration: 0.2 }}
-                          className="bg-white text-green-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700"
+                          className="bg-white text-emerald-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700"
                         >
                           <motion.div transition={{ duration: 0.2 }}>
                             <motion.div

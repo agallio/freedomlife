@@ -50,7 +50,7 @@ const GuideItem = ({
             className={`text-lg font-bold sm:text-xl ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
@@ -59,7 +59,7 @@ const GuideItem = ({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
@@ -70,8 +70,8 @@ const GuideItem = ({
           aria-label="Baca Panduan"
           className={`flex items-center justify-center w-9 h-9 ${
             isToday(item.date as string)
-              ? 'bg-white bg-opacity-40 text-green-700 transition duration-300 hover:bg-opacity-70'
-              : 'bg-green-300 text-green-900 transition duration-300 hover:bg-green-400 dark:bg-green-700 dark:text-white dark:hover:bg-green-600'
+              ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
+              : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
           } rounded-full p-1 focus:outline-none umami--click--to-bible-${
             item.date
           }`}
@@ -90,7 +90,7 @@ const GuideItem = ({
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             {item.pl_name || '-'}
@@ -99,7 +99,7 @@ const GuideItem = ({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             Perjanjian Lama
@@ -110,7 +110,7 @@ const GuideItem = ({
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             {item.pb_name || '-'}
@@ -119,7 +119,7 @@ const GuideItem = ({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             Perjanjian Baru
@@ -130,7 +130,7 @@ const GuideItem = ({
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             {item.in_name || '-'}
@@ -139,7 +139,7 @@ const GuideItem = ({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-green-700 dark:text-white'
+                : 'text-emerald-700 dark:text-white'
             }`}
           >
             Kitab Injil

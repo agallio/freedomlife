@@ -1,25 +1,16 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: {
-    content: [
-      './src/components/**/*.{js,ts,jsx,tsx}',
-      './src/pages/**/*.{js,ts,jsx,tsx}',
-    ],
-    options: {
-      safelist: ['text-2xl'],
-    },
-  },
+  content: [
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: 'class', // 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
         sans: ['Inter', ...fontFamily.sans],
         logo: ['Lato', 'sans-serif'],
-      },
-      screens: {
-        landscape: { raw: '(orientation: landscape)' },
       },
       typography: (theme) => ({
         DEFAULT: {

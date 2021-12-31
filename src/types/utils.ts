@@ -12,6 +12,7 @@ export interface QueryResult<T> {
   data: T
   error: AxiosError<any> | null
   isError: boolean
+  isGuideError?: boolean
   isLoading: boolean
   refetch: (options?: {
     throwOnError: boolean

@@ -7,43 +7,31 @@ import HomeCard from '../Card/HomeCard'
 
 const HomeBox = ({
   data,
-  isError,
+  isGuideError,
   isLoading,
   toBible,
 }: HomeBoxProps): JSX.Element => {
-  if (isError) {
-    return (
-      <HomeCard
-        top="6"
-        className="bg-gradient-to-l from-purple-400 via-pink-500 to-red-500"
-      >
-        <p className="px-4 py-4 text-sm">
-          <b>
-            FreedomLife sedang dalam masa perbaikan. Mohon tunggu beberapa saat
-            lagi.
-          </b>
-        </p>
-      </HomeCard>
-    )
-  }
-
   return (
     <HomeCard
       isLoading={isLoading}
       top="6"
-      title="Panduan Baca Hari Ini"
-      subtitle={dayjs().format('dddd, DD MMMM YYYY')}
+      title={!isGuideError ? 'Panduan Baca Hari Ini' : undefined}
+      subtitle={
+        !isGuideError ? dayjs().format('dddd, DD MMMM YYYY') : undefined
+      }
       footer={
         <button
           aria-label="Baca Panduan"
-          className="w-full h-10 bg-green-800 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-24 focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-bible"
+          className={`w-full h-10 bg-emerald-800 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md ${
+            !isGuideError ? 'sm:w-24' : 'sm:w-full'
+          } focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-bible`}
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',
           }}
           onClick={toBible}
         >
-          Baca
+          {!isGuideError ? 'Baca' : 'Baca Tanpa Panduan'}
         </button>
       }
       style={{
@@ -89,33 +77,38 @@ const HomeBox = ({
             ></div>
           </div>
         </>
+      ) : !isGuideError ? (
+        <div className="px-4 py-3">
+          {['PL', 'PB', 'IN'].map((item) => (
+            <div key={item} className="flex flex-col mb-2">
+              <h1 className="font-bold text-white sm:text-lg">
+                {item === 'PL'
+                  ? data?.pl_name
+                  : item === 'PB'
+                  ? data?.pb_name
+                  : item === 'IN'
+                  ? data?.in_name
+                  : 'Tidak ada data'}
+              </h1>
+              <p className="text-sm text-white sm:text-md">
+                {item === 'PL'
+                  ? 'Perjanjian Lama'
+                  : item === 'PB'
+                  ? 'Perjanjian Baru'
+                  : item === 'IN'
+                  ? 'Kitab Injil'
+                  : ''}
+              </p>
+            </div>
+          ))}
+        </div>
       ) : (
-        <>
-          <div className="px-4 py-3">
-            {['PL', 'PB', 'IN'].map((item) => (
-              <div key={item} className="flex flex-col mb-2">
-                <h1 className="font-bold text-white sm:text-lg">
-                  {item === 'PL'
-                    ? data?.pl_name
-                    : item === 'PB'
-                    ? data?.pb_name
-                    : item === 'IN'
-                    ? data?.in_name
-                    : 'Tidak ada data'}
-                </h1>
-                <p className="text-sm text-white sm:text-md">
-                  {item === 'PL'
-                    ? 'Perjanjian Lama'
-                    : item === 'PB'
-                    ? 'Perjanjian Baru'
-                    : item === 'IN'
-                    ? 'Kitab Injil'
-                    : ''}
-                </p>
-              </div>
-            ))}
-          </div>
-        </>
+        <div className="px-4 py-3">
+          <p>
+            <b>Panduan Baca Tidak Tersedia</b>
+          </p>
+          <span className="text-sm">{dayjs().format('DD MMMM YYYY')}</span>
+        </div>
       )}
     </HomeCard>
   )

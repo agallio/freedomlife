@@ -28,7 +28,7 @@ const BibleNavbar = ({
     <header
       className={`fixed top-0 left-0 w-full border-b bg-opacity-60 z-40 ${
         highlighted
-          ? 'bg-green-600 border-green-600 text-white'
+          ? 'bg-emerald-600 border-emerald-600 text-white'
           : 'bg-white border-gray-100 dark:bg-gray-700 dark:border-gray-800 dark:bg-opacity-70'
       } ${inGuide ? 'h-25' : 'h-12 sm:h-14'}`}
       style={{
@@ -37,7 +37,7 @@ const BibleNavbar = ({
       }}
     >
       {inGuide && (
-        <div className="bg-green-300 text-green-900 dark:bg-green-700 dark:text-white px-4">
+        <div className="bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white px-4">
           <div className="flex items-center justify-between max-w-sm sm:max-w-md sm:mx-auto">
             <p className="py-1">
               Panduan Baca Aktif{' '}
@@ -64,7 +64,7 @@ const BibleNavbar = ({
           <>
             <button
               aria-label="Tutup"
-              className="w-5 h-5 focus:text-green-600 sm:w-6 sm:h-6 focus:outline-none"
+              className="w-5 h-5 focus:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none"
               onClick={removeHighlight}
             >
               <CloseIcon />
@@ -72,7 +72,7 @@ const BibleNavbar = ({
             <div className="py-1">{highlightedText.length} Ayat Disorot</div>
             <button
               aria-label="Salin Ayat"
-              className="w-5 h-5 focus:text-green-600 sm:w-6 sm:h-6 focus:outline-none"
+              className="w-5 h-5 focus:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none"
               onClick={copyText}
             >
               <CopyIcon outline />
@@ -82,14 +82,14 @@ const BibleNavbar = ({
           <>
             <button
               aria-label="Buka Dialog Versi"
-              className="w-5 h-5 transition transform duration-300 hover:text-green-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
+              className="w-5 h-5 transition transform duration-300 hover:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
               onClick={handleOpenTranslate}
             >
               <TranslateIcon />
             </button>
             <button
               aria-label="Buka Dialog Kitab"
-              className="bg-green-300 text-green-900 py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-green-400 dark:bg-green-700 dark:text-white focus:outline-none sm:py-2 sm:px-6"
+              className="bg-emerald-300 text-emerald-900 py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white focus:outline-none sm:py-2 sm:px-6"
               onClick={handleOpenPassage}
               style={{ minWidth: '8rem' }}
             >
@@ -102,7 +102,7 @@ const BibleNavbar = ({
             </button>
             <button
               aria-label="Buka Dialog Pengaturan"
-              className="w-5 h-5 transition transform duration-300 hover:text-green-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
+              className="w-5 h-5 transition transform duration-300 hover:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
               onClick={handleOpenSetting}
             >
               <SettingIcon />

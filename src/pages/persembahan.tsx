@@ -149,7 +149,7 @@ const Persembahan = (): JSX.Element => {
               <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
                 <p className="dark:text-white">8000-7752-1000</p>
                 <button
-                  className="text-green-600 hover:text-green-800 focus:outline-none dark:text-green-400 dark:hover:text-green-500"
+                  className="text-emerald-600 hover:text-emerald-800 focus:outline-none dark:text-emerald-400 dark:hover:text-emerald-500"
                   onClick={() => copyNumber('cimb')}
                 >
                   <CopyIcon className="w-6 h-6" />
@@ -165,7 +165,7 @@ const Persembahan = (): JSX.Element => {
               <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
                 <p className="dark:text-white">017-121-7007</p>
                 <button
-                  className="text-green-600 hover:text-green-800 focus:outline-none dark:text-green-400 dark:hover:text-green-500"
+                  className="text-emerald-600 hover:text-emerald-800 focus:outline-none dark:text-emerald-400 dark:hover:text-emerald-500"
                   onClick={() => copyNumber('bca')}
                 >
                   <CopyIcon className="w-6 h-6" />

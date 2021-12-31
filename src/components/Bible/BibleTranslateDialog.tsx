@@ -27,13 +27,13 @@ const BibleTranslateDialog = ({
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
-          <h3 className="mx-4 mb-2 text-green-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white">
+          <h3 className="mx-4 mb-2 text-emerald-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white">
             Pilih Terjemahan
           </h3>
         </Sheet.Header>
         <Sheet.Content>
           <div className="overflow-auto">
-            <h4 className="px-4 mt-4 tracking-wide text-green-700 dark:text-white">
+            <h4 className="px-4 mt-4 tracking-wide text-emerald-700 dark:text-white">
               Bahasa Indonesia
             </h4>
             {['tb', 'bis', 'fayh', 'vmd'].map((item) => (
@@ -41,8 +41,8 @@ const BibleTranslateDialog = ({
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                   bibleVersion === item
-                    ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
-                    : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700'
+                    ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+                    : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
                 } ${
                   item === 'vmd' && 'flex justify-between items-center'
                 } sm:mx-1`}
@@ -61,8 +61,8 @@ const BibleTranslateDialog = ({
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
                       bibleVersion === item
-                        ? 'bg-white text-green-700'
-                        : 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
+                        ? 'bg-white text-emerald-700'
+                        : 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
                     }`}
                   >
                     BARU!
@@ -70,7 +70,7 @@ const BibleTranslateDialog = ({
                 )}
               </div>
             ))}
-            <h4 className="px-4 mt-6 tracking-wide text-green-700 dark:text-white">
+            <h4 className="px-4 mt-6 tracking-wide text-emerald-700 dark:text-white">
               Bahasa Inggris
             </h4>
             {['msg', 'nkjv', 'amp', 'niv'].map((item) => (
@@ -78,8 +78,8 @@ const BibleTranslateDialog = ({
                 key={item}
                 className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                   bibleVersion === item
-                    ? 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
-                    : 'bg-white text-green-700 hover:bg-green-300 hover:text-green-900 dark:bg-gray-600 dark:text-white dark:hover:bg-green-700'
+                    ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+                    : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
                 } ${
                   (item === 'amp' || item === 'niv') &&
                   'flex justify-between items-center'
@@ -99,8 +99,8 @@ const BibleTranslateDialog = ({
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
                       bibleVersion === item
-                        ? 'bg-white text-green-700'
-                        : 'bg-green-300 dark:bg-green-700 text-green-900 dark:text-white'
+                        ? 'bg-white text-emerald-700'
+                        : 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
                     }`}
                   >
                     BARU!

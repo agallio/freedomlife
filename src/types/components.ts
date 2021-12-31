@@ -22,7 +22,8 @@ export interface JumboHeaderProps {
 export interface HomeBoxProps {
   data: GuideDataResponse | undefined
   isLoading: boolean
-  isError: boolean
+  isError?: boolean
+  isGuideError?: boolean
   toBible: () => void
 }
 

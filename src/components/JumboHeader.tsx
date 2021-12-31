@@ -61,7 +61,7 @@ const JumboHeader = ({
         {isHome && isMounted && (
           <button
             aria-label="Ganti Mode Warna"
-            className="w-10 h-10 p-3 bg-green-400 text-green-900 rounded-lg transition transform duration-300 focus:outline-none hover:bg-green-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+            className="w-10 h-10 p-3 bg-emerald-400 text-emerald-900 rounded-lg transition transform duration-300 focus:outline-none hover:bg-emerald-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
             onClick={switchTheme}
             style={{ transition: 'var(--transition-default)' }}
           >
@@ -70,12 +70,12 @@ const JumboHeader = ({
         )}
       </div>
       {subtitle && (
-        <p className="text-xl font-semibold text-green-700 dark:text-white">
+        <p className="text-xl font-semibold text-emerald-700 dark:text-white">
           {subtitle}
         </p>
       )}
       {description && (
-        <p className="text-md font-light text-green-700 dark:text-white">
+        <p className="text-md font-light text-emerald-700 dark:text-white">
           {description}
         </p>
       )}
