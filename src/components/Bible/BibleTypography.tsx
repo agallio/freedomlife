@@ -38,7 +38,7 @@ const BibleTypography = ({
   return (
     <div
       className={`max-w-sm mx-auto ${
-        inGuide ? 'mt-28' : 'mt-16'
+        inGuide ? 'mt-28' : 'mt-[4.5rem]'
       } text-${verseFontSize} mb-[10rem] px-3 sm:max-w-md dark:text-white`}
     >
       {maintenance ? (

@@ -516,7 +516,7 @@ const Read = (): JSX.Element => {
     if (guideData) {
       const plAbbrSpaceSplit = guideData.pl!.split(' ')
       const pbAbbrSpaceSplit = guideData.pb!.split(' ')
-      const inAbbrSpaceSplit = guideData.in!.split(' ')
+      const inAbbrSpaceSplit = guideData.in ? guideData.in.split(' ') : []
       const pbSpaceSplit = guideData.pb!.split(' ')
       const pbDashSplit = pbSpaceSplit[1]?.split(':')
 

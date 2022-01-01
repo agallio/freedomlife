@@ -80,7 +80,7 @@ const BiblePassageDialog = ({
                   >
                     <button
                       aria-label="Keluar Dari Panduan Baca"
-                      className="w-full bg-emerald-800 bg-opacity-80 text-white py-1 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
+                      className="w-full bg-emerald-800 bg-opacity-80 text-white py-2 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
                       style={{
                         backdropFilter: 'saturate(100%) blur(20px)',
                         WebkitBackdropFilter: 'saturate(100%) blur(20px)',
