@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 
+import dayjs from '@/utils/dayjs'
+
 import ExternalLink from './ExternalLink'
 
 const Footer = (): JSX.Element => {
@@ -38,7 +40,7 @@ const Footer = (): JSX.Element => {
         </a>
       </div>
       <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
-        Lisensi MIT © 2021 — FreedomLife
+        Lisensi MIT © {dayjs().format('YYYY')} — FreedomLife
       </p>
       <ExternalLink
         href="https://agallio.xyz"

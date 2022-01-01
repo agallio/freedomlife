@@ -39,7 +39,7 @@ const bibleByDate = async (
 
     const plSpaceSplit = pl.split(' ')
     const pbSpaceSplit = pb.split(' ')
-    const injSpaceSplit = inj.split(' ')
+    const injSpaceSplit = inj ? inj.split(' ') : []
 
     const plArr = []
     const pbArr = []

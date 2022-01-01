@@ -39,9 +39,17 @@ const BottomTabBar = (): JSX.Element => {
           onClick={() => handleChangeRoute('/')}
         >
           <HomeIcon className="w-6" />
-          {router.pathname === '/' && (
-            <p className="ml-2 tracking-wider">Beranda</p>
-          )}
+          <motion.p
+            animate={router.pathname === '/' ? 'open' : 'close'}
+            variants={{
+              open: { display: 'flex', opacity: 1 },
+              close: { display: 'none', opacity: 0 },
+            }}
+            transition={{ duration: 0.3 }}
+            className="ml-2 tracking-wider"
+          >
+            Beranda
+          </motion.p>
         </motion.button>
         <motion.button
           aria-label="Baca"
@@ -56,9 +64,17 @@ const BottomTabBar = (): JSX.Element => {
           onClick={() => handleChangeRoute('/read')}
         >
           <OpenBookIcon className="w-6" />
-          {router.pathname === '/read' && (
-            <p className="ml-2 tracking-wider">Baca</p>
-          )}
+          <motion.p
+            animate={router.pathname === '/read' ? 'open' : 'close'}
+            variants={{
+              open: { display: 'flex', opacity: 1 },
+              close: { display: 'none', opacity: 0 },
+            }}
+            transition={{ duration: 0.3 }}
+            className="ml-2 tracking-wider"
+          >
+            Baca
+          </motion.p>
         </motion.button>
         <motion.button
           aria-label="Panduan"
@@ -73,9 +89,17 @@ const BottomTabBar = (): JSX.Element => {
           onClick={() => handleChangeRoute('/guide')}
         >
           <BookIcon className="w-6" />
-          {router.pathname === '/guide' && (
-            <p className="ml-2 tracking-wider">Panduan</p>
-          )}
+          <motion.p
+            animate={router.pathname === '/guide' ? 'open' : 'close'}
+            variants={{
+              open: { display: 'flex', opacity: 1 },
+              close: { display: 'none', opacity: 0 },
+            }}
+            transition={{ duration: 0.3 }}
+            className="ml-2 tracking-wider"
+          >
+            Panduan
+          </motion.p>
         </motion.button>
       </div>
     </footer>

@@ -95,8 +95,10 @@ const HomeBox = ({
                   ? 'Perjanjian Lama'
                   : item === 'PB'
                   ? 'Perjanjian Baru'
-                  : item === 'IN'
-                  ? 'Kitab Injil'
+                  : data?.in_name
+                  ? item === 'IN'
+                    ? 'Kitab Injil'
+                    : ''
                   : ''}
               </p>
             </div>

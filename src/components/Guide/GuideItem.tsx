@@ -125,26 +125,28 @@ const GuideItem = ({
             Perjanjian Baru
           </p>
         </div>
-        <div className="flex flex-col">
-          <h1
-            className={`font-bold sm:text-lg ${
-              isToday(item.date as string)
-                ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
-            }`}
-          >
-            {item.in_name || '-'}
-          </h1>
-          <p
-            className={`text-sm sm:text-md ${
-              isToday(item.date as string)
-                ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
-            }`}
-          >
-            Kitab Injil
-          </p>
-        </div>
+        {item.in_name ? (
+          <div className="flex flex-col">
+            <h1
+              className={`font-bold sm:text-lg ${
+                isToday(item.date as string)
+                  ? 'text-white'
+                  : 'text-emerald-700 dark:text-white'
+              }`}
+            >
+              {item.in_name || '-'}
+            </h1>
+            <p
+              className={`text-sm sm:text-md ${
+                isToday(item.date as string)
+                  ? 'text-white'
+                  : 'text-emerald-700 dark:text-white'
+              }`}
+            >
+              Kitab Injil
+            </p>
+          </div>
+        ) : null}
       </div>
     </div>
   )
