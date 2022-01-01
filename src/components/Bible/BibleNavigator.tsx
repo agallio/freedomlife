@@ -51,7 +51,7 @@ const BibleNavigator = ({
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
             isBibleByDateLoading ||
             isBibleByPassageLoading ||
-            (inGuide && passage === 'in-1') ||
+            (inGuide && passage === 'pb') ||
             guidePassage === 'why-22'
               ? 'invisible'
               : ''

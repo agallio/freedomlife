@@ -42,7 +42,7 @@ const HomeBox = ({
       {isLoading ? (
         <>
           <div className="px-4 py-3 animate-pulse">
-            {[1, 2, 3].map((item) => (
+            {[1, 2].map((item) => (
               <div key={item}>
                 <div
                   className="h-4 w-1/2 bg-white bg-opacity-50 rounded-lg"
@@ -95,8 +95,10 @@ const HomeBox = ({
                   ? 'Perjanjian Lama'
                   : item === 'PB'
                   ? 'Perjanjian Baru'
-                  : item === 'IN'
-                  ? 'Kitab Injil'
+                  : data?.in_name
+                  ? item === 'IN'
+                    ? 'Kitab Injil'
+                    : ''
                   : ''}
               </p>
             </div>
