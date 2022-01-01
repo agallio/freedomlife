@@ -180,17 +180,19 @@ const BiblePassageDialog = ({
                   <h3 className="text-lg">{guideData?.pb_name || ''}</h3>
                   <p className="text-sm font-light">Perjanjian Baru</p>
                 </div>
-                <div
-                  className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                    passage === 'in-1'
-                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                  } sm:mx-1`}
-                  onClick={() => changePassage('in-1')}
-                >
-                  <h3 className="text-lg">{guideData?.in_name || ''}</h3>
-                  <p className="text-sm font-light">Kitab Injil</p>
-                </div>
+                {guideData?.in_name ? (
+                  <div
+                    className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                      passage === 'in-1'
+                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
+                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                    } sm:mx-1`}
+                    onClick={() => changePassage('in-1')}
+                  >
+                    <h3 className="text-lg">{guideData?.in_name || ''}</h3>
+                    <p className="text-sm font-light">Kitab Injil</p>
+                  </div>
+                ) : null}
               </>
             ) : chapterSelected.name &&
               chapterSelected.abbr &&
