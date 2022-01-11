@@ -1,7 +1,7 @@
 // Core
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 // 3rd Party Libs
 import { NextSeo } from 'next-seo'
@@ -16,6 +16,9 @@ import BibleTranslateDialog from '@/components/Bible/BibleTranslateDialog'
 import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
 import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
 import PageTransition from '@/components/PageTransition'
+
+// Utils
+import dayjs from '@/utils/dayjs'
 
 // Utils —— Constants
 import { bibleList } from '@/utils/constants'
@@ -72,6 +75,7 @@ const Read = (): JSX.Element => {
 
   // Refs
   // const chevronRef = useRef<HTMLElement>(null)
+  const bibleTypographyRef = useRef<HTMLDivElement>(null)
 
   // Queries (Data Fetching)
   const {
@@ -618,6 +622,38 @@ const Read = (): JSX.Element => {
     }
   }, [highlightedText])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (passage !== 'pb') return
+
+      const currentScrollPos = window.pageYOffset
+      if (bibleTypographyRef.current?.scrollHeight) {
+        if (
+          bibleTypographyRef.current?.scrollHeight - currentScrollPos >=
+          405
+        ) {
+          return
+        }
+
+        if (window) {
+          const localStorageKey = `read-${
+            guideDate || dayjs().format('DD-MM-YYYY')
+          }`
+
+          if (localStorage.getItem(localStorageKey) !== null) return
+
+          localStorage.setItem(localStorageKey, 'true')
+        }
+      }
+    }
+
+    const watchScroll = () => window.addEventListener('scroll', handleScroll)
+    watchScroll()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  })
+
   return (
     <>
       <Head>
@@ -667,6 +703,7 @@ const Read = (): JSX.Element => {
 
       <PageTransition>
         <BibleTypography
+          bibleTypographyRef={bibleTypographyRef}
           inGuide={inGuide}
           passage={passage}
           maintenance={maintenance}
