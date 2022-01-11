@@ -49,6 +49,7 @@ export interface BibleNavbarProps {
 }
 
 export interface BibleTypographyProps {
+  bibleTypographyRef: RefObject<HTMLDivElement>
   inGuide: boolean
   passage: string
   maintenance: boolean

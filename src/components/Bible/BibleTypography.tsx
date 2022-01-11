@@ -3,6 +3,7 @@ import type { VerseData } from '@/types/api'
 import type { BibleTypographyProps } from '@/types/components'
 
 const BibleTypography = ({
+  bibleTypographyRef,
   inGuide,
   passage,
   maintenance,
@@ -40,6 +41,7 @@ const BibleTypography = ({
       className={`max-w-sm mx-auto ${
         inGuide ? 'mt-28' : 'mt-[4.5rem]'
       } text-${verseFontSize} mb-[10rem] px-3 sm:max-w-md dark:text-white`}
+      ref={bibleTypographyRef}
     >
       {maintenance ? (
         <p>Terjadi Kesalahan. Coba beberapa saat lagi.</p>

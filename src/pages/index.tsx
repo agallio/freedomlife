@@ -13,6 +13,7 @@ import Footer from '@/components/Footer'
 // Context
 import { useGuide } from '../store/Guide'
 
+// Utils
 import dayjs from '@/utils/dayjs'
 
 // Utils —— Hooks

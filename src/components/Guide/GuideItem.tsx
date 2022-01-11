@@ -1,8 +1,10 @@
 // 3rd Party Libs
 import { useTheme } from 'next-themes'
+import toast from 'react-hot-toast'
 
 // Components
 import OpenBookIcon from '@/components/Icons/OpenBookIcon'
+import CheckIcon from '@/components/Icons/CheckIcon'
 
 // Utils
 import dayjs from '@/utils/dayjs'
@@ -66,23 +68,51 @@ const GuideItem = ({
           </p>
         </div>
 
-        <button
-          aria-label="Baca Panduan"
-          className={`flex items-center justify-center w-9 h-9 ${
-            isToday(item.date as string)
-              ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
-              : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
-          } rounded-full p-1 focus:outline-none umami--click--to-bible-${
-            item.date
-          }`}
-          style={{
-            backdropFilter: 'saturate(100%) blur(20px)',
-            WebkitBackdropFilter: 'saturate(100%) blur(20px)',
-          }}
-          onClick={() => toBibleWithDate(item.date as string)}
-        >
-          <OpenBookIcon className="w-6" />
-        </button>
+        <div className="flex">
+          {window !== undefined &&
+          localStorage.getItem(`read-${item.date}`) === 'true' ? (
+            <button
+              aria-label="Panduan Terbaca"
+              className={`flex mr-2 items-center justify-center w-9 h-9 ${
+                isToday(item.date as string)
+                  ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
+                  : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
+              } rounded-full p-1 focus:outline-none`}
+              style={{
+                backdropFilter: 'saturate(100%) blur(20px)',
+                WebkitBackdropFilter: 'saturate(100%) blur(20px)',
+              }}
+              onClick={() =>
+                toast.success(`Panduan Telah Dibaca (${item.date})`, {
+                  style:
+                    theme === 'dark'
+                      ? { background: '#111827', color: '#ffffff' }
+                      : {},
+                })
+              }
+            >
+              <CheckIcon className="w-6" />
+            </button>
+          ) : null}
+
+          <button
+            aria-label="Baca Panduan"
+            className={`flex items-center justify-center w-9 h-9 ${
+              isToday(item.date as string)
+                ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
+                : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
+            } rounded-full p-1 focus:outline-none umami--click--to-bible-${
+              item.date
+            }`}
+            style={{
+              backdropFilter: 'saturate(100%) blur(20px)',
+              WebkitBackdropFilter: 'saturate(100%) blur(20px)',
+            }}
+            onClick={() => toBibleWithDate(item.date as string)}
+          >
+            <OpenBookIcon className="w-6" />
+          </button>
+        </div>
       </div>
       <div className="px-4 py-3">
         <div className="flex flex-col mb-2">
