@@ -1,16 +1,32 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import Cors from 'cors'
 
 import { supabase } from '@/utils/supabase'
 import rateLimit from '@/utils/rate-limit'
+import initMiddleware from '@/utils/init-middleware'
 
 import type { SupabaseBibles } from '@/types/api'
 
 const limiter = rateLimit()
 
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ['GET'],
+    origin:
+      process.env.NODE_ENV === 'development' ? '*' : 'https://freedomlife.id',
+  })
+)
+
 const biblePassage = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  // Run cors
+  await cors(req, res)
+
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }

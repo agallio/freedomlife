@@ -5,11 +5,13 @@ specifiers:
   '@supabase/supabase-js': ^1.29.1
   '@tailwindcss/forms': ^0.4.0
   '@tailwindcss/typography': ^0.5.0
+  '@types/cors': ^2.8.12
   '@types/react': ^17.0.38
   '@typescript-eslint/eslint-plugin': ^5.8.1
   '@typescript-eslint/parser': ^5.8.1
   autoprefixer: ^10.4.1
   axios: ^0.24.0
+  cors: ^2.8.5
   dayjs: ^1.10.7
   eslint: ^8.5.0
   eslint-config-next: ^12.0.7
@@ -44,6 +46,7 @@ dependencies:
   '@tailwindcss/forms': 0.4.0_tailwindcss@3.0.8
   '@tailwindcss/typography': 0.5.0_tailwindcss@3.0.8
   axios: 0.24.0
+  cors: 2.8.5
   dayjs: 1.10.7
   framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
   gray-matter: 4.0.3
@@ -64,6 +67,7 @@ dependencies:
 
 devDependencies:
   '@next/eslint-plugin-next': 12.0.7
+  '@types/cors': 2.8.12
   '@types/react': 17.0.38
   '@typescript-eslint/eslint-plugin': 5.8.1_3a47348159e115370aa4cba56aba33b6
   '@typescript-eslint/parser': 5.8.1_eslint@8.5.0+typescript@4.5.4
@@ -1588,6 +1592,10 @@ packages:
       tailwindcss: 3.0.8_cefe482e8d38053bbf3d5815e0c551b3
     dev: false
 
+  /@types/cors/2.8.12:
+    resolution: {integrity: sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==}
+    dev: true
+
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: false
@@ -2502,6 +2510,14 @@ packages:
 
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
+    dev: false
+
+  /cors/2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
     dev: false
 
   /cosmiconfig/7.0.1:
@@ -6063,6 +6079,11 @@ packages:
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
+
+  /vary/1.1.2:
+    resolution: {integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=}
+    engines: {node: '>= 0.8'}
+    dev: false
 
   /vfile-message/2.0.4:
     resolution: {integrity: sha512-DjssxRGkMvifUOJre00juHoP9DPWuzjxKuMDrhNbk2TdaYYBNMStsNhEOt3idrtI12VQYM/1+iM0KOzXi4pxwQ==}
