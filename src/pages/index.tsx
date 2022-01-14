@@ -47,6 +47,11 @@ const Home = (): JSX.Element => {
 
   // Lifecycles —— Side Effects
   useEffect(() => {
+    if (!data) {
+      refetch()
+      return
+    }
+
     if (!guideData.date) {
       refetch()
       return
