@@ -1,6 +1,6 @@
 const GuideLoading = (): JSX.Element => (
   <>
-    {[1, 2].map((item) => (
+    {[1, 2, 3, 4].map((item) => (
       <div
         key={item}
         className="flex flex-col shadow-md rounded-lg mt-4 bg-white dark:bg-gray-700"
