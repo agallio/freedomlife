@@ -32,8 +32,8 @@ const BibleNavbar = ({
           : 'bg-white border-gray-100 dark:bg-gray-700 dark:border-gray-800 dark:bg-opacity-70'
       } ${inGuide ? 'h-25' : 'h-12 sm:h-14'}`}
       style={{
-        backdropFilter: 'saturate(180%) blur(20px)',
-        WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+        backdropFilter: 'saturate(180%) blur(12px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(12px)',
       }}
     >
       {inGuide && (

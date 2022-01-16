@@ -1,10 +1,9 @@
-import { Dispatch, RefObject, SetStateAction } from 'react'
+import { RefObject } from 'react'
 import {
   BibleDataResponse,
   BibleGuideDataResponse,
   GuideDataResponse,
 } from './api'
-import { BibleList } from './utils'
 
 // Components
 export interface HighlightedText {
@@ -38,9 +37,9 @@ export interface BibleNavbarProps {
   highlightedText: HighlightedText[]
   inGuide: boolean
   bibleVersion: string
-  guideDate: string
+  guideDate?: string
   passageTitle: () => string | undefined
-  handleExitGuide: () => void
+  handleExitGuide?: () => void
   removeHighlight: () => void
   copyText: () => void
   handleOpenTranslate: () => void
@@ -51,26 +50,25 @@ export interface BibleNavbarProps {
 export interface BibleTypographyProps {
   bibleTypographyRef: RefObject<HTMLDivElement>
   inGuide: boolean
-  passage: string
+  passage?: string
   maintenance: boolean
   verseFontSize: string
   highlightedText: HighlightedText[]
-  isGuideByDateLoading: boolean
-  isBibleByDateLoading: boolean
-  isBibleByPassageLoading: boolean
-  bibleByDateData: BibleGuideDataResponse | undefined
-  bibleByPassageData: BibleDataResponse | undefined
-  getHeaderFontSize: () => void
+  isGuideByDateLoading?: boolean
+  isBibleByDateLoading?: boolean
+  isBibleByPassageLoading?: boolean
+  bibleByDateData?: BibleGuideDataResponse
+  bibleByPassageData?: BibleDataResponse
   highlightText: (verse: number, content: string) => void
 }
 
 export interface BibleNavigatorProps {
   chevronRef?: RefObject<HTMLElement>
   inGuide: boolean
-  passage: string
-  guidePassage: string
-  isBibleByDateLoading: boolean
-  isBibleByPassageLoading: boolean
+  passage?: string
+  biblePassage?: string
+  isBibleByDateLoading?: boolean
+  isBibleByPassageLoading?: boolean
   backPassage: () => void
   nextPassage: () => void
 }
@@ -85,36 +83,18 @@ export interface BibleTranslateDialogProps {
 export interface BiblePassageDialogProps {
   openPassage: boolean
   inGuide: boolean
-  passage: string
-  plSpaceSplit: false | string[] | undefined
-  plList: number[]
-  chapterSelected: {
-    name: string
-    abbr: string
-    passage: number
-  }
-  searchChapter: string
-  setSearchChapter: (val: string) => void
-  handleSelectChapter: (item: BibleList) => void
-  setChapterSelected: Dispatch<
-    SetStateAction<{
-      name: string
-      abbr: string
-      passage: number
-    }>
-  >
-  changePassage: (name: string) => void
-  changeChapter: (val: string) => void
+  passage?: string
+  plSpaceSplit?: false | string[] | undefined
+  plList?: number[]
+  changePassage?: (name: string) => void
+  changeChapter?: (val: string) => void
   handleClosePassage: () => void
-  handleExitGuide: () => void
+  handleExitGuide?: () => void
 }
 
 export interface BibleSettingDialogProps {
   openSetting: boolean
   verseFontSize: string
-  getFontSizeName: string
-  handleMinusFontSize: () => void
-  handlePlusFontSize: () => void
   setVerseFontSize: (size: string) => void
   handleCloseSetting: () => void
 }

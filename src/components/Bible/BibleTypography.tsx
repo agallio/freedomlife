@@ -1,3 +1,6 @@
+// Utils
+import { headerFontSize } from '@/utils/bible'
+
 // Types
 import type { VerseData } from '@/types/api'
 import type { BibleTypographyProps } from '@/types/components'
@@ -14,16 +17,17 @@ const BibleTypography = ({
   isBibleByPassageLoading,
   bibleByDateData,
   bibleByPassageData,
-  getHeaderFontSize,
   highlightText,
 }: BibleTypographyProps): JSX.Element => {
   let passageArray: VerseData[] | undefined
   if (inGuide) {
-    if (passage.includes('pl')) {
+    // Force TS to know that passage is exist.
+    // `passage` is exist if the `inGuide` is true.
+    if (passage!.includes('pl')) {
       passageArray =
         bibleByDateData?.pl?.find((item) => item.passagePlace === passage)
           ?.data || []
-    } else if (passage.includes('pb')) {
+    } else if (passage!.includes('pb')) {
       passageArray =
         bibleByDateData?.pb?.find((item) => item.passagePlace === passage)
           ?.data || []
@@ -74,7 +78,7 @@ const BibleTypography = ({
             return (
               <h1
                 key={index}
-                className={`text-center font-bold my-4 leading-relaxed text-${getHeaderFontSize()}`}
+                className={`text-center font-bold my-4 leading-relaxed text-${headerFontSize[verseFontSize]}`}
               >
                 {item.content || ''}
               </h1>

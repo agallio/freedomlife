@@ -35,11 +35,10 @@ const Home = (): JSX.Element => {
   // Method
   const toBible = () => {
     guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
-    guideDispatch({ type: 'SET_GUIDE_PASSAGE', data: '' })
     if (isGuideError) {
-      Router.push('/read')
+      Router.push('/read/kej/1')
     } else {
-      Router.push('/read?guide=true')
+      Router.push('/read')
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0

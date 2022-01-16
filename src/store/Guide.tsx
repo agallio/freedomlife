@@ -5,13 +5,11 @@ import { GuideDataResponse } from '@/types/api'
 interface GuideInitialState {
   guideData: GuideDataResponse
   guideDate: string
-  guidePassage: string
 }
 
 type GuideAction =
   | { type: 'SET_GUIDE_DATA'; data: GuideDataResponse }
   | { type: 'SET_GUIDE_DATE'; data: string }
-  | { type: 'SET_GUIDE_PASSAGE'; data: string }
 
 interface GuideContextType {
   guideState: GuideInitialState
@@ -21,7 +19,6 @@ interface GuideContextType {
 const guideInitialState = {
   guideData: {},
   guideDate: '',
-  guidePassage: 'kej-1',
 }
 
 const GuideContext = createContext<GuideContextType>({
@@ -35,8 +32,6 @@ const reducer = (state: GuideInitialState, action: GuideAction) => {
       return { ...state, guideData: action.data }
     case 'SET_GUIDE_DATE':
       return { ...state, guideDate: action.data }
-    case 'SET_GUIDE_PASSAGE':
-      return { ...state, guidePassage: action.data, guideDate: '' }
 
     default:
       return state

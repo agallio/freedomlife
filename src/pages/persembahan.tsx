@@ -31,13 +31,13 @@ const Persembahan = (): JSX.Element => {
       textArea.style.display = 'none'
       toast.success(`Nomor rekening ${bankText} tersalin!`, {
         style:
-          theme === 'dark' ? { background: '#4B5563', color: '#ffffff' } : {},
+          theme === 'dark' ? { background: '#111827', color: '#ffffff' } : {},
       })
     } catch (e) {
       console.error(e)
       toast.error('Gagal menyalin nomor, coba sesaat lagi.', {
         style:
-          theme === 'dark' ? { background: '#4B5563', color: '#ffffff' } : {},
+          theme === 'dark' ? { background: '#111827', color: '#ffffff' } : {},
       })
     }
   }
@@ -58,13 +58,13 @@ const Persembahan = (): JSX.Element => {
       )
       toast.success(`Nomor rekening ${bankText} tersalin!`, {
         style:
-          theme === 'dark' ? { background: '#4B5563', color: '#ffffff' } : {},
+          theme === 'dark' ? { background: '#111827', color: '#ffffff' } : {},
       })
     } catch (e) {
       console.error(e)
       toast.error('Gagal menyalin nomor, coba sesaat lagi.', {
         style:
-          theme === 'dark' ? { background: '#4B5563', color: '#ffffff' } : {},
+          theme === 'dark' ? { background: '#111827', color: '#ffffff' } : {},
       })
     }
   }

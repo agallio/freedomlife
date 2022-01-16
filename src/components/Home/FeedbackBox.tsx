@@ -24,7 +24,7 @@ const FeedbackBox = (): JSX.Element => (
     >
       <button
         aria-label="Kirim Masukan"
-        className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-60 focus:outline-none hover:bg-opacity-30 umami--click--to-bible"
+        className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-60 focus:outline-none hover:bg-opacity-30"
         style={{
           backdropFilter: 'saturate(100%) blur(20px)',
           WebkitBackdropFilter: 'saturate(100%) blur(20px)',

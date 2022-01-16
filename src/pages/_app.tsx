@@ -9,7 +9,8 @@ import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 // Context
-import { GuideProvider } from '../store/Guide'
+import { GuideProvider } from '@/store/Guide'
+import { BibleProvider } from '@/store/Bible'
 
 // Components
 import SEO from '@/components/SEO'
@@ -30,13 +31,15 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
 
       <QueryClientProvider client={queryClient}>
         <GuideProvider>
-          <ThemeProvider attribute="class">
-            <Toaster />
-            <Component {...pageProps} />
-            {router.pathname !== '/404' &&
-              router.pathname !== '/persembahan' &&
-              router.pathname !== '/learn' && <BottomTabBar />}
-          </ThemeProvider>
+          <BibleProvider>
+            <ThemeProvider attribute="class">
+              <Toaster />
+              <Component {...pageProps} />
+              {router.pathname !== '/404' &&
+                router.pathname !== '/persembahan' &&
+                router.pathname !== '/learn' && <BottomTabBar />}
+            </ThemeProvider>
+          </BibleProvider>
         </GuideProvider>
       </QueryClientProvider>
     </>
