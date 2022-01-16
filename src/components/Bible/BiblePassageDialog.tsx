@@ -1,3 +1,6 @@
+// Core
+import { useState } from 'react'
+
 // 3rd Party Libs
 import { motion } from 'framer-motion'
 import Sheet from 'react-modal-sheet'
@@ -18,6 +21,7 @@ import { useGuide } from '@/store/Guide'
 
 // Types
 import type { BiblePassageDialogProps } from '@/types/components'
+import type { BibleList } from '@/types/utils'
 
 const BiblePassageDialog = ({
   openPassage,
@@ -25,22 +29,39 @@ const BiblePassageDialog = ({
   passage,
   plSpaceSplit,
   plList,
-  chapterSelected,
-  searchChapter,
-  setSearchChapter,
-  handleSelectChapter,
-  setChapterSelected,
   changePassage,
   changeChapter,
   handleClosePassage,
   handleExitGuide,
 }: BiblePassageDialogProps): JSX.Element => {
+  // Contexts
   const {
     guideState: { guideData, guideDate },
   } = useGuide()
 
+  // States
+  const [searchChapter, setSearchChapter] = useState('')
+  const [chapterSelected, setChapterSelected] = useState({
+    name: '',
+    abbr: '',
+    passage: 0,
+  })
+
+  // Methods
+  const handleSelectChapter = (item: BibleList) => {
+    const modalPassageContent = document.getElementById('modalPassageContent')
+    modalPassageContent!.scrollIntoView()
+    setChapterSelected({ ...item })
+  }
+
+  const handleClose = () => {
+    setSearchChapter('')
+    setChapterSelected({ name: '', abbr: '', passage: 0 })
+    handleClosePassage()
+  }
+
   return (
-    <Sheet isOpen={openPassage} onClose={handleClosePassage}>
+    <Sheet isOpen={openPassage} onClose={handleClose}>
       <Sheet.Container>
         <Sheet.Header>
           <div className="react-modal-sheet-header">
@@ -85,7 +106,11 @@ const BiblePassageDialog = ({
                         backdropFilter: 'saturate(100%) blur(20px)',
                         WebkitBackdropFilter: 'saturate(100%) blur(20px)',
                       }}
-                      onClick={handleExitGuide}
+                      onClick={() =>
+                        typeof handleExitGuide === 'function'
+                          ? handleExitGuide()
+                          : null
+                      }
                     >
                       Keluar Dari Panduan Baca
                     </button>
@@ -97,73 +122,95 @@ const BiblePassageDialog = ({
                       ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                       : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
-                  onClick={() => changePassage('pl-1')}
+                  onClick={() =>
+                    typeof changePassage === 'function'
+                      ? changePassage('pl-1')
+                      : null
+                  }
                 >
                   <h3 className="text-lg">
                     {plSpaceSplit
                       ? plSpaceSplit.length === 3
                         ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                            plList.length === 0 ? plSpaceSplit[2] : plList[0]
+                            plList!.length === 0 ? plSpaceSplit[2] : plList![0]
                           }`
                         : `${plSpaceSplit[0]} ${
-                            plList.length === 0 ? plSpaceSplit[1] : plList[0]
+                            plList!.length === 0 ? plSpaceSplit[1] : plList![0]
                           }`
                       : ''}
                   </h3>
                   <p className="text-sm font-light">Perjanjian Lama 1</p>
                 </div>
-                {plList.length > 1 && (
+                {plList!.length > 1 && (
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-2'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-2')}
+                    onClick={() =>
+                      typeof changePassage === 'function'
+                        ? changePassage('pl-2')
+                        : null
+                    }
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
                         ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
-                          : `${plSpaceSplit[0]} ${plList[1]}`
+                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
+                              plList![1]
+                            }`
+                          : `${plSpaceSplit[0]} ${plList![1]}`
                         : ''}
                     </h3>
                     <p className="text-sm font-light">Perjanjian Lama 2</p>
                   </div>
                 )}
-                {plList.length > 2 && (
+                {plList!.length > 2 && (
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-3'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-3')}
+                    onClick={() =>
+                      typeof changePassage === 'function'
+                        ? changePassage('pl-3')
+                        : null
+                    }
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
                         ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]}`
-                          : `${plSpaceSplit[0]} ${plList[2]}`
+                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
+                              plList![2]
+                            }`
+                          : `${plSpaceSplit[0]} ${plList![2]}`
                         : ''}
                     </h3>
                     <p className="text-sm font-light">Perjanjian Lama 3</p>
                   </div>
                 )}
-                {plList.length > 3 && (
+                {plList!.length > 3 && (
                   <div
                     className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-4'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('pl-4')}
+                    onClick={() =>
+                      typeof changePassage === 'function'
+                        ? changePassage('pl-4')
+                        : null
+                    }
                   >
                     <h3 className="text-lg">
                       {plSpaceSplit
                         ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[3]}`
-                          : `${plSpaceSplit[0]} ${plList[3]}`
+                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
+                              plList![3]
+                            }`
+                          : `${plSpaceSplit[0]} ${plList![3]}`
                         : ''}
                     </h3>
                     <p className="text-sm font-light">Perjanjian Lama 4</p>
@@ -175,7 +222,11 @@ const BiblePassageDialog = ({
                       ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                       : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
-                  onClick={() => changePassage('pb')}
+                  onClick={() =>
+                    typeof changePassage === 'function'
+                      ? changePassage('pb')
+                      : null
+                  }
                 >
                   <h3 className="text-lg">{guideData?.pb_name || ''}</h3>
                   <p className="text-sm font-light">Perjanjian Baru</p>
@@ -187,7 +238,11 @@ const BiblePassageDialog = ({
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
-                    onClick={() => changePassage('in-1')}
+                    onClick={() =>
+                      typeof changePassage === 'function'
+                        ? changePassage('in-1')
+                        : null
+                    }
                   >
                     <h3 className="text-lg">{guideData?.in_name || ''}</h3>
                     <p className="text-sm font-light">Kitab Injil</p>
@@ -229,10 +284,18 @@ const BiblePassageDialog = ({
                         ).map((item) => (
                           <div
                             key={item}
-                            className="w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-emerald-300 hover:text-emerald-900 hover:border-emerald-400 dark:border-gray-400 dark:text-white dark:hover:bg-emerald-700 dark:hover:border-emerald-600"
-                            onClick={() =>
-                              changeChapter(`${chapterSelected.abbr}-${item}`)
-                            }
+                            className={`w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-emerald-300 hover:text-emerald-900 hover:border-emerald-400 dark:border-gray-400 dark:text-white dark:hover:bg-emerald-700 dark:hover:border-emerald-600 umami--click--to-chapter-${chapterSelected.abbr}-${item}`}
+                            onClick={() => {
+                              if (typeof changeChapter === 'function') {
+                                changeChapter(`${chapterSelected.abbr}-${item}`)
+                              }
+                              setSearchChapter('')
+                              setChapterSelected({
+                                name: '',
+                                abbr: '',
+                                passage: 0,
+                              })
+                            }}
                           >
                             {item}
                           </div>
@@ -329,7 +392,7 @@ const BiblePassageDialog = ({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleClosePassage} />
+      <Sheet.Backdrop onTap={handleClose} />
     </Sheet>
   )
 }

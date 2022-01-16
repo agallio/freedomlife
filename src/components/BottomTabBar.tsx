@@ -53,19 +53,27 @@ const BottomTabBar = (): JSX.Element => {
         </motion.button>
         <motion.button
           aria-label="Baca"
-          animate={router.pathname === '/read' ? 'open' : 'close'}
+          animate={router.pathname.includes('read') ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
-            router.pathname === '/read'
+            router.pathname.includes('read')
               ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
               : 'bg-white text-emerald-900 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white'
           } shadow-md p-4 mr-4 items-center justify-center rounded-full focus:outline-none`}
           style={{ transition: 'var(--transition-default)' }}
-          onClick={() => handleChangeRoute('/read')}
+          onClick={() => {
+            const getLastChapterRead = localStorage.getItem('last_chapter')
+            if (getLastChapterRead) {
+              const [passage, chapter] = getLastChapterRead.split('-')
+              handleChangeRoute(`/read/${passage}/${chapter}`)
+            } else {
+              handleChangeRoute('/read/kej/1')
+            }
+          }}
         >
           <OpenBookIcon className="w-6" />
           <motion.p
-            animate={router.pathname === '/read' ? 'open' : 'close'}
+            animate={router.pathname.includes('read') ? 'open' : 'close'}
             variants={{
               open: { display: 'flex', opacity: 1 },
               close: { display: 'none', opacity: 0 },

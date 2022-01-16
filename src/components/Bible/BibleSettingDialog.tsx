@@ -1,17 +1,24 @@
+// 3rd Party Libs
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
+// Icon Components
 import MinusIcon from '../Icons/MinusIcon'
 import PlusIcon from '../Icons/PlusIcon'
 
+// Utils
+import {
+  fontSizeName,
+  handleMinusFontSize,
+  handlePlusFontSize,
+} from '@/utils/bible'
+
+// Types
 import type { BibleSettingDialogProps } from '@/types/components'
 
 const BibleSettingDialog = ({
   openSetting,
   verseFontSize,
-  getFontSizeName,
-  handleMinusFontSize,
-  handlePlusFontSize,
   setVerseFontSize,
   handleCloseSetting,
 }: BibleSettingDialogProps): JSX.Element => {
@@ -38,18 +45,22 @@ const BibleSettingDialog = ({
             <button
               aria-label="Kecilkan"
               className="text-emerald-600 transition transform duration-300 hover:text-emerald-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
-              onClick={handleMinusFontSize}
+              onClick={() =>
+                handleMinusFontSize(verseFontSize, setVerseFontSize)
+              }
               disabled={verseFontSize === 'sm'}
             >
               <MinusIcon className="w-6" />
             </button>
             <div className="w-full text-center border-2 border-emerald-600 py-2 mx-2 my-2 rounded-lg text-emerald-600 font-bold tracking-widest dark:text-white dark:border-white">
-              {getFontSizeName}
+              {fontSizeName[verseFontSize]}
             </div>
             <button
               aria-label="Besarkan"
               className="text-emerald-600 transition transform duration-300 hover:text-emerald-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
-              onClick={handlePlusFontSize}
+              onClick={() =>
+                handlePlusFontSize(verseFontSize, setVerseFontSize)
+              }
               disabled={verseFontSize === '3xl'}
             >
               <PlusIcon className="w-6" />

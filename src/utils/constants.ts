@@ -68,3 +68,8 @@ export const bibleList: BibleList[] = [
   { name: 'Yudas', abbr: 'yud', passage: 1 },
   { name: 'Wahyu', abbr: 'why', passage: 22 },
 ]
+
+export const scrollToTop = () => {
+  document.body.scrollTop = 0
+  document.documentElement.scrollTop = 0
+}

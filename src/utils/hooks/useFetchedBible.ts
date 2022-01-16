@@ -46,18 +46,15 @@ export const useBibleByDate = (
 }
 
 export const useBibleByPassage = (
-  bibleVersion: string
+  bibleVersion: string,
+  biblePassage: string
 ): QueryResult<BibleDataResponse | undefined> => {
-  const {
-    guideState: { guidePassage },
-  } = useGuide()
-
   const { data, error, isError, isLoading, refetch } = useQuery<
     { data: BibleDataResponse },
     AxiosError
   >(
-    ['bibles', guidePassage, bibleVersion],
-    () => getBibleByPassage(guidePassage, bibleVersion),
+    ['bibles', biblePassage, bibleVersion],
+    () => getBibleByPassage(biblePassage, bibleVersion),
     { enabled: false, refetchOnWindowFocus: false }
   )
 
