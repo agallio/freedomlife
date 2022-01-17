@@ -46,6 +46,7 @@ const BibleNavbar = ({
     type: 'image/jpeg',
     quality: 1.0,
     letterRendering: true,
+    useCORS: true,
   })
 
   // Methods
