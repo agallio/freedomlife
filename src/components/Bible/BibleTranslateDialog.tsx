@@ -3,6 +3,9 @@ import { motion } from 'framer-motion'
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
+// Utils
+import { bibleVersionName } from '@/utils/bible'
+
 // Types
 import type { BibleTranslateDialogProps } from '@/types/components'
 
@@ -48,15 +51,7 @@ const BibleTranslateDialog = ({
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
-                <span>
-                  {item === 'tb'
-                    ? 'Terjemahan Baru (TB)'
-                    : item === 'bis'
-                    ? 'Bahasa Indonesia Sehari-Hari (BIS)'
-                    : item === 'fayh'
-                    ? 'Firman Allah Yang Hidup (FAYH)'
-                    : 'Versi Mudah Dibaca (VMD)'}
-                </span>
+                <span>{bibleVersionName[item]}</span>
                 {item === 'vmd' && (
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${
@@ -86,15 +81,7 @@ const BibleTranslateDialog = ({
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
-                <span>
-                  {item === 'msg'
-                    ? 'The Message (MSG)'
-                    : item === 'nkjv'
-                    ? 'New King James Version (NKJV)'
-                    : item === 'amp'
-                    ? 'Amplified Bible (AMP)'
-                    : 'New International Version (NIV)'}
-                </span>
+                <span>{bibleVersionName[item]}</span>
                 {(item === 'amp' || item === 'niv') && (
                   <span
                     className={`py-1 px-2 text-sm rounded tracking-wide ${

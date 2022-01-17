@@ -22,6 +22,17 @@ export const headerFontSize: { [key: string]: string } = {
   '3xl': '4xl',
 }
 
+export const bibleVersionName: { [key: string]: string } = {
+  tb: 'Terjemahan Baru',
+  bis: 'Bahasa Indonesia Sehari-Hari',
+  fayh: 'Firman Allah Yang Hidup',
+  vmd: 'Versi Mudah Dibaca',
+  msg: 'The Message',
+  nkjv: 'New King James Version',
+  amp: 'Amplified Bible',
+  niv: 'New International Version',
+}
+
 export const handleMinusFontSize = (
   verseFontSize: string,
   setVerseFontSize: (value: any) => void

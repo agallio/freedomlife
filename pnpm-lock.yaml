@@ -19,6 +19,7 @@ specifiers:
   framer-motion: ^4.1.17
   globby: ^11.0.4
   gray-matter: ^4.0.3
+  html2canvas: ^1.4.0
   husky: ^7.0.4
   lru-cache: ^6.0.0
   next: 12.0.7
@@ -38,6 +39,7 @@ specifiers:
   remark-html: ^13.0.1
   tailwindcss: ^3.0.8
   typescript: ^4.5.4
+  use-react-screenshot: ^3.0.0
 
 dependencies:
   '@supabase/supabase-js': 1.29.1
@@ -47,6 +49,7 @@ dependencies:
   dayjs: 1.10.7
   framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
   gray-matter: 4.0.3
+  html2canvas: 1.4.0
   lru-cache: 6.0.0
   next: 12.0.7_react-dom@17.0.2+react@17.0.2
   next-offline: 5.0.5_next@12.0.7
@@ -61,6 +64,7 @@ dependencies:
   react-query: 3.34.7_react-dom@17.0.2+react@17.0.2
   remark: 13.0.0
   remark-html: 13.0.2
+  use-react-screenshot: 3.0.0_html2canvas@1.4.0+react@17.0.2
 
 devDependencies:
   '@next/eslint-plugin-next': 12.0.7
@@ -2066,6 +2070,16 @@ packages:
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  /base64-arraybuffer/0.2.0:
+    resolution: {integrity: sha512-7emyCsu1/xiBXgQZrscw/8KPRT44I4Yq9Pe6EGs3aPRTsWuggML1/1DTuZUuIaJPIm1FTDUVXl4x/yW8s0kQDQ==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
+
+  /base64-arraybuffer/1.0.1:
+    resolution: {integrity: sha512-vFIUq7FdLtjZMhATwDul5RZWv2jpXQ09Pd6jcVEOvIsqCWTRFD/ONHNfyOS8dA/Ippi5dsIgpyKWKZaAKZltbA==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
+
   /base64-js/1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: false
@@ -2577,6 +2591,12 @@ packages:
   /crypto-random-string/1.0.0:
     resolution: {integrity: sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4=}
     engines: {node: '>=4'}
+    dev: false
+
+  /css-line-break/2.0.1:
+    resolution: {integrity: sha512-gwKYIMUn7xodIcb346wgUhE2Dt5O1Kmrc16PWi8sL4FTfyDj8P5095rzH7+O8CTZudJr+uw2GCI/hwEkDJFI2w==}
+    dependencies:
+      base64-arraybuffer: 0.2.0
     dev: false
 
   /css.escape/1.5.1:
@@ -3618,6 +3638,14 @@ packages:
 
   /html-void-elements/1.0.5:
     resolution: {integrity: sha512-uE/TxKuyNIcx44cIWnjr/rfIATDH7ZaOMmstu0CwhFG1Dunhlp4OC6/NMbhiwoq5BpW0ubi303qnEk/PZj614w==}
+    dev: false
+
+  /html2canvas/1.4.0:
+    resolution: {integrity: sha512-vQMssxs2HvLuy7T0JrQqirRQxnhfB7KaHRSsQVV2WaNlXMqqhwv0gH+JUkkaWCednbDWZtRF7Msb/pbTkbcrpA==}
+    engines: {node: '>=8.0.0'}
+    dependencies:
+      css-line-break: 2.0.1
+      text-segmentation: 1.0.2
     dev: false
 
   /http-errors/1.7.3:
@@ -5756,6 +5784,12 @@ packages:
       source-map-support: 0.5.19
     dev: false
 
+  /text-segmentation/1.0.2:
+    resolution: {integrity: sha512-uTqvLxdBrVnx/CFQOtnf8tfzSXFm+1Qxau7Xi54j4OPTZokuDOX8qncQzrg2G8ZicAMOM8TgzFAYTb+AqNO4Cw==}
+    dependencies:
+      utrie: 1.0.1
+    dev: false
+
   /text-table/0.2.0:
     resolution: {integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=}
     dev: true
@@ -6018,6 +6052,17 @@ packages:
     dependencies:
       punycode: 2.1.1
 
+  /use-react-screenshot/3.0.0_html2canvas@1.4.0+react@17.0.2:
+    resolution: {integrity: sha512-82+zsJgNWEUsUR7lslLIXMw9BW+xic+epn5Dl2ziedgsP9bz0HM0hfx3E71Kkv1U7F6Hyi4E/jMxuxJPLdpHcg==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      html2canvas: ^1.3.3
+      react: ^17.0.2
+    dependencies:
+      html2canvas: 1.4.0
+      react: 17.0.2
+    dev: false
+
   /use-subscription/1.5.1_react@17.0.2:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
     peerDependencies:
@@ -6046,6 +6091,12 @@ packages:
       is-typed-array: 1.1.5
       safe-buffer: 5.2.1
       which-typed-array: 1.1.4
+    dev: false
+
+  /utrie/1.0.1:
+    resolution: {integrity: sha512-JPaDXF3vzgZxfeEwutdGzlrNoVFL5UvZcbO6Qo9D4GoahrieUPoMU8GCpVpR7MQqcKhmShIh8VlbEN3PLM3EBg==}
+    dependencies:
+      base64-arraybuffer: 1.0.1
     dev: false
 
   /uuid/3.4.0:
