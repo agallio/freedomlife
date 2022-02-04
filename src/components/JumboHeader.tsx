@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 // Icon Components
+import FreedomlifeIcon from './Icons/FreedomlifeIcon'
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
 
@@ -33,12 +34,7 @@ const JumboHeader = ({
       <div className={`flex justify-between items-center mb-4`}>
         {!isNotFound ? (
           <div className="flex items-center justify-center">
-            <Image
-              src="/android-chrome-512x512.png"
-              alt="FreedomLife Logo"
-              width={35}
-              height={35}
-            />
+            <FreedomlifeIcon className="w-[35px]" />
             <h1 className="ml-[5px] text-3xl font-logo text-gray-800 dark:text-white">
               freedomlife
             </h1>
