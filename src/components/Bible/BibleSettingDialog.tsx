@@ -11,10 +11,10 @@ import {
   fontSizeName,
   handleMinusFontSize,
   handlePlusFontSize,
-} from '@/utils/bible'
+} from '~/utils/bible'
 
 // Types
-import type { BibleSettingDialogProps } from '@/types/components'
+import type { BibleSettingDialogProps } from '~/types/components'
 
 const BibleSettingDialog = ({
   openSetting,
@@ -27,14 +27,15 @@ const BibleSettingDialog = ({
   return (
     <Sheet isOpen={openSetting} onClose={handleCloseSetting}>
       <Sheet.Container
+        onViewportBoxUpdate={null}
         style={{
           height: !mediaLandscape
             ? 'calc(100% - env(safe-area-inset-top) - 60%)'
             : 'calc(100% - env(safe-area-inset-top) - 30%)',
         }}
       >
-        <Sheet.Header />
-        <Sheet.Content>
+        <Sheet.Header onViewportBoxUpdate={null} />
+        <Sheet.Content onViewportBoxUpdate={null}>
           <h3 className="mx-4 mb-2 text-emerald-700 font-bold text-lg sm:mx-0 dark:text-white">
             Pengaturan
           </h3>
@@ -75,7 +76,7 @@ const BibleSettingDialog = ({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleCloseSetting} />
+      <Sheet.Backdrop onTap={handleCloseSetting} onViewportBoxUpdate={null} />
     </Sheet>
   )
 }

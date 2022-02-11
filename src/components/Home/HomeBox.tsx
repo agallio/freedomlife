@@ -1,8 +1,8 @@
 // Utils
-import dayjs from '@/utils/dayjs'
+import dayjs from '~/utils/dayjs'
 
 // Types
-import type { HomeBoxProps } from '@/types/components'
+import type { HomeBoxProps } from '~/types/components'
 import HomeCard from '../Card/HomeCard'
 
 const HomeBox = ({

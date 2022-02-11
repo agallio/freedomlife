@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react'
 
-import type { HighlightedText } from '@/types/components'
+import type { HighlightedText } from '~/types/components'
 
 interface BibleInitialState {
   openTranslate: boolean

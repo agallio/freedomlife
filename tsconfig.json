@@ -15,12 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/db/*": ["src/db/*"],
-      "@/store/*": ["src/store/*"],
-      "@/styles/*": ["src/styles/*"],
-      "@/types/*": ["src/types/*"],
-      "@/utils/*": ["src/utils/*"]
+      "~/*": ["./src/*"]
     },
     "incremental": true
   },

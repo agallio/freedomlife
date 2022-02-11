@@ -10,7 +10,7 @@ import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
 
 // Types
-import type { JumboHeaderProps } from '@/types/components'
+import type { JumboHeaderProps } from '~/types/components'
 
 const JumboHeader = ({
   isNotFound,

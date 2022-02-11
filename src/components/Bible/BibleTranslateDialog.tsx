@@ -4,7 +4,7 @@ import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
 // Types
-import type { BibleTranslateDialogProps } from '@/types/components'
+import type { BibleTranslateDialogProps } from '~/types/components'
 
 const BibleTranslateDialog = ({
   openTranslate,
@@ -17,13 +17,14 @@ const BibleTranslateDialog = ({
   return (
     <Sheet isOpen={openTranslate} onClose={handleCloseTranslate}>
       <Sheet.Container
+        onViewportBoxUpdate={null}
         style={{
           height: !mediaLandscape
             ? 'calc(100% - env(safe-area-inset-top) - 5%)'
             : 'calc(100% - env(safe-area-inset-top) - 32px)',
         }}
       >
-        <Sheet.Header>
+        <Sheet.Header onViewportBoxUpdate={null}>
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
@@ -31,7 +32,7 @@ const BibleTranslateDialog = ({
             Pilih Terjemahan
           </h3>
         </Sheet.Header>
-        <Sheet.Content>
+        <Sheet.Content onViewportBoxUpdate={null}>
           <div className="overflow-auto">
             <h4 className="px-4 mt-4 tracking-wide text-emerald-700 dark:text-white">
               Bahasa Indonesia
@@ -112,7 +113,7 @@ const BibleTranslateDialog = ({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleCloseTranslate} />
+      <Sheet.Backdrop onTap={handleCloseTranslate} onViewportBoxUpdate={null} />
     </Sheet>
   )
 }

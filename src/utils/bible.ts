@@ -2,7 +2,7 @@
 import toast from 'react-hot-toast'
 
 // Types
-import type { HighlightedText } from '@/types/components'
+import type { HighlightedText } from '~/types/components'
 
 export const fontSizeName: { [key: string]: string } = {
   sm: 'Kecil',

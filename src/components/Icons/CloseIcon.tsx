@@ -1,4 +1,4 @@
-import type { IconProps } from '@/types/components'
+import type { IconProps } from '~/types/components'
 
 const CloseIcon = ({ className, onClick }: IconProps): JSX.Element => (
   <svg

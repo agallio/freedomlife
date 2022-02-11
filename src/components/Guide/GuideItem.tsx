@@ -3,14 +3,14 @@ import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
 
 // Components
-import OpenBookIcon from '@/components/Icons/OpenBookIcon'
-import CheckIcon from '@/components/Icons/CheckIcon'
+import OpenBookIcon from '~/components/Icons/OpenBookIcon'
+import CheckIcon from '~/components/Icons/CheckIcon'
 
 // Utils
-import dayjs from '@/utils/dayjs'
+import dayjs from '~/utils/dayjs'
 
 // Types
-import type { GuideItemProps } from '@/types/components'
+import type { GuideItemProps } from '~/types/components'
 
 const GuideItem = ({
   item,

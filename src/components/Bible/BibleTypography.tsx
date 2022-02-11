@@ -1,9 +1,9 @@
 // Utils
-import { headerFontSize } from '@/utils/bible'
+import { headerFontSize } from '~/utils/bible'
 
 // Types
-import type { VerseData } from '@/types/api'
-import type { BibleTypographyProps } from '@/types/components'
+import type { VerseData } from '~/types/api'
+import type { BibleTypographyProps } from '~/types/components'
 
 const BibleTypography = ({
   bibleTypographyRef,

@@ -9,26 +9,26 @@ import { NextSeo } from 'next-seo'
 import { useTheme } from 'next-themes'
 
 // Components
-import BibleNavbar from '@/components/Bible/BibleNavbar'
-import PageTransition from '@/components/PageTransition'
+import BibleNavbar from '~/components/Bible/BibleNavbar'
+import PageTransition from '~/components/PageTransition'
 
 // Utils
-import { copyText } from '@/utils/bible'
+import { copyText } from '~/utils/bible'
 
 // Utils —— Constants
-import { bibleList, scrollToTop } from '@/utils/constants'
+import { bibleList, scrollToTop } from '~/utils/constants'
 
 // Utils —— Hooks
-import { useBibleByPassage } from '@/utils/hooks/useFetchedBible'
-import useLocalStorage from '@/utils/hooks/useLocalStorage'
+import { useBibleByPassage } from '~/utils/hooks/useFetchedBible'
+import useLocalStorage from '~/utils/hooks/useLocalStorage'
 
 // Contexts
-import { useBible } from '@/store/Bible'
-import BibleTypography from '@/components/Bible/BibleTypography'
-import BibleNavigator from '@/components/Bible/BibleNavigator'
-import BibleTranslateDialog from '@/components/Bible/BibleTranslateDialog'
-import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
-import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
+import { useBible } from '~/store/Bible'
+import BibleTypography from '~/components/Bible/BibleTypography'
+import BibleNavigator from '~/components/Bible/BibleNavigator'
+import BibleTranslateDialog from '~/components/Bible/BibleTranslateDialog'
+import BiblePassageDialog from '~/components/Bible/BiblePassageDialog'
+import BibleSettingDialog from '~/components/Bible/BibleSettingDialog'
 
 export default function ReadIndividualChapter() {
   // Core Configs

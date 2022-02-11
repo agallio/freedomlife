@@ -8,8 +8,8 @@ import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
 
 // Components
-import JumboHeader from '@/components/JumboHeader'
-import CopyIcon from '@/components/Icons/CopyIcon'
+import JumboHeader from '~/components/JumboHeader'
+import CopyIcon from '~/components/Icons/CopyIcon'
 
 const Persembahan = (): JSX.Element => {
   const { resolvedTheme: theme } = useTheme()

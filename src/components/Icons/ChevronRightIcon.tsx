@@ -1,4 +1,4 @@
-import type { IconProps } from '@/types/components'
+import type { IconProps } from '~/types/components'
 
 const ChevronRightIcon = ({ className }: IconProps): JSX.Element => (
   <svg

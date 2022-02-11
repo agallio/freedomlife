@@ -7,11 +7,11 @@ import axios, { AxiosError } from 'axios'
 import dayjs from '../dayjs'
 
 // Context
-import { useGuide } from '@/store/Guide'
+import { useGuide } from '~/store/Guide'
 
 // Types
-import type { QueryResult } from '@/types/utils'
-import type { GuideDataResponse } from '@/types/api'
+import type { QueryResult } from '~/types/utils'
+import type { GuideDataResponse } from '~/types/api'
 
 const getGuides = async () => {
   const { data } = await axios.get(`/api/guide/month/${dayjs().format('MM')}`)

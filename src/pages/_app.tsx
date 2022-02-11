@@ -9,15 +9,15 @@ import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 // Context
-import { GuideProvider } from '@/store/Guide'
-import { BibleProvider } from '@/store/Bible'
+import { GuideProvider } from '~/store/Guide'
+import { BibleProvider } from '~/store/Bible'
 
 // Components
-import SEO from '@/components/SEO'
-import BottomTabBar from '@/components/BottomTabBar'
+import SEO from '~/components/SEO'
+import BottomTabBar from '~/components/BottomTabBar'
 
 // Styles
-import '@/styles/index.css'
+import '~/styles/index.css'
 
 const queryClient = new QueryClient()
 

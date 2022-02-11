@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { supabase } from '@/utils/supabase'
-import dayjs from '@/utils/dayjs'
-import rateLimit from '@/utils/rate-limit'
+import { supabase } from '~/utils/supabase'
+import dayjs from '~/utils/dayjs'
+import rateLimit from '~/utils/rate-limit'
 
 const limiter = rateLimit()
 

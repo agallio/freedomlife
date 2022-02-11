@@ -6,14 +6,14 @@ import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 
 // Components
-import JumboHeader from '@/components/JumboHeader'
-import ExternalLink from '@/components/ExternalLink'
+import JumboHeader from '~/components/JumboHeader'
+import ExternalLink from '~/components/ExternalLink'
 
 // Utils
-import { getDocBySlug, markdownToHtml } from '@/utils/learn'
+import { getDocBySlug, markdownToHtml } from '~/utils/learn'
 
 // Types
-import type { LearnPageProps } from '@/types/components'
+import type { LearnPageProps } from '~/types/components'
 
 const Learn = ({ post }: LearnPageProps): JSX.Element => {
   const goHome = () => {

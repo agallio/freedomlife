@@ -6,17 +6,17 @@ import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 
 // Components
-import JumboHeader from '@/components/JumboHeader'
-import GuideLoading from '@/components/Guide/GuideLoading'
-import GuideItem from '@/components/Guide/GuideItem'
-import GuideError from '@/components/Guide/GuideError'
-import PageTransition from '@/components/PageTransition'
+import JumboHeader from '~/components/JumboHeader'
+import GuideLoading from '~/components/Guide/GuideLoading'
+import GuideItem from '~/components/Guide/GuideItem'
+import GuideError from '~/components/Guide/GuideError'
+import PageTransition from '~/components/PageTransition'
 
 // Context
 import { useGuide } from '../store/Guide'
 
 // Utils —— Hooks
-import { useGuides } from '@/utils/hooks/useFetchedGuide'
+import { useGuides } from '~/utils/hooks/useFetchedGuide'
 
 const Guide = (): JSX.Element => {
   const { guideDispatch } = useGuide()

@@ -103,6 +103,7 @@ export interface IconProps {
   className?: string
   outline?: boolean
   onClick?: () => void
+  theme?: string
 }
 
 export interface LearnPageProps {

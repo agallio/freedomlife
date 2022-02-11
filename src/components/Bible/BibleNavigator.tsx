@@ -3,7 +3,7 @@ import ChevronLeftIcon from '../Icons/ChevronLeftIcon'
 import ChevronRightIcon from '../Icons/ChevronRightIcon'
 
 // Types
-import type { BibleNavigatorProps } from '@/types/components'
+import type { BibleNavigatorProps } from '~/types/components'
 
 const BibleNavigator = ({
   // chevronRef,

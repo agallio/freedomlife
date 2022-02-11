@@ -9,29 +9,29 @@ import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
 
 // Components
-import BibleNavbar from '@/components/Bible/BibleNavbar'
-import BibleTypography from '@/components/Bible/BibleTypography'
-import BibleNavigator from '@/components/Bible/BibleNavigator'
-import BibleTranslateDialog from '@/components/Bible/BibleTranslateDialog'
-import BiblePassageDialog from '@/components/Bible/BiblePassageDialog'
-import BibleSettingDialog from '@/components/Bible/BibleSettingDialog'
-import PageTransition from '@/components/PageTransition'
+import BibleNavbar from '~/components/Bible/BibleNavbar'
+import BibleTypography from '~/components/Bible/BibleTypography'
+import BibleNavigator from '~/components/Bible/BibleNavigator'
+import BibleTranslateDialog from '~/components/Bible/BibleTranslateDialog'
+import BiblePassageDialog from '~/components/Bible/BiblePassageDialog'
+import BibleSettingDialog from '~/components/Bible/BibleSettingDialog'
+import PageTransition from '~/components/PageTransition'
 
 // Utils
-import dayjs from '@/utils/dayjs'
+import dayjs from '~/utils/dayjs'
 
 // Utils —— Constants
-import { scrollToTop } from '@/utils/constants'
+import { scrollToTop } from '~/utils/constants'
 
 // Utils —— Hooks
-import { useGuideByDate } from '@/utils/hooks/useFetchedGuide'
-import { useBibleByDate } from '@/utils/hooks/useFetchedBible'
-import useLocalStorage from '@/utils/hooks/useLocalStorage'
+import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
+import { useBibleByDate } from '~/utils/hooks/useFetchedBible'
+import useLocalStorage from '~/utils/hooks/useLocalStorage'
 
 // Contexts
-import { useGuide } from '@/store/Guide'
-import { useBible } from '@/store/Bible'
-import { copyText } from '@/utils/bible'
+import { useGuide } from '~/store/Guide'
+import { useBible } from '~/store/Bible'
+import { copyText } from '~/utils/bible'
 
 const Read = (): JSX.Element => {
   // Core Configs

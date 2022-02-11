@@ -11,17 +11,17 @@ import CloseIcon from '../Icons/CloseIcon'
 import SearchIcon from '../Icons/SearchIcon'
 
 // Utils
-import dayjs from '@/utils/dayjs'
+import dayjs from '~/utils/dayjs'
 
 // Utils —— Constants
-import { bibleList } from '@/utils/constants'
+import { bibleList } from '~/utils/constants'
 
 // Context
-import { useGuide } from '@/store/Guide'
+import { useGuide } from '~/store/Guide'
 
 // Types
-import type { BiblePassageDialogProps } from '@/types/components'
-import type { BibleList } from '@/types/utils'
+import type { BiblePassageDialogProps } from '~/types/components'
+import type { BibleList } from '~/types/utils'
 
 const BiblePassageDialog = ({
   openPassage,
@@ -62,8 +62,8 @@ const BiblePassageDialog = ({
 
   return (
     <Sheet isOpen={openPassage} onClose={handleClose}>
-      <Sheet.Container>
-        <Sheet.Header>
+      <Sheet.Container onViewportBoxUpdate={null}>
+        <Sheet.Header onViewportBoxUpdate={null}>
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
@@ -82,7 +82,7 @@ const BiblePassageDialog = ({
             </p>
           )}
         </Sheet.Header>
-        <Sheet.Content>
+        <Sheet.Content onViewportBoxUpdate={null}>
           <div id="modalPassageContent" className="overflow-auto">
             {inGuide ? (
               <>
@@ -392,7 +392,7 @@ const BiblePassageDialog = ({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleClose} />
+      <Sheet.Backdrop onTap={handleClose} onViewportBoxUpdate={null} />
     </Sheet>
   )
 }

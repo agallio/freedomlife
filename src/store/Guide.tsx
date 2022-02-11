@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from 'react'
 
-import { GuideDataResponse } from '@/types/api'
+import { GuideDataResponse } from '~/types/api'
 
 interface GuideInitialState {
   guideData: GuideDataResponse

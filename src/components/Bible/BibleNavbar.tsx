@@ -5,10 +5,10 @@ import SettingIcon from '../Icons/SettingIcon'
 import TranslateIcon from '../Icons/TranslateIcon'
 
 // Utils
-import dayjs from '@/utils/dayjs'
+import dayjs from '~/utils/dayjs'
 
 // Types
-import type { BibleNavbarProps } from '@/types/components'
+import type { BibleNavbarProps } from '~/types/components'
 
 const BibleNavbar = ({
   highlighted,

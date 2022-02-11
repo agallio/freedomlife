@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { supabase } from '@/utils/supabase'
-import rateLimit from '@/utils/rate-limit'
+import { supabase } from '~/utils/supabase'
+import rateLimit from '~/utils/rate-limit'
 
-import type { SupabaseBibles, SupabaseGuides } from '@/types/api'
+import type { SupabaseBibles, SupabaseGuides } from '~/types/api'
 
 const limiter = rateLimit()
 

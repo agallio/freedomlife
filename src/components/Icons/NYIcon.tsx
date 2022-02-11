@@ -1,4 +1,4 @@
-import type { IconProps } from '@/types/components'
+import type { IconProps } from '~/types/components'
 
 const NYIcon = ({ className }: IconProps): JSX.Element => {
   return (

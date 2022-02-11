@@ -2,7 +2,7 @@
 import Router from 'next/router'
 
 // Components
-import NewUserIcon from '@/components/Icons/NewUserIcon'
+import NewUserIcon from '~/components/Icons/NewUserIcon'
 import HomeCard from '../Card/HomeCard'
 
 const NewUserBox = (): JSX.Element => {

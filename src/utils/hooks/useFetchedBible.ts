@@ -6,11 +6,11 @@ import { useQuery } from 'react-query'
 import dayjs from '../dayjs'
 
 // Context
-import { useGuide } from '@/store/Guide'
+import { useGuide } from '~/store/Guide'
 
 // Types
-import type { BibleDataResponse, BibleGuideDataResponse } from '@/types/api'
-import type { QueryResult } from '@/types/utils'
+import type { BibleDataResponse, BibleGuideDataResponse } from '~/types/api'
+import type { QueryResult } from '~/types/utils'
 
 const getBibleByDate = async (guideDate: string, bibleVersion: string) => {
   const { data } = await axios.get(

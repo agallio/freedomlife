@@ -1,4 +1,4 @@
-import { BibleList } from '@/types/utils'
+import { BibleList } from '~/types/utils'
 
 export const bibleList: BibleList[] = [
   { name: 'Kejadian', abbr: 'kej', passage: 50 },
