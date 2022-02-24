@@ -1,6 +1,6 @@
-import type { IconProps } from '~/types/components'
+import type { IconProps } from '~/types/icon'
 
-const NYIcon = ({ className }: IconProps): JSX.Element => {
+export default function NYIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -299,5 +299,3 @@ const NYIcon = ({ className }: IconProps): JSX.Element => {
     </svg>
   )
 }
-
-export default NYIcon

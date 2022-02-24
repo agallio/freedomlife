@@ -1,4 +1,3 @@
-// 3rd Party Libs
 import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
 
@@ -10,13 +9,19 @@ import CheckIcon from '~/components/Icons/CheckIcon'
 import dayjs from '~/utils/dayjs'
 
 // Types
-import type { GuideItemProps } from '~/types/components'
+import type { GuideDataResponse } from '~/types/api'
 
-const GuideItem = ({
+interface GuideItemProps {
+  item: GuideDataResponse
+  index: number
+  toBibleWithDate: (_: string) => void
+}
+
+export default function GuideItem({
   item,
   index,
   toBibleWithDate,
-}: GuideItemProps): JSX.Element => {
+}: GuideItemProps) {
   const { resolvedTheme: theme } = useTheme()
 
   const isToday = (date: string) => {
@@ -181,5 +186,3 @@ const GuideItem = ({
     </div>
   )
 }
-
-export default GuideItem

@@ -16,12 +16,12 @@ const variants = {
   },
 }
 
-const PageTransition = ({ children }: { children: ReactNode }): JSX.Element => (
-  <AnimatePresence>
-    <motion.div initial="initial" animate="enter" variants={variants}>
-      {children}
-    </motion.div>
-  </AnimatePresence>
-)
-
-export default PageTransition
+export default function PageTransition({ children }: { children: ReactNode }) {
+  return (
+    <AnimatePresence>
+      <motion.div initial="initial" animate="enter" variants={variants}>
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  )
+}

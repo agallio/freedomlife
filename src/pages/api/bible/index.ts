@@ -1,16 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// Utils
 import { supabase } from '~/utils/supabase'
 import rateLimit from '~/utils/rate-limit'
 
+// Types
 import type { SupabaseBibles } from '~/types/api'
 
 const limiter = rateLimit()
 
-const biblePassage = async (
+export default async function biblePassage(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> => {
+) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
@@ -61,5 +63,3 @@ const biblePassage = async (
     return res.status(404).json({ data: null, error: 'Chapter not found.' })
   }
 }
-
-export default biblePassage

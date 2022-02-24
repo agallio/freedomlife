@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// Utils
 import { supabase } from '~/utils/supabase'
 import rateLimit from '~/utils/rate-limit'
 
 const limiter = rateLimit()
 
-const guideByDate = async (
+export default async function guideByDate(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> => {
+) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
@@ -41,5 +42,3 @@ const guideByDate = async (
     return res.status(404).json({ data: null, error: 'Guide not found.' })
   }
 }
-
-export default guideByDate

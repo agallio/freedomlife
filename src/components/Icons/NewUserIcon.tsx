@@ -1,6 +1,6 @@
-import type { IconProps } from '~/types/components'
+import type { IconProps } from '~/types/icon'
 
-const NewUserIcon = ({ className }: IconProps): JSX.Element => {
+export default function NewUserIcon({ className }: IconProps) {
   return (
     <svg
       id="b142cff6-7277-4db1-8c84-b82a10fcabd4"
@@ -148,5 +148,3 @@ const NewUserIcon = ({ className }: IconProps): JSX.Element => {
     </svg>
   )
 }
-
-export default NewUserIcon

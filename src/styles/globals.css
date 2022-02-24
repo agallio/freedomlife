@@ -30,7 +30,6 @@
 
 html {
   @apply bg-gray-50;
-  padding: 0 !important;
   transition: var(--transition-default);
 }
 
@@ -39,18 +38,8 @@ html.dark {
   transition: var(--transition-default);
 }
 
-html.light {
-  @apply bg-gray-50;
-  transition: var(--transition-default);
-}
-
 body {
   @apply p-0 m-0 bg-gray-50 dark:bg-gray-800;
-  transition: var(--transition-default);
-}
-
-#__next {
-  @apply bg-gray-50 dark:bg-gray-800;
   transition: var(--transition-default);
 }
 /* end: custom base styles */

@@ -1,5 +1,7 @@
-import dayjs from 'dayjs'
 import { useTheme } from 'next-themes'
+
+// Utils
+import dayjs from '~/utils/dayjs'
 
 export default function GuideError() {
   const { resolvedTheme: theme } = useTheme()

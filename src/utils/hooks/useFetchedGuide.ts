@@ -1,13 +1,12 @@
-// Core
 import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import axios, { AxiosError } from 'axios'
 
+// Context
+import { useGuide } from '~/contexts/GuideContext'
+
 // Utils
 import dayjs from '../dayjs'
-
-// Context
-import { useGuide } from '~/store/Guide'
 
 // Types
 import type { QueryResult } from '~/types/utils'
@@ -47,10 +46,7 @@ export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
 export const useGuideByDate = (options?: {
   home?: boolean
 }): QueryResult<GuideDataResponse | undefined> => {
-  const {
-    guideState: { guideDate },
-    guideDispatch,
-  } = useGuide()
+  const { guideDate, setGuideData } = useGuide()
 
   const date = options?.home ? dayjs().format('DD-MM-YYYY') : guideDate
 
@@ -67,7 +63,7 @@ export const useGuideByDate = (options?: {
 
   useEffect(() => {
     if (data) {
-      guideDispatch({ type: 'SET_GUIDE_DATA', data: data.data })
+      setGuideData(data.data)
     }
   }, [data])
 

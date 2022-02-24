@@ -24,6 +24,6 @@ const SeoConfig = {
   },
 }
 
-const SEO = (): JSX.Element => <DefaultSeo {...SeoConfig} />
-
-export default SEO
+export default function SEO() {
+  return <DefaultSeo {...SeoConfig} />
+}

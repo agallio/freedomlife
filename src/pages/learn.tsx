@@ -1,8 +1,6 @@
-// Core
+import { NextPage } from 'next'
 import Head from 'next/head'
 import Router from 'next/router'
-
-// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 
 // Components
@@ -10,12 +8,13 @@ import JumboHeader from '~/components/JumboHeader'
 import ExternalLink from '~/components/ExternalLink'
 
 // Utils
-import { getDocBySlug, markdownToHtml } from '~/utils/learn'
+import { getDocBySlug, markdownToHtml } from '~/utils/markdown'
 
-// Types
-import type { LearnPageProps } from '~/types/components'
+interface LearnPageProps {
+  post: { title: string; content: string }
+}
 
-const Learn = ({ post }: LearnPageProps): JSX.Element => {
+const Learn: NextPage<LearnPageProps> = ({ post }) => {
   const goHome = () => {
     Router.push('/')
   }

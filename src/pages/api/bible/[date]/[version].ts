@@ -1,16 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// Utils
 import { supabase } from '~/utils/supabase'
 import rateLimit from '~/utils/rate-limit'
 
+// Types
 import type { SupabaseBibles, SupabaseGuides } from '~/types/api'
 
 const limiter = rateLimit()
 
-const bibleByDate = async (
+export default async function bibleByDate(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> => {
+) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
@@ -357,5 +359,3 @@ const bibleByDate = async (
     return res.json({ data, error: null })
   }
 }
-
-export default bibleByDate

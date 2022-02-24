@@ -1,5 +1,6 @@
 import { useCallback, useLayoutEffect, useState } from 'react'
 
+// Utils
 import useEventListener from './useEventListener'
 
 interface Size {
@@ -8,7 +9,7 @@ interface Size {
 }
 
 function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
-  (node: T | null) => void,
+  (_node: T | null) => void,
   Size
 ] {
   // Mutable values like 'ref.current' aren't valid dependencies

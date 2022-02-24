@@ -1,7 +1,7 @@
-import type { IconProps } from '~/types/components'
+import type { IconProps } from '~/types/icon'
 
-const SupabaseIcon = ({ className, theme }: IconProps): JSX.Element =>
-  theme === 'light' ? (
+export default function SupabaseIcon({ className, theme }: IconProps) {
+  return theme === 'light' ? (
     <svg
       viewBox="0 0 581 113"
       fill="none"
@@ -156,5 +156,4 @@ const SupabaseIcon = ({ className, theme }: IconProps): JSX.Element =>
       </defs>
     </svg>
   )
-
-export default SupabaseIcon
+}

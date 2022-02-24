@@ -1,23 +1,22 @@
-// Core
 import { NextPage } from 'next'
-import { AppProps } from 'next/app'
 import Head from 'next/head'
-
-// 3rd Party Libs
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
-
-// Context
-import { GuideProvider } from '~/store/Guide'
-import { BibleProvider } from '~/store/Bible'
 
 // Components
 import SEO from '~/components/SEO'
 import BottomTabBar from '~/components/BottomTabBar'
 
+// Contexts
+import { GuideProvider } from '~/contexts/GuideContext'
+import { BibleProvider } from '~/contexts/BibleContext'
+
+// Types
+import type { AppProps } from 'next/app'
+
 // Styles
-import '~/styles/index.css'
+import '../styles/globals.css'
 
 const queryClient = new QueryClient()
 
@@ -35,6 +34,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
             <ThemeProvider attribute="class">
               <Toaster />
               <Component {...pageProps} />
+
               {router.pathname !== '/404' &&
                 router.pathname !== '/persembahan' &&
                 router.pathname !== '/learn' && <BottomTabBar />}

@@ -1,40 +1,25 @@
-// Core
-import { useEffect, useState } from 'react'
+import { NextPage } from 'next'
+import { useEffect } from 'react'
 import Router from 'next/router'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
 import HomeBox from '~/components/Home/HomeBox'
-import HomeCard from '~/components/Card/HomeCard'
+import HomeCard from '~/components/Home/HomeCard'
 import NewUserBox from '~/components/Home/NewUserBox'
 import NewTranslationBox from '~/components/Home/NewTranslationBox'
-import BirthdayDialog from '~/components/Dialog/BirthdayDialog'
-// import FeedbackBox from '~/components/Home/FeedbackBox'
 import Footer from '~/components/Footer'
 
 // Context
-import { useGuide } from '../store/Guide'
+import { useGuide } from '~/contexts/GuideContext'
 
 // Utils
 import dayjs from '~/utils/dayjs'
-
-// Utils —— Hooks
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
-import useLocalStorage from '~/utils/hooks/useLocalStorage'
 
-const Home = (): JSX.Element => {
+const Home: NextPage = () => {
   // Context
-  const {
-    guideState: { guideData, guideDate },
-    guideDispatch,
-  } = useGuide()
-
-  // State
-  const [isBirthdayOpen, setBirthdayOpen] = useState(false)
-  const [isBirthdayViewed, setBirthdayViewed] = useLocalStorage(
-    'birthday-viewed',
-    false
-  )
+  const { guideData, guideDate, setGuideDate } = useGuide()
 
   // Query
   const { data, isLoading, isError, isGuideError, refetch } = useGuideByDate({
@@ -43,7 +28,7 @@ const Home = (): JSX.Element => {
 
   // Method
   const toBible = () => {
-    guideDispatch({ type: 'SET_GUIDE_DATE', data: '' })
+    setGuideDate('')
     if (isGuideError) {
       Router.push('/read/kej/1')
     } else {
@@ -60,7 +45,7 @@ const Home = (): JSX.Element => {
       return
     }
 
-    if (!guideData.date) {
+    if (!guideData?.date) {
       refetch()
       return
     }
@@ -69,14 +54,6 @@ const Home = (): JSX.Element => {
       refetch()
     }
   }, [])
-
-  useEffect(() => {
-    if (!isBirthdayViewed) {
-      if (dayjs().format('DD-MM-YYYY') === '13-02-2022') {
-        setBirthdayOpen(true)
-      }
-    }
-  }, [isBirthdayViewed])
 
   if (isError && !isGuideError) {
     return (
@@ -118,13 +95,13 @@ const Home = (): JSX.Element => {
           <>
             <NewUserBox />
             {/* <FeedbackBox /> */}
-            <BirthdayDialog
+            {/* <BirthdayDialog
               isOpen={isBirthdayOpen}
               handleClose={() => {
                 setBirthdayOpen(false)
                 setBirthdayViewed(true)
               }}
-            />
+            /> */}
           </>
         )}
       </main>

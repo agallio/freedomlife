@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react'
+
 interface ExternalLinkProps {
   href: string
-  children: React.ReactNode | React.ReactNode[]
+  children: ReactNode | ReactNode[]
   className?: string
 }
 
