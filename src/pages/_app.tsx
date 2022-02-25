@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
+import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -26,6 +27,12 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       <Head>
         <meta name="title" content="FreedomLife — Alkitab &amp; Panduan Baca" />
       </Head>
+      <Script
+        async
+        defer
+        data-website-id="2eee9168-15ac-46de-814a-35725fc77c53"
+        src="https://analytics.agallio.xyz/umami.js"
+      />
       <SEO />
 
       <QueryClientProvider client={queryClient}>

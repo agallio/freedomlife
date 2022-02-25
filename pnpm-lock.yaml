@@ -19,7 +19,7 @@ specifiers:
   next: 12.1.0
   next-pwa: ^5.4.4
   next-seo: ^5.1.0
-  next-themes: ^0.1.1
+  next-themes: ^0.0.15
   postcss: ^8.4.6
   preact: ^10.6.6
   prettier: ^2.5.1
@@ -44,7 +44,7 @@ dependencies:
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   next-pwa: 5.4.4_next@12.1.0
   next-seo: 5.1.0_caa633a00319350dbda42996613fe26c
-  next-themes: 0.1.1_caa633a00319350dbda42996613fe26c
+  next-themes: 0.0.15_caa633a00319350dbda42996613fe26c
   preact: 10.6.6
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -3957,10 +3957,10 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
-  /next-themes/0.1.1_caa633a00319350dbda42996613fe26c:
-    resolution: {integrity: sha512-Iqxt6rhS/KfK/iHJ0tfFjTcdLEAI0AgwFuAFrMwLOPK5e+MI3I+fzyvBoS+VaOS+NldUiazurhgwYhrfV0VXsQ==}
+  /next-themes/0.0.15_caa633a00319350dbda42996613fe26c:
+    resolution: {integrity: sha512-LTmtqYi03c4gMTJmWwVK9XkHL7h0/+XrtR970Ujvtu3s0kZNeJN24aJsi4rkZOI8i19+qq6f8j+8Duwy5jqcrQ==}
     peerDependencies:
-      next: '>=11.1.1'
+      next: '*'
       react: '*'
       react-dom: '*'
     dependencies:

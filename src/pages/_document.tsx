@@ -48,12 +48,6 @@ export default function Document() {
           media="(prefers-color-scheme: dark)"
           content="#18181b"
         />
-        <script
-          async
-          defer
-          data-website-id="2eee9168-15ac-46de-814a-35725fc77c53"
-          src="https://analytics.agallio.xyz/umami.js"
-        ></script>
       </Head>
       <body>
         <Main />
