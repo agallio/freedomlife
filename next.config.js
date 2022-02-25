@@ -67,7 +67,6 @@ const nextConfig = {
 
     return config
   },
-
   async headers() {
     return [
       {
