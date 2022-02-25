@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
+import { remark } from 'remark'
 import html from 'remark-html'
 
 type Items = {
@@ -36,8 +36,6 @@ export function getDocBySlug(slug: string, fields: string[] = []): Items {
 }
 
 export async function markdownToHtml(markdown: string): Promise<string> {
-  // Ignoring TypeScript `typeof` checker here because it's not possible to.
-  // @ts-ignore
   const result = await remark().use(html).process(markdown)
   return result.toString()
 }

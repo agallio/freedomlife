@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 interface HomeCardProps {
   /**
@@ -20,11 +20,11 @@ interface HomeCardProps {
    * Card Content
    * @required
    */
-  children: React.ReactNode
+  children: ReactNode
   /**
    * Card Footer
    */
-  footer?: React.ReactNode
+  footer?: ReactNode
 
   // Styles
   /**

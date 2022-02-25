@@ -1,10 +1,9 @@
-// Core
 import { useState } from 'react'
 
 const useLocalStorage = (
   key: string,
   initialValue: string | boolean
-): [string, (value: any) => void] => {
+): [string, (_value: any) => void] => {
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window !== 'undefined') {
       try {

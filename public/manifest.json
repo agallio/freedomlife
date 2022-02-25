@@ -11,12 +11,18 @@
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#059669",
-  "background_color": "#059669",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "orientation": "portrait",
   "prefer_related_applications": true
 }

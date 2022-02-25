@@ -1,12 +1,11 @@
-// Core
 import axios, { AxiosError } from 'axios'
 import { useQuery } from 'react-query'
 
+// Context
+import { useGuide } from '~/contexts/GuideContext'
+
 // Utils
 import dayjs from '../dayjs'
-
-// Context
-import { useGuide } from '~/store/Guide'
 
 // Types
 import type { BibleDataResponse, BibleGuideDataResponse } from '~/types/api'
@@ -29,9 +28,7 @@ const getBibleByPassage = async (passage: string, bibleVersion: string) => {
 export const useBibleByDate = (
   bibleVersion: string
 ): QueryResult<BibleGuideDataResponse | undefined> => {
-  const {
-    guideState: { guideDate },
-  } = useGuide()
+  const { guideDate } = useGuide()
 
   const { data, error, isError, isLoading, refetch } = useQuery<
     { data: BibleGuideDataResponse },

@@ -1,9 +1,7 @@
-// Core
+import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
-
-// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
@@ -19,40 +17,38 @@ import PageTransition from '~/components/PageTransition'
 
 // Utils
 import dayjs from '~/utils/dayjs'
-
-// Utils —— Constants
+import { copyText } from '~/utils/bible'
 import { scrollToTop } from '~/utils/constants'
-
-// Utils —— Hooks
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
 import { useBibleByDate } from '~/utils/hooks/useFetchedBible'
 import useLocalStorage from '~/utils/hooks/useLocalStorage'
 
 // Contexts
-import { useGuide } from '~/store/Guide'
-import { useBible } from '~/store/Bible'
-import { copyText } from '~/utils/bible'
+import { useGuide } from '~/contexts/GuideContext'
+import { useBible } from '~/contexts/BibleContext'
 
-const Read = (): JSX.Element => {
+const Read: NextPage = () => {
   // Core Configs
   const router = useRouter()
   const { resolvedTheme: theme } = useTheme()
 
   // Contexts
+  const { guideData, guideDate } = useGuide()
   const {
-    guideState: { guideData, guideDate },
-  } = useGuide()
-  const {
-    bibleState: {
-      openTranslate,
-      openPassage,
-      openSetting,
-      highlighted,
-      highlightedText,
-      bibleVersion,
-      maintenance,
-    },
-    bibleDispatch,
+    openTranslate,
+    setOpenTranslate,
+    openPassage,
+    setOpenPassage,
+    openSetting,
+    setOpenSetting,
+    highlighted,
+    setHighlighted,
+    highlightedText,
+    setHighlightedText,
+    bibleVersion,
+    setBibleVersion,
+    maintenance,
+    setMaintenance,
   } = useBible()
 
   // Local Storage States
@@ -142,9 +138,9 @@ const Read = (): JSX.Element => {
           }
           return 'Memuat'
         case 'pb':
-          return guideData.pb_name as string
+          return guideData?.pb_name as string
         case 'in-1':
-          return guideData.in_name as string
+          return guideData?.in_name as string
         default:
           return 'Memuat'
       }
@@ -154,7 +150,7 @@ const Read = (): JSX.Element => {
   const handleOpenPassage = () => {
     if (guideData && bibleByDateData) {
       document.body.style.overflow = 'hidden'
-      bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: true })
+      setOpenPassage(true)
       return
     }
   }
@@ -188,35 +184,29 @@ const Read = (): JSX.Element => {
   const changePassage = (name: string) => {
     document.body.style.overflow = 'visible'
     setPassage(name)
-    bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: false })
+    setOpenPassage(false)
     scrollToTop()
   }
 
   const changeVersion = (version: string) => {
     document.body.style.overflow = 'visible'
-    bibleDispatch({ type: 'SET_BIBLE_VERSION', data: version })
-    bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: false })
+    setBibleVersion(version)
+    setOpenTranslate(false)
     scrollToTop()
   }
 
   const highlightText = (verse: number, content: string) => {
     if (highlightedText.find((item) => item.verse === verse)) {
-      bibleDispatch({
-        type: 'SET_HIGHLIGHTED_TEXT',
-        data: highlightedText.filter((item) => item.verse !== verse),
-      })
+      setHighlightedText(highlightedText.filter((item) => item.verse !== verse))
     } else {
-      bibleDispatch({ type: 'SET_HIGHLIGHTED', data: true })
-      bibleDispatch({
-        type: 'SET_HIGHLIGHTED_TEXT',
-        data: [...highlightedText, { verse, content }],
-      })
+      setHighlighted(true)
+      setHighlightedText([...highlightedText, { verse, content }])
     }
   }
 
   const removeHighlight = () => {
-    bibleDispatch({ type: 'SET_HIGHLIGHTED', data: false })
-    bibleDispatch({ type: 'SET_HIGHLIGHTED_TEXT', data: [] })
+    setHighlighted(false)
+    setHighlightedText([])
   }
 
   const handleExitGuide = () => {
@@ -228,7 +218,7 @@ const Read = (): JSX.Element => {
       const pbDashSplit = pbSpaceSplit[1]?.split(':')
 
       document.body.style.overflow = 'visible'
-      bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: false })
+      setOpenPassage(false)
 
       switch (passage) {
         case 'pl-1':
@@ -297,21 +287,21 @@ const Read = (): JSX.Element => {
   useEffect(() => {
     if (error) {
       console.error(error)
-      bibleDispatch({ type: 'SET_MAINTENANCE', data: true })
+      setMaintenance(true)
     }
   }, [error])
 
   useEffect(() => {
     if (highlightedText.length === 0) {
-      bibleDispatch({ type: 'SET_HIGHLIGHTED', data: false })
+      setHighlighted(false)
     }
   }, [highlightedText])
 
   useEffect(() => {
-    if (!guideData.date) {
+    if (!guideData?.date) {
       guideRefetch()
-    } else if (typeof guideData.date !== undefined && guideDate !== '') {
-      if (guideData.date !== guideDate) {
+    } else if (typeof guideData?.date !== undefined && guideDate !== '') {
+      if (guideData?.date !== guideDate) {
         guideRefetch()
       }
     }
@@ -326,20 +316,22 @@ const Read = (): JSX.Element => {
       const currentScrollPos = window.pageYOffset
       if (bibleTypographyRef.current?.scrollHeight) {
         if (
-          bibleTypographyRef.current?.scrollHeight - currentScrollPos >=
-          405
+          window.innerHeight -
+            (document.body.scrollHeight - currentScrollPos) >=
+            270 &&
+          window.innerHeight -
+            (document.body.scrollHeight - currentScrollPos) <=
+            272.5
         ) {
-          return
-        }
+          if (window) {
+            const localStorageKey = `read-${
+              guideDate || dayjs().format('DD-MM-YYYY')
+            }`
 
-        if (window) {
-          const localStorageKey = `read-${
-            guideDate || dayjs().format('DD-MM-YYYY')
-          }`
+            if (localStorage.getItem(localStorageKey) !== null) return
 
-          if (localStorage.getItem(localStorageKey) !== null) return
-
-          localStorage.setItem(localStorageKey, 'true')
+            localStorage.setItem(localStorageKey, 'true')
+          }
         }
       }
     }
@@ -387,12 +379,12 @@ const Read = (): JSX.Element => {
         handleExitGuide={handleExitGuide}
         handleOpenTranslate={() => {
           document.body.style.overflow = 'hidden'
-          bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: true })
+          setOpenTranslate(true)
         }}
         handleOpenPassage={handleOpenPassage}
         handleOpenSetting={() => {
           document.body.style.overflow = 'hidden'
-          bibleDispatch({ type: 'SET_OPEN_SETTING', data: true })
+          setOpenSetting(true)
         }}
         removeHighlight={removeHighlight}
         copyText={() =>
@@ -434,7 +426,7 @@ const Read = (): JSX.Element => {
         bibleVersion={bibleVersion}
         handleCloseTranslate={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: false })
+          setOpenTranslate(false)
         }}
         changeVersion={changeVersion}
       />
@@ -448,7 +440,7 @@ const Read = (): JSX.Element => {
         changePassage={changePassage}
         handleClosePassage={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: false })
+          setOpenPassage(false)
         }}
         handleExitGuide={handleExitGuide}
       />
@@ -459,7 +451,7 @@ const Read = (): JSX.Element => {
         setVerseFontSize={setVerseFontSize}
         handleCloseSetting={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_SETTING', data: false })
+          setOpenSetting(false)
         }}
       />
     </>

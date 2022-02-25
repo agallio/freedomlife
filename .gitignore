@@ -14,8 +14,6 @@
 
 # production
 /build
-/public/sw.js
-/public/workbox*
 
 # misc
 .DS_Store
@@ -25,9 +23,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
 # local env files
-.env
 .env.local
 .env.development.local
 .env.test.local
@@ -37,4 +35,16 @@ yarn-error.log*
 .vercel
 
 # typescript
-tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# service worker
+**/public/precache.*.*.js
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/fallback-*.js
+**/public/precache.*.*.js.map
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+**/public/fallback-*.js

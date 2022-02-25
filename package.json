@@ -1,61 +1,58 @@
 {
   "name": "freedomlife",
-  "version": "5.0.0",
+  "version": "5.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc --pretty --noEmit",
+    "lint": "next lint",
     "format": "prettier --write .",
-    "lint": "eslint . --ext ts --ext tsx --ext js",
+    "type-check": "tsc --pretty --noEmit",
     "test-all": "pnpm lint && pnpm type-check",
-    "postinstall": "husky install"
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,tsx}": "bash -c \"pnpm test-all\""
   },
   "engines": {
     "node": "14.x.x",
     "npm": "please-use-pnpm"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.3",
-    "@supabase/supabase-js": "^1.30.0",
-    "@tailwindcss/typography": "^0.5.1",
-    "axios": "^0.25.0",
+    "@supabase/supabase-js": "^1.30.6",
+    "axios": "^0.26.0",
     "dayjs": "^1.10.7",
-    "framer-motion": "^6.2.6",
+    "framer-motion": "^6.2.8",
     "gray-matter": "^4.0.3",
-    "lru-cache": "^7.3.1",
-    "next": "12.0.10",
-    "next-offline": "^5.0.5",
+    "lru-cache": "^7.4.0",
+    "next": "12.1.0",
+    "next-pwa": "^5.4.4",
     "next-seo": "^5.1.0",
-    "next-themes": "^0.0.15",
-    "preact": "^10.6.5",
+    "next-themes": "^0.1.1",
+    "preact": "^10.6.6",
     "react": "17.0.2",
-    "react-confetti": "^6.0.1",
     "react-dom": "17.0.2",
     "react-hot-toast": "^2.2.0",
     "react-media-hook": "^0.4.9",
     "react-modal-sheet": "^1.5.0",
-    "react-query": "^3.34.14",
-    "remark": "^13.0.0",
-    "remark-html": "^13.0.1"
+    "react-query": "^3.34.16",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^12.0.10",
-    "@types/react": "^17.0.39",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0",
+    "@tailwindcss/typography": "^0.5.2",
+    "@types/node": "17.0.19",
+    "@types/react": "17.0.39",
     "autoprefixer": "^10.4.2",
-    "eslint": "^8.8.0",
-    "eslint-config-next": "^12.0.10",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "globby": "^11.0.4",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.4.0",
     "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
-    "tailwindcss": "^3.0.21",
-    "typescript": "^4.5.5"
-  },
-  "license": "MIT"
+    "tailwindcss": "^3.0.23",
+    "typescript": "4.5.5"
+  }
 }

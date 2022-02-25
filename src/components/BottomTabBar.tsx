@@ -1,7 +1,4 @@
-// Core
 import { useRouter } from 'next/router'
-
-// 3rd Party Libs
 import { motion } from 'framer-motion'
 
 // Icon Components
@@ -9,7 +6,7 @@ import BookIcon from './Icons/BookIcon'
 import HomeIcon from './Icons/HomeIcon'
 import OpenBookIcon from './Icons/OpenBookIcon'
 
-const BottomTabBar = (): JSX.Element => {
+export default function BottomTabBar() {
   const router = useRouter()
 
   const motionVariants = { open: { width: 140 }, close: { width: 55 } }
@@ -113,5 +110,3 @@ const BottomTabBar = (): JSX.Element => {
     </footer>
   )
 }
-
-export default BottomTabBar

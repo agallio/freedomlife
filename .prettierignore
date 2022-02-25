@@ -1,4 +1,9 @@
-node_modules
+# folder
 .next
+node_modules
+public
+
+# lockfile
 yarn.lock
+pnpm-lock.yaml
 package-lock.json

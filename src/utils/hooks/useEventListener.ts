@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { RefObject, useEffect, useRef } from 'react'
 
 function useEventListener<K extends keyof WindowEventMap>(

@@ -1,7 +1,7 @@
-import type { IconProps } from '~/types/components'
+import type { IconProps } from '~/types/icon'
 
-const VercelIcon = ({ className, theme }: IconProps): JSX.Element =>
-  theme === 'light' ? (
+export default function VercelIcon({ className, theme }: IconProps) {
+  return theme === 'light' ? (
     <svg
       viewBox="0 0 4438 1000"
       fill="none"
@@ -26,5 +26,4 @@ const VercelIcon = ({ className, theme }: IconProps): JSX.Element =>
       />
     </svg>
   )
-
-export default VercelIcon
+}

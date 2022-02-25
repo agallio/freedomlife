@@ -8,9 +8,24 @@ import TranslateIcon from '../Icons/TranslateIcon'
 import dayjs from '~/utils/dayjs'
 
 // Types
-import type { BibleNavbarProps } from '~/types/components'
+import type { HighlightedText } from '~/types/component'
 
-const BibleNavbar = ({
+interface BibleNavbarProps {
+  highlighted: boolean
+  highlightedText: HighlightedText[]
+  inGuide: boolean
+  bibleVersion: string
+  guideDate?: string
+  passageTitle: () => string | undefined
+  handleExitGuide?: () => void
+  removeHighlight: () => void
+  copyText: () => void
+  handleOpenTranslate: () => void
+  handleOpenPassage: () => void
+  handleOpenSetting: () => void
+}
+
+export default function BibleNavbar({
   highlighted,
   highlightedText,
   inGuide,
@@ -23,7 +38,7 @@ const BibleNavbar = ({
   handleOpenTranslate,
   handleOpenPassage,
   handleOpenSetting,
-}: BibleNavbarProps): JSX.Element => {
+}: BibleNavbarProps) {
   return (
     <header
       className={`fixed top-0 left-0 w-full border-b bg-opacity-60 z-40 ${
@@ -113,5 +128,3 @@ const BibleNavbar = ({
     </header>
   )
 }
-
-export default BibleNavbar

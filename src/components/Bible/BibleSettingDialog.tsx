@@ -1,4 +1,3 @@
-// 3rd Party Libs
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
@@ -13,15 +12,19 @@ import {
   handlePlusFontSize,
 } from '~/utils/bible'
 
-// Types
-import type { BibleSettingDialogProps } from '~/types/components'
+interface BibleSettingDialogProps {
+  openSetting: boolean
+  verseFontSize: string
+  setVerseFontSize: (_: string) => void
+  handleCloseSetting: () => void
+}
 
-const BibleSettingDialog = ({
+export default function BibleSettingDialog({
   openSetting,
   verseFontSize,
   setVerseFontSize,
   handleCloseSetting,
-}: BibleSettingDialogProps): JSX.Element => {
+}: BibleSettingDialogProps) {
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (
@@ -80,5 +83,3 @@ const BibleSettingDialog = ({
     </Sheet>
   )
 }
-
-export default BibleSettingDialog

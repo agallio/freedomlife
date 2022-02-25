@@ -1,8 +1,6 @@
-// Core
+import { NextPage } from 'next'
 import Router from 'next/router'
 import Head from 'next/head'
-
-// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 
 // Components
@@ -13,18 +11,18 @@ import GuideError from '~/components/Guide/GuideError'
 import PageTransition from '~/components/PageTransition'
 
 // Context
-import { useGuide } from '../store/Guide'
+import { useGuide } from '~/contexts/GuideContext'
 
-// Utils —— Hooks
+// Utils
 import { useGuides } from '~/utils/hooks/useFetchedGuide'
 
-const Guide = (): JSX.Element => {
-  const { guideDispatch } = useGuide()
+const Guide: NextPage = () => {
+  const { setGuideDate } = useGuide()
 
   const { data, isError } = useGuides()
 
   const toBibleWithDate = (date: string) => {
-    guideDispatch({ type: 'SET_GUIDE_DATE', data: date })
+    setGuideDate(date)
     Router.push('/read?guide=true')
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0

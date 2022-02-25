@@ -1,11 +1,32 @@
+import { RefObject } from 'react'
+
 // Utils
 import { headerFontSize } from '~/utils/bible'
 
 // Types
-import type { VerseData } from '~/types/api'
-import type { BibleTypographyProps } from '~/types/components'
+import type {
+  BibleDataResponse,
+  BibleGuideDataResponse,
+  VerseData,
+} from '~/types/api'
+import type { HighlightedText } from '~/types/component'
 
-const BibleTypography = ({
+interface BibleTypographyProps {
+  bibleTypographyRef: RefObject<HTMLDivElement>
+  inGuide: boolean
+  passage?: string
+  maintenance: boolean
+  verseFontSize: string
+  highlightedText: HighlightedText[]
+  isGuideByDateLoading?: boolean
+  isBibleByDateLoading?: boolean
+  isBibleByPassageLoading?: boolean
+  bibleByDateData?: BibleGuideDataResponse
+  bibleByPassageData?: BibleDataResponse
+  highlightText: (_verse: number, _content: string) => void
+}
+
+export default function BibleTypography({
   bibleTypographyRef,
   inGuide,
   passage,
@@ -18,7 +39,7 @@ const BibleTypography = ({
   bibleByDateData,
   bibleByPassageData,
   highlightText,
-}: BibleTypographyProps): JSX.Element => {
+}: BibleTypographyProps) {
   let passageArray: VerseData[] | undefined
   if (inGuide) {
     // Force TS to know that passage is exist.
@@ -110,5 +131,3 @@ const BibleTypography = ({
     </div>
   )
 }
-
-export default BibleTypography

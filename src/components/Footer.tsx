@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
-import dayjs from '~/utils/dayjs'
-
+// Components
 import ExternalLink from './ExternalLink'
 
+// Icon Components
 import VercelIcon from './Icons/VercelIcon'
 import SupabaseIcon from './Icons/SupabaseIcon'
 
-const Footer = (): JSX.Element => {
+// Utils
+import dayjs from '~/utils/dayjs'
+
+export default function Footer() {
   const { resolvedTheme: theme } = useTheme()
 
   const [mounted, setMounted] = useState(false)
@@ -57,5 +60,3 @@ const Footer = (): JSX.Element => {
     </div>
   )
 }
-
-export default Footer

@@ -1,7 +1,4 @@
-// Core
 import { useState } from 'react'
-
-// 3rd Party Libs
 import { motion } from 'framer-motion'
 import Sheet from 'react-modal-sheet'
 
@@ -12,18 +9,27 @@ import SearchIcon from '../Icons/SearchIcon'
 
 // Utils
 import dayjs from '~/utils/dayjs'
-
-// Utils —— Constants
 import { bibleList } from '~/utils/constants'
 
 // Context
-import { useGuide } from '~/store/Guide'
+import { useGuide } from '~/contexts/GuideContext'
 
 // Types
-import type { BiblePassageDialogProps } from '~/types/components'
 import type { BibleList } from '~/types/utils'
 
-const BiblePassageDialog = ({
+interface BiblePassageDialogProps {
+  openPassage: boolean
+  inGuide: boolean
+  passage?: string
+  plSpaceSplit?: false | string[] | undefined
+  plList?: number[]
+  changePassage?: (_: string) => void
+  changeChapter?: (_: string) => void
+  handleClosePassage: () => void
+  handleExitGuide?: () => void
+}
+
+export default function BiblePassageDialog({
   openPassage,
   inGuide,
   passage,
@@ -33,11 +39,9 @@ const BiblePassageDialog = ({
   changeChapter,
   handleClosePassage,
   handleExitGuide,
-}: BiblePassageDialogProps): JSX.Element => {
-  // Contexts
-  const {
-    guideState: { guideData, guideDate },
-  } = useGuide()
+}: BiblePassageDialogProps) {
+  // Context
+  const { guideData, guideDate } = useGuide()
 
   // States
   const [searchChapter, setSearchChapter] = useState('')
@@ -396,5 +400,3 @@ const BiblePassageDialog = ({
     </Sheet>
   )
 }
-
-export default BiblePassageDialog

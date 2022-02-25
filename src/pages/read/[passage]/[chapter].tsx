@@ -1,34 +1,27 @@
-// Core
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef } from 'react'
-
-// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 import { useTheme } from 'next-themes'
 
 // Components
 import BibleNavbar from '~/components/Bible/BibleNavbar'
 import PageTransition from '~/components/PageTransition'
-
-// Utils
-import { copyText } from '~/utils/bible'
-
-// Utils —— Constants
-import { bibleList, scrollToTop } from '~/utils/constants'
-
-// Utils —— Hooks
-import { useBibleByPassage } from '~/utils/hooks/useFetchedBible'
-import useLocalStorage from '~/utils/hooks/useLocalStorage'
-
-// Contexts
-import { useBible } from '~/store/Bible'
 import BibleTypography from '~/components/Bible/BibleTypography'
 import BibleNavigator from '~/components/Bible/BibleNavigator'
 import BibleTranslateDialog from '~/components/Bible/BibleTranslateDialog'
 import BiblePassageDialog from '~/components/Bible/BiblePassageDialog'
 import BibleSettingDialog from '~/components/Bible/BibleSettingDialog'
+
+// Utils
+import { copyText } from '~/utils/bible'
+import { bibleList, scrollToTop } from '~/utils/constants'
+import { useBibleByPassage } from '~/utils/hooks/useFetchedBible'
+import useLocalStorage from '~/utils/hooks/useLocalStorage'
+
+// Contexts
+import { useBible } from '~/contexts/BibleContext'
 
 export default function ReadIndividualChapter() {
   // Core Configs
@@ -38,16 +31,20 @@ export default function ReadIndividualChapter() {
 
   // Contexts
   const {
-    bibleState: {
-      openTranslate,
-      openPassage,
-      openSetting,
-      highlighted,
-      highlightedText,
-      bibleVersion,
-      maintenance,
-    },
-    bibleDispatch,
+    openTranslate,
+    setOpenTranslate,
+    openPassage,
+    setOpenPassage,
+    openSetting,
+    setOpenSetting,
+    highlighted,
+    setHighlighted,
+    highlightedText,
+    setHighlightedText,
+    bibleVersion,
+    setBibleVersion,
+    maintenance,
+    setMaintenance,
   } = useBible()
 
   // Local Storage States
@@ -90,7 +87,7 @@ export default function ReadIndividualChapter() {
   const handleOpenPassage = () => {
     if (data) {
       document.body.style.overflow = 'hidden'
-      bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: true })
+      setOpenPassage(true)
     }
   }
 
@@ -148,7 +145,7 @@ export default function ReadIndividualChapter() {
     const [passage, chapter] = passageChapter.split('-')
 
     document.body.style.overflow = 'visible'
-    bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: false })
+    setOpenPassage(false)
     localStorage.setItem('last_chapter', passageChapter)
     router.push(`/read/${passage}/${chapter}`)
     scrollToTop()
@@ -156,42 +153,36 @@ export default function ReadIndividualChapter() {
 
   const changeVersion = (version: string) => {
     document.body.style.overflow = 'visible'
-    bibleDispatch({ type: 'SET_BIBLE_VERSION', data: version })
-    bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: false })
+    setBibleVersion(version)
+    setOpenTranslate(false)
     scrollToTop()
   }
 
   const highlightText = (verse: number, content: string) => {
     if (highlightedText.find((item) => item.verse === verse)) {
-      bibleDispatch({
-        type: 'SET_HIGHLIGHTED_TEXT',
-        data: highlightedText.filter((item) => item.verse !== verse),
-      })
+      setHighlightedText(highlightedText.filter((item) => item.verse !== verse))
     } else {
-      bibleDispatch({ type: 'SET_HIGHLIGHTED', data: true })
-      bibleDispatch({
-        type: 'SET_HIGHLIGHTED_TEXT',
-        data: [...highlightedText, { verse, content }],
-      })
+      setHighlighted(true)
+      setHighlightedText([...highlightedText, { verse, content }])
     }
   }
 
   const removeHighlight = () => {
-    bibleDispatch({ type: 'SET_HIGHLIGHTED', data: false })
-    bibleDispatch({ type: 'SET_HIGHLIGHTED_TEXT', data: [] })
+    setHighlighted(false)
+    setHighlightedText([])
   }
 
   // Lifecycles —— Side Effects
   useEffect(() => {
     if (error) {
       console.error(error)
-      bibleDispatch({ type: 'SET_MAINTENANCE', data: true })
+      setMaintenance(true)
     }
   }, [error])
 
   useEffect(() => {
     if (highlightedText.length === 0) {
-      bibleDispatch({ type: 'SET_HIGHLIGHTED', data: false })
+      setHighlighted(false)
     }
   }, [highlightedText])
 
@@ -243,12 +234,12 @@ export default function ReadIndividualChapter() {
         passageTitle={passageTitle}
         handleOpenTranslate={() => {
           document.body.style.overflow = 'hidden'
-          bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: true })
+          setOpenTranslate(true)
         }}
         handleOpenPassage={handleOpenPassage}
         handleOpenSetting={() => {
           document.body.style.overflow = 'hidden'
-          bibleDispatch({ type: 'SET_OPEN_SETTING', data: true })
+          setOpenSetting(true)
         }}
         removeHighlight={removeHighlight}
         copyText={() =>
@@ -288,7 +279,7 @@ export default function ReadIndividualChapter() {
         bibleVersion={bibleVersion}
         handleCloseTranslate={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_TRANSLATE', data: false })
+          setOpenTranslate(false)
         }}
         changeVersion={changeVersion}
       />
@@ -299,7 +290,7 @@ export default function ReadIndividualChapter() {
         changeChapter={changeChapter}
         handleClosePassage={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_PASSAGE', data: false })
+          setOpenPassage(false)
         }}
       />
 
@@ -309,7 +300,7 @@ export default function ReadIndividualChapter() {
         setVerseFontSize={setVerseFontSize}
         handleCloseSetting={() => {
           document.body.style.overflow = 'visible'
-          bibleDispatch({ type: 'SET_OPEN_SETTING', data: false })
+          setOpenSetting(false)
         }}
       />
     </>

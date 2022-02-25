@@ -1,8 +1,7 @@
-// 3rd Party Libs
 import toast from 'react-hot-toast'
 
 // Types
-import type { HighlightedText } from '~/types/components'
+import type { HighlightedText } from '~/types/component'
 
 export const fontSizeName: { [key: string]: string } = {
   sm: 'Kecil',
@@ -24,7 +23,7 @@ export const headerFontSize: { [key: string]: string } = {
 
 export const handleMinusFontSize = (
   verseFontSize: string,
-  setVerseFontSize: (value: any) => void
+  setVerseFontSize: (_value: any) => void
 ) => {
   switch (verseFontSize) {
     case 'base':
@@ -49,7 +48,7 @@ export const handleMinusFontSize = (
 
 export const handlePlusFontSize = (
   verseFontSize: string,
-  setVerseFontSize: (value: any) => void
+  setVerseFontSize: (_value: any) => void
 ) => {
   switch (verseFontSize) {
     case 'sm':

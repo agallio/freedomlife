@@ -1,13 +1,10 @@
-// Core
 import Router from 'next/router'
 
 // Components
-import NewUserIcon from '~/components/Icons/NewUserIcon'
-import HomeCard from '../Card/HomeCard'
+import HomeCard from './HomeCard'
+import NewUserIcon from '../Icons/NewUserIcon'
 
-const NewUserBox = (): JSX.Element => {
-  const toLearn = () => Router.push('/learn')
-
+export default function NewUserBox() {
   return (
     <HomeCard
       top="6"
@@ -20,7 +17,7 @@ const NewUserBox = (): JSX.Element => {
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',
           }}
-          onClick={toLearn}
+          onClick={() => Router.push('/learn')}
         >
           Pelajari Lebih Lanjut
         </button>
@@ -36,5 +33,3 @@ const NewUserBox = (): JSX.Element => {
     </HomeCard>
   )
 }
-
-export default NewUserBox

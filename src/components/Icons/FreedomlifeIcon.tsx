@@ -1,6 +1,6 @@
-import type { IconProps } from '~/types/components'
+import type { IconProps } from '~/types/icon'
 
-const FreedomlifeIcon = ({ className }: IconProps): JSX.Element => {
+export default function FreedomlifeIcon({ className }: IconProps) {
   return (
     <svg
       fill="none"
@@ -45,5 +45,3 @@ const FreedomlifeIcon = ({ className }: IconProps): JSX.Element => {
     </svg>
   )
 }
-
-export default FreedomlifeIcon

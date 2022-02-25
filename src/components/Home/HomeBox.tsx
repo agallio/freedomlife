@@ -1,16 +1,26 @@
+// Components
+import HomeCard from './HomeCard'
+
 // Utils
 import dayjs from '~/utils/dayjs'
 
 // Types
-import type { HomeBoxProps } from '~/types/components'
-import HomeCard from '../Card/HomeCard'
+import type { GuideDataResponse } from '~/types/api'
 
-const HomeBox = ({
+interface HomeBoxProps {
+  data?: GuideDataResponse
+  isLoading: boolean
+  isError?: boolean
+  isGuideError?: boolean
+  toBible: () => void
+}
+
+export default function HomeBox({
   data,
   isGuideError,
   isLoading,
   toBible,
-}: HomeBoxProps): JSX.Element => {
+}: HomeBoxProps) {
   return (
     <HomeCard
       isLoading={isLoading}
@@ -115,5 +125,3 @@ const HomeBox = ({
     </HomeCard>
   )
 }
-
-export default HomeBox

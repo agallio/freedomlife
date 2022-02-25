@@ -1,3 +1,5 @@
+const withPWA = require('next-pwa')
+
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.agallio.xyz;
@@ -49,23 +51,21 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
-  transformManifest: (manifest) => ['/'].concat(manifest),
-  workboxOpts: {
-    swDest: process.env.NEXT_EXPORT
-      ? 'service-worker.js'
-      : 'static/service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: /^https?.*/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'offlineCache',
-          expiration: {
-            maxEntries: 200,
-          },
-        },
-      },
-    ],
+  reactStrictMode: true,
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+  },
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat',
+      })
+    }
+
+    return config
   },
   async headers() {
     return [
@@ -79,33 +79,6 @@ const nextConfig = {
       },
     ]
   },
-  async rewrites() {
-    return [
-      {
-        source: '/service-worker.js',
-        destination: '/_next/static/service-worker.js',
-      },
-    ]
-  },
-  webpack: (config, { dev, isServer }) => {
-    if (isServer) {
-      require('./scripts/generate-sitemap')
-    }
-
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      })
-    }
-
-    return config
-  },
 }
 
-module.exports = () => {
-  const withOffline = require('next-offline')
-
-  return withOffline(nextConfig)
-}
+module.exports = withPWA(nextConfig)

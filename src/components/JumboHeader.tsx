@@ -1,4 +1,3 @@
-// Core
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -9,15 +8,19 @@ import FreedomlifeIcon from './Icons/FreedomlifeIcon'
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
 
-// Types
-import type { JumboHeaderProps } from '~/types/components'
+interface JumboHeaderProps {
+  isNotFound?: boolean
+  isHome?: boolean
+  subtitle?: string
+  description?: string
+}
 
-const JumboHeader = ({
+export default function JumboHeader({
   isNotFound,
   isHome,
   subtitle,
   description,
-}: JumboHeaderProps): JSX.Element => {
+}: JumboHeaderProps) {
   const [isMounted, setIsMounted] = useState(false)
   const { resolvedTheme: theme, setTheme } = useTheme()
 
@@ -78,5 +81,3 @@ const JumboHeader = ({
     </header>
   )
 }
-
-export default JumboHeader

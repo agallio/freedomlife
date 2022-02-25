@@ -1,17 +1,20 @@
-// 3rd Party Libs
 import { motion } from 'framer-motion'
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
-// Types
-import type { BibleTranslateDialogProps } from '~/types/components'
+interface BibleTranslateDialogProps {
+  openTranslate: boolean
+  bibleVersion: string
+  handleCloseTranslate: () => void
+  changeVersion: (_: string) => void
+}
 
-const BibleTranslateDialog = ({
+export default function BibleTranslateDialog({
   openTranslate,
   bibleVersion,
   handleCloseTranslate,
   changeVersion,
-}: BibleTranslateDialogProps): JSX.Element => {
+}: BibleTranslateDialogProps) {
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (
@@ -117,5 +120,3 @@ const BibleTranslateDialog = ({
     </Sheet>
   )
 }
-
-export default BibleTranslateDialog

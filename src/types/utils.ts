@@ -14,7 +14,7 @@ export interface QueryResult<T> {
   isError: boolean
   isGuideError?: boolean
   isLoading: boolean
-  refetch: (options?: {
+  refetch: (_?: {
     throwOnError: boolean
     cancelRefetch: boolean
   }) => Promise<UseQueryResult>

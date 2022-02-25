@@ -1,17 +1,17 @@
-// Core
+import { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-
-// 3rd Party Libs
 import { NextSeo } from 'next-seo'
 import toast from 'react-hot-toast'
 import { useTheme } from 'next-themes'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
+
+// Icon Components
 import CopyIcon from '~/components/Icons/CopyIcon'
 
-const Persembahan = (): JSX.Element => {
+const Persembahan: NextPage = () => {
   const { resolvedTheme: theme } = useTheme()
 
   const fallbackCopyNumber = async (bank: string, bankText: string) => {
