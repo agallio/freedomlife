@@ -41,12 +41,12 @@ export default function Document() {
         <meta
           name="theme-color"
           media="(prefers-color-scheme: light)"
-          content="white"
+          content="#f9fafb"
         />
         <meta
           name="theme-color"
           media="(prefers-color-scheme: dark)"
-          content="#18181b"
+          content="#1f2937"
         />
       </Head>
       <body>
