@@ -55,6 +55,28 @@ const nextConfig = {
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
+    runtimeCaching: [
+      {
+        urlPattern: /^https?.*/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'offlineCache',
+          expiration: {
+            maxEntries: 200,
+          },
+        },
+      },
+    ],
+    buildExcludes: [
+      /chunks\/images\/.*$/, // Don't precache files under .next/static/chunks/images this improves next-optimized-images behaviour
+      /chunks\/pages\/api\/.*/, // Don't cache the API it needs fresh serverinfo
+    ],
+    exclude: [
+      /\.map$/, // Don't cache map files
+      /^.*ts.*$/, // Don't let serviceworker touch the TS streams
+      /-manifest.json$/, // exclude those pesky json files in _next root but still serve the ones we need from /_next/static
+    ],
+    reloadOnOnline: false, // Prevents reloads on offline/online switch
   },
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
