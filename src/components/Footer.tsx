@@ -29,6 +29,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center mb-4"
+              aria-label="Vercel Logo"
             >
               <VercelIcon theme={theme} className="w-[81px] h-[18px]" />
             </a>
@@ -37,6 +38,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center mb-2"
+              aria-label="Supabase Logo"
             >
               <SupabaseIcon theme={theme} className="w-[120px] h-[23px]" />
             </a>
