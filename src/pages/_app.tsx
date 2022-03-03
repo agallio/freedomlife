@@ -26,6 +26,10 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
     <>
       <Head>
         <meta name="title" content="FreedomLife — Alkitab &amp; Panduan Baca" />
+        <meta
+          name="viewport"
+          content="initial-scale=1, viewport-fit=cover, user-scalable=no"
+        />
       </Head>
       <Script
         async
