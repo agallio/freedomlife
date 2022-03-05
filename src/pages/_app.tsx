@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Script from 'next/script'
-import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
@@ -26,10 +25,6 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
     <>
       <Head>
         <meta name="title" content="FreedomLife — Alkitab &amp; Panduan Baca" />
-        <meta
-          name="viewport"
-          content="initial-scale=1, viewport-fit=cover, user-scalable=no"
-        />
       </Head>
       <Script
         async
@@ -42,14 +37,12 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       <QueryClientProvider client={queryClient}>
         <GuideProvider>
           <BibleProvider>
-            <ThemeProvider attribute="class">
-              <Toaster />
-              <Component {...pageProps} />
+            <Toaster />
+            <Component {...pageProps} />
 
-              {router.pathname !== '/404' &&
-                router.pathname !== '/persembahan' &&
-                router.pathname !== '/learn' && <BottomTabBar />}
-            </ThemeProvider>
+            {router.pathname !== '/404' &&
+              router.pathname !== '/persembahan' &&
+              router.pathname !== '/learn' && <BottomTabBar />}
           </BibleProvider>
         </GuideProvider>
       </QueryClientProvider>

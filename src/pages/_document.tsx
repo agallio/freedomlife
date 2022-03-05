@@ -13,13 +13,6 @@ export default function Document() {
           crossOrigin="anonymous"
         />
         <link
-          rel="preload"
-          href="/fonts/lato-black.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="/apple-touch-icon.png"
@@ -47,6 +40,20 @@ export default function Document() {
           name="theme-color"
           media="(prefers-color-scheme: dark)"
           content="#1f2937"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (
+                localStorage.theme === '"dark"' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+              ) {
+                document.documentElement.classList.add('dark')
+              } else {
+                document.documentElement.classList.remove('dark')
+              }
+            `,
+          }}
         />
       </Head>
       <body>

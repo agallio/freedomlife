@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef } from 'react'
 import { NextSeo } from 'next-seo'
-import { useTheme } from 'next-themes'
 
 // Components
 import BibleNavbar from '~/components/Bible/BibleNavbar'
@@ -19,6 +18,7 @@ import { copyText } from '~/utils/bible'
 import { bibleList, scrollToTop } from '~/utils/constants'
 import { useBibleByPassage } from '~/utils/hooks/useFetchedBible'
 import useLocalStorage from '~/utils/hooks/useLocalStorage'
+import { checkTheme } from '~/utils/hooks/useDynamicTheme'
 
 // Contexts
 import { useBible } from '~/contexts/BibleContext'
@@ -26,7 +26,7 @@ import { useBible } from '~/contexts/BibleContext'
 export default function ReadIndividualChapter() {
   // Core Configs
   const router = useRouter()
-  const { resolvedTheme: theme } = useTheme()
+  const theme = checkTheme()
   const { passage, chapter } = router.query
 
   // Contexts

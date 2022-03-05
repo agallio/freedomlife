@@ -74,12 +74,12 @@ export default function BiblePassageDialog({
           <h3
             className={`mx-4 ${
               inGuide ? '' : 'mb-2'
-            } text-emerald-700 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white`}
+            } text-gray-800 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white`}
           >
             {inGuide ? 'Pilih Panduan Baca' : 'Pilih Kitab & Pasal'}
           </h3>
           {inGuide && (
-            <p className="mx-4 mb-2 text-emerald-700 sm:max-w-md sm:mx-auto dark:text-white">
+            <p className="mx-4 mb-2 text-gray-500 sm:max-w-md sm:mx-auto dark:text-white">
               {guideDate
                 ? dayjs(guideDate, 'DD-MM-YYYY').format('DD MMMM YYYY')
                 : dayjs().format('DD MMMM YYYY')}
@@ -90,14 +90,14 @@ export default function BiblePassageDialog({
           <div id="modalPassageContent" className="overflow-auto">
             {inGuide ? (
               <>
-                <div className="rounded-lg shadow-md mx-4 my-4 bg-emerald-200 sm:mx-1 dark:bg-gray-800">
-                  <p className="p-4 text-sm text-emerald-900 dark:text-white">
+                <div className="rounded-lg shadow-md shadow-emerald-400/60 mx-4 my-4 bg-emerald-700 sm:mx-1 dark:bg-gray-800 dark:shadow-inherit">
+                  <p className="p-4 text-sm text-white dark:text-white">
                     Anda sedang membaca menggunakan panduan. Jika Anda ingin
                     membaca pasal diluar panduan silakan tekan tombol keluar
                     dibawah ini.
                   </p>
                   <div
-                    className="rounded-b-lg px-4 py-2 dark:bg-gray-500 dark:bg-opacity-60"
+                    className="bg-emerald-200/80 rounded-b-lg px-4 py-2 dark:bg-gray-500/60"
                     style={{
                       backdropFilter: 'saturate(80%) blur(20px)',
                       WebkitBackdropFilter: 'saturate(80%) blur(20px)',
@@ -105,7 +105,7 @@ export default function BiblePassageDialog({
                   >
                     <button
                       aria-label="Keluar Dari Panduan Baca"
-                      className="w-full bg-emerald-800 bg-opacity-80 text-white py-2 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
+                      className="w-full bg-emerald-800/80 text-white py-2 uppercase rounded-full text-sm font-bold transition duration-300 dark:bg-white dark:bg-opacity-20 focus:outline-none hover:bg-opacity-30 sm:w-full"
                       style={{
                         backdropFilter: 'saturate(100%) blur(20px)',
                         WebkitBackdropFilter: 'saturate(100%) blur(20px)',
@@ -121,10 +121,10 @@ export default function BiblePassageDialog({
                   </div>
                 </div>
                 <div
-                  className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                  className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                     passage === 'pl-1'
                       ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                      : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
                   onClick={() =>
                     typeof changePassage === 'function'
@@ -132,7 +132,7 @@ export default function BiblePassageDialog({
                       : null
                   }
                 >
-                  <h3 className="text-lg">
+                  <h3 className="text-lg font-semibold">
                     {plSpaceSplit
                       ? plSpaceSplit.length === 3
                         ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
@@ -143,14 +143,20 @@ export default function BiblePassageDialog({
                           }`
                       : ''}
                   </h3>
-                  <p className="text-sm font-light">Perjanjian Lama 1</p>
+                  <p
+                    className={`text-sm tracking-wide ${
+                      passage !== 'pl-1' ? 'text-gray-500 dark:text-white' : ''
+                    }`}
+                  >
+                    Perjanjian Lama 1
+                  </p>
                 </div>
                 {plList!.length > 1 && (
                   <div
-                    className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-2'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() =>
                       typeof changePassage === 'function'
@@ -158,7 +164,7 @@ export default function BiblePassageDialog({
                         : null
                     }
                   >
-                    <h3 className="text-lg">
+                    <h3 className="text-lg font-semibold">
                       {plSpaceSplit
                         ? plSpaceSplit.length === 3
                           ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
@@ -167,15 +173,23 @@ export default function BiblePassageDialog({
                           : `${plSpaceSplit[0]} ${plList![1]}`
                         : ''}
                     </h3>
-                    <p className="text-sm font-light">Perjanjian Lama 2</p>
+                    <p
+                      className={`text-sm tracking-wide ${
+                        passage !== 'pl-2'
+                          ? 'text-gray-500 dark:text-white'
+                          : ''
+                      }`}
+                    >
+                      Perjanjian Lama 2
+                    </p>
                   </div>
                 )}
                 {plList!.length > 2 && (
                   <div
-                    className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-3'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() =>
                       typeof changePassage === 'function'
@@ -192,15 +206,23 @@ export default function BiblePassageDialog({
                           : `${plSpaceSplit[0]} ${plList![2]}`
                         : ''}
                     </h3>
-                    <p className="text-sm font-light">Perjanjian Lama 3</p>
+                    <p
+                      className={`text-sm tracking-wide ${
+                        passage !== 'pl-3'
+                          ? 'text-gray-500 dark:text-white'
+                          : ''
+                      }`}
+                    >
+                      Perjanjian Lama 3
+                    </p>
                   </div>
                 )}
                 {plList!.length > 3 && (
                   <div
-                    className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'pl-4'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() =>
                       typeof changePassage === 'function'
@@ -217,14 +239,22 @@ export default function BiblePassageDialog({
                           : `${plSpaceSplit[0]} ${plList![3]}`
                         : ''}
                     </h3>
-                    <p className="text-sm font-light">Perjanjian Lama 4</p>
+                    <p
+                      className={`text-sm tracking-wide ${
+                        passage !== 'pl-4'
+                          ? 'text-gray-500 dark:text-white'
+                          : ''
+                      }`}
+                    >
+                      Perjanjian Lama 4
+                    </p>
                   </div>
                 )}
                 <div
-                  className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                  className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                     passage === 'pb'
                       ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                      : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
+                      : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                   } sm:mx-1`}
                   onClick={() =>
                     typeof changePassage === 'function'
@@ -232,12 +262,20 @@ export default function BiblePassageDialog({
                       : null
                   }
                 >
-                  <h3 className="text-lg">{guideData?.pb_name || ''}</h3>
-                  <p className="text-sm font-light">Perjanjian Baru</p>
+                  <h3 className="text-lg font-semibold">
+                    {guideData?.pb_name || ''}
+                  </h3>
+                  <p
+                    className={`text-sm tracking-wide ${
+                      passage !== 'pb' ? 'text-gray-500 dark:text-white' : ''
+                    }`}
+                  >
+                    Perjanjian Baru
+                  </p>
                 </div>
                 {guideData?.in_name ? (
                   <div
-                    className={`rounded-lg shadow-md p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
+                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
                       passage === 'in-1'
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
@@ -249,7 +287,15 @@ export default function BiblePassageDialog({
                     }
                   >
                     <h3 className="text-lg">{guideData?.in_name || ''}</h3>
-                    <p className="text-sm font-light">Kitab Injil</p>
+                    <p
+                      className={`text-sm tracking-wide ${
+                        passage !== 'in-1'
+                          ? 'text-gray-500 dark:text-white'
+                          : ''
+                      }`}
+                    >
+                      Kitab Injil
+                    </p>
                   </div>
                 ) : null}
               </>
@@ -357,7 +403,7 @@ export default function BiblePassageDialog({
                             onClick={() => handleSelectChapter({ ...item })}
                             initial={{ borderRadius: '0.5rem' }}
                             transition={{ duration: 0.2 }}
-                            className="bg-white text-emerald-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
+                            className="bg-white text-gray-700 rounded-lg shadow m-4 sm:mx-1 dark:bg-gray-600 dark:text-white"
                           >
                             <motion.div transition={{ duration: 0.2 }}>
                               <motion.div
@@ -376,7 +422,7 @@ export default function BiblePassageDialog({
                           key={item.name}
                           onClick={() => handleSelectChapter({ ...item })}
                           transition={{ duration: 0.2 }}
-                          className="bg-white text-emerald-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700"
+                          className="bg-white text-gray-700 rounded-lg shadow m-4 transition transform duration-300 cursor-pointer sm:mx-1 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700"
                         >
                           <motion.div transition={{ duration: 0.2 }}>
                             <motion.div

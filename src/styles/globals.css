@@ -16,14 +16,6 @@
     U+FEFF, U+FFFD;
 }
 
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 900;
-  font-display: optional;
-  src: url(/fonts/lato-black.woff2) format('woff2');
-}
-
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -44,12 +36,12 @@ html.light {
 }
 
 body {
-  @apply p-0 m-0 bg-gray-50 dark:bg-gray-800;
+  @apply p-0 m-0 bg-gray-50 dark:bg-gray-800 dark:text-white;
   transition: var(--transition-default);
 }
 
 #__next {
-  @apply bg-gray-50 dark:bg-gray-800;
+  @apply bg-gray-50 dark:bg-gray-800 dark:text-white;
   transition: var(--transition-default);
 }
 /* end: custom base styles */

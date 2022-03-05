@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
 
 // Components
@@ -22,6 +21,7 @@ import { scrollToTop } from '~/utils/constants'
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
 import { useBibleByDate } from '~/utils/hooks/useFetchedBible'
 import useLocalStorage from '~/utils/hooks/useLocalStorage'
+import { checkTheme } from '~/utils/hooks/useDynamicTheme'
 
 // Contexts
 import { useGuide } from '~/contexts/GuideContext'
@@ -30,7 +30,7 @@ import { useBible } from '~/contexts/BibleContext'
 const Read: NextPage = () => {
   // Core Configs
   const router = useRouter()
-  const { resolvedTheme: theme } = useTheme()
+  const theme = checkTheme()
 
   // Contexts
   const { guideData, guideDate } = useGuide()

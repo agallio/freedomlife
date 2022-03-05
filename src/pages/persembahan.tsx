@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import toast from 'react-hot-toast'
-import { useTheme } from 'next-themes'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
@@ -11,8 +10,11 @@ import JumboHeader from '~/components/JumboHeader'
 // Icon Components
 import CopyIcon from '~/components/Icons/CopyIcon'
 
+// Utils
+import { checkTheme } from '~/utils/hooks/useDynamicTheme'
+
 const Persembahan: NextPage = () => {
-  const { resolvedTheme: theme } = useTheme()
+  const theme = checkTheme()
 
   const fallbackCopyNumber = async (bank: string, bankText: string) => {
     const textArea = document.createElement('textarea')

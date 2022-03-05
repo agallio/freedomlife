@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
-import Image from 'next/image'
 import Link from 'next/link'
 
 // Icon Components
 import FreedomlifeIcon from './Icons/FreedomlifeIcon'
 import MoonIcon from './Icons/MoonIcon'
 import SunIcon from './Icons/SunIcon'
+
+// Utils
+import { useDynamicTheme } from '~/utils/hooks/useDynamicTheme'
 
 interface JumboHeaderProps {
   isNotFound?: boolean
@@ -22,13 +23,19 @@ export default function JumboHeader({
   description,
 }: JumboHeaderProps) {
   const [isMounted, setIsMounted] = useState(false)
-  const { resolvedTheme: theme, setTheme } = useTheme()
+  const { theme, setTheme } = useDynamicTheme()
 
   useEffect(() => setIsMounted(true), [])
 
   const switchTheme = () => {
     if (isMounted) {
-      setTheme(theme === 'light' ? 'dark' : 'light')
+      if (document.documentElement.classList.value.includes('dark')) {
+        document.documentElement.classList.remove('dark')
+        setTheme('light')
+      } else {
+        document.documentElement.classList.add('dark')
+        setTheme('dark')
+      }
     }
   }
 
@@ -37,23 +44,12 @@ export default function JumboHeader({
       <div className={`flex justify-between items-center mb-4`}>
         {!isNotFound ? (
           <div className="flex items-center justify-center">
-            <FreedomlifeIcon className="w-[35px]" />
-            <h1 className="ml-[5px] text-3xl font-logo text-gray-800 dark:text-white">
-              freedomlife
-            </h1>
+            <FreedomlifeIcon className="w-[230px]" />
           </div>
         ) : (
           <Link href="/" passHref>
             <div className="flex items-center justify-center">
-              <Image
-                src="/android-chrome-512x512.png"
-                alt="FreedomLife Logo"
-                width={55}
-                height={55}
-              />
-              <h1 className="ml-[5px] text-5xl font-logo text-gray-800 dark:text-white">
-                freedomlife
-              </h1>
+              <FreedomlifeIcon className="w-[230px]" />
             </div>
           </Link>
         )}
@@ -69,12 +65,12 @@ export default function JumboHeader({
         )}
       </div>
       {subtitle && (
-        <p className="text-xl font-semibold text-emerald-700 dark:text-white">
+        <p className="text-xl font-semibold text-gray-800 dark:text-white">
           {subtitle}
         </p>
       )}
       {description && (
-        <p className="text-md font-light text-emerald-700 dark:text-white">
+        <p className="text-md font-light text-gray-800 dark:text-white">
           {description}
         </p>
       )}

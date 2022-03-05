@@ -1,4 +1,3 @@
-import { useTheme } from 'next-themes'
 import toast from 'react-hot-toast'
 
 // Components
@@ -7,6 +6,7 @@ import CheckIcon from '~/components/Icons/CheckIcon'
 
 // Utils
 import dayjs from '~/utils/dayjs'
+import { checkTheme } from '~/utils/hooks/useDynamicTheme'
 
 // Types
 import type { GuideDataResponse } from '~/types/api'
@@ -22,7 +22,7 @@ export default function GuideItem({
   index,
   toBibleWithDate,
 }: GuideItemProps) {
-  const { resolvedTheme: theme } = useTheme()
+  const theme = checkTheme()
 
   const isToday = (date: string) => {
     return dayjs().format('DD-MM-YYYY') === date
@@ -57,7 +57,7 @@ export default function GuideItem({
             className={`text-lg font-bold sm:text-xl ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-800 dark:text-white'
             }`}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
@@ -66,7 +66,7 @@ export default function GuideItem({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-700 dark:text-white'
             }`}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
@@ -125,7 +125,7 @@ export default function GuideItem({
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-800 dark:text-white'
             }`}
           >
             {item.pl_name || '-'}
@@ -134,7 +134,7 @@ export default function GuideItem({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-600 dark:text-white'
             }`}
           >
             Perjanjian Lama
@@ -145,7 +145,7 @@ export default function GuideItem({
             className={`font-bold sm:text-lg ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-800 dark:text-white'
             }`}
           >
             {item.pb_name || '-'}
@@ -154,7 +154,7 @@ export default function GuideItem({
             className={`text-sm sm:text-md ${
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-emerald-700 dark:text-white'
+                : 'text-gray-600 dark:text-white'
             }`}
           >
             Perjanjian Baru
@@ -166,7 +166,7 @@ export default function GuideItem({
               className={`font-bold sm:text-lg ${
                 isToday(item.date as string)
                   ? 'text-white'
-                  : 'text-emerald-700 dark:text-white'
+                  : 'text-gray-800 dark:text-white'
               }`}
             >
               {item.in_name || '-'}
@@ -175,7 +175,7 @@ export default function GuideItem({
               className={`text-sm sm:text-md ${
                 isToday(item.date as string)
                   ? 'text-white'
-                  : 'text-emerald-700 dark:text-white'
+                  : 'text-gray-600 dark:text-white'
               }`}
             >
               Kitab Injil

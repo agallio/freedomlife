@@ -12,8 +12,10 @@ import dayjs from '../dayjs'
 import type { QueryResult } from '~/types/utils'
 import type { GuideDataResponse } from '~/types/api'
 
-const getGuides = async () => {
-  const { data } = await axios.get(`/api/guide/month/${dayjs().format('MM')}`)
+const getGuides = async (month?: string) => {
+  const { data } = await axios.get(
+    `/api/guide/month/${month || dayjs().format('MM')}`
+  )
   return data
 }
 
@@ -24,11 +26,13 @@ const getGuideByDate = async (guideDate: string) => {
   return data
 }
 
-export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
-  const { data, error, isError, isLoading, refetch } = useQuery<
+export const useGuides = (options?: {
+  month?: string
+}): QueryResult<GuideDataResponse[] | undefined> => {
+  const { data, error, isError, isLoading, isFetching, refetch } = useQuery<
     { data: GuideDataResponse[] },
     AxiosError
-  >('guides', getGuides, {
+  >('guides', () => getGuides(options?.month), {
     retry: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -38,7 +42,7 @@ export const useGuides = (): QueryResult<GuideDataResponse[] | undefined> => {
     data: data?.data,
     error,
     isError,
-    isLoading,
+    isLoading: isLoading || isFetching,
     refetch,
   }
 }
