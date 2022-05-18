@@ -16,7 +16,7 @@
     "./src/**/*.{ts,tsx}": "bash -c \"pnpm test-all\""
   },
   "engines": {
-    "node": "14.x.x",
+    "node": ">=14.x.x",
     "npm": "please-use-pnpm"
   },
   "dependencies": {

@@ -86,16 +86,6 @@ const Guide: NextPage = () => {
           <ChevronDownIcon className="w-6 text-gray-500 dark:bg-gray-600 dark:text-white sm:hover:text-opacity-50" />
         </button>
 
-        <GuideMonthDialog
-          open={openMonthDialog}
-          monthNumber={monthNumber}
-          setMonthNumber={setMonthNumber}
-          onClose={() => {
-            document.body.style.overflow = 'visible'
-            setOpenMonthDialog(false)
-          }}
-        />
-
         <PageTransition>
           {isError ? (
             <GuideError monthNumber={monthNumber} />
@@ -112,6 +102,16 @@ const Guide: NextPage = () => {
             ))
           )}
         </PageTransition>
+
+        <GuideMonthDialog
+          open={openMonthDialog}
+          monthNumber={monthNumber}
+          setMonthNumber={setMonthNumber}
+          onClose={() => {
+            document.body.style.overflow = 'visible'
+            setOpenMonthDialog(false)
+          }}
+        />
       </div>
     </>
   )
