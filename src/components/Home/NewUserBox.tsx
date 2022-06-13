@@ -11,7 +11,7 @@ export default function NewUserBox() {
       title="Baru Pertama Kali?"
       footer={
         <button
-          aria-label="Buka Dialog Tahun Baru"
+          aria-label="Buka Halaman Panduan Penggunaan"
           className="w-full h-10 bg-blue-900 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md focus:outline-none hover:bg-opacity-30 sm:w-60 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-learn"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
