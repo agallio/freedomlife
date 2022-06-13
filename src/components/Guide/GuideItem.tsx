@@ -106,9 +106,7 @@ export default function GuideItem({
               isToday(item.date as string)
                 ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
                 : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
-            } rounded-full p-1 focus:outline-none umami--click--to-bible-${
-              item.date
-            }`}
+            } rounded-full p-1 focus:outline-none`}
             style={{
               backdropFilter: 'saturate(100%) blur(20px)',
               WebkitBackdropFilter: 'saturate(100%) blur(20px)',

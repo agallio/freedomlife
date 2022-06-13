@@ -34,7 +34,7 @@ export default function HomeBox({
           aria-label="Baca Panduan"
           className={`w-full h-10 bg-emerald-800 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md ${
             !isGuideError ? 'sm:w-24' : 'sm:w-full'
-          } focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 umami--click--to-bible`}
+          } focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30`}
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

@@ -45,7 +45,7 @@ export default function GuideMonthDialog({
                     monthNumber === item.value
                       ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
                       : 'bg-white text-gray-800 dark:bg-gray-600 dark:text-white'
-                  } umami--click--guide-month-${item.value}`}
+                  }`}
                 >
                   <div className="p-3 flex items-center justify-between">
                     <span>{item.name}</span>

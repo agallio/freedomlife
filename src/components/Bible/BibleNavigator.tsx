@@ -40,10 +40,6 @@ export default function BibleNavigator({
               : biblePassage === 'kej-1' || !biblePassage)
               ? 'invisible'
               : ''
-          } ${
-            inGuide
-              ? 'umami--click--to-prev-passage'
-              : 'umami--click--to-prev-chapter'
           }`}
           onClick={(e) => {
             e.preventDefault()
@@ -61,10 +57,6 @@ export default function BibleNavigator({
             biblePassage === 'why-22'
               ? 'invisible'
               : ''
-          } ${
-            inGuide
-              ? 'umami--click--to-next-passage'
-              : 'umami--click--to-next-chapter'
           }`}
           onClick={nextPassage}
         >

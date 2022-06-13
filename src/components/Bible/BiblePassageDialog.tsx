@@ -334,7 +334,7 @@ export default function BiblePassageDialog({
                         ).map((item) => (
                           <div
                             key={item}
-                            className={`w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-emerald-300 hover:text-emerald-900 hover:border-emerald-400 dark:border-gray-400 dark:text-white dark:hover:bg-emerald-700 dark:hover:border-emerald-600 umami--click--to-chapter-${chapterSelected.abbr}-${item}`}
+                            className="w-full h-14 border-2 border-gray-300 rounded flex items-center justify-center transition transform duration-300 cursor-pointer hover:bg-emerald-300 hover:text-emerald-900 hover:border-emerald-400 dark:border-gray-400 dark:text-white dark:hover:bg-emerald-700 dark:hover:border-emerald-600"
                             onClick={() => {
                               if (typeof changeChapter === 'function') {
                                 changeChapter(`${chapterSelected.abbr}-${item}`)
