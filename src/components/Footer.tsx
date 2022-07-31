@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 // Components
 import ExternalLink from './ExternalLink'
@@ -47,7 +48,26 @@ export default function Footer() {
           </>
         )}
       </div>
-      <hr className="my-3 border-gray-400 w-[80px] dark:border-white" />
+      <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
+
+      <div className="flex flex-col w-full mx-auto items-center justify-center">
+        <p className="tracking-wide mb-3">Disponsori oleh</p>
+        <a
+          href="https://github.com/nipeharefa"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            src="https://github.com/nipeharefa.png"
+            width={30}
+            height={30}
+            alt="nipeharefa's GitHub Profile Image"
+            className="rounded-full cursor-pointer"
+          />
+        </a>
+      </div>
+      <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
+
       <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
         Lisensi MIT © {dayjs().format('YYYY')} — FreedomLife
       </p>

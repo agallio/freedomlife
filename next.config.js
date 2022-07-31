@@ -101,6 +101,9 @@ const nextConfig = {
       },
     ]
   },
+  images: {
+    domains: ['github.com'],
+  },
 }
 
 module.exports = withPWA(nextConfig)

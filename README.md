@@ -92,13 +92,17 @@ Give a star to this repository would be a great help!
 
 Don't forget to share this application to your social media accounts if you find it helpful!
 
-You can also buy me a coffee! 😄 ☕️
-
-**[Saweria](https://saweria.co/agallio)**
+You can also sponsor me on GitHub (take a look on this repo sponsor section!) or buy me a coffee! 😄 ☕️
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/agallio)
 <a href="https://www.buymeacoffee.com/agallio" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
+# Sponsors & Donations
+
+## GitHub Sponsors
+
+<img src="https://github.com/nipeharefa.png" width="50" style="border-radius: 100%;">
+
 # License
 
-MIT License, © 2021, Agallio Samai.
+MIT License, © 2022, Agallio Samai.
