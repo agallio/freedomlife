@@ -99,9 +99,9 @@ You can also sponsor me on GitHub (take a look on this repo sponsor section!) or
 
 # Sponsors & Donations
 
-## GitHub Sponsors
+### GitHub Sponsors
 
-<img src="https://github.com/nipeharefa.png" width="50" style="border-radius: 100%;">
+<img src="https://github.com/nipeharefa.png" width="40">
 
 # License
 
