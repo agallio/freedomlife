@@ -99,7 +99,7 @@ You can also sponsor me on GitHub (take a look on this repo sponsor section!) or
 
 # Sponsors & Donations
 
-## GitHub Sponsors
+### GitHub Sponsors
 
 <a href="https://github.com/nipeharefa" target="_blank"><img src="https://github.com/nipeharefa.png" width="50" style="border-radius: 100%;"></a>
 <a href="https://github.com/sonnylazuardi" target="_blank"><img src="https://github.com/sonnylazuardi.png" width="50" style="border-radius: 100%;"></a>
