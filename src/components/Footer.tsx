@@ -52,19 +52,25 @@ export default function Footer() {
 
       <div className="flex flex-col w-full mx-auto items-center justify-center">
         <p className="tracking-wide mb-3">Disponsori oleh</p>
-        <a
-          href="https://github.com/nipeharefa"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            src="https://github.com/nipeharefa.png"
-            width={30}
-            height={30}
-            alt="nipeharefa's GitHub Profile Image"
-            className="rounded-full cursor-pointer"
-          />
-        </a>
+        <div className="flex items-center">
+          {['nipeharefa', 'sozonome', 'sonnylazuardi'].map((item) => (
+            <a
+              key={item}
+              href={`https://github.com/${item}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-1"
+            >
+              <Image
+                src={`https://github.com/${item}.png`}
+                width={30}
+                height={30}
+                alt={`${item}'s GitHub Profile Image`}
+                className="rounded-full cursor-pointer"
+              />
+            </a>
+          ))}
+        </div>
       </div>
       <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
 
