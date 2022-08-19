@@ -1,6 +1,7 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { useEffect } from 'react'
 import Router from 'next/router'
+import axios from 'axios'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
@@ -17,7 +18,11 @@ import { useGuide } from '~/contexts/GuideContext'
 import dayjs from '~/utils/dayjs'
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
 
-const Home: NextPage = () => {
+export interface HomeProps {
+  sponsors: string[]
+}
+
+const Home: NextPage<HomeProps> = ({ sponsors }) => {
   // Context
   const { guideData, guideDate, setGuideDate } = useGuide()
 
@@ -106,9 +111,22 @@ const Home: NextPage = () => {
         )}
       </main>
 
-      {isError && !isGuideError ? null : <Footer />}
+      {isError && !isGuideError ? null : <Footer sponsors={sponsors} />}
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const { data } = await axios.get('https://ghs.vercel.app/sponsors/agallio')
+    return {
+      props: {
+        sponsors: data.sponsors.map((i: { handle: string }) => i.handle),
+      },
+    }
+  } catch {
+    return { props: { sponsors: null } }
+  }
 }
 
 export default Home

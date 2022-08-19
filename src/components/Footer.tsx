@@ -11,7 +11,7 @@ import SupabaseIcon from './Icons/SupabaseIcon'
 // Utils
 import dayjs from '~/utils/dayjs'
 
-export default function Footer() {
+export default function Footer({ sponsors }: { sponsors: string[] }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -52,8 +52,8 @@ export default function Footer() {
 
       <div className="flex flex-col w-full mx-auto items-center justify-center">
         <p className="tracking-wide mb-3">Disponsori oleh</p>
-        <div className="flex items-center">
-          {['nipeharefa', 'sozonome', 'sonnylazuardi'].map((item) => (
+        <div className="flex justify-center flex-wrap">
+          {sponsors.map((item) => (
             <a
               key={item}
               href={`https://github.com/${item}`}
