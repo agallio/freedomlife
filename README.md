@@ -97,14 +97,6 @@ You can also sponsor me on GitHub (take a look on this repo sponsor section!) or
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/agallio)
 <a href="https://www.buymeacoffee.com/agallio" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-# Sponsors & Donations
-
-### GitHub Sponsors
-
-<a href="https://github.com/nipeharefa" target="_blank"><img src="https://github.com/nipeharefa.png" width="50" style="border-radius: 100%;"></a>
-<a href="https://github.com/sonnylazuardi" target="_blank"><img src="https://github.com/sonnylazuardi.png" width="50" style="border-radius: 100%;"></a>
-<a href="https://github.com/sozonome" target="_blank"><img src="https://github.com/sozonome.png" width="50" style="border-radius: 100%;"></a>
-
 # License
 
 MIT License, © 2022, Agallio Samai.
