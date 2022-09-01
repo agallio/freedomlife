@@ -11,7 +11,7 @@ import SupabaseIcon from './Icons/SupabaseIcon'
 // Utils
 import dayjs from '~/utils/dayjs'
 
-export default function Footer({ sponsors }: { sponsors: string[] }) {
+export default function Footer() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -53,23 +53,25 @@ export default function Footer({ sponsors }: { sponsors: string[] }) {
       <div className="flex flex-col w-full mx-auto items-center justify-center">
         <p className="tracking-wide mb-3">Disponsori oleh</p>
         <div className="flex justify-center flex-wrap">
-          {sponsors.map((item) => (
-            <a
-              key={item}
-              href={`https://github.com/${item}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-1"
-            >
-              <Image
-                src={`https://github.com/${item}.png`}
-                width={30}
-                height={30}
-                alt={`${item}'s GitHub Profile Image`}
-                className="rounded-full cursor-pointer"
-              />
-            </a>
-          ))}
+          {['sonnylazuardi', 'jackyef', 'sozonome', 'nipeharefa'].map(
+            (item) => (
+              <a
+                key={item}
+                href={`https://github.com/${item}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-1"
+              >
+                <Image
+                  src={`https://github.com/${item}.png`}
+                  width={30}
+                  height={30}
+                  alt={`${item}'s GitHub Profile Image`}
+                  className="rounded-full cursor-pointer"
+                />
+              </a>
+            )
+          )}
         </div>
       </div>
       <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
