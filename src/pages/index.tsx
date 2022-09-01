@@ -87,8 +87,6 @@ const Home: NextPage<HomeProps> = ({ sponsors }) => {
       <JumboHeader isHome />
 
       <main>
-        {isError && !isGuideError ? null : <NewTranslationBox />}
-
         <HomeBox
           data={data}
           isLoading={isLoading}
