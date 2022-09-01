@@ -24,7 +24,6 @@ export default function HomeBox({
   return (
     <HomeCard
       isLoading={isLoading}
-      top="6"
       title={!isGuideError ? 'Panduan Baca Hari Ini' : undefined}
       subtitle={
         !isGuideError ? dayjs().format('dddd, DD MMMM YYYY') : undefined
