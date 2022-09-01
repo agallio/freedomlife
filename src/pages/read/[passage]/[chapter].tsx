@@ -216,7 +216,7 @@ export default function ReadIndividualChapter() {
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://freedomlife.id/images/og-read.png',
+              url: 'https://freedomlife.id/images/og-read.png',
               alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Baca Firman Hari Ini'`,
             },
           ],

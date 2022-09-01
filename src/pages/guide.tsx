@@ -60,7 +60,7 @@ const Guide: NextPage = () => {
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://freedomlife.id/images/og-guide.png',
+              url: 'https://freedomlife.id/images/og-guide.png',
               alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Panduan Baca Bulan Ini'`,
             },
           ],

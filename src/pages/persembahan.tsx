@@ -87,7 +87,7 @@ const Persembahan: NextPage = () => {
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://freedomlife.id/images/og-persembahan.png',
+              url: 'https://freedomlife.id/images/og-persembahan.png',
               alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Persembahan dan Perpuluhan'`,
             },
           ],

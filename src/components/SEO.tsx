@@ -14,7 +14,7 @@ const SeoConfig = {
     site_name: 'FreedomLife',
     images: [
       {
-        url: 'http://freedomlife.id/images/og-index.png',
+        url: 'https://freedomlife.id/images/og-index.png',
         alt: `Tulisan dan logo 'freedomlife'`,
       },
     ],

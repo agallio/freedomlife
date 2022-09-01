@@ -35,7 +35,7 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
           site_name: 'FreedomLife',
           images: [
             {
-              url: 'http://freedomlife.id/images/og-learn.png',
+              url: 'https://freedomlife.id/images/og-learn.png',
               alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Cara Penggunaan'`,
             },
           ],
