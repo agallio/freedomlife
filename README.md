@@ -6,7 +6,8 @@ freedomlife: your go-to Indonesian bible app!
 
 freedomlife is an Indonesian bible app with a full-year guide—no need to be confused about what to read anymore. There is a collection of reading guides for today and other days of the same year. You also can read the bible directly without guides.
 
-<a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/public/images/google-play.svg" alt="Google Play Button" width="180"></a>
+<a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/public/images/google-play.svg" alt="Google Play Store Button" width="180"></a>
+<a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/public/images/app-store.svg" alt="Apple App Store Button" width="180"></a>
 
 # Installation
 
