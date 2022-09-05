@@ -47,17 +47,17 @@ const Guide: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Panduan Baca | FreedomLife</title>
+        <title>Panduan Baca | freedomlife</title>
       </Head>
       <NextSeo
-        title="Panduan Baca | FreedomLife"
+        title="Panduan Baca | freedomlife"
         description="Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi."
         openGraph={{
           url: 'https://freedomlife.id/guide',
-          title: 'Panduan Baca | FreedomLife',
+          title: 'Panduan Baca | freedomlife',
           description:
             'Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi.',
-          site_name: 'FreedomLife',
+          site_name: 'freedomlife',
           images: [
             {
               url: 'https://freedomlife.id/images/og-guide.png',

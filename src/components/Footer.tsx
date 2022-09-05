@@ -77,7 +77,7 @@ export default function Footer() {
       <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
 
       <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
-        Lisensi MIT © {dayjs().format('YYYY')} — FreedomLife
+        Lisensi MIT © {dayjs().format('YYYY')} — freedomlife
       </p>
       <span className="mt-3 text-xs text-gray-600 dark:text-gray-300">
         Memiliki kritik &amp; saran?{' '}

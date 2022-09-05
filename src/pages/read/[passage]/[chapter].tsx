@@ -195,25 +195,25 @@ export default function ReadIndividualChapter() {
       <Head>
         <title>
           {bibleDetail
-            ? `${bibleDetail.name} ${chapter} | FreedomLife`
-            : 'FreedomLife'}
+            ? `${bibleDetail.name} ${chapter} | freedomlife`
+            : 'freedomlife'}
         </title>
       </Head>
       <NextSeo
         title={
           bibleDetail
-            ? `${bibleDetail.name} ${chapter} | FreedomLife`
-            : 'FreedomLife'
+            ? `${bibleDetail.name} ${chapter} | freedomlife`
+            : 'freedomlife'
         }
         description="Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 8 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca."
         openGraph={{
           url: `https://freedomlife.id/read/${passage}/${chapter}`,
           title: bibleDetail
-            ? `${bibleDetail.name} ${chapter} | FreedomLife`
-            : 'FreedomLife',
+            ? `${bibleDetail.name} ${chapter} | freedomlife`
+            : 'freedomlife',
           description:
             'Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 8 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca.',
-          site_name: 'FreedomLife',
+          site_name: 'freedomlife',
           images: [
             {
               url: 'https://freedomlife.id/images/og-read.png',

@@ -24,7 +24,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <Head>
-        <meta name="title" content="FreedomLife — Alkitab &amp; Panduan Baca" />
+        <meta name="title" content="freedomlife — Alkitab &amp; Panduan Baca" />
       </Head>
       <Script
         async

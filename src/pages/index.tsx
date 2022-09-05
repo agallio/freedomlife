@@ -68,7 +68,7 @@ const Home: NextPage = () => {
           >
             <p className="px-4 py-4 text-sm">
               <b>
-                FreedomLife sedang dalam masa perbaikan. Mohon tunggu beberapa
+                freedomlife sedang dalam masa perbaikan. Mohon tunggu beberapa
                 saat lagi.
               </b>
             </p>

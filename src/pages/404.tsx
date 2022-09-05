@@ -8,7 +8,7 @@ const NotFound: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Halaman Tidak Ditemukan | FreedomLife</title>
+        <title>Halaman Tidak Ditemukan | freedomlife</title>
       </Head>
 
       <div className="full-height max-w-sm p-6 mx-auto flex flex-col items-center justify-center sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">

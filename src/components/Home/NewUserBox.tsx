@@ -27,7 +27,7 @@ export default function NewUserBox() {
       <div className="px-4 py-3 flex flex-col items-center justify-center mb-4">
         <NewUserIcon className="w-44 h-44 sm:w-36" />
         <h1 className="text-white text-center text-sm">
-          Baru pertama kali buka FreedomLife? <br /> Yuk belajar cara pakainya!
+          Baru pertama kali buka freedomlife? <br /> Yuk belajar cara pakainya!
         </h1>
       </div>
     </HomeCard>

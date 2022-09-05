@@ -74,17 +74,17 @@ const Persembahan: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Persembahan | FreedomLife</title>
+        <title>Persembahan | freedomlife</title>
       </Head>
       <NextSeo
-        title="Persembahan | FreedomLife"
+        title="Persembahan | freedomlife"
         description="Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta."
         openGraph={{
           url: 'https://freedomlife.id/persembahan',
-          title: 'Persembahan | FreedomLife',
+          title: 'Persembahan | freedomlife',
           description:
             'Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta.',
-          site_name: 'FreedomLife',
+          site_name: 'freedomlife',
           images: [
             {
               url: 'https://freedomlife.id/images/og-persembahan.png',
