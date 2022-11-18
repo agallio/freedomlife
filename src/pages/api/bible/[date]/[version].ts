@@ -25,10 +25,11 @@ export default async function bibleByDate(
       .json({ data: null, error: "Param 'date' is missing" })
   }
 
-  const { data: guideByDateData, error: guideByDateError } = await supabase
-    .from<SupabaseGuides>('guides')
+  const { data, error: guideByDateError } = await supabase
+    .from('guides')
     .select()
     .filter('date', 'eq', String(date))
+  const guideByDateData = data as SupabaseGuides[]
 
   if (guideByDateError) {
     return res.status(500).json({ data: null, error: guideByDateError.message })
@@ -54,12 +55,13 @@ export default async function bibleByDate(
       const plColonDashSplit = plColonSplit[1].split('-')
 
       try {
-        const { data: plData, error: plError } = await supabase
-          .from<SupabaseBibles>('bibles')
+        const { data, error: plError } = await supabase
+          .from('bibles')
           .select()
           .filter('abbr', 'eq', plSpaceSplit[0])
           .filter('chapter', 'eq', String(plColonSplit[0]))
           .filter('version', 'eq', version || 'tb')
+        const plData = data as SupabaseBibles[]
 
         if (plError) {
           return res
@@ -91,12 +93,13 @@ export default async function bibleByDate(
 
       for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
         try {
-          const { data: plData, error: plError } = await supabase
-            .from<SupabaseBibles>('bibles')
+          const { data, error: plError } = await supabase
+            .from('bibles')
             .select()
             .filter('abbr', 'eq', plSpaceSplit[0])
             .filter('chapter', 'eq', i)
             .filter('version', 'eq', version || 'tb')
+          const plData = data as SupabaseBibles[]
 
           if (plError) {
             return res
@@ -122,12 +125,13 @@ export default async function bibleByDate(
       }
     } else {
       try {
-        const { data: plData, error: plError } = await supabase
-          .from<SupabaseBibles>('bibles')
+        const { data, error: plError } = await supabase
+          .from('bibles')
           .select()
           .filter('abbr', 'eq', plSpaceSplit[0])
           .filter('chapter', 'eq', plSpaceSplit[1])
           .filter('version', 'eq', version || 'tb')
+        const plData = data as SupabaseBibles[]
 
         if (plError) {
           return res.status(500).json({ data: null, error: `${plError} (pl)` })
@@ -156,12 +160,13 @@ export default async function bibleByDate(
       const pbDashSplit = pbColonSplit[1].split('-')
 
       try {
-        const { data: pbData, error: pbError } = await supabase
-          .from<SupabaseBibles>('bibles')
+        const { data, error: pbError } = await supabase
+          .from('bibles')
           .select()
           .filter('abbr', 'eq', pbSpaceSplit[0])
           .filter('chapter', 'eq', pbColonSplit[0])
           .filter('version', 'eq', version || 'tb')
+        const pbData = data as SupabaseBibles[]
 
         if (pbError) {
           return res
@@ -190,12 +195,13 @@ export default async function bibleByDate(
       }
     } else {
       try {
-        const { data: pbData, error: pbError } = await supabase
-          .from<SupabaseBibles>('bibles')
+        const { data, error: pbError } = await supabase
+          .from('bibles')
           .select()
           .filter('abbr', 'eq', pbSpaceSplit[0])
           .filter('chapter', 'eq', pbSpaceSplit[1])
           .filter('version', 'eq', version || 'tb')
+        const pbData = data as SupabaseBibles[]
 
         if (pbError) {
           return res.status(500).json({ data: null, error: `${pbError} (pb)` })
@@ -227,12 +233,13 @@ export default async function bibleByDate(
         const injColonDashSplit = injColonSplit[1].split('-')
 
         try {
-          const { data: inData, error: inError } = await supabase
-            .from<SupabaseBibles>('bibles')
+          const { data, error: inError } = await supabase
+            .from('bibles')
             .select()
             .filter('abbr', 'eq', injSpaceSplit[0])
             .filter('chapter', 'eq', injColonSplit[0])
             .filter('version', 'eq', version || 'tb')
+          const inData = data as SupabaseBibles[]
 
           if (inError) {
             return res
@@ -268,12 +275,13 @@ export default async function bibleByDate(
           i++
         ) {
           try {
-            const { data: inData, error: inError } = await supabase
-              .from<SupabaseBibles>('bibles')
+            const { data, error: inError } = await supabase
+              .from('bibles')
               .select()
               .filter('abbr', 'eq', injSpaceSplit[0])
               .filter('chapter', 'eq', i)
               .filter('version', 'eq', version || 'tb')
+            const inData = data as SupabaseBibles[]
 
             if (inError) {
               return res
@@ -300,12 +308,13 @@ export default async function bibleByDate(
         }
       } else {
         try {
-          const { data: inData, error: inError } = await supabase
-            .from<SupabaseBibles>('bibles')
+          const { data, error: inError } = await supabase
+            .from('bibles')
             .select()
             .filter('abbr', 'eq', injSpaceSplit[0])
             .filter('chapter', 'eq', injSpaceSplit[1])
             .filter('version', 'eq', version || 'tb')
+          const inData = data as SupabaseBibles[]
 
           if (inError) {
             return res

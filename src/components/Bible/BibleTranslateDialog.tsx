@@ -20,14 +20,13 @@ export default function BibleTranslateDialog({
   return (
     <Sheet isOpen={openTranslate} onClose={handleCloseTranslate}>
       <Sheet.Container
-        onViewportBoxUpdate={null}
         style={{
           height: !mediaLandscape
             ? 'calc(100% - env(safe-area-inset-top) - 5%)'
             : 'calc(100% - env(safe-area-inset-top) - 32px)',
         }}
       >
-        <Sheet.Header onViewportBoxUpdate={null}>
+        <Sheet.Header>
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
@@ -35,7 +34,7 @@ export default function BibleTranslateDialog({
             Pilih Terjemahan
           </h3>
         </Sheet.Header>
-        <Sheet.Content onViewportBoxUpdate={null}>
+        <Sheet.Content>
           <div className="overflow-auto">
             <h4 className="px-4 mt-4 tracking-wide font-medium text-gray-500 dark:text-white">
               Bahasa Indonesia
@@ -116,7 +115,7 @@ export default function BibleTranslateDialog({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleCloseTranslate} onViewportBoxUpdate={null} />
+      <Sheet.Backdrop onTap={handleCloseTranslate} />
     </Sheet>
   )
 }

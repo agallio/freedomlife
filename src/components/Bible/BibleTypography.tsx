@@ -108,7 +108,7 @@ export default function BibleTypography({
             return (
               <p
                 key={index}
-                className="cursor-pointer leading-[200%]"
+                className="cursor-pointer leading-loose"
                 onClick={() => highlightText(item.verse, item.content)}
               >
                 <sup className="mr-3 relative -top-1 font-light text-xs text-emerald-700 dark:text-emerald-300">

@@ -21,8 +21,8 @@ export default function GuideMonthDialog({
 }: GuideMonthDialogProps) {
   return (
     <Sheet isOpen={open} onClose={onClose}>
-      <Sheet.Container onViewportBoxUpdate={null}>
-        <Sheet.Header onViewportBoxUpdate={null}>
+      <Sheet.Container>
+        <Sheet.Header>
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
@@ -31,7 +31,7 @@ export default function GuideMonthDialog({
             Pilih Bulan
           </h3>
         </Sheet.Header>
-        <Sheet.Content onViewportBoxUpdate={null}>
+        <Sheet.Content>
           <div className="overflow-auto">
             <ul>
               {monthList.map((item) => (
@@ -68,7 +68,7 @@ export default function GuideMonthDialog({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={onClose} onViewportBoxUpdate={null} />
+      <Sheet.Backdrop onTap={onClose} />
     </Sheet>
   )
 }

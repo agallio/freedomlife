@@ -30,15 +30,14 @@ export default function BibleSettingDialog({
   return (
     <Sheet isOpen={openSetting} onClose={handleCloseSetting}>
       <Sheet.Container
-        onViewportBoxUpdate={null}
         style={{
           height: !mediaLandscape
             ? 'calc(100% - env(safe-area-inset-top) - 60%)'
             : 'calc(100% - env(safe-area-inset-top) - 30%)',
         }}
       >
-        <Sheet.Header onViewportBoxUpdate={null} />
-        <Sheet.Content onViewportBoxUpdate={null}>
+        <Sheet.Header />
+        <Sheet.Content>
           <h3 className="mx-4 mb-2 text-gray-800 font-bold text-xl sm:mx-0 dark:text-white">
             Pengaturan
           </h3>
@@ -65,7 +64,7 @@ export default function BibleSettingDialog({
               onClick={() =>
                 handlePlusFontSize(verseFontSize, setVerseFontSize)
               }
-              disabled={verseFontSize === '3xl'}
+              disabled={verseFontSize === '2xl'}
             >
               <PlusIcon className="w-6" />
             </button>
@@ -79,7 +78,7 @@ export default function BibleSettingDialog({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleCloseSetting} onViewportBoxUpdate={null} />
+      <Sheet.Backdrop onTap={handleCloseSetting} />
     </Sheet>
   )
 }

@@ -75,7 +75,9 @@ export const useGuideByDate = (options?: {
     data: data?.data,
     error,
     isError,
-    isGuideError: error?.response?.data.error === 'Guide not found.',
+    isGuideError:
+      (error?.response?.data as { error: string })?.error ===
+      'Guide not found.',
     isLoading,
     refetch,
   }

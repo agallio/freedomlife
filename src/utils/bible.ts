@@ -8,8 +8,7 @@ export const fontSizeName: { [key: string]: string } = {
   base: 'Normal',
   lg: 'Sedang',
   xl: 'Besar',
-  '2xl': 'Lebih Besar',
-  '3xl': 'Sangat Besar',
+  '2xl': 'Paling Besar',
 }
 
 export const headerFontSize: { [key: string]: string } = {
@@ -18,7 +17,6 @@ export const headerFontSize: { [key: string]: string } = {
   lg: 'xl',
   xl: '2xl',
   '2xl': '3xl',
-  '3xl': '4xl',
 }
 
 export const handleMinusFontSize = (
@@ -37,9 +35,6 @@ export const handleMinusFontSize = (
       break
     case '2xl':
       setVerseFontSize('xl')
-      break
-    case '3xl':
-      setVerseFontSize('2xl')
       break
     default:
       return
@@ -62,9 +57,6 @@ export const handlePlusFontSize = (
       break
     case 'xl':
       setVerseFontSize('2xl')
-      break
-    case '2xl':
-      setVerseFontSize('3xl')
       break
     default:
       return
