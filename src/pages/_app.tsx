@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from 'react-query'
+// import { Inter } from '@next/font/google'
 
 // Components
 import SEO from '~/components/SEO'
@@ -17,6 +18,10 @@ import type { AppProps } from 'next/app'
 
 // Styles
 import '../styles/globals.css'
+
+// react-modal-sheet not yet compatible with @next/font
+// commented this code so if it compatibles, enable it again.
+// const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const queryClient = new QueryClient()
 
@@ -34,6 +39,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       />
       <SEO />
 
+      {/* <div className={`${inter.variable} font-sans`}> */}
       <QueryClientProvider client={queryClient}>
         <GuideProvider>
           <BibleProvider>
@@ -46,6 +52,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           </BibleProvider>
         </GuideProvider>
       </QueryClientProvider>
+      {/* </div> */}
     </>
   )
 }

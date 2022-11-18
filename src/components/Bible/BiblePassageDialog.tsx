@@ -66,8 +66,8 @@ export default function BiblePassageDialog({
 
   return (
     <Sheet isOpen={openPassage} onClose={handleClose}>
-      <Sheet.Container onViewportBoxUpdate={null}>
-        <Sheet.Header onViewportBoxUpdate={null}>
+      <Sheet.Container>
+        <Sheet.Header>
           <div className="react-modal-sheet-header">
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
@@ -86,8 +86,8 @@ export default function BiblePassageDialog({
             </p>
           )}
         </Sheet.Header>
-        <Sheet.Content onViewportBoxUpdate={null}>
-          <div id="modalPassageContent" className="overflow-auto">
+        <Sheet.Content>
+          <div id="modalPassageContent" className="overflow-auto font-sans">
             {inGuide ? (
               <>
                 <div className="rounded-lg shadow-md shadow-emerald-400/60 mx-4 my-4 bg-emerald-700 sm:mx-1 dark:bg-gray-800 dark:shadow-inherit">
@@ -442,7 +442,7 @@ export default function BiblePassageDialog({
         </Sheet.Content>
       </Sheet.Container>
 
-      <Sheet.Backdrop onTap={handleClose} onViewportBoxUpdate={null} />
+      <Sheet.Backdrop onTap={handleClose} />
     </Sheet>
   )
 }

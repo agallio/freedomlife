@@ -2,11 +2,6 @@ import type { CSSProperties, ReactNode } from 'react'
 
 interface HomeCardProps {
   /**
-   * Loading state to hide footer when loading
-   * @default undefined
-   */
-  isLoading?: boolean
-  /**
    * Card Header — Title
    * @default undefined
    */
@@ -46,7 +41,6 @@ interface HomeCardProps {
 }
 
 export default function HomeCard({
-  isLoading,
   title,
   subtitle,
   children,
@@ -75,7 +69,7 @@ export default function HomeCard({
 
       {children}
 
-      {footer && !isLoading ? (
+      {footer ? (
         <div className="flex items-center justify-end w-full px-4 py-2 rounded-b-lg backdrop-filter backdrop-blur-[80px] backdrop-saturate-[70%]">
           {footer}
         </div>

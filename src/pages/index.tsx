@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useEffect } from 'react'
 import Router from 'next/router'
 import axios from 'axios'
@@ -8,7 +8,7 @@ import JumboHeader from '~/components/JumboHeader'
 import HomeBox from '~/components/Home/HomeBox'
 import HomeCard from '~/components/Home/HomeCard'
 import NewUserBox from '~/components/Home/NewUserBox'
-import NewTranslationBox from '~/components/Home/NewTranslationBox'
+// import NewTranslationBox from '~/components/Home/NewTranslationBox'
 import Footer from '~/components/Footer'
 
 // Context
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const { guideData, guideDate, setGuideDate } = useGuide()
 
   // Query
-  const { data, isLoading, isError, isGuideError, refetch } = useGuideByDate({
+  const { data, isError, isGuideError, refetch } = useGuideByDate({
     home: true,
   })
 
@@ -83,12 +83,7 @@ const Home: NextPage = () => {
       <JumboHeader isHome />
 
       <main>
-        <HomeBox
-          data={data}
-          isLoading={isLoading}
-          isGuideError={isGuideError}
-          toBible={toBible}
-        />
+        <HomeBox data={data} isGuideError={isGuideError} toBible={toBible} />
 
         {isError && !isGuideError ? null : (
           <>

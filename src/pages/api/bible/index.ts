@@ -28,12 +28,13 @@ export default async function biblePassage(
 
   const passageSplit = (passage as string).split('-')
 
-  const { data, error } = await supabase
-    .from<SupabaseBibles>('bibles')
+  const { data: rawData, error } = await supabase
+    .from('bibles')
     .select()
     .filter('version', 'eq', version || 'tb')
     .filter('abbr', 'eq', passageSplit[0])
     .filter('chapter', 'eq', passageSplit[1])
+  const data = rawData as SupabaseBibles[]
 
   if (error) return res.status(500).json({ data: null, error: error.message })
 

@@ -300,7 +300,7 @@ const Read: NextPage = () => {
   useEffect(() => {
     if (!guideData?.date) {
       guideRefetch()
-    } else if (typeof guideData?.date !== undefined && guideDate !== '') {
+    } else if (typeof guideData?.date !== 'undefined' && guideDate !== '') {
       if (guideData?.date !== guideDate) {
         guideRefetch()
       }
