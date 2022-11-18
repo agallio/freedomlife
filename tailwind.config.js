@@ -1,10 +1,12 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
   ],
+  safelist: ['text-2xl', 'text-3xl'],
   darkMode: 'class',
   theme: {
     extend: {
