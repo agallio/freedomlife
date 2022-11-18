@@ -64,7 +64,7 @@ export default function BibleSettingDialog({
               onClick={() =>
                 handlePlusFontSize(verseFontSize, setVerseFontSize)
               }
-              disabled={verseFontSize === '3xl'}
+              disabled={verseFontSize === '2xl'}
             >
               <PlusIcon className="w-6" />
             </button>
