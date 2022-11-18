@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { useEffect } from 'react'
 import Router from 'next/router'
-import axios from 'axios'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
