@@ -22,7 +22,7 @@ export default async function biblePassage(
   if (!passage || !version) {
     return res.status(400).json({
       data: null,
-      error: `Param 'passage' and/or 'version' is missing.`,
+      error: `Param 'passage' and/or 'version' are missing.`,
     })
   }
 

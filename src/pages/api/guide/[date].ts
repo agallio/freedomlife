@@ -25,10 +25,23 @@ export default async function guideByDate(
       .json({ data: null, error: `Param 'date' is missing.` })
   }
 
+  // Handle 2023 No Data
+  const { data: rawFlagData } = await supabase
+    .from('flags')
+    .select()
+    .filter('name', 'eq', '2023_notice')
+  const flagData: boolean =
+    Array.isArray(rawFlagData) && rawFlagData.length > 0
+      ? rawFlagData[0].context.no_data
+      : false
+  const formattedGuideDate = flagData
+    ? String(date).replace('2023', '2022')
+    : String(date)
+
   const { data, error } = await supabase
     .from('guides')
     .select()
-    .filter('date', 'eq', String(date))
+    .filter('date', 'eq', formattedGuideDate)
 
   if (error) return res.status(500).json({ data: null, error: error.message })
 
@@ -39,7 +52,9 @@ export default async function guideByDate(
   }
 
   if (data && data.length > 0) {
-    const extractedData = data[0]
+    const extractedData = flagData
+      ? { ...data[0], date, year: String(date).split('-')[2] }
+      : data[0]
     const plSpaceSplit = extractedData.pl_name.split(' ')
     const [plAbbr, plChapter] = extractedData.pl.split(' ')
     const [plChapterSplitted] = plChapter.split('-')

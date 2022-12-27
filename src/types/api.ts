@@ -4,11 +4,7 @@ export interface SupabaseBibles {
   book: string
   chapter: string
   version: string
-  verses: {
-    content: string
-    type: string
-    verse: number
-  }[]
+  verses: VerseData[]
 }
 
 export interface SupabaseGuides {
@@ -22,6 +18,12 @@ export interface SupabaseGuides {
   pl_name: string
   pb_name: string
   in_name: string
+}
+
+export interface SupabaseFeatureFlag {
+  name: string
+  context: any
+  enable: boolean
 }
 
 // API
@@ -64,4 +66,9 @@ export interface BibleDataResponse {
   book: string
   chapter: number
   data: VerseData[]
+}
+
+export interface FlagDataResponse {
+  enable: boolean
+  context: any
 }

@@ -10,13 +10,19 @@ import dayjs from '~/utils/dayjs'
 import type { GuideDataResponse } from '~/types/api'
 
 interface HomeBoxProps {
+  top?: string
   data?: GuideDataResponse
   isError?: boolean
   isGuideError?: boolean
   toBible: () => void
 }
 
-export default function HomeBox({ data, isGuideError, toBible }: HomeBoxProps) {
+export default function HomeBox({
+  top,
+  data,
+  isGuideError,
+  toBible,
+}: HomeBoxProps) {
   let children: ReactNode
 
   if (!data && !isGuideError) {
@@ -84,6 +90,7 @@ export default function HomeBox({ data, isGuideError, toBible }: HomeBoxProps) {
 
   return (
     <HomeCard
+      top={top}
       title={!isGuideError ? 'Panduan Baca Hari Ini' : undefined}
       subtitle={
         !isGuideError ? dayjs().format('dddd, DD MMMM YYYY') : undefined
