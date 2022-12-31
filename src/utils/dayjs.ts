@@ -6,8 +6,10 @@ import 'dayjs/locale/id'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-dayjs.tz.setDefault('Asia/Jakarta')
-dayjs.locale('id')
 dayjs.extend(customParseFormat)
+dayjs.locale('id')
+dayjs.tz.setDefault('Asia/Jakarta')
 
-export default dayjs
+export default function dayjsWithTimezone(...args: any[]) {
+  return dayjs(...args).tz()
+}
