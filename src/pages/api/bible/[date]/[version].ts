@@ -345,11 +345,13 @@ export default async function bibleByDate(
     plList.push(`pl-${i}`)
   }
 
-  // const injList = []
+  const injList = []
   // for (let i = 1; i <= injArr.length; i++) {
   //   injList.push(`in-${i}`)
   // }
-  const injList = ['in']
+  if (injArr.length) {
+    injList.push('in')
+  }
 
   const readyToSendData = {
     passage: [...plList, 'pb', ...injList],
