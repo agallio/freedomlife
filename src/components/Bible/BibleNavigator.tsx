@@ -2,6 +2,9 @@
 import ChevronLeftIcon from '../Icons/ChevronLeftIcon'
 import ChevronRightIcon from '../Icons/ChevronRightIcon'
 
+// Utils
+import { is2023 } from '~/utils/constants'
+
 interface BibleNavigatorProps {
   // chevronRef?: RefObject<HTMLElement>
   inGuide: boolean
@@ -53,7 +56,7 @@ export default function BibleNavigator({
           className={`w-12 h-12 bg-white rounded-full p-3 shadow-md transition transform duration-300  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 ${
             isBibleByDateLoading ||
             isBibleByPassageLoading ||
-            (inGuide && passage === 'pb') ||
+            (inGuide && is2023 ? passage === 'in' : passage === 'pb') ||
             biblePassage === 'why-22'
               ? 'invisible'
               : ''

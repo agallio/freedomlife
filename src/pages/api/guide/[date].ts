@@ -60,6 +60,8 @@ export default async function guideByDate(
     const [plChapterSplitted] = plChapter.split('-')
     const [pbAbbr, pbChapter] = extractedData.pb.split(' ')
     const [pbChapterSplitted] = pbChapter.split(':')
+    const [inAbbr, inChapter] = extractedData?.in?.split(' ') || []
+    const [inChapterSplitted] = inChapter?.split(':') || []
 
     const plDashSplit =
       plSpaceSplit.length === 3
@@ -92,6 +94,12 @@ export default async function guideByDate(
               abbr: `${pbAbbr}-${pbChapterSplitted}`,
               value: 'pb',
             },
+            extractedData?.in && {
+              title: extractedData.in_name,
+              subtitle: 'Kitab Injil',
+              abbr: `${inAbbr}-${inChapterSplitted}`,
+              value: 'in',
+            },
           ]
         : [
             {
@@ -105,6 +113,12 @@ export default async function guideByDate(
               subtitle: 'Perjanjian Baru',
               abbr: `${pbAbbr}-${pbChapterSplitted}`,
               value: 'pb',
+            },
+            extractedData?.in && {
+              title: extractedData.in_name,
+              subtitle: 'Kitab Injil',
+              abbr: `${inAbbr}-${inChapterSplitted}`,
+              value: 'in',
             },
           ]
 

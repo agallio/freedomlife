@@ -257,7 +257,7 @@ export default async function bibleByDate(
             version: version || 'tb',
             book: inData[0].book,
             chapter: inData[0].chapter,
-            passagePlace: `in-1`,
+            passagePlace: `in`,
             data: inData[0].verses.filter(
               (item) =>
                 item.verse >= Number(injColonDashSplit[0]) &&
@@ -326,7 +326,7 @@ export default async function bibleByDate(
             version: version || 'tb',
             book: inData[0].book,
             chapter: inData[0].chapter,
-            passagePlace: `in-1`,
+            passagePlace: `in`,
             data: inData[0].verses,
           })
         }
@@ -345,10 +345,11 @@ export default async function bibleByDate(
     plList.push(`pl-${i}`)
   }
 
-  const injList = []
-  for (let i = 1; i <= injArr.length; i++) {
-    injList.push(`in-${i}`)
-  }
+  // const injList = []
+  // for (let i = 1; i <= injArr.length; i++) {
+  //   injList.push(`in-${i}`)
+  // }
+  const injList = ['in']
 
   const readyToSendData = {
     passage: [...plList, 'pb', ...injList],

@@ -137,9 +137,16 @@ const Read: NextPage = () => {
               : `${plSpaceSplit[0]} ${plList[2]} `
           }
           return 'Memuat'
+        case 'pl-4':
+          if (plSpaceSplit) {
+            return plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[3]} `
+              : `${plSpaceSplit[0]} ${plList[3]} `
+          }
+          return 'Memuat'
         case 'pb':
           return guideData?.pb_name as string
-        case 'in-1':
+        case 'in':
           return guideData?.in_name as string
         default:
           return 'Memuat'
@@ -267,7 +274,7 @@ const Read: NextPage = () => {
             router.push(`/read/${pbAbbrSpaceSplit[0]}/${pbAbbrSpaceSplit[1]}`)
           }
           break
-        case 'in-1':
+        case 'in':
           localStorage.setItem('last_chapter', inAbbrSpaceSplit.join('-'))
           router.push(`/read/${inAbbrSpaceSplit[0]}/${inAbbrSpaceSplit[1]}`)
           break
