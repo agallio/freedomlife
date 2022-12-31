@@ -318,7 +318,7 @@ const Read: NextPage = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (passage !== 'pb') return
+      if (passage !== 'pb' && passage !== 'in') return
 
       const currentScrollPos = window.pageYOffset
       if (bibleTypographyRef.current?.scrollHeight) {
