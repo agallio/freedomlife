@@ -16,13 +16,13 @@ import { useGuide } from '~/contexts/GuideContext'
 
 // Types
 import type { BibleList } from '~/types/utils'
+import type { GuideBibleData } from '~/types/api'
 
 interface BiblePassageDialogProps {
   openPassage: boolean
   inGuide: boolean
+  guideBibleDataInfo?: GuideBibleData[]
   passage?: string
-  plSpaceSplit?: false | string[] | undefined
-  plList?: number[]
   changePassage?: (_: string) => void
   changeChapter?: (_: string) => void
   handleClosePassage: () => void
@@ -32,16 +32,15 @@ interface BiblePassageDialogProps {
 export default function BiblePassageDialog({
   openPassage,
   inGuide,
+  guideBibleDataInfo,
   passage,
-  plSpaceSplit,
-  plList,
   changePassage,
   changeChapter,
   handleClosePassage,
   handleExitGuide,
 }: BiblePassageDialogProps) {
   // Context
-  const { guideData, guideDate } = useGuide()
+  const { guideDate } = useGuide()
 
   // States
   const [searchChapter, setSearchChapter] = useState('')
@@ -120,184 +119,32 @@ export default function BiblePassageDialog({
                     </button>
                   </div>
                 </div>
-                <div
-                  className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                    passage === 'pl-1'
-                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                      : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                  } sm:mx-1`}
-                  onClick={() =>
-                    typeof changePassage === 'function'
-                      ? changePassage('pl-1')
-                      : null
-                  }
-                >
-                  <h3 className="text-lg font-semibold">
-                    {plSpaceSplit
-                      ? plSpaceSplit.length === 3
-                        ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                            plList!.length === 0 ? plSpaceSplit[2] : plList![0]
-                          }`
-                        : `${plSpaceSplit[0]} ${
-                            plList!.length === 0 ? plSpaceSplit[1] : plList![0]
-                          }`
-                      : ''}
-                  </h3>
-                  <p
-                    className={`text-sm tracking-wide ${
-                      passage !== 'pl-1' ? 'text-gray-500 dark:text-white' : ''
-                    }`}
-                  >
-                    Perjanjian Lama 1
-                  </p>
-                </div>
-                {plList!.length > 1 && (
+                {guideBibleDataInfo?.map((guideData) => (
                   <div
+                    key={guideData.abbr}
                     className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                      passage === 'pl-2'
+                      guideData.value === passage
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
                         : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
                     } sm:mx-1`}
                     onClick={() =>
                       typeof changePassage === 'function'
-                        ? changePassage('pl-2')
+                        ? changePassage(guideData.value)
                         : null
                     }
                   >
-                    <h3 className="text-lg font-semibold">
-                      {plSpaceSplit
-                        ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                              plList![1]
-                            }`
-                          : `${plSpaceSplit[0]} ${plList![1]}`
-                        : ''}
-                    </h3>
+                    <h3 className="text-lg font-semibold">{guideData.title}</h3>
                     <p
                       className={`text-sm tracking-wide ${
-                        passage !== 'pl-2'
+                        guideData.value !== passage
                           ? 'text-gray-500 dark:text-white'
                           : ''
                       }`}
                     >
-                      Perjanjian Lama 2
+                      {guideData.subtitle}
                     </p>
                   </div>
-                )}
-                {plList!.length > 2 && (
-                  <div
-                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                      passage === 'pl-3'
-                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                    } sm:mx-1`}
-                    onClick={() =>
-                      typeof changePassage === 'function'
-                        ? changePassage('pl-3')
-                        : null
-                    }
-                  >
-                    <h3 className="text-lg">
-                      {plSpaceSplit
-                        ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                              plList![2]
-                            }`
-                          : `${plSpaceSplit[0]} ${plList![2]}`
-                        : ''}
-                    </h3>
-                    <p
-                      className={`text-sm tracking-wide ${
-                        passage !== 'pl-3'
-                          ? 'text-gray-500 dark:text-white'
-                          : ''
-                      }`}
-                    >
-                      Perjanjian Lama 3
-                    </p>
-                  </div>
-                )}
-                {plList!.length > 3 && (
-                  <div
-                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                      passage === 'pl-4'
-                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                    } sm:mx-1`}
-                    onClick={() =>
-                      typeof changePassage === 'function'
-                        ? changePassage('pl-4')
-                        : null
-                    }
-                  >
-                    <h3 className="text-lg">
-                      {plSpaceSplit
-                        ? plSpaceSplit.length === 3
-                          ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                              plList![3]
-                            }`
-                          : `${plSpaceSplit[0]} ${plList![3]}`
-                        : ''}
-                    </h3>
-                    <p
-                      className={`text-sm tracking-wide ${
-                        passage !== 'pl-4'
-                          ? 'text-gray-500 dark:text-white'
-                          : ''
-                      }`}
-                    >
-                      Perjanjian Lama 4
-                    </p>
-                  </div>
-                )}
-                <div
-                  className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                    passage === 'pb'
-                      ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                      : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                  } sm:mx-1`}
-                  onClick={() =>
-                    typeof changePassage === 'function'
-                      ? changePassage('pb')
-                      : null
-                  }
-                >
-                  <h3 className="text-lg font-semibold">
-                    {guideData?.pb_name || ''}
-                  </h3>
-                  <p
-                    className={`text-sm tracking-wide ${
-                      passage !== 'pb' ? 'text-gray-500 dark:text-white' : ''
-                    }`}
-                  >
-                    Perjanjian Baru
-                  </p>
-                </div>
-                {guideData?.in_name ? (
-                  <div
-                    className={`rounded-lg shadow p-4 mx-4 my-4 font-medium transition transform duration-300 cursor-pointer ${
-                      passage === 'in'
-                        ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                    } sm:mx-1`}
-                    onClick={() =>
-                      typeof changePassage === 'function'
-                        ? changePassage('in')
-                        : null
-                    }
-                  >
-                    <h3 className="text-lg">{guideData?.in_name || ''}</h3>
-                    <p
-                      className={`text-sm tracking-wide ${
-                        passage !== 'in'
-                          ? 'text-gray-500 dark:text-white'
-                          : ''
-                      }`}
-                    >
-                      Kitab Injil
-                    </p>
-                  </div>
-                ) : null}
+                ))}
               </>
             ) : chapterSelected.name &&
               chapterSelected.abbr &&

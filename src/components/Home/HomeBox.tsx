@@ -5,7 +5,6 @@ import HomeCard from './HomeCard'
 
 // Utils
 import dayjs from '~/utils/dayjs'
-import { is2023 } from '~/utils/constants'
 
 // Types
 import type { GuideDataResponse } from '~/types/api'
@@ -27,16 +26,12 @@ export default function HomeBox({
   let children: ReactNode
 
   if (!data && !isGuideError) {
-    const arrayLoadingLength = is2023 ? [1, 2, 3] : [1, 2]
-
     children = (
       <div className="px-4 py-3 animate-pulse">
-        {arrayLoadingLength.map((item) => (
+        {[1, 2, 3].map((item) => (
           <div key={item}>
             <div
-              className={`h-[20px] w-1/2 bg-white bg-opacity-50 rounded-lg ${
-                is2023 ? 'sm:h-[20px]' : 'sm:h-[24px]'
-              }`}
+              className={`h-[20px] w-1/2 bg-white bg-opacity-50 rounded-lg sm:h-[20px]`}
               style={{
                 backdropFilter: 'saturate(70%) blur(80px)',
                 WebkitBackdropFilter: 'saturate(70%) blur(80px)',
@@ -71,10 +66,10 @@ export default function HomeBox({
               {item === 'PL'
                 ? 'Perjanjian Lama'
                 : item === 'PB'
-                ? 'Perjanjian Baru'
+                ? 'Kitab Injil'
                 : data?.in_name
                 ? item === 'IN'
-                  ? 'Kitab Injil'
+                  ? 'Kitab Rasuli'
                   : ''
                 : ''}
             </p>

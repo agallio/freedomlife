@@ -1,5 +1,3 @@
-import dayjs from './dayjs'
-
 // Types
 import type { BibleList } from '~/types/utils'
 
@@ -91,5 +89,3 @@ export const scrollToTop = () => {
   document.body.scrollTop = 0
   document.documentElement.scrollTop = 0
 }
-
-export const is2023 = dayjs().format('YYYY') === '2023'

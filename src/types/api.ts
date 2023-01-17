@@ -27,6 +27,13 @@ export interface SupabaseFeatureFlag {
 }
 
 // API
+export interface GuideBibleData {
+  abbr: string
+  title: string
+  subtitle: string
+  value: string
+}
+
 export interface GuideDataResponse {
   month_name?: string
   month?: string
@@ -38,6 +45,7 @@ export interface GuideDataResponse {
   pl_name?: string
   pb_name?: string
   in_name?: string
+  guide_bible_data?: GuideBibleData[]
 }
 
 export interface VerseData {

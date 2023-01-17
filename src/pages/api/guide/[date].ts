@@ -56,6 +56,7 @@ export default async function guideByDate(
       ? { ...data[0], date, year: String(date).split('-')[2] }
       : data[0]
     const plSpaceSplit = extractedData.pl_name.split(' ')
+    const inSpaceSplit = extractedData.in_name.split(' ')
     const [plAbbr, plChapter] = extractedData.pl.split(' ')
     const [plChapterSplitted] = plChapter.split('-')
     const [pbAbbr, pbChapter] = extractedData.pb.split(' ')
@@ -79,52 +80,122 @@ export default async function guideByDate(
       (_, i) => Number(plDashSplit[0]) + i
     )
 
-    const guideBibleData =
-      plList.length > 0
-        ? [
-            ...plList.map((pl, index) => ({
-              title: `${plSpaceSplit[0]} ${pl}`,
-              subtitle: `Perjanjian Lama ${index + 1}`,
-              abbr: `${plAbbr}-${pl}`,
-              value: `pl-${index + 1}`,
-            })),
-            {
-              title: extractedData.pb_name,
-              subtitle: 'Perjanjian Baru',
-              abbr: `${pbAbbr}-${pbChapterSplitted}`,
-              value: 'pb',
-            },
-            extractedData?.in && {
-              title: extractedData.in_name,
-              subtitle: 'Kitab Injil',
-              abbr: `${inAbbr}-${inChapterSplitted}`,
-              value: 'in',
-            },
-          ]
-        : [
-            {
-              title: extractedData.pl_name,
-              subtitle: 'Perjanjian Lama 1',
-              abbr: `${plAbbr}-${plChapterSplitted}`,
-              value: 'pl-1',
-            },
-            {
-              title: extractedData.pb_name,
-              subtitle: 'Perjanjian Baru',
-              abbr: `${pbAbbr}-${pbChapterSplitted}`,
-              value: 'pb',
-            },
-            extractedData?.in && {
-              title: extractedData.in_name,
-              subtitle: 'Kitab Injil',
-              abbr: `${inAbbr}-${inChapterSplitted}`,
-              value: 'in',
-            },
-          ]
+    const dashSplitFn = (): string[] => {
+      switch (inSpaceSplit.length) {
+        case 4:
+          return inSpaceSplit[3] !== undefined ? inSpaceSplit[3].split('-') : []
+        case 3:
+          return inSpaceSplit[2] !== undefined ? inSpaceSplit[2].split('-') : []
+        default:
+          return inSpaceSplit[1] !== undefined ? inSpaceSplit[1].split('-') : []
+      }
+    }
+    const inDashSplit = dashSplitFn()
+
+    const inList = Array.from(
+      {
+        length: (Number(inDashSplit[1]) - Number(inDashSplit[0])) / 1 + 1,
+      },
+      (_, i) => Number(inDashSplit[0]) + i
+    )
+
+    const guideBibleData = () => {
+      if (plList.length > 0 && inList.length > 0) {
+        const plArray = plList.map((pl, index) => ({
+          title:
+            plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${pl}`
+              : `${plSpaceSplit[0]} ${pl}`,
+          subtitle: `Perjanjian Lama ${index + 1}`,
+          abbr: `${plAbbr}-${pl}`,
+          value: `pl-${index + 1}`,
+        }))
+
+        const inArray = inList.map((inItem, index) => {
+          const inItemTitle = () => {
+            switch (inSpaceSplit.length) {
+              case 4:
+                return `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inSpaceSplit[2]} ${inItem}`
+              case 3:
+                return `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inItem}`
+              default:
+                return `${inSpaceSplit[0]} ${inItem}`
+            }
+          }
+
+          return {
+            title: inItemTitle(),
+            subtitle: `Kitab Rasuli ${index + 1}`,
+            abbr: `${inAbbr}-${inItem}`,
+            value: `in-${index + 1}`,
+          }
+        })
+
+        return [
+          ...plArray,
+          {
+            title: extractedData.pb_name,
+            subtitle: 'Perjanjian Baru',
+            abbr: `${pbAbbr}-${pbChapterSplitted}`,
+            value: 'pb',
+          },
+          ...inArray,
+        ]
+      }
+
+      if (plList.length > 0) {
+        const plArray = plList.map((pl, index) => ({
+          title:
+            plSpaceSplit.length === 3
+              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${pl}`
+              : `${plSpaceSplit[0]} ${pl}`,
+          subtitle: `Perjanjian Lama ${index + 1}`,
+          abbr: `${plAbbr}-${pl}`,
+          value: `pl-${index + 1}`,
+        }))
+
+        return [
+          ...plArray,
+          {
+            title: extractedData.pb_name,
+            subtitle: 'Kitab Injil',
+            abbr: `${pbAbbr}-${pbChapterSplitted}`,
+            value: 'pb',
+          },
+          extractedData?.in && {
+            title: extractedData.in_name,
+            subtitle: 'Kitab Rasuli',
+            abbr: `${inAbbr}-${inChapterSplitted}`,
+            value: 'in-1',
+          },
+        ]
+      }
+
+      return [
+        {
+          title: extractedData.pl_name,
+          subtitle: 'Perjanjian Lama 1',
+          abbr: `${plAbbr}-${plChapterSplitted}`,
+          value: 'pl-1',
+        },
+        {
+          title: extractedData.pb_name,
+          subtitle: 'Perjanjian Baru',
+          abbr: `${pbAbbr}-${pbChapterSplitted}`,
+          value: 'pb',
+        },
+        extractedData?.in && {
+          title: extractedData.in_name,
+          subtitle: 'Kitab Injil',
+          abbr: `${inAbbr}-${inChapterSplitted}`,
+          value: 'in-1',
+        },
+      ]
+    }
 
     const newData: GuideDataResponse = {
       ...extractedData,
-      guide_bible_data: guideBibleData,
+      guide_bible_data: guideBibleData(),
     }
 
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
