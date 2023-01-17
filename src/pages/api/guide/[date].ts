@@ -166,7 +166,7 @@ export default async function guideByDate(
             title: extractedData.in_name,
             subtitle: 'Kitab Rasuli',
             abbr: `${inAbbr}-${inChapterSplitted}`,
-            value: 'in',
+            value: 'in-1',
           },
         ]
       }
@@ -188,7 +188,7 @@ export default async function guideByDate(
           title: extractedData.in_name,
           subtitle: 'Kitab Injil',
           abbr: `${inAbbr}-${inChapterSplitted}`,
-          value: 'in',
+          value: 'in-1',
         },
       ]
     }

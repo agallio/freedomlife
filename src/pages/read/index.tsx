@@ -90,32 +90,6 @@ const Read: NextPage = () => {
     return null
   }, [guideBibleDataInfo, passage])
 
-  const plSpaceSplit = useMemo(
-    () => guideData?.pl_name?.split(' '),
-    [guideData]
-  )
-
-  const plDashSplit = useMemo(() => {
-    if (plSpaceSplit) {
-      return plSpaceSplit.length === 3
-        ? plSpaceSplit[2] !== undefined
-          ? plSpaceSplit[2].split('-')
-          : []
-        : plSpaceSplit[1] !== undefined
-        ? plSpaceSplit[1].split('-')
-        : []
-    }
-    return []
-  }, [plSpaceSplit])
-
-  const plList = useMemo(() => {
-    const arr = []
-    for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
-      arr.push(i)
-    }
-    return arr
-  }, [plDashSplit])
-
   // Methods
   const passageTitle = (): string | undefined => {
     if (isGuideByDateLoading || isBibleByDateLoading) {
@@ -233,7 +207,7 @@ const Read: NextPage = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (passage !== 'pb' && passage !== 'in') return
+      if (!passage.includes('pb') && !passage.includes('in')) return
 
       const currentScrollPos = window.pageYOffset
       if (bibleTypographyRef.current?.scrollHeight) {

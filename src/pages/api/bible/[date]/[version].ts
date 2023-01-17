@@ -257,7 +257,7 @@ export default async function bibleByDate(
             version: version || 'tb',
             book: inData[0].book,
             chapter: inData[0].chapter,
-            passagePlace: `in`,
+            passagePlace: `in-1`,
             data: inData[0].verses.filter(
               (item) =>
                 item.verse >= Number(injColonDashSplit[0]) &&
@@ -318,7 +318,7 @@ export default async function bibleByDate(
         const inData = data as SupabaseBibles[]
 
         if (inError) {
-          return res.status(500).json({ data: null, error: `${inError} (in})` })
+          return res.status(500).json({ data: null, error: `${inError} (in)` })
         }
 
         if (inData) {
@@ -326,7 +326,7 @@ export default async function bibleByDate(
             version: version || 'tb',
             book: inData[0].book,
             chapter: inData[0].chapter,
-            passagePlace: `in`,
+            passagePlace: `in-1`,
             data: inData[0].verses,
           })
         }
