@@ -78,6 +78,18 @@ const Read: NextPage = () => {
   } = useBibleByDate(bibleVersion)
 
   // Memoized Value
+  const guideBibleDataInfo = useMemo(
+    () => guideData?.guide_bible_data || [],
+    [guideData]
+  )
+
+  const guideBibleDataInfoByPassage = useMemo(() => {
+    if (guideBibleDataInfo.length > 0) {
+      return guideBibleDataInfo.find((i) => i.value === passage)
+    }
+    return null
+  }, [guideBibleDataInfo, passage])
+
   const plSpaceSplit = useMemo(
     () => guideData?.pl_name?.split(' '),
     [guideData]
@@ -110,48 +122,7 @@ const Read: NextPage = () => {
       return 'Memuat'
     }
 
-    if (plSpaceSplit) {
-      switch (passage) {
-        case 'pl-1':
-          if (plSpaceSplit) {
-            return plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${
-                  plList.length === 0 ? plSpaceSplit[2] : plList[0]
-                }`
-              : `${plSpaceSplit[0]} ${
-                  plList.length === 0 ? plSpaceSplit[1] : plList[0]
-                }`
-          }
-          return 'Memuat'
-        case 'pl-2':
-          if (plSpaceSplit) {
-            return plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[1]}`
-              : `${plSpaceSplit[0]} ${plList[1]}`
-          }
-          return 'Memuat'
-        case 'pl-3':
-          if (plSpaceSplit) {
-            return plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[2]} `
-              : `${plSpaceSplit[0]} ${plList[2]} `
-          }
-          return 'Memuat'
-        case 'pl-4':
-          if (plSpaceSplit) {
-            return plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${plList[3]} `
-              : `${plSpaceSplit[0]} ${plList[3]} `
-          }
-          return 'Memuat'
-        case 'pb':
-          return guideData?.pb_name as string
-        case 'in':
-          return guideData?.in_name as string
-        default:
-          return 'Memuat'
-      }
-    }
+    return guideBibleDataInfoByPassage?.title || 'Memuat'
   }
 
   const handleOpenPassage = () => {
@@ -217,71 +188,15 @@ const Read: NextPage = () => {
   }
 
   const handleExitGuide = () => {
-    if (guideData) {
-      const plAbbrSpaceSplit = guideData.pl!.split(' ')
-      const pbAbbrSpaceSplit = guideData.pb!.split(' ')
-      const inAbbrSpaceSplit = guideData.in ? guideData.in.split(' ') : []
-      const pbSpaceSplit = guideData.pb!.split(' ')
-      const pbDashSplit = pbSpaceSplit[1]?.split(':')
-
+    if (guideBibleDataInfoByPassage) {
       document.body.style.overflow = 'visible'
       setOpenPassage(false)
 
-      switch (passage) {
-        case 'pl-1':
-          localStorage.setItem(
-            'last_chapter',
-            `${plAbbrSpaceSplit[0]}-${
-              plList.length === 0 ? plAbbrSpaceSplit[1] : plList[0]
-            }`
-          )
-          router.push(
-            `/read/${plAbbrSpaceSplit[0]}/${
-              plList.length === 0 ? plAbbrSpaceSplit[1] : plList[0]
-            }`
-          )
-          break
-        case 'pl-2':
-          localStorage.setItem(
-            'last_chapter',
-            `${plAbbrSpaceSplit[0]}-${plList[1]}`
-          )
-          router.push(`/read/${plAbbrSpaceSplit[0]}/${plList[1]}`)
-          break
-        case 'pl-3':
-          localStorage.setItem(
-            'last_chapter',
-            `${plAbbrSpaceSplit[0]}-${plList[2]}`
-          )
-          router.push(`/read/${plAbbrSpaceSplit[0]}/${plList[2]}`)
-          break
-        case 'pl-4':
-          localStorage.setItem(
-            'last_chapter',
-            `${plAbbrSpaceSplit[0]}-${plList[3]}`
-          )
-          router.push(`/read/${plAbbrSpaceSplit[0]}/${plList[3]}`)
-          break
-        case 'pb':
-          if (pbDashSplit.length > 0) {
-            localStorage.setItem(
-              'last_chapter',
-              `${pbSpaceSplit[0]}-${pbDashSplit[0]}`
-            )
-            router.push(`/read/${pbSpaceSplit[0]}/${pbDashSplit[0]}`)
-          } else {
-            localStorage.setItem('last_chapter', pbAbbrSpaceSplit.join('-'))
-            router.push(`/read/${pbAbbrSpaceSplit[0]}/${pbAbbrSpaceSplit[1]}`)
-          }
-          break
-        case 'in':
-          localStorage.setItem('last_chapter', inAbbrSpaceSplit.join('-'))
-          router.push(`/read/${inAbbrSpaceSplit[0]}/${inAbbrSpaceSplit[1]}`)
-          break
+      const { abbr } = guideBibleDataInfoByPassage
+      const abbrSplitted = abbr.split('-')
 
-        default:
-          return
-      }
+      localStorage.setItem('last_chapter', guideBibleDataInfoByPassage.abbr)
+      router.push(`/read/${abbrSplitted[0]}/${abbrSplitted[1]}`)
 
       toast.success('Panduan Baca Nonaktif', {
         style:
@@ -422,7 +337,13 @@ const Read: NextPage = () => {
       <BibleNavigator
         // chevronRef={chevronRef}
         inGuide={true}
-        passage={passage}
+        isFirstPassageInGuide={passage === 'pl-1'}
+        isLastPassageInGuide={
+          bibleByDateData
+            ? passage ===
+              bibleByDateData.passage[bibleByDateData.passage.length - 1]
+            : false
+        }
         isBibleByDateLoading={isBibleByDateLoading}
         backPassage={backPassage}
         nextPassage={nextPassage}
@@ -441,9 +362,8 @@ const Read: NextPage = () => {
       <BiblePassageDialog
         inGuide={true}
         openPassage={openPassage}
+        guideBibleDataInfo={guideBibleDataInfo}
         passage={passage}
-        plSpaceSplit={plSpaceSplit}
-        plList={plList}
         changePassage={changePassage}
         handleClosePassage={() => {
           document.body.style.overflow = 'visible'

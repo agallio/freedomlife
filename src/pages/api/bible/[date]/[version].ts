@@ -346,11 +346,8 @@ export default async function bibleByDate(
   }
 
   const injList = []
-  // for (let i = 1; i <= injArr.length; i++) {
-  //   injList.push(`in-${i}`)
-  // }
-  if (injArr.length) {
-    injList.push('in')
+  for (let i = 1; i <= injArr.length; i++) {
+    injList.push(`in-${i}`)
   }
 
   const readyToSendData = {

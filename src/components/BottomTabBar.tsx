@@ -25,6 +25,7 @@ export default function BottomTabBar() {
       <div className="flex items-center justify-center w-full mx-auto sm:max-w-md">
         <motion.button
           aria-label="Beranda"
+          initial={{ width: router.pathname === '/' ? 140 : 55 }}
           animate={router.pathname === '/' ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
@@ -50,6 +51,7 @@ export default function BottomTabBar() {
         </motion.button>
         <motion.button
           aria-label="Baca"
+          initial={{ width: router.pathname.includes('read') ? 140 : 55 }}
           animate={router.pathname.includes('read') ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${
@@ -83,6 +85,7 @@ export default function BottomTabBar() {
         </motion.button>
         <motion.button
           aria-label="Panduan"
+          initial={{ width: router.pathname === '/guide' ? 140 : 55 }}
           animate={router.pathname === '/guide' ? 'open' : 'close'}
           variants={motionVariants}
           className={`flex ${

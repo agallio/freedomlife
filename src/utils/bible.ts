@@ -112,6 +112,14 @@ export const copyText = async (
   let mapHighlightedContent
   let mapHighlightedVerse
 
+  const formattedPassageTitle = () => {
+    if (passageTitle?.includes(':')) {
+      const passageTitleSplitted = passageTitle.split(':')
+      return passageTitleSplitted[0]
+    }
+    return passageTitle
+  }
+
   const sortedHighlightedText = highlightedText.sort(
     (a, b) => a.verse - b.verse
   )
@@ -142,7 +150,7 @@ export const copyText = async (
 
   if (!navigator.clipboard) {
     fallbackCopyText(
-      `"${mapHighlightedContent}" - ${passageTitle}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`,
+      `"${mapHighlightedContent}" - ${formattedPassageTitle()}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`,
       { theme, removeHighlight }
     )
     return
@@ -150,7 +158,7 @@ export const copyText = async (
 
   try {
     await navigator.clipboard.writeText(
-      `"${mapHighlightedContent}" - ${passageTitle}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
+      `"${mapHighlightedContent}" - ${formattedPassageTitle()}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
     )
     toast.success('Ayat Tersalin!', {
       style:
