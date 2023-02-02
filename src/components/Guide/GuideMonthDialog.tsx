@@ -38,13 +38,17 @@ export default function GuideMonthDialog({
                 <li
                   key={item.value}
                   onClick={() => {
-                    setMonthNumber(item.value)
-                    onClose()
+                    if (Number(item.value) <= Number(dayjs().format('MM'))) {
+                      setMonthNumber(item.value)
+                      onClose()
+                    }
                   }}
-                  className={`rounded-lg shadow m-4 sm:mx-1 ${
-                    monthNumber === item.value
-                      ? 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
-                      : 'bg-white text-gray-800 dark:bg-gray-600 dark:text-white'
+                  className={`rounded-lg m-4 sm:mx-1 ${
+                    Number(item.value) > Number(dayjs().format('MM'))
+                      ? 'bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                      : monthNumber === item.value
+                      ? 'shadow cursor-pointer bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+                      : 'shadow cursor-pointer bg-white text-gray-800 dark:bg-gray-600 dark:text-white'
                   }`}
                 >
                   <div className="p-3 flex items-center justify-between">

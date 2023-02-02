@@ -31,9 +31,7 @@ export default function GuideItem({
   return (
     <div
       key={index}
-      className={`flex flex-col shadow-md rounded-lg ${
-        index === 0 ? 'mt-2' : 'mt-4'
-      }`}
+      className="flex flex-col shadow-md rounded-lg mt-4"
       style={{
         background: isToday(item.date as string)
           ? 'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)'

@@ -43,7 +43,7 @@ export default function BottomTabBar() {
               open: { display: 'flex', opacity: 1 },
               close: { display: 'none', opacity: 0 },
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="ml-2 tracking-wider"
           >
             Beranda
@@ -77,7 +77,7 @@ export default function BottomTabBar() {
               open: { display: 'flex', opacity: 1 },
               close: { display: 'none', opacity: 0 },
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="ml-2 tracking-wider"
           >
             Baca
@@ -103,7 +103,7 @@ export default function BottomTabBar() {
               open: { display: 'flex', opacity: 1 },
               close: { display: 'none', opacity: 0 },
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="ml-2 tracking-wider"
           >
             Panduan

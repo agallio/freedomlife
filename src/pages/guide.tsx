@@ -9,26 +9,23 @@ import JumboHeader from '~/components/JumboHeader'
 import GuideLoading from '~/components/Guide/GuideLoading'
 import GuideItem from '~/components/Guide/GuideItem'
 import GuideError from '~/components/Guide/GuideError'
-// import GuideMonthDialog from '~/components/Guide/GuideMonthDialog'
+import GuideMonthDialog from '~/components/Guide/GuideMonthDialog'
 import PageTransition from '~/components/PageTransition'
 
 // Icon Components
-// import ChevronDownIcon from '~/components/Icons/ChevronDownIcon'
+import ChevronDownIcon from '~/components/Icons/ChevronDownIcon'
 
 // Context
 import { useGuide } from '~/contexts/GuideContext'
 
 // Utils
 import { useGuides } from '~/utils/hooks/useFetchedGuide'
-// import { monthList } from '~/utils/constants'
+import { monthList } from '~/utils/constants'
 import dayjs from '~/utils/dayjs'
 
 const Guide: NextPage = () => {
-  // const [openMonthDialog, setOpenMonthDialog] = useState(false)
-  const [
-    monthNumber,
-    // setMonthNumber
-  ] = useState(dayjs().format('MM'))
+  const [openMonthDialog, setOpenMonthDialog] = useState(false)
+  const [monthNumber, setMonthNumber] = useState(dayjs().format('MM'))
 
   const { setGuideDate } = useGuide()
 
@@ -76,7 +73,7 @@ const Guide: NextPage = () => {
       <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6">
         <JumboHeader />
 
-        {/* <button
+        <button
           className="w-full flex items-center justify-between px-4 py-2 mt-2 shadow-md rounded-lg border cursor-pointer bg-white dark:bg-gray-600 dark:border-0 focus:ring-1 focus:ring-gray-400 lg:focus:ring-0"
           onClick={() => {
             document.body.style.overflow = 'hidden'
@@ -87,7 +84,7 @@ const Guide: NextPage = () => {
             {monthList.find((item) => item.value === monthNumber)?.name || ''}
           </span>
           <ChevronDownIcon className="w-6 text-gray-500 dark:bg-gray-600 dark:text-white sm:hover:text-opacity-50" />
-        </button> */}
+        </button>
 
         <PageTransition>
           {isError ? (
@@ -106,7 +103,7 @@ const Guide: NextPage = () => {
           )}
         </PageTransition>
 
-        {/* <GuideMonthDialog
+        <GuideMonthDialog
           open={openMonthDialog}
           monthNumber={monthNumber}
           setMonthNumber={setMonthNumber}
@@ -114,7 +111,7 @@ const Guide: NextPage = () => {
             document.body.style.overflow = 'visible'
             setOpenMonthDialog(false)
           }}
-        /> */}
+        />
       </div>
     </>
   )
