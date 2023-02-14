@@ -8,7 +8,7 @@ import HomeBox from '~/components/Home/HomeBox'
 import HomeCard from '~/components/Home/HomeCard'
 import NewUserBox from '~/components/Home/NewUserBox'
 // import NewTranslationBox from '~/components/Home/NewTranslationBox'
-import NoticeBox from '~/components/Home/NoticeBox'
+// import NoticeBox from '~/components/Home/NoticeBox'
 import Footer from '~/components/Footer'
 
 // Context
@@ -17,7 +17,7 @@ import { useGuide } from '~/contexts/GuideContext'
 // Utils
 import dayjs from '~/utils/dayjs'
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
-import { useFlagData } from '~/utils/hooks/useFetchedFlags'
+// import { useFlagData } from '~/utils/hooks/useFetchedFlags'
 
 const Home: NextPage = () => {
   // Context
@@ -27,11 +27,11 @@ const Home: NextPage = () => {
   const { data, isError, isGuideError, refetch } = useGuideByDate({
     home: true,
   })
-  const { data: flagData, isLoading: isFlagDataLoading } =
-    useFlagData('2023_notice')
+  // const { data: flagData, isLoading: isFlagDataLoading } =
+  //   useFlagData('2023_notice')
 
   // Constant
-  const showNotice = flagData?.enable && !flagData.context.no_data
+  // const showNotice = flagData?.enable && !flagData.context.no_data
 
   // Method
   const toBible = () => {
@@ -89,14 +89,9 @@ const Home: NextPage = () => {
       <JumboHeader isHome />
 
       <main>
-        {showNotice && <NoticeBox />}
+        {/* {showNotice && <NoticeBox />} */}
 
-        <HomeBox
-          top={isFlagDataLoading ? '2' : showNotice ? '6' : '2'}
-          data={data}
-          isGuideError={isGuideError}
-          toBible={toBible}
-        />
+        <HomeBox data={data} isGuideError={isGuideError} toBible={toBible} />
 
         {isError && !isGuideError ? null : (
           <>

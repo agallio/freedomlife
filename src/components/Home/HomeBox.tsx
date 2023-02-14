@@ -18,7 +18,7 @@ interface HomeBoxProps {
 }
 
 export default function HomeBox({
-  top,
+  top = '2',
   data,
   isGuideError,
   toBible,
