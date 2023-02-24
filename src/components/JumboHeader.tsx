@@ -41,7 +41,7 @@ export default function JumboHeader({
 
   return (
     <header className="flex flex-col">
-      <div className={`flex justify-between items-center mb-4`}>
+      <div className={`mb-4 flex items-center justify-between`}>
         {!isNotFound ? (
           <div className="flex items-center justify-center">
             <FreedomlifeIcon className="w-[230px]" />
@@ -56,7 +56,7 @@ export default function JumboHeader({
         {isHome && isMounted && (
           <button
             aria-label="Ganti Mode Warna"
-            className="w-10 h-10 p-3 bg-emerald-400 text-emerald-900 rounded-lg transition transform duration-300 focus:outline-none hover:bg-emerald-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+            className="h-10 w-10 transform rounded-lg bg-emerald-400 p-3 text-emerald-900 transition duration-300 hover:bg-emerald-700 hover:text-white focus:outline-none dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
             onClick={switchTheme}
             style={{ transition: 'var(--transition-default)' }}
           >

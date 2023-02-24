@@ -35,7 +35,8 @@ const Guide: NextPage = () => {
 
   const toBibleWithDate = (date: string) => {
     setGuideDate(date)
-    Router.push('/read?guide=true')
+    Router.push('/read')
+    localStorage.setItem('in_guide', 'true')
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
   }
@@ -47,14 +48,14 @@ const Guide: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Panduan Baca | freedomlife</title>
+        <title>Panduan Baca — freedomlife</title>
       </Head>
       <NextSeo
-        title="Panduan Baca | freedomlife"
+        title="Panduan Baca — freedomlife"
         description="Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi."
         openGraph={{
           url: 'https://freedomlife.id/guide',
-          title: 'Panduan Baca | freedomlife',
+          title: 'Panduan Baca — freedomlife',
           description:
             'Halaman daftar panduan baca bulan ini. Anda dapat melihat panduan baca dan membaca panduan langsung dari aplikasi.',
           site_name: 'freedomlife',
@@ -70,11 +71,11 @@ const Guide: NextPage = () => {
         }}
       />
 
-      <div className="max-w-sm p-6 mx-auto mb-20 sm:max-w-md sm:py-6">
+      <div className="mx-auto mb-20 max-w-sm p-6 sm:max-w-md sm:py-6">
         <JumboHeader />
 
         <button
-          className="w-full flex items-center justify-between px-4 py-2 mt-2 shadow-md rounded-lg border cursor-pointer bg-white dark:bg-gray-600 dark:border-0 focus:ring-1 focus:ring-gray-400 lg:focus:ring-0"
+          className="mt-2 flex w-full cursor-pointer items-center justify-between rounded-lg border bg-white px-4 py-2 shadow-md focus:ring-1 focus:ring-gray-400 dark:border-0 dark:bg-gray-600 lg:focus:ring-0"
           onClick={() => {
             document.body.style.overflow = 'hidden'
             setOpenMonthDialog(true)

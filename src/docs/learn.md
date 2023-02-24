@@ -35,7 +35,7 @@ Anda dapat langsung membaca Alkitab dengan menggunakan panduan yang tersedia har
 - Lihat bagian **Panduan Baca Hari Ini**.
 - Tekan tombol **Baca**.
 
-Setelah melakukan langkah-langkah diatas, Anda akan langsung diarahkan menuju ke halaman "Baca".
+Setelah melakukan langkah-langkah diatas, Anda akan langsung diarahkan menuju ke halaman **Baca**.
 
 ---
 
@@ -46,7 +46,7 @@ Ada 3 panduan baca yang disediakan:
 - **Perjanjian Lama**
 - **Perjanjian Baru**
 
-Anda bisa langsung memilih bacaan yang Anda inginkan dengan cara, masuk ke halaman "Baca", lalu tekan tombol yang berbentuk pill berwarna hijau di bagian atas layar Anda.
+Anda bisa langsung memilih bacaan yang Anda inginkan dengan cara, masuk ke halaman **Baca**, lalu tekan tombol yang berbentuk pill berwarna hijau di bagian atas layar Anda.
 
 Kemudian akan muncul dialog "Pilih Panduan Baca". Tekan panduan baca yang Anda inginkan, lalu dialog akan tertutup otomatis dan Anda dapat langsung membacanya.
 
@@ -104,6 +104,10 @@ Jawabannya **bisa!** Tekan tombol dengan icon buku terbuka untuk menuju ke halam
 
 ![Tombol Baca](/images/docs/tombol-baca.webp)
 
+Sebelum Anda memilih kitab & pasal, pastikan Anda telah keluar dari panduan baca dengan menekan tombol "x" di bagian atas layar Anda.
+
+![Panduan Baca Aktif](/images/docs/panduan-baca-aktif.webp)
+
 Untuk memilih kitab & pasal yang ingin Anda baca, tekan tombol yang berbentuk pill berwarna hijau di bagian atas layar Anda.
 
 ![Header](/images/docs/header.webp)
@@ -122,7 +126,7 @@ Jika sudah, tekan pasal tersebut. Lalu dialog akan otomatis tertutup dan Anda da
 
 ## Mengganti Terjemahan Alkitab
 
-Anda dapat mengganti terjemahan Alkitab dengan cara membuka halaman baca, lalu tekan tombol dengan icon _google translate_ di kiri atas, kemudian pilih terjemahan yang Anda inginkan.
+Anda dapat mengganti terjemahan Alkitab dengan cara membuka halaman baca, lalu tekan tombol dengan icon bahasa di kiri atas, kemudian pilih terjemahan yang Anda inginkan.
 
 ![Pilih Terjemahan](/images/docs/pilih-terjemahan.webp)
 
@@ -159,7 +163,7 @@ Untuk menghilangkan seleksi pada ayat, Anda dapat menekan ayat yang terseleksi. 
 
 ## Melihat Panduan Terbaca
 
-Anda dapat melihat panduan yang sudah Anda baca dengan cara masuk ke halaman "Panduan". Anda akan melihat tanda "✓" jika panduan tersebut sudah Anda baca.
+Anda dapat melihat panduan yang sudah Anda baca dengan cara masuk ke halaman **Panduan**. Anda akan melihat tanda "✓" jika panduan tersebut sudah Anda baca.
 
 ![Panduan Terbaca](/images/docs/panduan-terbaca.webp)
 

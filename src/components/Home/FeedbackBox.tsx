@@ -10,14 +10,14 @@ export default function FeedbackBox() {
         <p className="font-semibold tracking-wide">
           Beri Kami Saran &amp; Masukan!
         </p>
-        <p className="text-sm mt-2">
+        <p className="mt-2 text-sm">
           Saran dan masukan Anda sangat berarti untuk kami. Sentuh atau klik
           tombol dibawah ini untuk memberikan masukan.
         </p>
       </div>
 
       <div
-        className="flex items-center justify-end w-full px-4 py-2 rounded-b-lg"
+        className="flex w-full items-center justify-end rounded-b-lg px-4 py-2"
         style={{
           backdropFilter: 'saturate(70%) blur(80px)',
           WebkitBackdropFilter: 'saturate(70%) blur(80px)',
@@ -25,7 +25,7 @@ export default function FeedbackBox() {
       >
         <button
           aria-label="Kirim Masukan"
-          className="w-full h-10 bg-white bg-opacity-20 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md sm:w-60 focus:outline-none hover:bg-opacity-30"
+          className="sm:text-md h-10 w-full rounded-full bg-white bg-opacity-20 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 hover:bg-opacity-30 focus:outline-none sm:w-60"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

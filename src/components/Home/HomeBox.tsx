@@ -27,18 +27,18 @@ export default function HomeBox({
 
   if (!data && !isGuideError) {
     children = (
-      <div className="px-4 py-3 animate-pulse">
+      <div className="animate-pulse px-4 py-3">
         {[1, 2, 3].map((item) => (
           <div key={item}>
             <div
-              className={`h-[20px] w-1/2 bg-white bg-opacity-50 rounded-lg sm:h-[20px]`}
+              className="h-[16px] w-1/2 rounded-lg bg-white bg-opacity-50 sm:h-[20px]"
               style={{
                 backdropFilter: 'saturate(70%) blur(80px)',
                 WebkitBackdropFilter: 'saturate(70%) blur(80px)',
               }}
             />
             <div
-              className="my-3 h-3 w-7/12 bg-white bg-opacity-50 rounded-lg"
+              className="my-3 h-3 w-7/12 rounded-lg bg-white bg-opacity-50"
               style={{
                 backdropFilter: 'saturate(70%) blur(80px)',
                 WebkitBackdropFilter: 'saturate(70%) blur(80px)',
@@ -52,7 +52,7 @@ export default function HomeBox({
     children = (
       <div className="px-4 py-3">
         {['PL', 'PB', 'IN'].map((item) => (
-          <div key={item} className="flex flex-col mb-2">
+          <div key={item} className="mb-2 flex flex-col">
             <h1 className="font-bold text-white sm:text-lg">
               {item === 'PL'
                 ? data?.pl_name
@@ -62,7 +62,7 @@ export default function HomeBox({
                 ? data?.in_name
                 : 'Tidak ada data'}
             </h1>
-            <p className="text-sm text-white sm:text-md">
+            <p className="sm:text-md text-sm text-white">
               {item === 'PL'
                 ? 'Perjanjian Lama'
                 : item === 'PB'
@@ -98,9 +98,9 @@ export default function HomeBox({
       footer={
         <button
           aria-label="Baca Panduan"
-          className={`w-full h-10 bg-emerald-800 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md ${
+          className={`sm:text-md h-10 w-full rounded-full bg-emerald-800 bg-opacity-80 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 ${
             !isGuideError ? 'sm:w-24' : 'sm:w-full'
-          } focus:outline-none hover:bg-opacity-30 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30`}
+          } hover:bg-opacity-30 focus:outline-none dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30`}
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

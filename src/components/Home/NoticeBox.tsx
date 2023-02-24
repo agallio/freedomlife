@@ -12,7 +12,7 @@ export default function NoticeBox() {
         <p className="text-sm">
           <b>31 Desember 2022 22.00</b>
         </p>
-        <p className="text-sm mt-1.5">
+        <p className="mt-1.5 text-sm">
           freedomlife akan segera kembali online setelah proses selesai. Terima
           kasih atas pengertian Anda.
         </p>

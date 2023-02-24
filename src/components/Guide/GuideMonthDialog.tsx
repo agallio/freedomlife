@@ -27,7 +27,7 @@ export default function GuideMonthDialog({
             <motion.span className="react-modal-sheet-drag-indicator" />
           </div>
 
-          <h3 className="mx-4 mb-2 text-gray-800 font-bold text-xl sm:max-w-md sm:mx-auto dark:text-white">
+          <h3 className="mx-4 mb-2 text-xl font-bold text-gray-800 dark:text-white sm:mx-auto sm:max-w-md">
             Pilih Bulan
           </h3>
         </Sheet.Header>
@@ -43,22 +43,22 @@ export default function GuideMonthDialog({
                       onClose()
                     }
                   }}
-                  className={`rounded-lg m-4 sm:mx-1 ${
+                  className={`m-4 rounded-lg sm:mx-1 ${
                     Number(item.value) > Number(dayjs().format('MM'))
                       ? 'bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                       : monthNumber === item.value
-                      ? 'shadow cursor-pointer bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
-                      : 'shadow cursor-pointer bg-white text-gray-800 dark:bg-gray-600 dark:text-white'
+                      ? 'cursor-pointer bg-emerald-300 text-emerald-900 shadow dark:bg-emerald-700 dark:text-white'
+                      : 'cursor-pointer bg-white text-gray-800 shadow dark:bg-gray-600 dark:text-white'
                   }`}
                 >
-                  <div className="p-3 flex items-center justify-between">
+                  <div className="flex items-center justify-between p-3">
                     <span>{item.name}</span>
                     {item.value === dayjs().format('MM') && (
                       <span
-                        className={`py-1 px-2 text-sm rounded tracking-wide ${
+                        className={`rounded py-1 px-2 text-sm tracking-wide ${
                           monthNumber === item.value
                             ? 'bg-white text-emerald-700'
-                            : 'bg-emerald-300 dark:bg-emerald-700 text-emerald-900 dark:text-white'
+                            : 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
                         }`}
                       >
                         BULAN INI

@@ -45,7 +45,7 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
         }}
       />
 
-      <div className="max-w-sm p-6 mx-auto sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
+      <div className="mx-auto max-w-sm p-6 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
         {/* <button
           className="py-2 px-4 mb-8 border border-emerald-700 rounded-lg text-emerald-700 transform transition hover:bg-emerald-100 dark:border dark:border-white dark:text-white dark:hover:bg-gray-700 focus:outline-none"
           onClick={goHome}
@@ -53,10 +53,10 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
           Kembali
         </button> */}
         <JumboHeader subtitle={post.title} />
-        <div className="mt-8 mb-8 prose dark:prose-dark">
+        <div className="prose mt-8 mb-8 dark:prose-dark">
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
-        <div className="mb-12 text-gray-400 text-sm">
+        <div className="mb-12 text-sm text-gray-400">
           <p>
             Aplikasi freedomlife dibuat oleh{' '}
             <ExternalLink
@@ -71,7 +71,7 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
           <p className="mt-4">
             freedomlife terbuka untuk donasi Anda. Anda dapat memberikan donasi
             ke channel donasi berikut ini:{' '}
-            <ul className="list-disc list-inside my-2">
+            <ul className="my-2 list-inside list-disc">
               <li>
                 <ExternalLink
                   href="https://saweria.co/agallio"
@@ -105,7 +105,7 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
 
         <button
           aria-label="Keluar Dari Panduan Baca"
-          className="w-full border border-emerald-700 text-emerald-700 py-2 uppercase rounded-full text-sm font-bold transition transform hover:bg-emerald-100 dark:border-transparent dark:bg-white dark:bg-opacity-20 dark:text-white dark:hover:bg-opacity-30 focus:outline-none"
+          className="w-full transform rounded-full border border-emerald-700 py-2 text-sm font-bold uppercase text-emerald-700 transition hover:bg-emerald-100 focus:outline-none dark:border-transparent dark:bg-white dark:bg-opacity-20 dark:text-white dark:hover:bg-opacity-30"
           onClick={goHome}
         >
           Kembali Ke Beranda
