@@ -170,6 +170,7 @@ const Read: NextPage = () => {
       const abbrSplitted = abbr.split('-')
 
       localStorage.setItem('last_chapter', guideBibleDataInfoByPassage.abbr)
+      localStorage.removeItem('in_guide')
       router.push(`/read/${abbrSplitted[0]}/${abbrSplitted[1]}`)
 
       toast.success('Panduan Baca Nonaktif', {
@@ -242,14 +243,14 @@ const Read: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Baca Firman Hari Ini | freedomlife</title>
+        <title>Baca Firman Hari Ini — freedomlife</title>
       </Head>
       <NextSeo
-        title="Baca Firman Hari Ini | freedomlife"
+        title="Baca Firman Hari Ini — freedomlife"
         description="Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 8 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca."
         openGraph={{
           url: 'https://freedomlife.id/read',
-          title: 'Baca Firman Hari Ini | freedomlife',
+          title: 'Baca Firman Hari Ini — freedomlife',
           description:
             'Halaman untuk membaca Alkitab dengan maupun tanpa panduan. Anda dapat membaca dalam 8 terjemahan yang berbeda. Anda juga dapat menyalin dan membagikan ayat yang Anda baca.',
           site_name: 'freedomlife',

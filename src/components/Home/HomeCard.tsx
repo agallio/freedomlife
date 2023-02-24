@@ -51,17 +51,17 @@ export default function HomeCard({
 }: HomeCardProps) {
   return (
     <div
-      className={`flex flex-col shadow-md rounded-lg mt-${top || '2'} ${
+      className={`flex flex-col rounded-lg shadow-md mt-${top || '2'} ${
         className || ''
       }`}
       style={style}
     >
       {title || subtitle ? (
-        <div className="flex items-center justify-between w-full px-4 py-2 rounded-t-lg backdrop-filter backdrop-blur-[20px] backdrop-saturate-[55%]">
+        <div className="flex w-full items-center justify-between rounded-t-lg px-4 py-2 backdrop-blur-[20px] backdrop-saturate-[55%] backdrop-filter">
           <div className="flex flex-col">
-            <h2 className="text-lg font-bold sm:text-xl text-white">{title}</h2>
+            <h2 className="text-lg font-bold text-white sm:text-xl">{title}</h2>
             {subtitle ? (
-              <p className="text-sm sm:text-md text-white">{subtitle}</p>
+              <p className="sm:text-md text-sm text-white">{subtitle}</p>
             ) : null}
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function HomeCard({
       {children}
 
       {footer ? (
-        <div className="flex items-center justify-end w-full px-4 py-2 rounded-b-lg backdrop-filter backdrop-blur-[80px] backdrop-saturate-[70%]">
+        <div className="flex w-full items-center justify-end rounded-b-lg px-4 py-2 backdrop-blur-[80px] backdrop-saturate-[70%] backdrop-filter">
           {footer}
         </div>
       ) : null}

@@ -41,10 +41,10 @@ export default function BibleNavbar({
 }: BibleNavbarProps) {
   return (
     <header
-      className={`fixed top-0 left-0 w-full border-b bg-opacity-60 z-40 ${
+      className={`fixed top-0 left-0 z-40 w-full border-b bg-opacity-60 ${
         highlighted
-          ? 'bg-emerald-600 border-emerald-600 text-white'
-          : 'bg-white border-gray-100 dark:bg-gray-700 dark:border-gray-800 dark:bg-opacity-70'
+          ? 'border-emerald-600 bg-emerald-600 text-white'
+          : 'border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-700 dark:bg-opacity-70'
       } ${inGuide ? 'h-25' : 'h-12 sm:h-14'}`}
       style={{
         backdropFilter: 'saturate(180%) blur(12px)',
@@ -52,8 +52,8 @@ export default function BibleNavbar({
       }}
     >
       {inGuide && (
-        <div className="bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white px-4">
-          <div className="flex items-center justify-between max-w-sm sm:max-w-md sm:mx-auto">
+        <div className="bg-emerald-300 px-4 text-emerald-900 dark:bg-emerald-700 dark:text-white">
+          <div className="flex max-w-sm items-center justify-between sm:mx-auto sm:max-w-md">
             <p className="py-1">
               Panduan Baca Aktif{' '}
               {guideDate
@@ -71,15 +71,15 @@ export default function BibleNavbar({
         </div>
       )}
       <div
-        className={`flex items-center justify-between max-w-sm mx-6 ${
+        className={`mx-6 flex max-w-sm items-center justify-between ${
           inGuide ? 'py-3' : 'h-full'
-        } sm:max-w-md sm:mx-auto landscape:mx-auto`}
+        } sm:mx-auto sm:max-w-md landscape:mx-auto`}
       >
         {highlighted ? (
           <>
             <button
               aria-label="Tutup"
-              className="w-5 h-5 focus:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none"
+              className="h-5 w-5 focus:text-emerald-600 focus:outline-none sm:h-6 sm:w-6"
               onClick={removeHighlight}
             >
               <CloseIcon />
@@ -87,7 +87,7 @@ export default function BibleNavbar({
             <div className="py-1">{highlightedText.length} Ayat Disorot</div>
             <button
               aria-label="Salin Ayat"
-              className="w-5 h-5 focus:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none"
+              className="h-5 w-5 focus:text-emerald-600 focus:outline-none sm:h-6 sm:w-6"
               onClick={copyText}
             >
               <CopyIcon outline />
@@ -97,14 +97,14 @@ export default function BibleNavbar({
           <>
             <button
               aria-label="Buka Dialog Versi"
-              className="w-5 h-5 transition transform duration-300 hover:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
+              className="h-5 w-5 transform transition duration-300 hover:text-emerald-600 focus:outline-none dark:text-white dark:hover:text-gray-400 sm:h-6 sm:w-6"
               onClick={handleOpenTranslate}
             >
               <TranslateIcon />
             </button>
             <button
               aria-label="Buka Dialog Kitab"
-              className="bg-emerald-300 text-emerald-900 py-1 px-5 rounded-full shadow-sm transition transform duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white focus:outline-none sm:py-2 sm:px-6"
+              className="transform rounded-full bg-emerald-300 py-1 px-5 text-emerald-900 shadow-sm transition duration-300 hover:bg-emerald-400 focus:outline-none dark:bg-emerald-700 dark:text-white sm:py-2 sm:px-6"
               onClick={handleOpenPassage}
               style={{ minWidth: '8rem' }}
             >
@@ -117,7 +117,7 @@ export default function BibleNavbar({
             </button>
             <button
               aria-label="Buka Dialog Pengaturan"
-              className="w-5 h-5 transition transform duration-300 hover:text-emerald-600 sm:w-6 sm:h-6 focus:outline-none dark:text-white dark:hover:text-gray-400"
+              className="h-5 w-5 transform transition duration-300 hover:text-emerald-600 focus:outline-none dark:text-white dark:hover:text-gray-400 sm:h-6 sm:w-6"
               onClick={handleOpenSetting}
             >
               <SettingIcon />

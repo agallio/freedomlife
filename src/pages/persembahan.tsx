@@ -77,6 +77,7 @@ const Persembahan: NextPage = () => {
         <title>Persembahan | freedomlife</title>
       </Head>
       <NextSeo
+        noindex
         title="Persembahan | freedomlife"
         description="Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta."
         openGraph={{
@@ -97,7 +98,7 @@ const Persembahan: NextPage = () => {
         }}
       />
 
-      <div className="max-w-sm p-6 mx-auto mb-6 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
+      <div className="mx-auto mb-6 max-w-sm p-6 sm:max-w-md sm:py-6 md:mb-16 landscape:mx-auto">
         <JumboHeader
           subtitle="Persembahan &amp; Persepuluhan"
           description="Gereja Kristen Kemah Daud - Yogyakarta"
@@ -105,13 +106,13 @@ const Persembahan: NextPage = () => {
 
         <main className="mt-4">
           <div
-            className="flex flex-col shadow-md rounded-lg mt-4"
+            className="mt-4 flex flex-col rounded-lg shadow-md"
             style={{
               background:
                 'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)',
             }}
           >
-            <p className="text-white p-4">
+            <p className="p-4 text-white">
               Dukungan untuk pekerjaan pelayanan Gereja Kristen Kemah Daud
               Yogyakarta dapat dilakukan melalui scan QRIS dibawah ini:
             </p>
@@ -123,7 +124,7 @@ const Persembahan: NextPage = () => {
               height={458}
             />
 
-            <p className="text-white p-4">
+            <p className="p-4 text-white">
               Melalui aplikasi m-Banking / Digital Payment seperti:
             </p>
 
@@ -137,40 +138,40 @@ const Persembahan: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col shadow-md rounded-lg mt-8 p-4 dark:bg-gray-600">
+          <div className="mt-8 flex flex-col rounded-lg p-4 shadow-md dark:bg-gray-600">
             <p className="dark:text-white">
               Atau dapat juga dilakukan melalui transfer pada rekening bank
               dibawah ini:
             </p>
 
             <div className="mt-6">
-              <p className="font-bold text-lg dark:text-white">CIMB Niaga</p>
-              <p className="text-gray-600 mb-2 dark:text-gray-200">
+              <p className="text-lg font-bold dark:text-white">CIMB Niaga</p>
+              <p className="mb-2 text-gray-600 dark:text-gray-200">
                 a/n Gereja Kristen Kemah Daud
               </p>
-              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
+              <div className="flex w-full items-center justify-between rounded-lg border border-gray-300 px-4 py-2 dark:border-gray-400">
                 <p className="dark:text-white">8000-7752-1000</p>
                 <button
                   className="text-emerald-600 hover:text-emerald-800 focus:outline-none dark:text-emerald-400 dark:hover:text-emerald-500"
                   onClick={() => copyNumber('cimb')}
                 >
-                  <CopyIcon className="w-6 h-6" />
+                  <CopyIcon className="h-6 w-6" />
                 </button>
               </div>
             </div>
 
             <div className="mt-4 mb-6">
-              <p className="font-bold text-lg dark:text-white">BCA</p>
-              <p className="text-gray-600 mb-2 dark:text-gray-200">
+              <p className="text-lg font-bold dark:text-white">BCA</p>
+              <p className="mb-2 text-gray-600 dark:text-gray-200">
                 a/n GKKD Glory of God Yogyakarta
               </p>
-              <div className="flex items-center justify-between rounded-lg w-full px-4 py-2 border border-gray-300 dark:border-gray-400">
+              <div className="flex w-full items-center justify-between rounded-lg border border-gray-300 px-4 py-2 dark:border-gray-400">
                 <p className="dark:text-white">017-121-7007</p>
                 <button
                   className="text-emerald-600 hover:text-emerald-800 focus:outline-none dark:text-emerald-400 dark:hover:text-emerald-500"
                   onClick={() => copyNumber('bca')}
                 >
-                  <CopyIcon className="w-6 h-6" />
+                  <CopyIcon className="h-6 w-6" />
                 </button>
               </div>
             </div>

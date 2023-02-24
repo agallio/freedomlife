@@ -63,9 +63,9 @@ export default function BibleTypography({
 
   return (
     <div
-      className={`max-w-sm mx-auto ${
+      className={`mx-auto max-w-sm ${
         inGuide ? 'mt-28' : 'mt-[4.5rem]'
-      } text-${verseFontSize} mb-[10rem] px-3 sm:max-w-md dark:text-white`}
+      } text-${verseFontSize} mb-[10rem] px-3 dark:text-white sm:max-w-md`}
       ref={bibleTypographyRef}
     >
       {maintenance ? (
@@ -74,20 +74,20 @@ export default function BibleTypography({
         isBibleByDateLoading ||
         isBibleByPassageLoading ||
         !passageArray ? (
-        <div className="flex flex-col items-center animate-pulse">
+        <div className="flex animate-pulse flex-col items-center">
           {Array.from(Array(15).keys()).map((item) => {
             if (item === 0) {
               return (
                 <div
                   key={item}
-                  className="w-2/3 h-4 my-2 rounded bg-gray-300 dark:bg-gray-600"
+                  className="my-2 h-4 w-2/3 rounded bg-gray-300 dark:bg-gray-600"
                 />
               )
             } else {
               return (
                 <div
                   key={item}
-                  className="w-full h-4 my-2 rounded bg-gray-300 dark:bg-gray-600"
+                  className="my-2 h-4 w-full rounded bg-gray-300 dark:bg-gray-600"
                 />
               )
             }
@@ -99,7 +99,7 @@ export default function BibleTypography({
             return (
               <h1
                 key={index}
-                className={`text-center font-bold my-4 leading-relaxed text-${headerFontSize[verseFontSize]}`}
+                className={`my-4 text-center font-bold leading-relaxed text-${headerFontSize[verseFontSize]}`}
               >
                 {item.content || ''}
               </h1>
@@ -111,7 +111,7 @@ export default function BibleTypography({
                 className="cursor-pointer leading-loose"
                 onClick={() => highlightText(item.verse, item.content)}
               >
-                <sup className="mr-3 relative -top-1 font-light text-xs text-emerald-700 dark:text-emerald-300">
+                <sup className="relative -top-1 mr-3 text-xs font-light text-emerald-700 dark:text-emerald-300">
                   {item.verse || ''}
                 </sup>
                 <span

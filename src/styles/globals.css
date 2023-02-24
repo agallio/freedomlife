@@ -36,7 +36,7 @@ html.light {
 }
 
 body {
-  @apply p-0 m-0 bg-gray-50 dark:bg-gray-800 dark:text-white;
+  @apply m-0 bg-gray-50 p-0 dark:bg-gray-800 dark:text-white;
   transition: var(--transition-default);
 }
 
@@ -58,12 +58,12 @@ body {
 }
 
 .react-modal-sheet-content {
-  @apply w-full max-w-md mx-auto;
+  @apply mx-auto w-full max-w-md;
 }
 
 .react-modal-sheet-header {
   height: 40px;
-  @apply relative w-full flex items-center justify-center;
+  @apply relative flex w-full items-center justify-center;
 }
 
 .react-modal-sheet-drag-indicator {

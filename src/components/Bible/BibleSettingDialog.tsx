@@ -38,16 +38,16 @@ export default function BibleSettingDialog({
       >
         <Sheet.Header />
         <Sheet.Content>
-          <h3 className="mx-4 mb-2 text-gray-800 font-bold text-xl sm:mx-0 dark:text-white">
+          <h3 className="mx-4 mb-2 text-xl font-bold text-gray-800 dark:text-white sm:mx-0">
             Pengaturan
           </h3>
-          <p className="mx-4 text-gray-500 tracking-wide sm:mx-0 dark:text-white">
+          <p className="mx-4 tracking-wide text-gray-500 dark:text-white sm:mx-0">
             Ukuran Teks
           </p>
-          <div className="flex items-center justify-between mx-4 sm:mx-1">
+          <div className="mx-4 flex items-center justify-between sm:mx-1">
             <button
               aria-label="Kecilkan"
-              className="text-gray-600 transition transform duration-300 hover:text-gray-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
+              className="transform text-gray-600 transition duration-300 hover:text-gray-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
               onClick={() =>
                 handleMinusFontSize(verseFontSize, setVerseFontSize)
               }
@@ -55,12 +55,12 @@ export default function BibleSettingDialog({
             >
               <MinusIcon className="w-6" />
             </button>
-            <div className="w-full text-center border-2 border-gray-600 py-2 mx-2 my-2 rounded-lg text-gray-600 font-bold tracking-widest dark:text-white dark:border-white">
+            <div className="mx-2 my-2 w-full rounded-lg border-2 border-gray-600 py-2 text-center font-bold tracking-widest text-gray-600 dark:border-white dark:text-white">
               {fontSizeName[verseFontSize]}
             </div>
             <button
               aria-label="Besarkan"
-              className="text-gray-600 transition transform duration-300 hover:text-gray-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
+              className="transform text-gray-600 transition duration-300 hover:text-gray-700 focus:outline-none disabled:opacity-50 dark:text-white dark:disabled:opacity-50"
               onClick={() =>
                 handlePlusFontSize(verseFontSize, setVerseFontSize)
               }
@@ -70,7 +70,7 @@ export default function BibleSettingDialog({
             </button>
           </div>
           <button
-            className="mx-4 text-sm underline text-emerald-700 cursor-pointer transition transform duration-300 hover:text-emerald-800 sm:mx-0 focus:outline-none dark:text-white"
+            className="mx-4 transform cursor-pointer text-sm text-emerald-700 underline transition duration-300 hover:text-emerald-800 focus:outline-none dark:text-white sm:mx-0"
             onClick={() => setVerseFontSize('base')}
           >
             Kembalikan Ke Setelan Awal

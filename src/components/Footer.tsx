@@ -18,41 +18,41 @@ export default function Footer() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex flex-col w-full mx-auto items-center justify-center mt-12">
-        <p className="tracking-wide mb-4">Ditenagai oleh</p>
+      <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center">
+        <p className="mb-4 tracking-wide">Ditenagai oleh</p>
         {mounted ? (
           <>
             <a
               href="https://vercel.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center mb-4"
+              className="mb-4 flex items-center"
               aria-label="Vercel Logo"
             >
-              <VercelIcon className="w-[81px] h-[18px]" />
+              <VercelIcon className="h-[18px] w-[81px]" />
             </a>
             <a
               href="https://supabase.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center mb-2"
+              className="mb-2 flex items-center"
               aria-label="Supabase Logo"
             >
-              <SupabaseIcon className="w-[120px] h-[23px]" />
+              <SupabaseIcon className="h-[23px] w-[120px]" />
             </a>
           </>
         ) : (
           <>
-            <div className="w-[81px] h-[18px] bg-gray-300 dark:bg-gray-600 animate-pulse mb-4 rounded" />
-            <div className="w-[120px] h-[23px] bg-gray-300 dark:bg-gray-600 animate-pulse mb-2 rounded" />
+            <div className="mb-4 h-[18px] w-[81px] animate-pulse rounded bg-gray-300 dark:bg-gray-600" />
+            <div className="mb-2 h-[23px] w-[120px] animate-pulse rounded bg-gray-300 dark:bg-gray-600" />
           </>
         )}
       </div>
-      <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
+      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" />
 
-      <div className="flex flex-col w-full mx-auto items-center justify-center">
-        <p className="tracking-wide mb-3">Disponsori oleh</p>
-        <div className="flex justify-center flex-wrap">
+      <div className="mx-auto flex w-full flex-col items-center justify-center">
+        <p className="mb-3 tracking-wide">Disponsori oleh</p>
+        <div className="flex flex-wrap justify-center">
           {['sonnylazuardi', 'jackyef', 'sozonome', 'nipeharefa'].map(
             (item) => (
               <a
@@ -67,14 +67,14 @@ export default function Footer() {
                   width={30}
                   height={30}
                   alt={`${item}'s GitHub Profile Image`}
-                  className="rounded-full cursor-pointer"
+                  className="cursor-pointer rounded-full"
                 />
               </a>
             )
           )}
         </div>
       </div>
-      <hr className="my-6 border-gray-400 w-[80px] dark:border-white" />
+      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" />
 
       <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
         Lisensi MIT © {dayjs().format('YYYY')} — freedomlife

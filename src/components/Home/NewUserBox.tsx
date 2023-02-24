@@ -12,7 +12,7 @@ export default function NewUserBox() {
       footer={
         <button
           aria-label="Buka Halaman Panduan Penggunaan"
-          className="w-full h-10 bg-blue-900 bg-opacity-80 text-sm text-white py-1 uppercase rounded-full font-bold transition duration-300 tracking-wider sm:text-md focus:outline-none hover:bg-opacity-30 sm:w-60 dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30"
+          className="sm:text-md h-10 w-full rounded-full bg-blue-900 bg-opacity-80 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 hover:bg-opacity-30 focus:outline-none dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30 sm:w-60"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',
@@ -24,9 +24,9 @@ export default function NewUserBox() {
       }
       className="bg-gradient-to-l from-purple-500 via-indigo-500 to-blue-500"
     >
-      <div className="px-4 py-3 flex flex-col items-center justify-center mb-4">
-        <NewUserIcon className="w-44 h-44 sm:w-36" />
-        <h1 className="text-white text-center text-sm">
+      <div className="mb-4 flex flex-col items-center justify-center px-4 py-3">
+        <NewUserIcon className="h-44 w-44 sm:w-36" />
+        <h1 className="text-center text-sm text-white">
           Baru pertama kali buka freedomlife? <br /> Yuk belajar cara pakainya!
         </h1>
       </div>

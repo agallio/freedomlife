@@ -10,6 +10,7 @@ import NewUserBox from '~/components/Home/NewUserBox'
 // import NewTranslationBox from '~/components/Home/NewTranslationBox'
 // import NoticeBox from '~/components/Home/NoticeBox'
 import Footer from '~/components/Footer'
+import PageTransition from '~/components/PageTransition'
 
 // Context
 import { useGuide } from '~/contexts/GuideContext'
@@ -40,6 +41,7 @@ const Home: NextPage = () => {
       Router.push('/read/kej/1')
     } else {
       Router.push('/read')
+      localStorage.setItem('in_guide', 'true')
     }
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
@@ -64,49 +66,53 @@ const Home: NextPage = () => {
 
   if (isError && !isGuideError) {
     return (
-      <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 landscape:mx-auto">
+      <div className="mx-auto mb-28 max-w-sm p-6 sm:max-w-md sm:py-6 landscape:mx-auto">
         <JumboHeader isHome />
 
-        <main>
-          <HomeCard
-            top="6"
-            className="bg-gradient-to-l from-purple-400 via-pink-500 to-red-500"
-          >
-            <p className="px-4 py-4 text-sm">
-              <b>
-                freedomlife sedang dalam masa perbaikan. Mohon tunggu beberapa
-                saat lagi.
-              </b>
-            </p>
-          </HomeCard>
-        </main>
+        <PageTransition>
+          <main>
+            <HomeCard
+              top="6"
+              className="bg-gradient-to-l from-purple-400 via-pink-500 to-red-500"
+            >
+              <p className="px-4 py-4 text-sm">
+                <b>
+                  freedomlife sedang dalam masa perbaikan. Mohon tunggu beberapa
+                  saat lagi.
+                </b>
+              </p>
+            </HomeCard>
+          </main>
+        </PageTransition>
       </div>
     )
   }
 
   return (
-    <div className="max-w-sm p-6 mx-auto mb-28 sm:max-w-md sm:py-6 landscape:mx-auto">
+    <div className="mx-auto mb-28 max-w-sm p-6 sm:max-w-md sm:py-6 landscape:mx-auto">
       <JumboHeader isHome />
 
-      <main>
-        {/* {showNotice && <NoticeBox />} */}
+      <PageTransition>
+        <main>
+          {/* {showNotice && <NoticeBox />} */}
 
-        <HomeBox data={data} isGuideError={isGuideError} toBible={toBible} />
+          <HomeBox data={data} isGuideError={isGuideError} toBible={toBible} />
 
-        {isError && !isGuideError ? null : (
-          <>
-            <NewUserBox />
-            {/* <FeedbackBox /> */}
-            {/* <BirthdayDialog
+          {isError && !isGuideError ? null : (
+            <>
+              <NewUserBox />
+              {/* <FeedbackBox /> */}
+              {/* <BirthdayDialog
               isOpen={isBirthdayOpen}
               handleClose={() => {
                 setBirthdayOpen(false)
                 setBirthdayViewed(true)
               }}
             /> */}
-          </>
-        )}
-      </main>
+            </>
+          )}
+        </main>
+      </PageTransition>
 
       {isError && !isGuideError ? null : <Footer />}
     </div>
