@@ -47,7 +47,9 @@ export default function BibleTranslateDialog({
                     ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
                     : 'bg-white text-gray-600 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
                 } ${
-                  item === 'vmd' && 'flex items-center justify-between'
+                  // Commented for future use
+                  // item === 'vmd' && 'flex items-center justify-between'
+                  ''
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
@@ -60,7 +62,8 @@ export default function BibleTranslateDialog({
                     ? 'Firman Allah Yang Hidup (FAYH)'
                     : 'Versi Mudah Dibaca (VMD)'}
                 </span>
-                {item === 'vmd' && (
+                {/* Commented for future use */}
+                {/* {item === 'vmd' && (
                   <span
                     className={`rounded py-1 px-2 text-sm tracking-wide ${
                       bibleVersion === item
@@ -70,7 +73,7 @@ export default function BibleTranslateDialog({
                   >
                     BARU!
                   </span>
-                )}
+                )} */}
               </div>
             ))}
             <h4 className="mt-6 px-4 font-medium tracking-wide text-gray-500 dark:text-white">
@@ -84,8 +87,10 @@ export default function BibleTranslateDialog({
                     ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
                     : 'bg-white text-gray-600 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
                 } ${
-                  (item === 'amp' || item === 'niv') &&
-                  'flex items-center justify-between'
+                  // Commented for future use
+                  // (item === 'amp' || item === 'niv') &&
+                  // 'flex items-center justify-between'
+                  ''
                 } sm:mx-1`}
                 onClick={() => changeVersion(item)}
               >
@@ -98,7 +103,8 @@ export default function BibleTranslateDialog({
                     ? 'Amplified Bible (AMP)'
                     : 'New International Version (NIV)'}
                 </span>
-                {(item === 'amp' || item === 'niv') && (
+                {/* Commented for future use */}
+                {/* {(item === 'amp' || item === 'niv') && (
                   <span
                     className={`rounded py-1 px-2 text-sm tracking-wide ${
                       bibleVersion === item
@@ -108,7 +114,7 @@ export default function BibleTranslateDialog({
                   >
                     BARU!
                   </span>
-                )}
+                )} */}
               </div>
             ))}
           </div>
