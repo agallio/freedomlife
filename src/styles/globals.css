@@ -22,27 +22,27 @@
 
 html {
   @apply bg-gray-50;
-  transition: var(--transition-default);
+  /* transition: var(--transition-default); */
 }
 
 html.dark {
   @apply bg-gray-800;
-  transition: var(--transition-default);
+  /* transition: var(--transition-default); */
 }
 
 html.light {
   @apply bg-gray-50;
-  transition: var(--transition-default);
+  /* transition: var(--transition-default); */
 }
 
 body {
   @apply m-0 bg-gray-50 p-0 dark:bg-gray-800 dark:text-white;
-  transition: var(--transition-default);
+  /* transition: var(--transition-default); */
 }
 
 #__next {
   @apply bg-gray-50 dark:bg-gray-800 dark:text-white;
-  transition: var(--transition-default);
+  /* transition: var(--transition-default); */
 }
 /* end: custom base styles */
 

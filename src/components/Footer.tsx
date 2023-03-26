@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // Components
 import ExternalLink from './ExternalLink'
 
 // Icon Components
-import VercelIcon from './Icons/VercelIcon'
-import SupabaseIcon from './Icons/SupabaseIcon'
+// import VercelIcon from './Icons/VercelIcon'
+// import SupabaseIcon from './Icons/SupabaseIcon'
 
 // Utils
 import dayjs from '~/utils/dayjs'
@@ -18,7 +18,7 @@ export default function Footer() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center">
+      {/* <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center">
         <p className="mb-4 tracking-wide">Ditenagai oleh</p>
         {mounted ? (
           <>
@@ -48,9 +48,9 @@ export default function Footer() {
           </>
         )}
       </div>
-      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" />
+      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" /> */}
 
-      <div className="mx-auto flex w-full flex-col items-center justify-center">
+      {/* <div className="mx-auto flex w-full flex-col items-center justify-center">
         <p className="mb-3 tracking-wide">Disponsori oleh</p>
         <div className="flex flex-wrap justify-center">
           {['sonnylazuardi', 'jackyef', 'sozonome', 'nipeharefa'].map(
@@ -74,9 +74,9 @@ export default function Footer() {
           )}
         </div>
       </div>
-      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" />
+      <hr className="my-6 w-[80px] border-gray-400 dark:border-white" /> */}
 
-      <p className="mt-3 text-xs text-gray-600 dark:text-gray-300">
+      <p className="mt-10 text-xs text-gray-600 dark:text-gray-300">
         Lisensi MIT © {dayjs().format('YYYY')} — freedomlife
       </p>
       <span className="mt-3 text-xs text-gray-600 dark:text-gray-300">
