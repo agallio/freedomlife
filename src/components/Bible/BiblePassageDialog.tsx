@@ -210,13 +210,15 @@ export default function BiblePassageDialog({
                 transition={{ duration: 0.2 }}
               >
                 <div className="mx-4 mt-2 flex rounded-lg shadow-md sm:mx-1">
-                  <SearchIcon className="h-12 w-8 rounded-l-lg bg-white pl-3 text-gray-500 dark:bg-gray-600 dark:text-white" />
+                  <SearchIcon className="h-12 w-12 rounded-l-lg bg-white px-3 text-gray-500 dark:bg-gray-600 dark:text-white" />
                   <input
                     name="search"
                     type="text"
                     placeholder="Cari Kitab"
                     className={`h-12 w-full border-none focus:border-none focus:outline-none focus:ring-0 dark:bg-gray-600 dark:text-white dark:placeholder-gray-300 ${
-                      searchChapter === '' ? 'rounded-r-lg' : ''
+                      searchChapter === ''
+                        ? 'rounded-tr-lg rounded-br-lg rounded-tl-none rounded-bl-none'
+                        : 'rounded-none'
                     }`}
                     value={searchChapter}
                     onChange={(e) => {
