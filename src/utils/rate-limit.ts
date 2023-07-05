@@ -1,4 +1,4 @@
-const LRU = require('lru-cache')
+import { LRUCache } from 'lru-cache'
 
 // Types
 import type { NextApiResponse } from 'next'
@@ -17,7 +17,7 @@ interface RateLimit {
 }
 
 const rateLimit = (options?: Options): RateLimit => {
-  const tokenCache = new LRU({
+  const tokenCache = new LRUCache<string, number[]>({
     max: options?.uniqueTokenPerInterval || 500,
     ttl: options?.interval || 60000,
   })

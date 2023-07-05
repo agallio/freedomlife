@@ -28,7 +28,11 @@ export default function BibleSettingDialog({
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (
-    <Sheet isOpen={openSetting} onClose={handleCloseSetting}>
+    <Sheet
+      isOpen={openSetting}
+      onClose={handleCloseSetting}
+      detent="content-height"
+    >
       <Sheet.Container
         style={{
           height: !mediaLandscape

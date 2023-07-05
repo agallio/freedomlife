@@ -217,7 +217,7 @@ export default function BiblePassageDialog({
                     placeholder="Cari Kitab"
                     className={`h-12 w-full border-none focus:border-none focus:outline-none focus:ring-0 dark:bg-gray-600 dark:text-white dark:placeholder-gray-300 ${
                       searchChapter === ''
-                        ? 'rounded-tr-lg rounded-br-lg rounded-tl-none rounded-bl-none'
+                        ? 'rounded-bl-none rounded-br-lg rounded-tl-none rounded-tr-lg'
                         : 'rounded-none'
                     }`}
                     value={searchChapter}
