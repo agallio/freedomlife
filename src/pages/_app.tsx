@@ -35,7 +35,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
         async
         defer
         data-website-id="2eee9168-15ac-46de-814a-35725fc77c53"
-        src="https://analytics.agallio.xyz/umami.js"
+        src="https://analytics.agallio.xyz/script.js"
       />
       <SEO />
 
