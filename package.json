@@ -1,59 +1,33 @@
 {
-  "name": "freedomlife",
-  "version": "5.2.1",
+  "name": "freedomlife-monorepo",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "type-check": "tsc --pretty --noEmit",
-    "test-all": "pnpm lint && pnpm type-check",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "./src/**/*.{ts,tsx}": "bash -c \"pnpm test-all\""
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-native": "^0.72.2",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "turbo": "^1.4.2",
+    "typescript": "^5.2.2"
   },
   "engines": {
-    "node": ">=14.x.x",
-    "npm": "please-use-pnpm"
+    "node": ">=16.x.x",
+    "npm": "please-use-yarn"
   },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.31.0",
-    "axios": "^1.4.0",
-    "dayjs": "^1.11.9",
-    "framer-motion": "^10.15.0",
-    "gray-matter": "^4.0.3",
-    "lru-cache": "^10.0.0",
-    "next": "13.4.12",
-    "next-pwa": "^5.6.0",
-    "next-seo": "^6.1.0",
-    "preact": "^10.16.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "react-media-hook": "^0.5.0",
-    "react-modal-sheet": "2.0.0",
-    "react-query": "^3.39.3",
-    "remark": "^14.0.3",
-    "remark-html": "^15.0.2",
-    "sharp": "^0.32.4"
+  "lint-staged": {
+    "./apps/**/*.{ts,tsx}": "bash -c \"yarn lint\"",
+    "./packages/**/*.{ts,tsx}": "bash -c \"yarn lint\""
   },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "@types/node": "20.4.7",
-    "@types/react": "18.2.18",
-    "autoprefixer": "^10.4.14",
-    "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
-    "eslint-config-prettier": "^8.10.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "postcss": "^8.4.27",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.4.1",
-    "tailwindcss": "^3.3.3",
-    "typescript": "5.1.6"
-  }
+  "scripts": {
+    "native": "cd apps/expo && yarn start",
+    "web": "cd apps/next && yarn next",
+    "lint": "eslint . --ext js,jsx,ts,tsx",
+    "prepare": "husky install"
+  },
+  "packageManager": "yarn@3.4.1"
 }

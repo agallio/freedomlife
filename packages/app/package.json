@@ -1,0 +1,17 @@
+{
+  "version": "0.0.0",
+  "name": "app",
+  "main": "index.ts",
+  "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.9",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
+    "@tanstack/react-query": "^4.35.3",
+    "axios": "^1.5.0",
+    "dayjs": "^1.11.10",
+    "dripsy": "^4.3.3",
+    "moti": "latest",
+    "solito": "4.0.1"
+  },
+  "sideEffects": false
+}
