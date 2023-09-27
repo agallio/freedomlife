@@ -1,67 +1,17 @@
 # freedomlife
 
-[![freedomlife logo](/public/images/og-index.png)](https://freedomlife.id)
+[![freedomlife logo](/apps/next/public/images/og-index.png)](https://freedomlife.id)
 
-freedomlife: your go-to Indonesian bible app!
+## 🔦 About
 
-freedomlife is an Indonesian bible app with a full-year guide—no need to be confused about what to read anymore. There is a collection of reading guides for today and other days of the same year. You also can read the bible directly without guides.
+freedomlife: your go-to **Indonesian bible app**!
 
-<a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/public/images/google-play.svg" alt="Google Play Store Button" width="180"></a>
-<a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/public/images/app-store.svg" alt="Apple App Store Button" width="180"></a>
+freedomlife is an **Indonesian bible app** with a full-year guide—no need to be confused about what to read anymore. There is a collection of reading guides for today and other days of the same year. You also can read the bible directly without guides.
 
-# Installation
+<a href="https://play.google.com/store/apps/details?id=id.freedomlife.app" target="_blank"><img src="/apps/next/public/images/google-play.svg" alt="Google Play Store Button" width="180"></a>
+<a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/apps/next/public/images/app-store.svg" alt="Apple App Store Button" width="180"></a>
 
-### Requirements
-
-| Technology | Version              |
-| ---------- | -------------------- |
-| node       | LTS (14 recommended) |
-| pnpm       | 6.19.0 or Higher     |
-
-### Environment Variables
-
-**First, clone this repository,** and you need to make an environment variable file, or just copy the environment variables example using this command below.
-
-```bash
-# copy the .env.example into .env file
-$ cp .env.example .env
-```
-
-After that you need some API keys. For that, you can contact me at the contact section below.
-
-### Running The Project
-
-After you get the API keys you can follow these steps below.
-
-```bash
-# install the dependencies
-$ pnpm install
-
-# development (localhost:3000)
-$ pnpm dev
-
-# build for production and launch server
-$ pnpm build
-$ pnpm start
-```
-
-# What's Inside?
-
-| Technology Stack                                           |
-| ---------------------------------------------------------- |
-| [Next.js](https://nextjs.org/)                             |
-| [Preact](https://preactjs.com/)                            |
-| [TypeScript](https://www.typescriptlang.org/)              |
-| [TailwindCSS](https://tailwindcss.com/)                    |
-| [Framer Motion](https://www.framer.com/motion/)            |
-| [react-query](https://react-query.tanstack.com/)           |
-| [Supabase](https://www.supabase.io/)                       |
-| [Workbox](https://developers.google.com/web/tools/workbox) |
-| [Vercel](https://vercel.com/)                              |
-
-For detailed explanation on how things work, click the technology stack name to find out.
-
-### Available Bible Translations
+## 📖 Available Bible Translations
 
 Indonesian
 
@@ -77,19 +27,19 @@ International
 - Amplified Bible (AMP)
 - New International Version (NIV)
 
-You need more translations? You can contact me at the contact section below.
+## ⚡️ Technology
 
-# Contributing
+This monorepo is powered by [Solito](https://solito.dev) & [Turborepo](https://turbo.build/) with the power of [React Native](https://reactnative.dev/).
 
-Please look at this [CONTRIBUTING](CONTRIBUTING.md) document.
+For more details, please open the README file on each respective directory: iOS & Android lives on `apps/expo`, the web lives on `apps/next`.
 
-# Contacts
+## ☎️ Contacts
 
-<a href="https://telegram.me/agallio" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/600px-Telegram_logo.svg.png" alt="Buy Me A Coffee" height="40" width="40"></a> <a href="https://instagram.com/agallio" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png" alt="Buy Me A Coffee" height="40" width="40"></a> <a href="https://twitter.com/agalliosamai" target="_blank"><img src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/Twitterbird.png" alt="Buy Me A Coffee" height="40" width="40"></a>
+<a href="https://instagram.com/agallio" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png" alt="Buy Me A Coffee" height="40" width="40"></a> <a href="https://twitter.com/agalliosamai" target="_blank"><img src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/Twitterbird.png" alt="Buy Me A Coffee" height="40" width="40"></a>
 
-<agallio@freedomlife.id>
+Email: <agallio@freedomlife.id>
 
-# How Can I Thank You?
+## 🙏🏻 How Can I Thank You?
 
 Give a star to this repository would be a great help!
 
@@ -99,7 +49,3 @@ You can also sponsor me on GitHub (take a look on this repo sponsor section!) or
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/agallio)
 <a href="https://www.buymeacoffee.com/agallio" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
-
-# License
-
-MIT License, © 2022, Agallio Samai.
