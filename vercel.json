@@ -1,6 +1,4 @@
 {
-  "buildCommand": "cd apps/next && yarn build",
-  "outputDirectory": "./apps/next/.next",
   "headers": [
     {
       "source": "/sw.js",
