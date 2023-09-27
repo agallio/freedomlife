@@ -21,7 +21,7 @@ export const headerFontSize: { [key: string]: string } = {
 
 export const handleMinusFontSize = (
   verseFontSize: string,
-  setVerseFontSize: (_value: any) => void
+  setVerseFontSize: (_value: any) => void,
 ) => {
   switch (verseFontSize) {
     case 'base':
@@ -43,7 +43,7 @@ export const handleMinusFontSize = (
 
 export const handlePlusFontSize = (
   verseFontSize: string,
-  setVerseFontSize: (_value: any) => void
+  setVerseFontSize: (_value: any) => void,
 ) => {
   switch (verseFontSize) {
     case 'sm':
@@ -65,7 +65,7 @@ export const handlePlusFontSize = (
 
 const fallbackCopyText = async (
   text: string,
-  { theme, removeHighlight }: { theme?: string; removeHighlight: () => void }
+  { theme, removeHighlight }: { theme?: string; removeHighlight: () => void },
 ) => {
   const textArea = document.createElement('textarea')
   textArea.value = text
@@ -107,7 +107,7 @@ export const copyText = async (
     bibleVersion: string
     passageTitle?: string
     removeHighlight: () => void
-  }
+  },
 ) => {
   let mapHighlightedContent
   let mapHighlightedVerse
@@ -121,14 +121,14 @@ export const copyText = async (
   }
 
   const sortedHighlightedText = highlightedText.sort(
-    (a, b) => a.verse - b.verse
+    (a, b) => a.verse - b.verse,
   )
 
   const highlightedContent = sortedHighlightedText.map((item) => item.content)
   const highlightedVerse = sortedHighlightedText.map((item) => item.verse)
   const checkDiffVerse = highlightedVerse
     .slice(1)
-    .map((n, i) => n - highlightedVerse[i])
+    .map((n, i) => n - highlightedVerse[i]!)
   const isIncreasingSequence = checkDiffVerse.every((value) => value === 1)
 
   if (highlightedVerse.length > 1) {
@@ -151,14 +151,14 @@ export const copyText = async (
   if (!navigator.clipboard) {
     fallbackCopyText(
       `"${mapHighlightedContent}" - ${formattedPassageTitle()}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`,
-      { theme, removeHighlight }
+      { theme, removeHighlight },
     )
     return
   }
 
   try {
     await navigator.clipboard.writeText(
-      `"${mapHighlightedContent}" - ${formattedPassageTitle()}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
+      `"${mapHighlightedContent}" - ${formattedPassageTitle()}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`,
     )
     toast.success('Ayat Tersalin!', {
       style:

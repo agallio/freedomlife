@@ -54,7 +54,7 @@ const Read: NextPage = () => {
   // Local Storage States
   const [verseFontSize, setVerseFontSize] = useLocalStorage(
     'verse_font_size',
-    'base'
+    'base',
   )
 
   // States
@@ -80,7 +80,7 @@ const Read: NextPage = () => {
   // Memoized Value
   const guideBibleDataInfo = useMemo(
     () => guideData?.guide_bible_data || [],
-    [guideData]
+    [guideData],
   )
 
   const guideBibleDataInfoByPassage = useMemo(() => {
@@ -116,7 +116,7 @@ const Read: NextPage = () => {
 
     if (currPassage) {
       scrollToTop()
-      setPassage(currChapter![currPassageIndex! + 1])
+      setPassage(currChapter![currPassageIndex! + 1]!)
     }
   }
 
@@ -129,7 +129,7 @@ const Read: NextPage = () => {
 
     if (currPassage) {
       scrollToTop()
-      setPassage(currChapter![currPassageIndex! - 1])
+      setPassage(currChapter![currPassageIndex! - 1]!)
     }
   }
 

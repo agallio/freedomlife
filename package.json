@@ -26,7 +26,8 @@
   "scripts": {
     "native": "cd apps/expo && yarn start",
     "web": "cd apps/next && yarn next",
-    "lint": "eslint . --ext js,jsx,ts,tsx",
+    "vercel-build": "cd apps/next && yarn build",
+    "lint": "eslint . --ext js,jsx,ts,tsx && tsc --pretty --noEmit",
     "prepare": "husky install"
   },
   "packageManager": "yarn@3.4.1"

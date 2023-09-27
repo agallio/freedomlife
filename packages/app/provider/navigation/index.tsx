@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo, useRef } from 'react'
+import React, { PropsWithChildren, useMemo, useRef } from 'react'
 import { useColorScheme } from 'react-native'
 import {
   DarkTheme,
@@ -8,9 +8,6 @@ import {
 } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 import { StatusBar } from 'expo-status-bar'
-
-// Utils
-import collectUmamiAnalytics from 'app/utils/umami'
 
 const CustomLightTheme = {
   ...DefaultTheme,
@@ -67,25 +64,13 @@ export function NavigationProvider({ children }: PropsWithChildren<{}>) {
             },
           },
         }),
-        []
+        [],
       )}
       onReady={() => {
         routeNameRef.current = navigationRef.getCurrentRoute()?.name
       }}
       onStateChange={async () => {
-        const previousRouteName = routeNameRef.current
         const currentRouteName = navigationRef.getCurrentRoute()?.name
-
-        if (previousRouteName !== currentRouteName) {
-          if (process.env.NODE_ENV !== 'development') {
-            collectUmamiAnalytics({
-              enabled: true,
-              previousRouteName,
-              currentRouteName,
-            })
-          }
-        }
-
         routeNameRef.current = currentRouteName
       }}
     >

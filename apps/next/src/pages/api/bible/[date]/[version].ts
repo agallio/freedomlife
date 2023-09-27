@@ -5,13 +5,13 @@ import { supabase } from '~/utils/supabase'
 import rateLimit from '~/utils/rate-limit'
 
 // Types
-import type { SupabaseBibles, SupabaseGuides } from '~/types/api'
+import type { ChaptersData, SupabaseBibles, SupabaseGuides } from '~/types/api'
 
 const limiter = rateLimit()
 
 export default async function bibleByDate(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
@@ -41,23 +41,23 @@ export default async function bibleByDate(
       .json({ data: null, error: 'Internal server error. (guide not found)' })
   }
 
-  const pl = guideByDateData[0].pl
-  const pb = guideByDateData[0].pb
-  const inj = guideByDateData[0].in
+  const pl = guideByDateData[0]!.pl
+  const pb = guideByDateData[0]!.pb
+  const inj = guideByDateData[0]!.in
 
   const plSpaceSplit = pl.split(' ')
   const pbSpaceSplit = pb.split(' ')
   const injSpaceSplit = inj ? inj.split(' ') : []
 
-  const plArr = []
-  const pbArr = []
-  const injArr = []
+  const plArr: ChaptersData[] = []
+  const pbArr: ChaptersData[] = []
+  const injArr: ChaptersData[] = []
 
   // Perjanjian Lama (PL)
-  const plDashSplit = plSpaceSplit[1].split('-')
-  const plColonSplit = plSpaceSplit[1].split(':')
+  const plDashSplit = plSpaceSplit[1]!.split('-')
+  const plColonSplit = plSpaceSplit[1]!.split(':')
   if (plColonSplit.length > 1) {
-    const plColonDashSplit = plColonSplit[1].split('-')
+    const plColonDashSplit = plColonSplit[1]!.split('-')
 
     try {
       const { data, error: plError } = await supabase
@@ -76,14 +76,14 @@ export default async function bibleByDate(
 
       if (plData) {
         plArr.push({
-          version: version || 'tb',
-          book: plData[0].book,
-          chapter: plData[0].chapter,
+          version: (version as string) || 'tb',
+          book: plData[0]!.book,
+          chapter: plData[0]!.chapter,
           passagePlace: `pl-1`,
-          data: plData[0].verses.filter(
+          data: plData[0]!.verses.filter(
             (item) =>
               item.verse >= Number(plColonDashSplit[0]) &&
-              item.verse <= Number(plColonDashSplit[1])
+              item.verse <= Number(plColonDashSplit[1]),
           ),
         })
       }
@@ -114,11 +114,11 @@ export default async function bibleByDate(
 
         if (plData) {
           plArr.push({
-            version: version || 'tb',
-            book: plData[0].book,
+            version: (version as string) || 'tb',
+            book: plData[0]!.book,
             chapter: i,
             passagePlace: `pl-${place++}`,
-            data: plData[0].verses,
+            data: plData[0]!.verses,
           })
         }
       } catch (e) {
@@ -144,11 +144,11 @@ export default async function bibleByDate(
 
       if (plData) {
         plArr.push({
-          version: version || 'tb',
-          book: plData[0].book,
-          chapter: plData[0].chapter,
+          version: (version as string) || 'tb',
+          book: plData[0]!.book,
+          chapter: plData[0]!.chapter,
           passagePlace: `pl-1`,
-          data: plData[0].verses,
+          data: plData[0]!.verses,
         })
       }
     } catch (e) {
@@ -160,9 +160,9 @@ export default async function bibleByDate(
   }
 
   // Perjanjian Baru (PB)
-  const pbColonSplit = pbSpaceSplit[1].split(':')
+  const pbColonSplit = pbSpaceSplit[1]!.split(':')
   if (pbColonSplit.length > 1) {
-    const pbDashSplit = pbColonSplit[1].split('-')
+    const pbDashSplit = pbColonSplit[1]!.split('-')
 
     try {
       const { data, error: pbError } = await supabase
@@ -181,14 +181,14 @@ export default async function bibleByDate(
 
       if (pbData) {
         pbArr.push({
-          version: version || 'tb',
-          book: pbData[0].book,
-          chapter: pbData[0].chapter,
+          version: (version as string) || 'tb',
+          book: pbData[0]!.book,
+          chapter: pbData[0]!.chapter,
           passagePlace: `pb`,
-          data: pbData[0].verses.filter(
+          data: pbData[0]!.verses.filter(
             (item) =>
               item.verse >= Number(pbDashSplit[0]) &&
-              item.verse <= Number(pbDashSplit[1])
+              item.verse <= Number(pbDashSplit[1]),
           ),
         })
       }
@@ -214,11 +214,11 @@ export default async function bibleByDate(
 
       if (pbData) {
         pbArr.push({
-          version: version || 'tb',
-          book: pbData[0].book,
-          chapter: pbData[0].chapter,
+          version: (version as string) || 'tb',
+          book: pbData[0]!.book,
+          chapter: pbData[0]!.chapter,
           passagePlace: `pb`,
-          data: pbData[0].verses,
+          data: pbData[0]!.verses,
         })
       }
     } catch (e) {
@@ -231,11 +231,11 @@ export default async function bibleByDate(
 
   // Kitab Injil (IN)
   if (injSpaceSplit.length > 1) {
-    const injDashSplit = injSpaceSplit[1].split('-')
-    const injColonSplit = injSpaceSplit[1].split(':')
+    const injDashSplit = injSpaceSplit[1]!.split('-')
+    const injColonSplit = injSpaceSplit[1]!.split(':')
 
     if (injColonSplit.length > 1) {
-      const injColonDashSplit = injColonSplit[1].split('-')
+      const injColonDashSplit = injColonSplit[1]!.split('-')
 
       try {
         const { data, error: inError } = await supabase
@@ -254,14 +254,14 @@ export default async function bibleByDate(
 
         if (inData) {
           injArr.push({
-            version: version || 'tb',
-            book: inData[0].book,
-            chapter: inData[0].chapter,
+            version: (version as string) || 'tb',
+            book: inData[0]!.book,
+            chapter: inData[0]!.chapter,
             passagePlace: `in-1`,
-            data: inData[0].verses.filter(
+            data: inData[0]!.verses.filter(
               (item) =>
                 item.verse >= Number(injColonDashSplit[0]) &&
-                item.verse <= Number(injColonDashSplit[1])
+                item.verse <= Number(injColonDashSplit[1]),
             ),
           })
         }
@@ -292,11 +292,11 @@ export default async function bibleByDate(
 
           if (inData) {
             injArr.push({
-              version: version || 'tb',
-              book: inData[0].book,
+              version: (version as string) || 'tb',
+              book: inData[0]!.book,
               chapter: i,
               passagePlace: `in-${place++}`,
-              data: inData[0].verses,
+              data: inData[0]!.verses,
             })
           }
         } catch (e) {
@@ -323,11 +323,11 @@ export default async function bibleByDate(
 
         if (inData) {
           injArr.push({
-            version: version || 'tb',
-            book: inData[0].book,
-            chapter: inData[0].chapter,
+            version: (version as string) || 'tb',
+            book: inData[0]!.book,
+            chapter: inData[0]!.chapter,
             passagePlace: `in-1`,
-            data: inData[0].verses,
+            data: inData[0]!.verses,
           })
         }
       } catch (e) {
@@ -340,12 +340,12 @@ export default async function bibleByDate(
     }
   }
 
-  const plList = []
+  const plList: string[] = []
   for (let i = 1; i <= plArr.length; i++) {
     plList.push(`pl-${i}`)
   }
 
-  const injList = []
+  const injList: string[] = []
   for (let i = 1; i <= injArr.length; i++) {
     injList.push(`in-${i}`)
   }

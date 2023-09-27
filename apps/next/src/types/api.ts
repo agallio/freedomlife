@@ -54,10 +54,10 @@ export interface VerseData {
   verse: number
 }
 
-interface ChaptersData {
+export interface ChaptersData {
   version: string
   book: string
-  chapter: number
+  chapter: string | number
   passagePlace: string
   data: VerseData[]
 }

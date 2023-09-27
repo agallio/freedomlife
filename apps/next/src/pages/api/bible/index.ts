@@ -11,7 +11,7 @@ const limiter = rateLimit()
 
 export default async function biblePassage(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
@@ -50,9 +50,9 @@ export default async function biblePassage(
       return res.json({
         data: {
           version: version || 'tb',
-          book: data[0].book,
-          chapter: data[0].chapter,
-          data: data[0].verses,
+          book: data[0]!.book,
+          chapter: data[0]!.chapter,
+          data: data[0]!.verses,
         },
         error: null,
       })

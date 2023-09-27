@@ -3,8 +3,15 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "app/*": ["./packages/app/*"]
+      "app/*": ["./packages/app/*"],
+      "~/*": ["./apps/next/src/*"]
     }
   },
+  "include": [
+    "./apps/next/next-env.d.ts",
+    "./apps/next/src/**/*.ts",
+    "./apps/next/src/**/*.tsx"
+  ],
+  "exclude": ["node_modules"],
   "extends": "expo/tsconfig.base"
 }

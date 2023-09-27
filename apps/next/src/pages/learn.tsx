@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -15,6 +16,10 @@ interface LearnPageProps {
 }
 
 const Learn: NextPage<LearnPageProps> = ({ post }) => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
   const goHome = () => {
     Router.push('/')
   }
@@ -53,63 +58,67 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
           Kembali
         </button> */}
         <JumboHeader subtitle={post.title} />
-        <div className="prose mt-8 mb-8 dark:prose-dark">
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </div>
-        <div className="mb-12 text-sm text-gray-400">
-          <p>
-            Aplikasi freedomlife dibuat oleh{' '}
-            <ExternalLink
-              href="https://agallio.xyz"
-              className="text-emerald-600 dark:text-emerald-400"
-            >
-              @agallio
-            </ExternalLink>{' '}
-            dan 100% open-source. Kode aplikasi dapat diakses publik dan tidak
-            untuk diperjualbelikan.
-          </p>
-          <p className="mt-4">
-            freedomlife terbuka untuk donasi Anda. Anda dapat memberikan donasi
-            ke channel donasi berikut ini:{' '}
-            <ul className="my-2 list-inside list-disc">
-              <li>
+        {mounted && (
+          <>
+            <div className="prose mb-8 mt-8 dark:prose-dark">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            </div>
+            <div className="mb-12 text-sm text-gray-400">
+              <p>
+                Aplikasi freedomlife dibuat oleh{' '}
                 <ExternalLink
-                  href="https://saweria.co/agallio"
+                  href="https://agallio.xyz"
                   className="text-emerald-600 dark:text-emerald-400"
                 >
-                  Saweria
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  href="https://github.com/sponsors/agallio"
-                  className="text-emerald-600 dark:text-emerald-400"
-                >
-                  GitHub
-                </ExternalLink>
-              </li>
-              <li>
-                <ExternalLink
-                  href="https://paypal.me/agallio"
-                  className="text-emerald-600 dark:text-emerald-400"
-                >
-                  PayPal
-                </ExternalLink>
-              </li>
-            </ul>
-            Dengan melakukan donasi Anda mendukung perkembangan aplikasi
-            freedomlife untuk menjangkau lebih banyak orang, dan menjadi teman
-            rohani bagi setiap mereka. Terima kasih, Tuhan memberkati.
-          </p>
-        </div>
+                  @agallio
+                </ExternalLink>{' '}
+                dan 100% open-source. Kode aplikasi dapat diakses publik dan
+                tidak untuk diperjualbelikan.
+              </p>
+              <p className="mt-4">
+                freedomlife terbuka untuk donasi Anda. Anda dapat memberikan
+                donasi ke channel donasi berikut ini:{' '}
+                <ul className="my-2 list-inside list-disc">
+                  <li>
+                    <ExternalLink
+                      href="https://saweria.co/agallio"
+                      className="text-emerald-600 dark:text-emerald-400"
+                    >
+                      Saweria
+                    </ExternalLink>
+                  </li>
+                  <li>
+                    <ExternalLink
+                      href="https://github.com/sponsors/agallio"
+                      className="text-emerald-600 dark:text-emerald-400"
+                    >
+                      GitHub
+                    </ExternalLink>
+                  </li>
+                  <li>
+                    <ExternalLink
+                      href="https://paypal.me/agallio"
+                      className="text-emerald-600 dark:text-emerald-400"
+                    >
+                      PayPal
+                    </ExternalLink>
+                  </li>
+                </ul>
+                Dengan melakukan donasi Anda mendukung perkembangan aplikasi
+                freedomlife untuk menjangkau lebih banyak orang, dan menjadi
+                teman rohani bagi setiap mereka. Terima kasih, Tuhan memberkati.
+              </p>
+            </div>
 
-        <button
-          aria-label="Keluar Dari Panduan Baca"
-          className="w-full transform rounded-full border border-emerald-700 py-2 text-sm font-bold uppercase text-emerald-700 transition hover:bg-emerald-100 focus:outline-none dark:border-transparent dark:bg-white dark:bg-opacity-20 dark:text-white dark:hover:bg-opacity-30"
-          onClick={goHome}
-        >
-          Kembali Ke Beranda
-        </button>
+            <button
+              aria-label="Keluar Dari Panduan Baca"
+              className="w-full transform rounded-full border border-emerald-700 py-2 text-sm font-bold uppercase text-emerald-700 transition hover:bg-emerald-100 focus:outline-none dark:border-transparent dark:bg-white dark:bg-opacity-20 dark:text-white dark:hover:bg-opacity-30"
+              onClick={goHome}
+            >
+              Kembali Ke Beranda
+            </button>
+          </>
+        )}
       </div>
     </>
   )

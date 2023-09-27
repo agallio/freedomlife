@@ -12,7 +12,7 @@ interface RateLimit {
   check: (
     _res: NextApiResponse,
     _limit: number,
-    _token: string
+    _token: string,
   ) => Promise<void | null>
 }
 
@@ -31,12 +31,12 @@ const rateLimit = (options?: Options): RateLimit => {
         }
         tokenCount[0] += 1
 
-        const currentUsage = tokenCount[0]
+        const currentUsage = tokenCount[0]!
         const isRateLimited = currentUsage >= limit
         res.setHeader('X-RateLimit-Limit', limit)
         res.setHeader(
           'X-RateLimit-Remaining',
-          isRateLimited ? 0 : limit - currentUsage
+          isRateLimited ? 0 : limit - currentUsage,
         )
 
         return isRateLimited ? reject() : resolve(null)
