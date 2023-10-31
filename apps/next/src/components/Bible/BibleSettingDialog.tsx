@@ -32,6 +32,7 @@ export default function BibleSettingDialog({
       isOpen={openSetting}
       onClose={handleCloseSetting}
       detent="content-height"
+      tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
     >
       <Sheet.Container
         style={{

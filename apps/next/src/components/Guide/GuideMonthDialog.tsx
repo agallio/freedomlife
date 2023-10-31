@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import Sheet from 'react-modal-sheet'
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion-10'
 
 // Utils
 import { monthList } from '~/utils/constants'
@@ -20,7 +20,11 @@ export default function GuideMonthDialog({
   onClose,
 }: GuideMonthDialogProps) {
   return (
-    <Sheet isOpen={open} onClose={onClose}>
+    <Sheet
+      isOpen={open}
+      onClose={onClose}
+      tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
+    >
       <Sheet.Container>
         <Sheet.Header>
           <div className="react-modal-sheet-header">
@@ -55,7 +59,7 @@ export default function GuideMonthDialog({
                     <span>{item.name}</span>
                     {item.value === dayjs().format('MM') && (
                       <span
-                        className={`rounded py-1 px-2 text-sm tracking-wide ${
+                        className={`rounded px-2 py-1 text-sm tracking-wide ${
                           monthNumber === item.value
                             ? 'bg-white text-emerald-700'
                             : 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'

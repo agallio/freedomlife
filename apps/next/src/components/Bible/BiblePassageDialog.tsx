@@ -64,7 +64,11 @@ export default function BiblePassageDialog({
   }
 
   return (
-    <Sheet isOpen={openPassage} onClose={handleClose}>
+    <Sheet
+      isOpen={openPassage}
+      onClose={handleClose}
+      tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
+    >
       <Sheet.Container>
         <Sheet.Header>
           <div className="react-modal-sheet-header">
@@ -177,7 +181,7 @@ export default function BiblePassageDialog({
                       <div className="grid grid-cols-4 gap-4 sm:grid-cols-6">
                         {Array.from(
                           { length: chapterSelected.passage },
-                          (_, i) => i + 1
+                          (_, i) => i + 1,
                         ).map((item) => (
                           <div
                             key={item}
@@ -243,7 +247,7 @@ export default function BiblePassageDialog({
                         .filter((item) =>
                           item.name
                             .toLowerCase()
-                            .includes(searchChapter.toLowerCase())
+                            .includes(searchChapter.toLowerCase()),
                         )
                         .map((item) => (
                           <motion.li

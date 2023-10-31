@@ -18,7 +18,11 @@ export default function BibleTranslateDialog({
   const mediaLandscape = useMediaPredicate('(orientation: landscape)')
 
   return (
-    <Sheet isOpen={openTranslate} onClose={handleCloseTranslate}>
+    <Sheet
+      isOpen={openTranslate}
+      onClose={handleCloseTranslate}
+      tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
+    >
       <Sheet.Container
         style={{
           height: !mediaLandscape
