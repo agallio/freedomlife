@@ -97,8 +97,8 @@ const theme = makeTheme({
         height: 4,
       },
       shadowOpacity: 0.15,
-      shadowRadius: 10,
-      elevation: 5,
+      shadowRadius: 20,
+      elevation: 4,
     },
     hover: {
       shadowColor: '#03121A',

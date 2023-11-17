@@ -36,7 +36,16 @@ export default function GradientCard({
   const colorScheme = useColorScheme()
 
   return (
-    <View sx={{ boxShadow: 'container' }}>
+    <View
+      sx={{
+        boxShadow: 'container',
+        backgroundColor: 'white',
+        borderRadius: 12,
+        marginBottom: options.isLastChild
+          ? options.lastChildPadding || 130
+          : 24,
+      }}
+    >
       <LinearGradient
         colors={
           colorScheme === 'light'
@@ -47,14 +56,12 @@ export default function GradientCard({
         end={options.endColorConfig || [1, 0.25]}
         style={sx({
           borderRadius: 12,
-          marginBottom: options.isLastChild
-            ? options.lastChildPadding || 130
-            : 24,
         })}
       >
         {title && (
           <BlurView
             intensity={colorScheme === 'light' ? 10 : 20}
+            blurReductionFactor={0}
             tint="dark"
             style={sx({
               paddingX: 'md',
@@ -64,9 +71,10 @@ export default function GradientCard({
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
+              overflow: Platform.OS === 'android' ? 'hidden' : undefined,
             })}
           >
-            <View>
+            <View style={{}}>
               <Text
                 allowFontScaling={false}
                 sx={{

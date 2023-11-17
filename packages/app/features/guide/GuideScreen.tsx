@@ -35,7 +35,7 @@ import dayjs from 'app/utils/dayjs'
 import type { GuideDataResponse } from 'app/types'
 
 export default function GuideScreen(
-  _: PropsWithChildren<{ onMonthSelectPress?: () => void }>
+  _: PropsWithChildren<{ onMonthSelectPress?: () => void }>,
 ) {
   const sx = useSx()
   const {
@@ -128,7 +128,42 @@ export default function GuideScreen(
       }
 
       setGuideHasBeenRead()
-    }, [guideHasBeenRead])
+    }, [guideHasBeenRead]),
+  )
+
+  const Component = error ? (
+    <GuideItemCard
+      isError
+      sx={sx}
+      nativeColorScheme={colorScheme}
+      onGuidePress={onGuidePress}
+      isLoading={isLoading}
+    />
+  ) : (
+    <FlatList
+      ref={flatListRef as any}
+      data={isLoading ? ([...Array(4).keys()] as any) : data}
+      keyExtractor={(_, index) => `item-${index}`}
+      scrollEventThrottle={16}
+      contentContainerStyle={sx({
+        paddingY: 14,
+        paddingX: [32, '2xl'],
+      })}
+      renderItem={({ item, index }: ListRenderItemInfo<GuideDataResponse>) => (
+        <GuideItemCard
+          item={item}
+          sx={sx}
+          isLoading={isLoading}
+          isLastChild={data ? index + 1 === data.length : false}
+          nativeColorScheme={colorScheme}
+          onGuidePress={onGuidePress}
+          hasBeenRead={hasBeenRead.includes(item.date || '')}
+        />
+      )}
+      initialNumToRender={5}
+      maxToRenderPerBatch={5}
+      windowSize={4}
+    />
   )
 
   return (
@@ -190,77 +225,12 @@ export default function GuideScreen(
             ))}
         </TouchableOpacity>
       </View>
-      <FadeInView style={{ paddingTop: 0 }}>
-        {error ? (
-          Platform.OS === 'android' ? (
-            <GuideItemCard
-              isError
-              sx={sx}
-              nativeColorScheme={colorScheme}
-              onGuidePress={onGuidePress}
-              isLoading={isLoading}
-            />
-          ) : (
-            <View
-              sx={{
-                boxShadow: 'container',
-                paddingY: 14,
-                paddingX: [32, '2xl'],
-              }}
-            >
-              <GuideItemCard
-                isError
-                sx={sx}
-                nativeColorScheme={colorScheme}
-                onGuidePress={onGuidePress}
-                isLoading={isLoading}
-              />
-            </View>
-          )
-        ) : (
-          <FlatList
-            ref={flatListRef as any}
-            data={isLoading ? ([...Array(4).keys()] as any) : data}
-            keyExtractor={(_, index) => `item-${index}`}
-            scrollEventThrottle={16}
-            contentContainerStyle={sx({
-              paddingY: 14,
-              paddingX: [32, '2xl'],
-            })}
-            renderItem={({
-              item,
-              index,
-            }: ListRenderItemInfo<GuideDataResponse>) =>
-              Platform.OS === 'android' ? (
-                <GuideItemCard
-                  item={item}
-                  sx={sx}
-                  isLoading={isLoading}
-                  isLastChild={data ? index + 1 === data.length : false}
-                  nativeColorScheme={colorScheme}
-                  onGuidePress={onGuidePress}
-                  hasBeenRead={hasBeenRead.includes(item.date || '')}
-                />
-              ) : (
-                <View sx={{ boxShadow: 'container' }}>
-                  <GuideItemCard
-                    item={item}
-                    sx={sx}
-                    isLoading={isLoading}
-                    isLastChild={data ? index + 1 === data!.length : false}
-                    nativeColorScheme={colorScheme}
-                    onGuidePress={onGuidePress}
-                    hasBeenRead={hasBeenRead.includes(item.date || '')}
-                  />
-                </View>
-              )
-            }
-            initialNumToRender={5}
-            maxToRenderPerBatch={5}
-            windowSize={4}
-          />
-        )}
-      </FadeInView>
+
+      {Platform.OS === 'ios' ? (
+        <FadeInView style={{ paddingTop: 0 }}>{Component}</FadeInView>
+      ) : (
+        Component
+      )}
     </>
   )
 }

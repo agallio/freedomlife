@@ -1,6 +1,5 @@
 import { Platform, useColorScheme } from 'react-native'
 import { View, Text, useSx } from 'dripsy'
-import { BlurTint, BlurView } from 'expo-blur'
 import { Skeleton } from 'moti/skeleton'
 
 // Constants
@@ -38,7 +37,6 @@ export default function Card({
   return (
     <View
       sx={{
-        overflow: 'hidden',
         borderRadius: 12,
         boxShadow: 'container',
         backgroundColor: options?.backgroundColor || 'tab',
@@ -48,10 +46,8 @@ export default function Card({
       }}
     >
       {title && (
-        <BlurView
-          intensity={colorScheme === 'light' ? 10 : 20}
-          tint={colorScheme as BlurTint}
-          style={sx({
+        <View
+          sx={{
             paddingX: 'md',
             paddingY: 12,
             borderBottomWidth: colorScheme === 'light' ? 1 : 0,
@@ -59,7 +55,7 @@ export default function Card({
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          })}
+          }}
         >
           <Skeleton
             show={options?.isLoading}
@@ -93,7 +89,7 @@ export default function Card({
           </Skeleton>
 
           {actionButton}
-        </BlurView>
+        </View>
       )}
 
       <View style={sx({ paddingX: 'md', paddingY: 12 })}>{children}</View>

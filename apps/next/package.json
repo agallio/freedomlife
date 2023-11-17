@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.4",
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "framer-motion-10": "npm:framer-motion@^10.16.4",
     "gray-matter": "^4.0.3",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "20.8.10",
-    "@types/react": "~18.2.33",
+    "@types/react": "^18.2.37",
     "autoprefixer": "^10.4.16",
     "eslint-config-next": "^14.0.1",
     "husky": "^8.0.3",

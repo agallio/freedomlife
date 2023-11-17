@@ -106,6 +106,7 @@ export default function GuideItemCard({
               >
                 <BlurView
                   intensity={nativeColorScheme === 'light' ? 60 : 40}
+                  blurReductionFactor={0}
                   tint={nativeColorScheme as BlurTint}
                   style={sx({ padding: 12, borderRadius: 9999 })}
                 >
@@ -120,6 +121,7 @@ export default function GuideItemCard({
             >
               <BlurView
                 intensity={nativeColorScheme === 'light' ? 60 : 40}
+                blurReductionFactor={0}
                 tint={nativeColorScheme as BlurTint}
                 style={sx({ padding: 12, borderRadius: 9999 })}
               >
@@ -167,8 +169,8 @@ export default function GuideItemCard({
                   {itemKey.includes('pl')
                     ? 'Perjanjian Lama'
                     : itemKey.includes('pb')
-                    ? 'Kitab Injil'
-                    : 'Kitab Rasuli'}
+                      ? 'Kitab Injil'
+                      : 'Kitab Rasuli'}
                 </P>
               </View>
             </View>
@@ -256,8 +258,8 @@ export default function GuideItemCard({
                   {itemKey.includes('pl')
                     ? 'Perjanjian Lama'
                     : itemKey.includes('pb')
-                    ? 'Kitab Injil'
-                    : 'Kitab Rasuli'}
+                      ? 'Kitab Injil'
+                      : 'Kitab Rasuli'}
                 </P>
               </View>
             </Skeleton>

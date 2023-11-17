@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { TouchableOpacity, useColorScheme } from 'react-native'
+import { Platform, TouchableOpacity, useColorScheme } from 'react-native'
 import { View, Text, useSx } from 'dripsy'
 import {
   ChevronLeftIcon,
@@ -40,18 +40,18 @@ export default function ReadScreenNavigator({
   // Memoized Variables
   const guidePassageIndex = useMemo(
     () => (inGuide ? passageArray?.findIndex((p) => p === guidePassage)! : -77),
-    [passageArray, inGuide, guidePassage]
+    [passageArray, inGuide, guidePassage],
   )
   const showPrevButton = useMemo(
     () => (inGuide ? guidePassageIndex !== 0 : passage !== 'kej-1'),
-    [inGuide, passage, guidePassageIndex]
+    [inGuide, passage, guidePassageIndex],
   )
   const showNextButton = useMemo(
     () =>
       inGuide
         ? guidePassageIndex !== passageArray!.length - 1
         : passage !== 'why-22',
-    [passageArray, inGuide, passage, guidePassageIndex]
+    [passageArray, inGuide, passage, guidePassageIndex],
   )
 
   // Methods
@@ -148,7 +148,6 @@ export default function ReadScreenNavigator({
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 8,
-            boxShadow: 'float',
             zIndex: -1,
           })}
           onPress={() =>
@@ -168,6 +167,7 @@ export default function ReadScreenNavigator({
         >
           <View
             sx={{
+              boxShadow: 'float',
               backgroundColor: 'tabActive',
               width: '50%',
               flexDirection: 'row',

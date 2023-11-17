@@ -14,7 +14,8 @@
     "expo-linking": "~5.0.2",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
-    "expo-updates": "~0.18.16",
+    "expo-system-ui": "~2.4.0",
+    "expo-updates": "~0.18.17",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
@@ -29,8 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/react": "~18.2.14",
-    "@types/react-native": "~0.72.2",
+    "@types/react": "^18.2.37",
     "typescript": "^5.2.2"
   },
   "scripts": {
