@@ -61,10 +61,10 @@ export default function BibleTranslateDialog({
                   {item === 'tb'
                     ? 'Terjemahan Baru (TB)'
                     : item === 'bis'
-                    ? 'Bahasa Indonesia Sehari-Hari (BIS)'
-                    : item === 'fayh'
-                    ? 'Firman Allah Yang Hidup (FAYH)'
-                    : 'Versi Mudah Dibaca (VMD)'}
+                      ? 'Bahasa Indonesia Sehari-Hari (BIS)'
+                      : item === 'fayh'
+                        ? 'Firman Allah Yang Hidup (FAYH)'
+                        : 'Versi Mudah Dibaca (VMD)'}
                 </span>
                 {/* Commented for future use */}
                 {/* {item === 'vmd' && (
@@ -102,10 +102,10 @@ export default function BibleTranslateDialog({
                   {item === 'msg'
                     ? 'The Message (MSG)'
                     : item === 'nkjv'
-                    ? 'New King James Version (NKJV)'
-                    : item === 'amp'
-                    ? 'Amplified Bible (AMP)'
-                    : 'New International Version (NIV)'}
+                      ? 'New King James Version (NKJV)'
+                      : item === 'amp'
+                        ? 'Amplified Bible (AMP)'
+                        : 'New International Version (NIV)'}
                 </span>
                 {/* Commented for future use */}
                 {/* {(item === 'amp' || item === 'niv') && (

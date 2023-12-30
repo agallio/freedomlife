@@ -11,7 +11,7 @@ const limiter = rateLimit()
 
 export default async function guideByDate(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
@@ -70,14 +70,14 @@ export default async function guideByDate(
           ? plSpaceSplit[2].split('-')
           : []
         : plSpaceSplit[1] !== undefined
-        ? plSpaceSplit[1].split('-')
-        : []
+          ? plSpaceSplit[1].split('-')
+          : []
 
     const plList = Array.from(
       {
         length: (Number(plDashSplit[1]) - Number(plDashSplit[0])) / 1 + 1,
       },
-      (_, i) => Number(plDashSplit[0]) + i
+      (_, i) => Number(plDashSplit[0]) + i,
     )
 
     const dashSplitFn = (): string[] => {
@@ -96,7 +96,7 @@ export default async function guideByDate(
       {
         length: (Number(inDashSplit[1]) - Number(inDashSplit[0])) / 1 + 1,
       },
-      (_, i) => Number(inDashSplit[0]) + i
+      (_, i) => Number(inDashSplit[0]) + i,
     )
 
     const guideBibleData = () => {
