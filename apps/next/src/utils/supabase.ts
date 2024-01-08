@@ -5,5 +5,5 @@ export const supabase = createClient(
   process.env.SUPABASE_ANON_KEY!,
   {
     auth: { persistSession: false },
-  }
+  },
 )

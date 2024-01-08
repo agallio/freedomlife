@@ -13,20 +13,20 @@ import type { QueryResult } from '~/types/utils'
 
 const getBibleByDate = async (guideDate: string, bibleVersion: string) => {
   const { data } = await axios.get(
-    `/api/bible/${guideDate || dayjs().format('DD-MM-YYYY')}/${bibleVersion}`
+    `/api/bible/${guideDate || dayjs().format('DD-MM-YYYY')}/${bibleVersion}`,
   )
   return data
 }
 
 const getBibleByPassage = async (passage: string, bibleVersion: string) => {
   const { data } = await axios.get(
-    `/api/bible?passage=${passage || 'kej-1'}&version=${bibleVersion}`
+    `/api/bible?passage=${passage || 'kej-1'}&version=${bibleVersion}`,
   )
   return data
 }
 
 export const useBibleByDate = (
-  bibleVersion: string
+  bibleVersion: string,
 ): QueryResult<BibleGuideDataResponse | undefined> => {
   const { guideDate } = useGuide()
 
@@ -36,7 +36,7 @@ export const useBibleByDate = (
   >(
     ['bibles', guideDate, bibleVersion],
     () => getBibleByDate(guideDate, bibleVersion),
-    { enabled: false, refetchOnWindowFocus: false }
+    { enabled: false, refetchOnWindowFocus: false },
   )
 
   return { data: data?.data, error, isError, isLoading, refetch }
@@ -44,7 +44,7 @@ export const useBibleByDate = (
 
 export const useBibleByPassage = (
   bibleVersion: string,
-  biblePassage: string
+  biblePassage: string,
 ): QueryResult<BibleDataResponse | undefined> => {
   const { data, error, isError, isLoading, refetch } = useQuery<
     { data: BibleDataResponse },
@@ -52,7 +52,7 @@ export const useBibleByPassage = (
   >(
     ['bibles', biblePassage, bibleVersion],
     () => getBibleByPassage(biblePassage, bibleVersion),
-    { enabled: false, refetchOnWindowFocus: false }
+    { enabled: false, refetchOnWindowFocus: false },
   )
 
   return { data: data?.data, error, isError, isLoading, refetch }

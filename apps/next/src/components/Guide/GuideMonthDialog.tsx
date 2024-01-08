@@ -51,8 +51,8 @@ export default function GuideMonthDialog({
                     Number(item.value) > Number(dayjs().format('MM'))
                       ? 'bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                       : monthNumber === item.value
-                      ? 'cursor-pointer bg-emerald-300 text-emerald-900 shadow dark:bg-emerald-700 dark:text-white'
-                      : 'cursor-pointer bg-white text-gray-800 shadow dark:bg-gray-600 dark:text-white'
+                        ? 'cursor-pointer bg-emerald-300 text-emerald-900 shadow dark:bg-emerald-700 dark:text-white'
+                        : 'cursor-pointer bg-white text-gray-800 shadow dark:bg-gray-600 dark:text-white'
                   }`}
                 >
                   <div className="flex items-center justify-between p-3">

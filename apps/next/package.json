@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.38.4",
+    "@supabase/supabase-js": "2.39.1",
     "axios": "^1.6.2",
     "dayjs": "^1.11.10",
     "framer-motion-10": "npm:framer-motion@^10.16.4",
     "gray-matter": "^4.0.3",
     "lru-cache": "^10.0.1",
-    "next": "14.0.1",
+    "next": "14.0.4",
     "next-pwa": "^5.6.0",
     "next-seo": "^6.4.0",
     "preact": "^10.18.1",

@@ -11,7 +11,7 @@ const getFlag = async (name: string) => {
 }
 
 export const useFlagData = (
-  name: string
+  name: string,
 ): QueryResult<FlagDataResponse | undefined> => {
   const {
     data: rawData,
@@ -25,7 +25,7 @@ export const useFlagData = (
     {
       enabled: true,
       refetchOnWindowFocus: false,
-    }
+    },
   )
 
   const data = rawData?.data

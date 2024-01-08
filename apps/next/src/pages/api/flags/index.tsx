@@ -11,7 +11,7 @@ const limiter = rateLimit()
 
 export default async function featureFlags(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })

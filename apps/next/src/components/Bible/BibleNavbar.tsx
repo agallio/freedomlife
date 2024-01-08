@@ -41,7 +41,7 @@ export default function BibleNavbar({
 }: BibleNavbarProps) {
   return (
     <header
-      className={`fixed top-0 left-0 z-40 w-full border-b bg-opacity-60 ${
+      className={`fixed left-0 top-0 z-40 w-full border-b bg-opacity-60 ${
         highlighted
           ? 'border-emerald-600 bg-emerald-600 text-white'
           : 'border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-700 dark:bg-opacity-70'
@@ -104,7 +104,7 @@ export default function BibleNavbar({
             </button>
             <button
               aria-label="Buka Dialog Kitab"
-              className="transform rounded-full bg-emerald-300 py-1 px-5 text-emerald-900 shadow-sm transition duration-300 hover:bg-emerald-400 focus:outline-none dark:bg-emerald-700 dark:text-white sm:py-2 sm:px-6"
+              className="transform rounded-full bg-emerald-300 px-5 py-1 text-emerald-900 shadow-sm transition duration-300 hover:bg-emerald-400 focus:outline-none dark:bg-emerald-700 dark:text-white sm:px-6 sm:py-2"
               onClick={handleOpenPassage}
               style={{ minWidth: '8rem' }}
             >

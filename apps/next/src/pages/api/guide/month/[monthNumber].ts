@@ -9,7 +9,7 @@ const limiter = rateLimit()
 
 export default async function guideByMonth(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).json({ data: null, error: 'Method not allowed.' })

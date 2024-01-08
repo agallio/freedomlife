@@ -36,8 +36,8 @@ export default function GuideItem({
         background: isToday(item.date as string)
           ? 'linear-gradient(45deg, rgba(16,185,129,1) 30%, rgba(0,212,255,1) 100%)'
           : theme === 'light'
-          ? '#ffffff'
-          : '#4B5563',
+            ? '#ffffff'
+            : '#4B5563',
       }}
     >
       <div
@@ -48,8 +48,8 @@ export default function GuideItem({
           borderBottom: isToday(item.date as string)
             ? ''
             : theme === 'light'
-            ? '1px solid #e2e2e2'
-            : '1px solid #6B7280',
+              ? '1px solid #e2e2e2'
+              : '1px solid #6B7280',
         }}
       >
         <div className="flex flex-col">

@@ -19,7 +19,7 @@ export default function BottomTabBar() {
 
   return (
     <footer
-      className="fixed left-0 bottom-0 z-10 flex w-full p-6"
+      className="fixed bottom-0 left-0 z-10 flex w-full p-6"
       style={{ transition: 'bottom 0.3s' }}
     >
       <div className="mx-auto flex w-full items-center justify-center sm:max-w-md">

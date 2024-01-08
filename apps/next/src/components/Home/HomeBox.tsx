@@ -57,21 +57,21 @@ export default function HomeBox({
               {item === 'PL'
                 ? data?.pl_name
                 : item === 'PB'
-                ? data?.pb_name
-                : item === 'IN'
-                ? data?.in_name
-                : 'Tidak ada data'}
+                  ? data?.pb_name
+                  : item === 'IN'
+                    ? data?.in_name
+                    : 'Tidak ada data'}
             </h1>
             <p className="sm:text-md text-sm text-white">
               {item === 'PL'
                 ? 'Perjanjian Lama'
                 : item === 'PB'
-                ? 'Kitab Injil'
-                : data?.in_name
-                ? item === 'IN'
-                  ? 'Kitab Rasuli'
-                  : ''
-                : ''}
+                  ? 'Kitab Injil'
+                  : data?.in_name
+                    ? item === 'IN'
+                      ? 'Kitab Rasuli'
+                      : ''
+                    : ''}
             </p>
           </div>
         ))}
@@ -110,8 +110,8 @@ export default function HomeBox({
           {!data && !isGuideError
             ? ''
             : data && !isGuideError
-            ? 'Baca'
-            : 'Baca Tanpa Panduan'}
+              ? 'Baca'
+              : 'Baca Tanpa Panduan'}
         </button>
       }
       style={{

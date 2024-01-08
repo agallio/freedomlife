@@ -14,14 +14,14 @@ import type { GuideDataResponse } from '~/types/api'
 
 const getGuides = async (month?: string) => {
   const { data } = await axios.get(
-    `/api/guide/month/${month || dayjs().format('MM')}`
+    `/api/guide/month/${month || dayjs().format('MM')}`,
   )
   return data
 }
 
 const getGuideByDate = async (guideDate: string) => {
   const { data } = await axios.get(
-    `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`
+    `/api/guide/${guideDate || dayjs().format('DD-MM-YYYY')}`,
   )
   return data
 }

@@ -49,14 +49,14 @@ const Persembahan: NextPage = () => {
     if (!navigator.clipboard) {
       fallbackCopyNumber(
         bank === 'cimb' ? '800077521000' : '0171217007',
-        bankText
+        bankText,
       )
       return
     }
 
     try {
       await navigator.clipboard.writeText(
-        bank === 'cimb' ? '800077521000' : '0171217007'
+        bank === 'cimb' ? '800077521000' : '0171217007',
       )
       toast.success(`Nomor rekening ${bankText} tersalin!`, {
         style:
@@ -160,7 +160,7 @@ const Persembahan: NextPage = () => {
               </div>
             </div>
 
-            <div className="mt-4 mb-6">
+            <div className="mb-6 mt-4">
               <p className="text-lg font-bold dark:text-white">BCA</p>
               <p className="mb-2 text-gray-600 dark:text-gray-200">
                 a/n GKKD Glory of God Yogyakarta
