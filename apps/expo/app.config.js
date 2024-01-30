@@ -21,7 +21,7 @@ const config = {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '1.4.0',
+  version: '1.5.0',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -47,7 +47,7 @@ const config = {
       'expo-build-properties',
       {
         ios: {
-          deploymentTarget: '13.0',
+          deploymentTarget: '13.4',
         },
       },
     ],
