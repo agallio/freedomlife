@@ -91,7 +91,7 @@ export function BibleTranslateDialogItem({
         'mx-4 my-4 flex transform cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-3 font-medium shadow transition duration-300 sm:mx-1',
         bibleVersion === item
           ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-          : 'bg-white text-gray-600 dark:bg-gray-600 dark:text-white md:hover:bg-emerald-300 md:hover:text-emerald-900 dark:md:hover:bg-emerald-700',
+          : 'bg-white text-gray-600 dark:bg-gray-600 dark:text-white md:hover:bg-emerald-300 md:hover:text-emerald-900 dark:md:hover:bg-emerald-700 dark:md:hover:text-white',
       )}
       onClick={() => changeVersion(item)}
     >
@@ -101,7 +101,7 @@ export function BibleTranslateDialogItem({
         <div className="flex w-[33%] flex-initial items-center justify-end">
           <motion.button
             className={clsx(
-              'flex items-center justify-center rounded-full py-2 text-sm font-bold uppercase transition duration-300 focus:outline-none dark:bg-white dark:bg-opacity-20 md:hover:bg-opacity-30',
+              'flex items-center justify-center rounded-full py-2 text-sm font-bold uppercase transition duration-300 focus:outline-none dark:bg-white dark:bg-opacity-20 md:hover:bg-opacity-60 dark:md:hover:bg-opacity-40',
 
               // Active
               bibleVersion === item
