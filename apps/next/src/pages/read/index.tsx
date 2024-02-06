@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NextSeo } from 'next-seo'
@@ -7,12 +8,18 @@ import toast from 'react-hot-toast'
 
 // Components
 import BibleNavbar from '~/components/Bible/BibleNavbar'
+import PageTransition from '~/components/PageTransition'
 import BibleTypography from '~/components/Bible/BibleTypography'
 import BibleNavigator from '~/components/Bible/BibleNavigator'
-import BibleTranslateDialog from '~/components/Bible/BibleTranslateDialog'
-import BiblePassageDialog from '~/components/Bible/BiblePassageDialog'
-import BibleSettingDialog from '~/components/Bible/BibleSettingDialog'
-import PageTransition from '~/components/PageTransition'
+const BibleTranslateDialog = dynamic(
+  () => import('~/components/Bible/BibleTranslateDialog'),
+)
+const BiblePassageDialog = dynamic(
+  () => import('~/components/Bible/BiblePassageDialog'),
+)
+const BibleSettingDialog = dynamic(
+  () => import('~/components/Bible/BibleSettingDialog'),
+)
 
 // Utils
 import dayjs from '~/utils/dayjs'
@@ -171,7 +178,7 @@ const Read: NextPage = () => {
 
       localStorage.setItem('last_chapter', guideBibleDataInfoByPassage.abbr)
       localStorage.removeItem('in_guide')
-      router.push(`/read/${abbrSplitted[0]}/${abbrSplitted[1]}`)
+      router.push(`/read/bible?chapter=${abbrSplitted[0]}-${abbrSplitted[1]}`)
 
       toast.success('Panduan Baca Nonaktif', {
         style:
@@ -325,6 +332,7 @@ const Read: NextPage = () => {
       />
 
       <BibleTranslateDialog
+        inGuide={true}
         openTranslate={openTranslate}
         bibleVersion={bibleVersion}
         handleCloseTranslate={() => {

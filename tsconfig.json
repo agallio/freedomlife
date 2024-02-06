@@ -2,6 +2,7 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
+    "module": "ESNext",
     "paths": {
       "app/*": ["./packages/app/*"],
       "~/*": ["./apps/next/src/*"]

@@ -25,7 +25,7 @@ export default function FeedbackBox() {
       >
         <button
           aria-label="Kirim Masukan"
-          className="sm:text-md h-10 w-full rounded-full bg-white bg-opacity-20 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 hover:bg-opacity-30 focus:outline-none sm:w-60"
+          className="h-10 w-full rounded-full bg-white bg-opacity-20 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 hover:bg-opacity-30 focus:outline-none sm:w-60"
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

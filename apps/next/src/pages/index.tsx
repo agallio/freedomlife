@@ -18,6 +18,7 @@ import { useGuide } from '~/contexts/GuideContext'
 // Utils
 import dayjs from '~/utils/dayjs'
 import { useGuideByDate } from '~/utils/hooks/useFetchedGuide'
+import DownloadableBibleBox from '~/components/Home/DownloadableBibleBox'
 // import { useFlagData } from '~/utils/hooks/useFetchedFlags'
 
 const Home: NextPage = () => {
@@ -38,7 +39,7 @@ const Home: NextPage = () => {
   const toBible = () => {
     setGuideDate('')
     if (isGuideError) {
-      Router.push('/read/kej/1')
+      Router.push('/read/bible?chapter=kej-1')
     } else {
       Router.push('/read')
       localStorage.setItem('in_guide', 'true')
@@ -95,8 +96,14 @@ const Home: NextPage = () => {
       <PageTransition>
         <main>
           {/* {showNotice && <NoticeBox />} */}
+          <DownloadableBibleBox />
 
-          <HomeBox data={data} isGuideError={isGuideError} toBible={toBible} />
+          <HomeBox
+            top="6"
+            data={data}
+            isGuideError={isGuideError}
+            toBible={toBible}
+          />
 
           {isError && !isGuideError ? null : (
             <>

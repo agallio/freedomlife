@@ -2,14 +2,14 @@ import { motion } from 'framer-motion-10'
 import { useMediaPredicate } from 'react-media-hook'
 import Sheet from 'react-modal-sheet'
 
-interface BibleTranslateDialogProps {
-  openTranslate: boolean
-  bibleVersion: string
-  handleCloseTranslate: () => void
-  changeVersion: (_: string) => void
-}
+// Components
+import {
+  BibleTranslateDialogItem,
+  type BibleTranslateDialogProps,
+} from './BibleTranslateDialogItem'
 
 export default function BibleTranslateDialog({
+  inGuide,
   openTranslate,
   bibleVersion,
   handleCloseTranslate,
@@ -22,6 +22,7 @@ export default function BibleTranslateDialog({
       isOpen={openTranslate}
       onClose={handleCloseTranslate}
       tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
+      style={{ zIndex: 9998 }}
     >
       <Sheet.Container
         style={{
@@ -39,87 +40,31 @@ export default function BibleTranslateDialog({
           </h3>
         </Sheet.Header>
         <Sheet.Content>
-          <div className="overflow-auto">
+          <div className="overflow-auto pb-20">
             <h4 className="mt-4 px-4 font-medium tracking-wide text-gray-500 dark:text-white">
               Bahasa Indonesia
             </h4>
             {['tb', 'bis', 'fayh', 'vmd'].map((item) => (
-              <div
+              <BibleTranslateDialogItem
                 key={item}
-                className={`mx-4 my-4 transform cursor-pointer rounded-lg p-4 font-medium shadow transition duration-300 ${
-                  bibleVersion === item
-                    ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-                    : 'bg-white text-gray-600 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
-                } ${
-                  // Commented for future use
-                  // item === 'vmd' && 'flex items-center justify-between'
-                  ''
-                } sm:mx-1`}
-                onClick={() => changeVersion(item)}
-              >
-                <span>
-                  {item === 'tb'
-                    ? 'Terjemahan Baru (TB)'
-                    : item === 'bis'
-                      ? 'Bahasa Indonesia Sehari-Hari (BIS)'
-                      : item === 'fayh'
-                        ? 'Firman Allah Yang Hidup (FAYH)'
-                        : 'Versi Mudah Dibaca (VMD)'}
-                </span>
-                {/* Commented for future use */}
-                {/* {item === 'vmd' && (
-                  <span
-                    className={`rounded py-1 px-2 text-sm tracking-wide ${
-                      bibleVersion === item
-                        ? 'bg-white text-emerald-700'
-                        : 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-                    }`}
-                  >
-                    BARU!
-                  </span>
-                )} */}
-              </div>
+                item={item}
+                inGuide={inGuide}
+                bibleVersion={bibleVersion}
+                changeVersion={changeVersion}
+              />
             ))}
+
             <h4 className="mt-6 px-4 font-medium tracking-wide text-gray-500 dark:text-white">
               Bahasa Inggris
             </h4>
             {['msg', 'nkjv', 'amp', 'niv'].map((item) => (
-              <div
+              <BibleTranslateDialogItem
                 key={item}
-                className={`mx-4 my-4 transform cursor-pointer rounded-lg p-4 font-medium shadow transition duration-300 ${
-                  bibleVersion === item
-                    ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-                    : 'bg-white text-gray-600 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700'
-                } ${
-                  // Commented for future use
-                  // (item === 'amp' || item === 'niv') &&
-                  // 'flex items-center justify-between'
-                  ''
-                } sm:mx-1`}
-                onClick={() => changeVersion(item)}
-              >
-                <span>
-                  {item === 'msg'
-                    ? 'The Message (MSG)'
-                    : item === 'nkjv'
-                      ? 'New King James Version (NKJV)'
-                      : item === 'amp'
-                        ? 'Amplified Bible (AMP)'
-                        : 'New International Version (NIV)'}
-                </span>
-                {/* Commented for future use */}
-                {/* {(item === 'amp' || item === 'niv') && (
-                  <span
-                    className={`rounded py-1 px-2 text-sm tracking-wide ${
-                      bibleVersion === item
-                        ? 'bg-white text-emerald-700'
-                        : 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-                    }`}
-                  >
-                    BARU!
-                  </span>
-                )} */}
-              </div>
+                item={item}
+                inGuide={inGuide}
+                bibleVersion={bibleVersion}
+                changeVersion={changeVersion}
+              />
             ))}
           </div>
         </Sheet.Content>

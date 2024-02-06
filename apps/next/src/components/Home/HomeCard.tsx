@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import clsx from 'clsx'
 
 interface HomeCardProps {
   /**
@@ -51,18 +52,18 @@ export default function HomeCard({
 }: HomeCardProps) {
   return (
     <div
-      className={`flex flex-col rounded-lg shadow-md mt-${top || '2'} ${
-        className || ''
-      }`}
+      className={clsx(
+        'flex flex-col rounded-lg shadow-md',
+        `mt-${top || '2'}`,
+        className,
+      )}
       style={style}
     >
       {title || subtitle ? (
         <div className="flex w-full items-center justify-between rounded-t-lg px-4 py-2 backdrop-blur-[20px] backdrop-saturate-[55%] backdrop-filter">
           <div className="flex flex-col">
             <h2 className="text-lg font-bold text-white sm:text-xl">{title}</h2>
-            {subtitle ? (
-              <p className="sm:text-md text-sm text-white">{subtitle}</p>
-            ) : null}
+            {subtitle ? <p className="text-sm text-white">{subtitle}</p> : null}
           </div>
         </div>
       ) : null}

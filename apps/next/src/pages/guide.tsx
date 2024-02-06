@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Router from 'next/router'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import { NextSeo } from 'next-seo'
 
 // Components
 import JumboHeader from '~/components/JumboHeader'
+import PageTransition from '~/components/PageTransition'
 import GuideLoading from '~/components/Guide/GuideLoading'
 import GuideItem from '~/components/Guide/GuideItem'
-import GuideError from '~/components/Guide/GuideError'
-import GuideMonthDialog from '~/components/Guide/GuideMonthDialog'
-import PageTransition from '~/components/PageTransition'
+const GuideError = dynamic(() => import('~/components/Guide/GuideError'))
+const GuideMonthDialog = dynamic(
+  () => import('~/components/Guide/GuideMonthDialog'),
+)
 
 // Icon Components
 import ChevronDownIcon from '~/components/Icons/ChevronDownIcon'

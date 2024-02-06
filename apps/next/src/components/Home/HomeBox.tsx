@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import clsx from 'clsx'
 
 // Components
 import HomeCard from './HomeCard'
@@ -62,7 +63,7 @@ export default function HomeBox({
                     ? data?.in_name
                     : 'Tidak ada data'}
             </h1>
-            <p className="sm:text-md text-sm text-white">
+            <p className="text-sm text-white">
               {item === 'PL'
                 ? 'Perjanjian Lama'
                 : item === 'PB'
@@ -98,9 +99,10 @@ export default function HomeBox({
       footer={
         <button
           aria-label="Baca Panduan"
-          className={`sm:text-md h-10 w-full rounded-full bg-emerald-800 bg-opacity-80 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 ${
-            !isGuideError ? 'sm:w-24' : 'sm:w-full'
-          } hover:bg-opacity-30 focus:outline-none dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30`}
+          className={clsx(
+            'h-10 w-full rounded-full bg-emerald-800 bg-opacity-80 py-1 text-sm font-bold uppercase tracking-wider text-white transition duration-300 hover:bg-opacity-30 focus:outline-none dark:bg-white dark:bg-opacity-20 dark:hover:bg-opacity-30',
+            !isGuideError ? 'sm:w-24' : 'sm:w-full',
+          )}
           style={{
             backdropFilter: 'saturate(100%) blur(20px)',
             WebkitBackdropFilter: 'saturate(100%) blur(20px)',

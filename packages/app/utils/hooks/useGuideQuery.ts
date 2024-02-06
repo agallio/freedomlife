@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 // Utils
 import dayjs from '../dayjs'
@@ -14,7 +14,7 @@ const fetchGuideByDate = async (date: string): Promise<GuideDataResponse> => {
 }
 
 const fetchGuideByMonth = async (
-  month: string
+  month: string,
 ): Promise<GuideDataResponse[]> => {
   const { data } = await axios.get(`${apiUrl}/api/guide/month/${month}`)
   return data.data
@@ -22,17 +22,15 @@ const fetchGuideByMonth = async (
 
 export function useGuideTodayQuery() {
   const dateToday = dayjs().format('DD-MM-YYYY')
+
   return useQuery({
     queryKey: ['guide', 'today', dateToday],
     queryFn: () => fetchGuideByDate(dateToday),
 
     // Other options
     retry: false,
-    onError(error) {
-      console.log(
-        'error from guideToday',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from guideToday',
     },
   })
 }
@@ -52,11 +50,8 @@ export function useGuideByDateQuery({
 
     // Other options
     enabled,
-    onError: (error) => {
-      console.log(
-        'error from guideByDate',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from guideByDate',
     },
   })
 }
@@ -68,11 +63,8 @@ export function useGuideByMonthQuery(month?: string) {
     queryFn: () => fetchGuideByMonth(monthNumber),
 
     // Other options
-    onError: (error) => {
-      console.log(
-        'error from guideByMonth',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from guideByMonth',
     },
   })
 }

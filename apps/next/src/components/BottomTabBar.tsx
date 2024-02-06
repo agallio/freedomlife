@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion-10'
+import clsx from 'clsx'
 
 // Icon Components
 import BookIcon from './Icons/BookIcon'
@@ -28,11 +29,12 @@ export default function BottomTabBar() {
           initial={{ width: router.pathname === '/' ? 140 : 55 }}
           animate={router.pathname === '/' ? 'open' : 'close'}
           variants={motionVariants}
-          className={`flex ${
+          className={clsx(
+            'mr-4 flex items-center justify-center rounded-full p-4 shadow-md focus:outline-none',
             router.pathname === '/'
               ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
-          } mr-4 items-center justify-center rounded-full p-4 shadow-md focus:outline-none`}
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
+          )}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => handleChangeRoute('/')}
         >
@@ -55,11 +57,12 @@ export default function BottomTabBar() {
           initial={{ width: router.pathname.includes('read') ? 140 : 55 }}
           animate={router.pathname.includes('read') ? 'open' : 'close'}
           variants={motionVariants}
-          className={`flex ${
+          className={clsx(
+            'mr-4 flex items-center justify-center rounded-full p-4 shadow-md focus:outline-none',
             router.pathname.includes('read')
               ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
-          } mr-4 items-center justify-center rounded-full p-4 shadow-md focus:outline-none`}
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
+          )}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => {
             if (!router.pathname.includes('read')) {
@@ -73,9 +76,9 @@ export default function BottomTabBar() {
                 const getLastChapterRead = localStorage.getItem('last_chapter')
                 if (getLastChapterRead) {
                   const [passage, chapter] = getLastChapterRead.split('-')
-                  handleChangeRoute(`/read/${passage}/${chapter}`)
+                  handleChangeRoute(`/read/bible?chapter=${passage}-${chapter}`)
                 } else {
-                  handleChangeRoute('/read/kej/1')
+                  handleChangeRoute('/read/bible?chapter=kej-1')
                 }
               }
             }
@@ -100,11 +103,12 @@ export default function BottomTabBar() {
           initial={{ width: router.pathname === '/guide' ? 140 : 55 }}
           animate={router.pathname === '/guide' ? 'open' : 'close'}
           variants={motionVariants}
-          className={`flex ${
+          className={clsx(
+            'flex items-center justify-center rounded-full p-4 shadow-md focus:outline-none',
             router.pathname === '/guide'
               ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
-              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600'
-          } items-center justify-center rounded-full p-4 shadow-md focus:outline-none`}
+              : 'bg-white text-emerald-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
+          )}
           style={{ transition: 'var(--transition-default)' }}
           onClick={() => handleChangeRoute('/guide')}
         >

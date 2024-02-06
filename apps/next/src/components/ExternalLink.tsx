@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import clsx from 'clsx'
 
 interface ExternalLinkProps {
   href: string
@@ -9,7 +10,7 @@ interface ExternalLinkProps {
 export default function ExternalLink(props: ExternalLinkProps) {
   return (
     <a
-      className={`hover:underline ${props.className}`}
+      className={clsx('hover:underline', props.className)}
       href={props.href}
       target="_blank"
       rel="noopener noreferrer"

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 
 // Context
@@ -32,7 +32,9 @@ export const useGuides = (options?: {
   const { data, error, isError, isLoading, isFetching, refetch } = useQuery<
     { data: GuideDataResponse[] },
     AxiosError
-  >('guides', () => getGuides(options?.month), {
+  >({
+    queryKey: ['guides'],
+    queryFn: () => getGuides(options?.month),
     retry: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -59,7 +61,9 @@ export const useGuideByDate = (options?: {
       data: GuideDataResponse
     },
     AxiosError
-  >(['guides', date], () => getGuideByDate(date), {
+  >({
+    queryKey: ['guides', date],
+    queryFn: () => getGuideByDate(date),
     retry: false,
     enabled: false,
     refetchOnWindowFocus: false,

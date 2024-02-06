@@ -70,7 +70,7 @@ export default function JumboHeader({
         </p>
       )}
       {description && (
-        <p className="text-md font-light text-gray-800 dark:text-white">
+        <p className="font-light text-gray-800 dark:text-white">
           {description}
         </p>
       )}
