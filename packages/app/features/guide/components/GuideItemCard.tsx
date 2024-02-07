@@ -56,8 +56,12 @@ export default function GuideItemCard({
   const openToast = () => {
     Burnt.toast({
       preset: 'custom',
-      title: 'Panduan Telah Dibaca!',
-      message: item?.date ? `(${item.date})` : '',
+      title:
+        Platform.OS === 'ios'
+          ? 'Panduan Telah Dibaca!'
+          : `Panduan Telah Dibaca!${item?.date ? `\n(${item.date})` : ''}`,
+      message:
+        Platform.OS === 'ios' ? (item?.date ? `(${item.date})` : '') : '',
       duration: 1.5,
       icon: {
         ios: {

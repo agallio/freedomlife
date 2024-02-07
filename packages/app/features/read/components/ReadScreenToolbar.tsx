@@ -76,7 +76,7 @@ function ReadScreenToolbarRight({
       const textToCopy = generateTextToCopy(
         highlightedText,
         bibleVersion,
-        passageName
+        passageName,
       )
       await Clipboard.setStringAsync(textToCopy)
       Burnt.toast({
@@ -162,7 +162,7 @@ function ReadScreenToolbarTitle({ passageName }: { passageName: string }) {
         >
           <View
             sx={{
-              paddingY: 12,
+              paddingY: 8,
               paddingX: 20,
             }}
           >
@@ -229,7 +229,7 @@ export function ReadScreenToolbar({
       if (guideByDateLoading) return 'Memuat'
       if (!guideByDateLoading || !guideByDateError) {
         const findData = guideByDateData?.guide_bible_data!.find(
-          (i) => i.value === guidePassage
+          (i) => i.value === guidePassage,
         )
         return (
           `${findData?.title}${
@@ -280,7 +280,7 @@ export function ReadScreenToolbar({
         width: '100%',
         paddingX: [24, '2xl'],
         paddingTop: top - 4,
-        height: top + 70,
+        height: top + 55,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -297,8 +297,8 @@ export function ReadScreenToolbar({
               ? '#34d399'
               : '#e6e6e6'
             : highlightedText.length > 0
-            ? '#065f46'
-            : '#374151',
+              ? '#065f46'
+              : '#374151',
       }}
     >
       <View

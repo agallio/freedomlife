@@ -41,7 +41,7 @@ const theme = makeTheme({
   fontSizes: {
     xs: 12,
     sm: 14,
-    md: 16,
+    md: 17,
     lg: 18,
     xl: 24,
     '2xl': 28,
@@ -49,6 +49,9 @@ const theme = makeTheme({
   },
   fonts: {
     root: fontName,
+  },
+  fontWeights: {
+    bold: '800',
   },
   text: {
     body: { fontSize: 'md' },

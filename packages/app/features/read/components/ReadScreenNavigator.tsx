@@ -153,8 +153,17 @@ export default function ReadScreenNavigator({
           onPress={() =>
             Burnt.toast({
               preset: 'custom',
-              title: 'Sedang Membaca Panduan',
-              message: dayjs(guideDate, 'DD-MM-YYYY').format('DD MMMM YYYY'),
+              title:
+                Platform.OS === 'ios'
+                  ? 'Sedang Membaca Panduan'
+                  : `Sedang Membaca Panduan\n${dayjs(
+                      guideDate,
+                      'DD-MM-YYYY',
+                    ).format('DD MMMM YYYY')}`,
+              message:
+                Platform.OS === 'ios'
+                  ? dayjs(guideDate, 'DD-MM-YYYY').format('DD MMMM YYYY')
+                  : '',
               duration: 1.5,
               icon: {
                 ios: {

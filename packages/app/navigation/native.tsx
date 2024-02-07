@@ -60,7 +60,7 @@ function RootTabs() {
             <FreedomLifeIcon style={{ width: 180, height: '100%' }} />
           ),
           headerStyle: sx({
-            height: top + 70,
+            height: top + 55,
             borderBottomWidth: 1,
             borderBottomColor: colorScheme === 'light' ? '#e6e6e6' : '#374151',
           }),
@@ -90,7 +90,7 @@ function RootTabs() {
             <FreedomLifeIcon style={{ width: 180, height: '100%' }} />
           ),
           headerStyle: sx({
-            height: top + 70,
+            height: top + 55,
             borderBottomWidth: 0,
             elevation: 0,
             shadowOpacity: 0,
