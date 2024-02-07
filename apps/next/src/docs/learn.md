@@ -168,3 +168,23 @@ Anda dapat melihat panduan yang sudah Anda baca dengan cara masuk ke halaman **P
 ![Panduan Terbaca](/images/docs/panduan-terbaca.webp)
 
 ---
+
+## Mengunduh Versi Alkitab
+
+Anda dapat mengunduh versi Alkitab yang paling sering Anda gunakan. Namun, fitur ini hanya terdapat pada halaman [baca Alkitab tanpa panduan](https://freedomlife.id/read/bible?chapter=kej-1).
+
+Untuk halaman baca dengan panduan, saat ini tetap bisa Anda akses dari halaman "Beranda" seperti biasa.
+
+Cara mengunduh versi Alkitab:
+
+Buka halaman [baca Alkitab tanpa panduan](https://freedomlife.id/read/bible?chapter=kej-1), lalu tekan tombol dengan icon bahasa di kiri atas.
+
+![Header](/images/docs/header.webp)
+
+Lalu akan muncul pilihan versi-versi Alkitab yang tersedia. Tekan tombol "Unduh" pada versi alkitab yang Anda inginkan.
+
+![Mengunduh Versi Alkitab](/images/docs/unduh-versi-alkitab.gif)
+
+Setelah unduhan berhasil, Anda dapat mengakses versi Alkitab tersebut secara offline dan dapat diakses secara instan kapan saja!
+
+---

@@ -1,6 +1,6 @@
 {
   "name": "freedomlife-web",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.39.1",
+    "@tanstack/react-query": "^5.18.1",
     "axios": "^1.6.2",
+    "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
+    "dexie": "^3.2.4",
+    "dexie-react-hooks": "^1.1.7",
     "framer-motion-10": "npm:framer-motion@^10.16.4",
     "gray-matter": "^4.0.3",
     "lru-cache": "^10.0.1",
@@ -24,9 +28,10 @@
     "react-hot-toast": "^2.4.1",
     "react-media-hook": "^0.5.0",
     "react-modal-sheet": "2.2.0",
-    "react-query": "^3.39.3",
     "remark": "^14.0.3",
+    "remark-autolink-headings": "^7.0.1",
     "remark-html": "^15.0.2",
+    "remark-slug": "^7.0.1",
     "sharp": "^0.32.6"
   },
   "devDependencies": {

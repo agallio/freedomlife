@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 // Icon Components
 import CloseIcon from '../Icons/CloseIcon'
 import CopyIcon from '../Icons/CopyIcon'
@@ -41,11 +43,13 @@ export default function BibleNavbar({
 }: BibleNavbarProps) {
   return (
     <header
-      className={`fixed left-0 top-0 z-40 w-full border-b bg-opacity-60 ${
+      className={clsx(
+        'fixed left-0 top-0 z-40 w-full border-b bg-opacity-60',
         highlighted
           ? 'border-emerald-600 bg-emerald-600 text-white'
-          : 'border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-700 dark:bg-opacity-70'
-      } ${inGuide ? 'h-25' : 'h-12 sm:h-14'}`}
+          : 'border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-700 dark:bg-opacity-70',
+        inGuide ? 'h-25' : 'h-12 sm:h-14',
+      )}
       style={{
         backdropFilter: 'saturate(180%) blur(12px)',
         WebkitBackdropFilter: 'saturate(180%) blur(12px)',
@@ -71,9 +75,10 @@ export default function BibleNavbar({
         </div>
       )}
       <div
-        className={`mx-6 flex max-w-sm items-center justify-between ${
-          inGuide ? 'py-3' : 'h-full'
-        } sm:mx-auto sm:max-w-md landscape:mx-auto`}
+        className={clsx(
+          'mx-6 flex max-w-sm items-center justify-between sm:mx-auto sm:max-w-md landscape:mx-auto',
+          inGuide ? 'py-3' : 'h-full',
+        )}
       >
         {highlighted ? (
           <>

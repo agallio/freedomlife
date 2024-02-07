@@ -1,8 +1,13 @@
+import { useEffect, useMemo } from 'react'
 import axios, { AxiosError } from 'axios'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
+import { useLiveQuery } from 'dexie-react-hooks'
 
 // Context
 import { useGuide } from '~/contexts/GuideContext'
+
+// Database
+import { localDatabaseTables } from '~/database/dexie'
 
 // Utils
 import dayjs from '../dayjs'
@@ -33,11 +38,12 @@ export const useBibleByDate = (
   const { data, error, isError, isLoading, refetch } = useQuery<
     { data: BibleGuideDataResponse },
     AxiosError
-  >(
-    ['bibles', guideDate, bibleVersion],
-    () => getBibleByDate(guideDate, bibleVersion),
-    { enabled: false, refetchOnWindowFocus: false },
-  )
+  >({
+    queryKey: ['bibles', guideDate, bibleVersion],
+    queryFn: () => getBibleByDate(guideDate, bibleVersion),
+    enabled: false,
+    refetchOnWindowFocus: false,
+  })
 
   return { data: data?.data, error, isError, isLoading, refetch }
 }
@@ -45,15 +51,56 @@ export const useBibleByDate = (
 export const useBibleByPassage = (
   bibleVersion: string,
   biblePassage: string,
+  chapterQueryValid: boolean,
 ): QueryResult<BibleDataResponse | undefined> => {
-  const { data, error, isError, isLoading, refetch } = useQuery<
-    { data: BibleDataResponse },
-    AxiosError
-  >(
-    ['bibles', biblePassage, bibleVersion],
-    () => getBibleByPassage(biblePassage, bibleVersion),
-    { enabled: false, refetchOnWindowFocus: false },
-  )
+  // Queries
+  // Get bible data from local
+  const localData = useLiveQuery(() => {
+    if (localDatabaseTables[bibleVersion]) {
+      return localDatabaseTables[bibleVersion]!.filter((data) => {
+        const [abbr, chapter] = biblePassage.split('-')
 
-  return { data: data?.data, error, isError, isLoading, refetch }
+        return (
+          data.version === bibleVersion &&
+          data.abbr === abbr &&
+          data.chapter === chapter
+        )
+      }).toArray()
+    }
+
+    return []
+  }, [bibleVersion, biblePassage])
+
+  const queryData = useQuery<{ data: BibleDataResponse }, AxiosError>({
+    queryKey: ['bibles', biblePassage, bibleVersion],
+    queryFn: () => getBibleByPassage(biblePassage, bibleVersion),
+    enabled: false,
+    refetchOnWindowFocus: false,
+    retry: 2,
+  })
+
+  // Memoized Values
+  const formattedData = useMemo(() => {
+    if (localData && localData.length > 0) {
+      return {
+        book: localData[0]!.book,
+        chapter: Number(localData[0]!.chapter),
+        version: localData[0]!.version,
+        data: localData[0]!.verses,
+      } as BibleDataResponse
+    }
+
+    return queryData.data?.data
+  }, [queryData.data?.data, localData])
+
+  // Lifecycle —— Side-effects
+  useEffect(() => {
+    // If the bible data from local doesn't exists,
+    // Fetch the bible data from server.
+    if (localData && localData.length === 0 && chapterQueryValid) {
+      queryData.refetch()
+    }
+  }, [localData])
+
+  return { ...queryData, data: formattedData }
 }

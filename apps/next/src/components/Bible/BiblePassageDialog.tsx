@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion-10'
 import Sheet from 'react-modal-sheet'
+import clsx from 'clsx'
 
 // Icon Components
 import ChevronLeftIcon from '../Icons/ChevronLeftIcon'
@@ -68,6 +69,7 @@ export default function BiblePassageDialog({
       isOpen={openPassage}
       onClose={handleClose}
       tweenConfig={{ ease: [0.61, 1, 0.88, 1], duration: 0.3 }}
+      style={{ zIndex: 9998 }}
     >
       <Sheet.Container>
         <Sheet.Header>
@@ -126,11 +128,12 @@ export default function BiblePassageDialog({
                 {guideBibleDataInfo?.map((guideData) => (
                   <div
                     key={guideData.abbr}
-                    className={`mx-4 my-4 transform cursor-pointer rounded-lg p-4 font-medium shadow transition duration-300 ${
+                    className={clsx(
+                      'mx-4 my-4 transform cursor-pointer rounded-lg p-4 font-medium shadow transition duration-300 sm:mx-1',
                       guideData.value === passage
                         ? 'bg-emerald-300 text-emerald-900 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-800'
-                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white'
-                    } sm:mx-1`}
+                        : 'bg-white text-gray-700 hover:bg-emerald-300 hover:text-emerald-900 dark:bg-gray-600 dark:text-white dark:hover:bg-emerald-700 dark:hover:text-white',
+                    )}
                     onClick={() =>
                       typeof changePassage === 'function'
                         ? changePassage(guideData.value)
@@ -219,11 +222,12 @@ export default function BiblePassageDialog({
                     name="search"
                     type="text"
                     placeholder="Cari Kitab"
-                    className={`h-12 w-full border-none focus:border-none focus:outline-none focus:ring-0 dark:bg-gray-600 dark:text-white dark:placeholder-gray-300 ${
+                    className={clsx(
+                      'h-12 w-full border-none focus:border-none focus:outline-none focus:ring-0 dark:bg-gray-600 dark:text-white dark:placeholder-gray-300',
                       searchChapter === ''
                         ? 'rounded-bl-none rounded-br-lg rounded-tl-none rounded-tr-lg'
-                        : 'rounded-none'
-                    }`}
+                        : 'rounded-none',
+                    )}
                     value={searchChapter}
                     onChange={(e) => {
                       setSearchChapter(e.target.value)

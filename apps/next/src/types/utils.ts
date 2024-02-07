@@ -1,5 +1,5 @@
 import type { AxiosError } from 'axios'
-import type { UseQueryResult } from 'react-query'
+import type { UseQueryResult } from '@tanstack/react-query'
 
 export interface BibleList {
   name: string

@@ -20,8 +20,9 @@
     "npm": "please-use-yarn"
   },
   "lint-staged": {
-    "./apps/**/*.{ts,tsx}": "bash -c \"yarn lint\"",
-    "./packages/**/*.{ts,tsx}": "bash -c \"yarn lint\""
+    "./apps/expo/**/*.{ts,tsx}": "bash -c \"yarn lint\"",
+    "./apps/next/**/*.{ts,tsx}": "bash -c \"cd apps/next && yarn lint\"",
+    "./packages/app/**/*.{ts,tsx}": "bash -c \"yarn lint\""
   },
   "scripts": {
     "native": "cd apps/expo && yarn start",

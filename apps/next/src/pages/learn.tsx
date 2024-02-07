@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
 // Components
@@ -16,12 +16,24 @@ interface LearnPageProps {
 }
 
 const Learn: NextPage<LearnPageProps> = ({ post }) => {
+  const router = useRouter()
+
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
 
+  useEffect(() => {
+    if (router.isReady && mounted) {
+      if (window.location.hash) {
+        document
+          .querySelector(`a[href='${window.location.hash}']`)
+          ?.scrollIntoView()
+      }
+    }
+  }, [router.isReady, mounted])
+
   const goHome = () => {
-    Router.push('/')
+    router.push('/')
   }
 
   return (
@@ -107,6 +119,15 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
                 Dengan melakukan donasi Anda mendukung perkembangan aplikasi
                 freedomlife untuk menjangkau lebih banyak orang, dan menjadi
                 teman rohani bagi setiap mereka. Terima kasih, Tuhan memberkati.
+              </p>
+              <p className="mt-4">
+                Jika Anda memiliki kritik, saran, maupun pertanyaan, silakan{' '}
+                <a
+                  href="mailto:agallio@freedomlife.id"
+                  className="text-emerald-600 hover:underline dark:text-emerald-400"
+                >
+                  hubungi kami.
+                </a>
               </p>
             </div>
 

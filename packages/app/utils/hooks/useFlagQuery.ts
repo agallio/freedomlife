@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 // Utils
 import { apiUrl } from '../constants'
@@ -16,15 +16,12 @@ export function useFlagQuery(name: string) {
   const queryData = useQuery({
     queryKey: ['flag', name],
     queryFn: () => fetchFlag(name),
+
+    // Other options
     retry: false,
-    keepPreviousData: false,
-    cacheTime: 0,
     staleTime: 0,
-    onError: (error) => {
-      console.log(
-        'error from flagQuery',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from flagQuery',
     },
   })
 

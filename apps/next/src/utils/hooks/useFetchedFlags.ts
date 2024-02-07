@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 // Types
 import type { FlagDataResponse, SupabaseFeatureFlag } from '~/types/api'
@@ -19,14 +19,12 @@ export const useFlagData = (
     isError,
     isLoading,
     refetch,
-  } = useQuery<{ data: SupabaseFeatureFlag }, AxiosError>(
-    ['flag', name],
-    () => getFlag(name),
-    {
-      enabled: true,
-      refetchOnWindowFocus: false,
-    },
-  )
+  } = useQuery<{ data: SupabaseFeatureFlag }, AxiosError>({
+    queryKey: ['flag', name],
+    queryFn: () => getFlag(name),
+    enabled: true,
+    refetchOnWindowFocus: false,
+  })
 
   const data = rawData?.data
     ? { enable: rawData.data.enable, context: rawData.data.context }

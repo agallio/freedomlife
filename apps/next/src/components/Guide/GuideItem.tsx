@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast'
+import clsx from 'clsx'
 
 // Components
 import OpenBookIcon from '~/components/Icons/OpenBookIcon'
@@ -54,20 +55,22 @@ export default function GuideItem({
       >
         <div className="flex flex-col">
           <h2
-            className={`text-lg font-bold sm:text-xl ${
+            className={clsx(
+              'text-lg font-bold sm:text-xl',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-800 dark:text-white'
-            }`}
+                : 'text-gray-800 dark:text-white',
+            )}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('dddd')}
           </h2>
           <p
-            className={`sm:text-md text-sm ${
+            className={clsx(
+              'text-sm',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-700 dark:text-white'
-            }`}
+                : 'text-gray-700 dark:text-white',
+            )}
           >
             {dayjs(item.date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
           </p>
@@ -78,11 +81,12 @@ export default function GuideItem({
           localStorage.getItem(`read-${item.date}`) === 'true' ? (
             <button
               aria-label="Panduan Terbaca"
-              className={`mr-2 flex h-9 w-9 items-center justify-center ${
+              className={clsx(
+                'mr-2 flex h-9 w-9 items-center justify-center rounded-full p-1 focus:outline-none',
                 isToday(item.date as string)
                   ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
-                  : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
-              } rounded-full p-1 focus:outline-none`}
+                  : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600',
+              )}
               style={{
                 backdropFilter: 'saturate(100%) blur(20px)',
                 WebkitBackdropFilter: 'saturate(100%) blur(20px)',
@@ -102,11 +106,12 @@ export default function GuideItem({
 
           <button
             aria-label="Baca Panduan"
-            className={`flex h-9 w-9 items-center justify-center ${
+            className={clsx(
+              'flex h-9 w-9 items-center justify-center rounded-full p-1 focus:outline-none',
               isToday(item.date as string)
                 ? 'bg-white bg-opacity-40 text-emerald-700 transition duration-300 hover:bg-opacity-70'
-                : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600'
-            } rounded-full p-1 focus:outline-none`}
+                : 'bg-emerald-300 text-emerald-900 transition duration-300 hover:bg-emerald-400 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600',
+            )}
             style={{
               backdropFilter: 'saturate(100%) blur(20px)',
               WebkitBackdropFilter: 'saturate(100%) blur(20px)',
@@ -120,40 +125,44 @@ export default function GuideItem({
       <div className="px-4 py-3">
         <div className="mb-2 flex flex-col">
           <h1
-            className={`font-bold sm:text-lg ${
+            className={clsx(
+              'font-bold sm:text-lg',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-800 dark:text-white'
-            }`}
+                : 'text-gray-800 dark:text-white',
+            )}
           >
             {item.pl_name || '-'}
           </h1>
           <p
-            className={`sm:text-md text-sm ${
+            className={clsx(
+              'text-sm',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-600 dark:text-white'
-            }`}
+                : 'text-gray-600 dark:text-white',
+            )}
           >
             Perjanjian Lama
           </p>
         </div>
         <div className="mb-2 flex flex-col">
           <h1
-            className={`font-bold sm:text-lg ${
+            className={clsx(
+              'font-bold sm:text-lg',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-800 dark:text-white'
-            }`}
+                : 'text-gray-800 dark:text-white',
+            )}
           >
             {item.pb_name || '-'}
           </h1>
           <p
-            className={`sm:text-md text-sm ${
+            className={clsx(
+              'text-sm',
               isToday(item.date as string)
                 ? 'text-white'
-                : 'text-gray-600 dark:text-white'
-            }`}
+                : 'text-gray-600 dark:text-white',
+            )}
           >
             Perjanjian Baru
           </p>
@@ -161,20 +170,22 @@ export default function GuideItem({
         {item.in_name ? (
           <div className="flex flex-col">
             <h1
-              className={`font-bold sm:text-lg ${
+              className={clsx(
+                'font-bold sm:text-lg',
                 isToday(item.date as string)
                   ? 'text-white'
-                  : 'text-gray-800 dark:text-white'
-              }`}
+                  : 'text-gray-800 dark:text-white',
+              )}
             >
               {item.in_name || '-'}
             </h1>
             <p
-              className={`sm:text-md text-sm ${
+              className={clsx(
+                'text-sm',
                 isToday(item.date as string)
                   ? 'text-white'
-                  : 'text-gray-600 dark:text-white'
-              }`}
+                  : 'text-gray-600 dark:text-white',
+              )}
             >
               Kitab Injil
             </p>

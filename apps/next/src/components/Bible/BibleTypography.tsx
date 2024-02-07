@@ -1,4 +1,6 @@
 import { RefObject } from 'react'
+import Router from 'next/router'
+import clsx from 'clsx'
 
 // Utils
 import { headerFontSize } from '~/utils/bible'
@@ -14,6 +16,7 @@ import type { HighlightedText } from '~/types/component'
 interface BibleTypographyProps {
   bibleTypographyRef: RefObject<HTMLDivElement>
   inGuide: boolean
+  isChapterQueryValid?: boolean
   passage?: string
   maintenance: boolean
   verseFontSize: string
@@ -29,6 +32,7 @@ interface BibleTypographyProps {
 export default function BibleTypography({
   bibleTypographyRef,
   inGuide,
+  isChapterQueryValid,
   passage,
   maintenance,
   verseFontSize,
@@ -63,13 +67,28 @@ export default function BibleTypography({
 
   return (
     <div
-      className={`mx-auto max-w-sm ${
-        inGuide ? 'mt-28' : 'mt-[4.5rem]'
-      } text-${verseFontSize} mb-[10rem] px-3 dark:text-white sm:max-w-md`}
+      className={clsx(
+        'mx-auto mb-[10rem] max-w-sm px-3 dark:text-white sm:max-w-md',
+        `text-${verseFontSize}`,
+        inGuide ? 'mt-28' : 'mt-[4.5rem]',
+      )}
       ref={bibleTypographyRef}
     >
       {maintenance ? (
         <p>Terjadi Kesalahan. Coba beberapa saat lagi.</p>
+      ) : !isChapterQueryValid ? (
+        <div>
+          <p>
+            Kitab tidak ditemukan. Silakan tekan tombol dibawah ini untuk reset.
+          </p>
+
+          <button
+            className="mt-3 h-10 w-full rounded-full bg-gray-300 bg-opacity-80 py-1 text-sm font-bold uppercase tracking-wider text-green-900 transition duration-300 hover:bg-opacity-30 focus:outline-none dark:bg-white dark:bg-opacity-20 dark:text-white dark:hover:bg-opacity-30"
+            onClick={() => Router.push('/read/bible?chapter=kej-1')}
+          >
+            Reset
+          </button>
+        </div>
       ) : isGuideByDateLoading ||
         isBibleByDateLoading ||
         isBibleByPassageLoading ||
@@ -99,7 +118,10 @@ export default function BibleTypography({
             return (
               <h1
                 key={index}
-                className={`my-4 text-center font-bold leading-relaxed text-${headerFontSize[verseFontSize]}`}
+                className={clsx(
+                  'my-4 text-center font-bold leading-relaxed',
+                  `text-${headerFontSize[verseFontSize]}`,
+                )}
               >
                 {item.content || ''}
               </h1>

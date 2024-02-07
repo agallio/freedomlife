@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 // Utils
 import dayjs from '../dayjs'
@@ -10,20 +10,20 @@ import type { BibleDataResponse, BibleGuideDataResponse } from 'app/types'
 
 const fetchBibleByDate = async (
   date: string,
-  bibleVersion: string
+  bibleVersion: string,
 ): Promise<BibleGuideDataResponse> => {
   const { data } = await axios.get(
-    `${apiUrl}/api/bible/${date}/${bibleVersion}`
+    `${apiUrl}/api/bible/${date}/${bibleVersion}`,
   )
   return data.data
 }
 
 const fetchBibleByPassage = async (
   passage: string,
-  bibleVersion: string
+  bibleVersion: string,
 ): Promise<BibleDataResponse> => {
   const { data } = await axios.get(
-    `${apiUrl}/api/bible?passage=${passage || 'kej-1'}&version=${bibleVersion}`
+    `${apiUrl}/api/bible?passage=${passage || 'kej-1'}&version=${bibleVersion}`,
   )
   return data.data
 }
@@ -38,17 +38,15 @@ export function useBibleByDateQuery({
   enabled: boolean
 }) {
   const computedDate = date || dayjs().format('DD-MM-YYYY')
+
   return useQuery({
     queryKey: ['bible', computedDate, bibleVersion],
     queryFn: () => fetchBibleByDate(computedDate, bibleVersion),
 
     // Other options
     enabled,
-    onError: (error) => {
-      console.log(
-        'error from bibleByDate',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from bibleByDate',
     },
   })
 }
@@ -68,11 +66,8 @@ export function useBibleByPassageQuery({
 
     // Other options
     enabled,
-    onError: (error) => {
-      console.log(
-        'error from bibleByPassage',
-        JSON.stringify((error as AxiosError).response)
-      )
+    meta: {
+      errorMessage: 'error from bibleByPassage',
     },
   })
 }
