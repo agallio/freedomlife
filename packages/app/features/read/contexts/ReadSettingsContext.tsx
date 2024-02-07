@@ -24,7 +24,7 @@ const Context = createContext<ContextValue>({
 export function ReadSettingsContext({ children }: PropsWithChildren<{}>) {
   const [verseFontSize, setVerseFontSize] = usePersistState<FontSize>(
     'verseFontSize',
-    'md'
+    'md',
   )
 
   const getHeaderFontSize = () => {
@@ -75,7 +75,7 @@ export function ReadSettingsContext({ children }: PropsWithChildren<{}>) {
       case 'sm':
         return 26
       case 'md':
-        return 26
+        return 24
       case 'lg':
         return 34
       case 'xl':
@@ -105,7 +105,7 @@ export function useReadSettingsContext() {
   const context = useContext(Context)
   if (!context) {
     throw new Error(
-      'useReadSettingsContext must be used within a ReadSettingsContext'
+      'useReadSettingsContext must be used within a ReadSettingsContext',
     )
   }
   return context

@@ -34,11 +34,9 @@ export default function PassageTypography({
           textAlign: 'center',
           color: 'text',
           fontSize: headerFontSize,
-          fontWeight: '800',
+          fontWeight: 'bold',
+          lineHeight: 28,
         }}
-        // @ts-ignore
-        // https://github.com/nandorojo/dripsy/issues/206
-        style={{ fontWeight: '800' }}
       >
         {item.content.replace(/\n/g, '')}
       </Text>
@@ -56,22 +54,20 @@ export default function PassageTypography({
               color: 'bibleSupText',
               fontSize: verseNumberFontSize,
               lineHeight: verseNumberLineHeight,
-              fontWeight: '800',
+              fontWeight: 'bold',
             }}
-            // @ts-ignore
-            // https://github.com/nandorojo/dripsy/issues/206
-            style={{ fontWeight: '800' }}
           >
             {item.verse}
           </Text>
         ) : null}
+
         <Text
           sx={{
             fontSize: verseFontSize,
             color: 'text',
             lineHeight: verseLineHeight,
             textDecorationLine: highlightedText.find(
-              (i) => i.verse === item.verse
+              (i) => i.verse === item.verse,
             )
               ? 'underline'
               : undefined,
