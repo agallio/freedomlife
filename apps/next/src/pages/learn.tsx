@@ -25,9 +25,13 @@ const Learn: NextPage<LearnPageProps> = ({ post }) => {
   useEffect(() => {
     if (router.isReady && mounted) {
       if (window.location.hash) {
-        document
-          .querySelector(`a[href='${window.location.hash}']`)
-          ?.scrollIntoView()
+        setTimeout(
+          () =>
+            document
+              .querySelector(`a[href='${window.location.hash}']`)
+              ?.scrollIntoView(),
+          500,
+        )
       }
     }
   }, [router.isReady, mounted])
