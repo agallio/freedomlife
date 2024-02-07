@@ -36,6 +36,7 @@ const config = {
   },
   android: {
     ...sharedSplash,
+    versionCode: 2,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -48,6 +49,9 @@ const config = {
       {
         ios: {
           deploymentTarget: '13.4',
+        },
+        android: {
+          usesCleartextTraffic: true,
         },
       },
     ],
