@@ -21,7 +21,7 @@ const config = {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '1.5.0',
+  version: '1.5.1',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -36,7 +36,7 @@ const config = {
   },
   android: {
     ...sharedSplash,
-    package: 'id.freedomlife.app',
+    package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#FFF',
@@ -59,8 +59,6 @@ const config = {
     eas: {
       projectId: '816555cf-43fe-4a42-8199-65c263ddef54',
     },
-    // Run it via `yarn ios-local`
-    apiEnv: process.env.API_ENV,
   },
 }
 

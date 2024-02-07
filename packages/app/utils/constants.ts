@@ -1,5 +1,3 @@
-import Constants from 'expo-constants'
-
 // Types
 import type { PassageItem } from 'app/types'
 
@@ -73,7 +71,7 @@ export const passageData: PassageItem[] = [
   { name: 'Wahyu', abbr: 'why', passage: 22 },
 ]
 
-const apiEnv = Constants.expoConfig?.extra?.apiEnv || 'production'
+const apiEnv = process.env.EXPO_PUBLIC_API_ENV || 'production'
 export const apiUrl =
   apiEnv === 'local' ? 'http://localhost:3000' : 'https://freedomlife.id'
 

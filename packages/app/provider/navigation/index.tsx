@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useMemo, useRef } from 'react'
-import { useColorScheme } from 'react-native'
+import { Platform, useColorScheme, useWindowDimensions } from 'react-native'
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,6 +8,10 @@ import {
 } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 import { StatusBar } from 'expo-status-bar'
+import axios from 'axios'
+
+// Constants
+import { apiUrl } from '../../utils/constants'
 
 const CustomLightTheme = {
   ...DefaultTheme,
@@ -29,6 +33,19 @@ const CustomDarkTheme = {
   },
 }
 
+const pageList = {
+  home: '/',
+  read: '/read',
+  translate: '/read?m=translate',
+  passage: '/read?m=passage',
+  setting: '/read?m=setting',
+  guide: '/guide',
+}
+const iosUserAgent =
+  'Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1'
+const androidUserAgent =
+  'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36'
+
 export function NavigationProvider({ children }: PropsWithChildren<{}>) {
   const routeNameRef = useRef<string | undefined>('')
   const navigationRef = useNavigationContainerRef<{
@@ -40,6 +57,35 @@ export function NavigationProvider({ children }: PropsWithChildren<{}>) {
     guideMonth: undefined
   }>()
   const colorScheme = useColorScheme()
+  const { width, height } = useWindowDimensions()
+
+  const trackScreenView = async (url: string) => {
+    const hostname = `${
+      Platform.OS === 'ios' ? 'ios' : 'android'
+    }.freedomlife.id`
+
+    try {
+      await axios.post(
+        `${apiUrl}/api/umami/send`,
+        {
+          hostname,
+          referrer: `https://${hostname}`,
+          screen: `${width.toFixed()}x${height.toFixed()}`,
+          url,
+        },
+        {
+          headers: {
+            'User-Agent':
+              Platform.OS === 'ios' ? iosUserAgent : androidUserAgent,
+          },
+        },
+      )
+    } catch (e) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(e)
+      }
+    }
+  }
 
   return (
     <NavigationContainer
@@ -70,8 +116,16 @@ export function NavigationProvider({ children }: PropsWithChildren<{}>) {
         routeNameRef.current = navigationRef.getCurrentRoute()?.name
       }}
       onStateChange={async () => {
+        const previousRouteName = routeNameRef.current
         const currentRouteName = navigationRef.getCurrentRoute()?.name
-        routeNameRef.current = currentRouteName
+
+        if (previousRouteName !== currentRouteName) {
+          routeNameRef.current = currentRouteName
+
+          if (currentRouteName) {
+            trackScreenView(pageList[currentRouteName])
+          }
+        }
       }}
     >
       {children}
