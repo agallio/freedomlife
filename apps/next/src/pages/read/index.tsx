@@ -305,6 +305,7 @@ const Read: NextPage = () => {
         <BibleTypography
           bibleTypographyRef={bibleTypographyRef}
           inGuide={true}
+          isChapterQueryValid={true}
           passage={passage}
           maintenance={maintenance}
           verseFontSize={verseFontSize}

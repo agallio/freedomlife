@@ -16,7 +16,7 @@ import type { HighlightedText } from '~/types/component'
 interface BibleTypographyProps {
   bibleTypographyRef: RefObject<HTMLDivElement>
   inGuide: boolean
-  isChapterQueryValid?: boolean
+  isChapterQueryValid: boolean
   passage?: string
   maintenance: boolean
   verseFontSize: string
