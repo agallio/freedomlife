@@ -38,6 +38,7 @@ const pageList = {
   read: '/read',
   translate: '/read?m=translate',
   passage: '/read?m=passage',
+  passageChapter: '/read?m=passageChapter',
   setting: '/read?m=setting',
   guide: '/guide',
 }

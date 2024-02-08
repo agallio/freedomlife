@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   useColorScheme,
+  useWindowDimensions,
 } from 'react-native'
 import { View, P, useSx, TextInput } from 'dripsy'
 import { useRouter } from 'solito/router'
@@ -24,6 +25,7 @@ export default function WithoutGuide() {
   const sx = useSx()
   const colorScheme = useColorScheme()
   const { push } = useRouter()
+  const { fontScale } = useWindowDimensions()
 
   // States
   const [searchText, setSearchText] = useState('')
@@ -35,7 +37,7 @@ export default function WithoutGuide() {
           ? [
               passageData[0],
               ...passageData.filter((i) =>
-                i.name.toLowerCase().includes(searchText.toLowerCase())
+                i.name.toLowerCase().includes(searchText.toLowerCase()),
               ),
             ]
           : passageData
@@ -58,7 +60,7 @@ export default function WithoutGuide() {
                 flex: 1,
               }}
             >
-              <View sx={{ padding: 12 }}>
+              <View sx={{ paddingX: 12, paddingY: 12 * fontScale }}>
                 <MagnifyingGlassIcon size={20} style={sx({ color: 'text' })} />
               </View>
               <TextInput
@@ -97,7 +99,7 @@ export default function WithoutGuide() {
             style={sx({
               flex: 1,
               marginY: 'sm',
-              paddingY: 14,
+              paddingY: 14 * fontScale,
               paddingX: 'md',
               backgroundColor: 'tab',
               borderRadius: 8,

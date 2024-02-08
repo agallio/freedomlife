@@ -60,6 +60,7 @@ export default function BottomTabBarItem({
           >
             <View>{icon}</View>
             <Text
+              allowFontScaling={false}
               sx={{
                 fontWeight: '800',
                 marginLeft: 'sm',

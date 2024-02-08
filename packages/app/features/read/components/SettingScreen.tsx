@@ -26,6 +26,7 @@ export function SettingScreen() {
       }}
     >
       <Text
+        allowFontScaling={false}
         sx={{
           color: 'text',
           fontWeight: '800',
@@ -43,8 +44,8 @@ export function SettingScreen() {
           colorScheme === 'light'
             ? '#e4e4e7'
             : Platform.OS === 'web'
-            ? '#111827'
-            : undefined
+              ? '#111827'
+              : undefined
         }
         tintColor={
           Platform.OS === 'web'
@@ -54,7 +55,7 @@ export function SettingScreen() {
             : undefined
         }
         selectedIndex={segmentedValues.findIndex(
-          (value) => value.toLowerCase() === verseFontSize
+          (value) => value.toLowerCase() === verseFontSize,
         )}
         onChange={(event) => {
           setVerseFontSize(event.nativeEvent.value.toLowerCase() as FontSize)

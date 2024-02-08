@@ -60,7 +60,7 @@ function RootTabs() {
             <FreedomLifeIcon style={{ width: 180, height: '100%' }} />
           ),
           headerStyle: sx({
-            height: top + 55,
+            height: top + 60,
             borderBottomWidth: 1,
             borderBottomColor: colorScheme === 'light' ? '#e6e6e6' : '#374151',
           }),
@@ -90,7 +90,7 @@ function RootTabs() {
             <FreedomLifeIcon style={{ width: 180, height: '100%' }} />
           ),
           headerStyle: sx({
-            height: top + 55,
+            height: top + 60,
             borderBottomWidth: 0,
             elevation: 0,
             shadowOpacity: 0,
@@ -155,6 +155,7 @@ export function NativeNavigation() {
         options={{
           title: guidePassage ? 'Pilih Panduan Baca' : 'Pilih Kitab',
           headerShown: true,
+          headerBackTitle: 'Kembali',
           animation: Platform.OS === 'android' ? 'fade_from_bottom' : undefined,
           headerTintColor: colorScheme === 'light' ? '#000' : '#fff',
         }}

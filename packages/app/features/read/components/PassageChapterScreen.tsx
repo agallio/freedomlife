@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Platform, TouchableOpacity } from 'react-native'
+import { Platform, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { View, Text, ScrollView, P, useSx } from 'dripsy'
 import { createParam } from 'solito'
 import { useRouter } from 'solito/router'
@@ -14,6 +14,7 @@ const { useParam } = createParam<{ passage: string }>()
 
 export function PassageChapterScreen() {
   const sx = useSx()
+  const { fontScale } = useWindowDimensions()
   const { push } = useRouter()
   const [passage] = useParam('passage')
 
@@ -23,7 +24,7 @@ export function PassageChapterScreen() {
   // Memoized Variables
   const passageDetailData = useMemo(
     () => passageData.find((i) => i.name.toLowerCase() === passage),
-    [passage]
+    [passage],
   )
 
   return (
@@ -69,16 +70,16 @@ export function PassageChapterScreen() {
         >
           {Array.from(
             { length: passageDetailData?.passage || 0 },
-            (_, i) => i + 1
+            (_, i) => i + 1,
           ).map((item) => (
             <TouchableOpacity
               key={item}
               style={sx({
                 margin: 4,
                 flex: 1,
-                minWidth: 50,
-                minHeight: 50,
-                maxWidth: 50,
+                minWidth: 50 * fontScale,
+                minHeight: 50 * fontScale,
+                maxWidth: 50 * fontScale,
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderWidth: 2,

@@ -177,6 +177,7 @@ export default function GuideScreen(
         }}
       >
         <Text
+          allowFontScaling={false}
           sx={{
             fontSize: 20,
             fontWeight: '800',

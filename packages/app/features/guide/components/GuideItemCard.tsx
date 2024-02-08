@@ -83,7 +83,7 @@ export default function GuideItemCard({
         }}
       >
         <View sx={{ marginTop: 'xs', marginBottom: 8 }}>
-          <P sx={{ color: 'tabText' }}>
+          <P allowFontScaling={false} sx={{ color: 'tabText' }}>
             Ada kesalahan saat mengambil data panduan. Mohon coba beberapa saat
             lagi.
           </P>
@@ -155,6 +155,7 @@ export default function GuideItemCard({
             >
               <View>
                 <Text
+                  allowFontScaling={false}
                   sx={{
                     color: 'passageCardTitle',
                     fontSize: 'lg',
@@ -169,7 +170,7 @@ export default function GuideItemCard({
                 >
                   {item![itemKey]}
                 </Text>
-                <P sx={{ color: 'passageCardTitle' }}>
+                <P allowFontScaling={false} sx={{ color: 'passageCardTitle' }}>
                   {itemKey.includes('pl')
                     ? 'Perjanjian Lama'
                     : itemKey.includes('pb')
@@ -244,6 +245,7 @@ export default function GuideItemCard({
             >
               <View>
                 <Text
+                  allowFontScaling={false}
                   sx={{
                     color: 'passageCardTitle',
                     fontSize: 'lg',
@@ -258,7 +260,7 @@ export default function GuideItemCard({
                 >
                   {item![itemKey]}
                 </Text>
-                <P sx={{ color: 'passageCardTitle' }}>
+                <P allowFontScaling={false} sx={{ color: 'passageCardTitle' }}>
                   {itemKey.includes('pl')
                     ? 'Perjanjian Lama'
                     : itemKey.includes('pb')

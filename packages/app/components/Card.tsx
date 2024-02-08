@@ -64,6 +64,7 @@ export default function Card({
           >
             <View>
               <Text
+                allowFontScaling={false}
                 sx={{
                   fontSize: 20,
                   fontWeight: '800',
@@ -77,6 +78,7 @@ export default function Card({
               </Text>
               {subtitle && (
                 <Text
+                  allowFontScaling={false}
                   sx={{
                     color: options?.subtitleColor || 'text',
                     marginTop: 'xs',

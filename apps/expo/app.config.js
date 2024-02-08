@@ -21,7 +21,7 @@ const config = {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '1.5.1',
+  version: '1.5.2',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -36,7 +36,7 @@ const config = {
   },
   android: {
     ...sharedSplash,
-    versionCode: 2,
+    versionCode: 3,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',

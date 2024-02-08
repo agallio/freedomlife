@@ -102,7 +102,7 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
       setGuideDate('')
       setInGuide(false)
       setPassage(
-        guideList?.find((item) => item.value === guidePassage)?.abbr || 'kej-1'
+        guideList?.find((item) => item.value === guidePassage)?.abbr || 'kej-1',
       )
     }
 
@@ -137,6 +137,7 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
               }}
             >
               <Text
+                allowFontScaling={false}
                 sx={{
                   textAlign: 'center',
                   paddingY: 12,
@@ -164,7 +165,10 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
                     colorScheme === 'light' ? '#e6e6e6' : undefined,
                 }}
               >
-                <P sx={{ lineHeight: 22, textAlign: 'center' }}>
+                <P
+                  allowFontScaling={false}
+                  sx={{ lineHeight: 22, textAlign: 'center' }}
+                >
                   {item.subtitle}
                 </P>
               </View>
@@ -180,6 +184,7 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
                   onPress={() => onPress()}
                 >
                   <P
+                    allowFontScaling={false}
                     sx={{
                       textAlign: 'center',
                       fontWeight: '600',
@@ -220,14 +225,14 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
                     ? ['#065f46', '#0aab7e']
                     : ['#34d399', '#10b981']
                   : colorScheme === 'dark'
-                  ? ['#3d516d', '#1f2937']
-                  : ['#d1d5db', '#e7eaed']
+                    ? ['#3d516d', '#1f2937']
+                    : ['#d1d5db', '#e7eaed']
               }
             >
               <Text
+                allowFontScaling={false}
                 sx={{
                   fontWeight: '600',
-                  fontSize: 'lg',
                   marginBottom: 'xs',
                   color: 'text',
                 }}
@@ -249,11 +254,11 @@ export default function InGuide({ onSelectGuidePress }: PassageScreenProps) {
                     ? ['#065f46', '#0aab7e']
                     : ['#34d399', '#10b981']
                   : colorScheme === 'dark'
-                  ? ['#3d516d', '#1f2937']
-                  : ['#d1d5db', '#e7eaed']
+                    ? ['#3d516d', '#1f2937']
+                    : ['#d1d5db', '#e7eaed']
               }
             >
-              <P>{item.subtitle}</P>
+              <P allowFontScaling={false}>{item.subtitle}</P>
             </Skeleton>
           </TouchableOpacity>
         )

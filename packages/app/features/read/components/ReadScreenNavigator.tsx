@@ -188,6 +188,7 @@ export default function ReadScreenNavigator({
           >
             <CalendarIcon size={20} style={sx({ color: 'tabTextActive' })} />
             <Text
+              allowFontScaling={false}
               sx={{
                 marginLeft: 8,
                 color: 'tabTextActive',

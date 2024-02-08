@@ -120,7 +120,10 @@ function ReadScreenToolbarTitle({ passageName }: { passageName: string }) {
 
   return highlightedText.length > 0 ? (
     <View>
-      <Text sx={{ color: 'text', fontSize: 'lg', fontWeight: '800' }}>
+      <Text
+        allowFontScaling={false}
+        sx={{ color: 'text', fontSize: 'lg', fontWeight: '800' }}
+      >
         {highlightedText.length} Ayat Terpilih
       </Text>
     </View>
@@ -167,6 +170,7 @@ function ReadScreenToolbarTitle({ passageName }: { passageName: string }) {
             }}
           >
             <Text
+              allowFontScaling={false}
               sx={{
                 color: 'text',
                 textAlign: 'center',
@@ -280,7 +284,7 @@ export function ReadScreenToolbar({
         width: '100%',
         paddingX: [24, '2xl'],
         paddingTop: top - 4,
-        height: top + 55,
+        height: top + 60,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

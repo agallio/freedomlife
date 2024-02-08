@@ -65,6 +65,7 @@ export default function NewUserCard() {
               })}
             >
               <Text
+                allowFontScaling={false}
                 sx={{
                   color: 'newUserCardTitle',
                   fontSize: 'sm',
@@ -92,6 +93,7 @@ export default function NewUserCard() {
           sx={{ marginY: 'md', alignItems: 'center', justifyContent: 'center' }}
         >
           <P
+            allowFontScaling={false}
             sx={{
               color: 'newUserCardTitle',
               marginBottom: 'xs',
@@ -100,7 +102,10 @@ export default function NewUserCard() {
           >
             Baru pertama kali buka freedomlife?
           </P>
-          <P sx={{ color: 'newUserCardTitle', textAlign: 'center' }}>
+          <P
+            allowFontScaling={false}
+            sx={{ color: 'newUserCardTitle', textAlign: 'center' }}
+          >
             Yuk belajar cara pakainya!
           </P>
         </View>

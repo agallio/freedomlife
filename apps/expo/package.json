@@ -41,7 +41,7 @@
     "android-local": "EXPO_PUBLIC_API_ENV=local expo run:android"
   },
   "main": "index.js",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
   "name": "freedomlife-app"
 }

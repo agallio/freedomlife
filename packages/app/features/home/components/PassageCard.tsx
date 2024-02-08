@@ -85,6 +85,7 @@ export default function PassageCard() {
                   <ActivityIndicator color={colors!.tabText as string} />
                 ) : (
                   <Text
+                    allowFontScaling={false}
                     sx={{
                       color: 'tabText',
                       fontWeight: '800',
@@ -140,6 +141,7 @@ export default function PassageCard() {
                 <View>
                   {data && (
                     <Text
+                      allowFontScaling={false}
                       sx={{
                         color: 'passageCardTitle',
                         fontSize: 'lg',
@@ -157,12 +159,15 @@ export default function PassageCard() {
                       {data[item]}
                     </Text>
                   )}
-                  <P sx={{ color: 'passageCardTitle' }}>
+                  <P
+                    allowFontScaling={false}
+                    sx={{ color: 'passageCardTitle' }}
+                  >
                     {item.includes('pl')
                       ? 'Perjanjian Lama'
                       : item.includes('pb')
-                      ? 'Kitab Injil'
-                      : 'Kitab Rasuli'}
+                        ? 'Kitab Injil'
+                        : 'Kitab Rasuli'}
                   </P>
                 </View>
               </Skeleton>

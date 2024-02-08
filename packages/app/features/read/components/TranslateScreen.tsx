@@ -71,6 +71,7 @@ export function TranslateScreen({
       renderItem={({ item }: ListRenderItemInfo<TranslationItem>) => (
         <View sx={{ marginY: 6, marginX: [16, '2xl'] }}>
           <Text
+            allowFontScaling={false}
             sx={{
               color: 'text',
               fontWeight: '500',
@@ -103,6 +104,7 @@ export function TranslateScreen({
               onPress={() => onPress(translation.value)}
             >
               <Text
+                allowFontScaling={false}
                 sx={{
                   color:
                     translation.value === bibleVersion
