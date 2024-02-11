@@ -30,6 +30,7 @@ import { useGuideByMonthQuery } from 'app/utils/hooks/useGuideQuery'
 
 // Utils
 import dayjs from 'app/utils/dayjs'
+import { useAnalytics } from 'app/utils/hooks/useAnalytics'
 
 // Types
 import type { GuideDataResponse } from 'app/types'
@@ -43,8 +44,11 @@ export default function GuideScreen(
   } = useDripsyTheme()
   const colorScheme = useColorScheme()
   const { push } = useRouter()
-  const flatListRef = useRef<FlatList>()
+  const { trackEvent } = useAnalytics()
   const [hasBeenRead, setHasBeenRead] = useState<string[]>([])
+
+  // Refs
+  const flatListRef = useRef<FlatList>()
 
   // Context
   const {
@@ -94,12 +98,23 @@ export default function GuideScreen(
       viewOffset: 20,
     })
 
+  const trackGuideScreen = () => {
+    const isCurrentMonth = guideMonth === dayjs().format('MM')
+
+    if (!isCurrentMonth) {
+      trackEvent(`screen: guide (month: ${guideMonth})`)
+    } else {
+      trackEvent('screen: guide')
+    }
+  }
+
   // Side-Effects
   useEffect(() => {
     // Wait until the flatListRef is ready then,
     // trigger scrollToTop right after the `guideMonth` changes.
     if (flatListRef.current) {
       scrollToTop()
+      trackGuideScreen()
     }
   }, [guideMonth])
 

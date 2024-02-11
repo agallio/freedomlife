@@ -1,3 +1,4 @@
+import { type PropsWithChildren } from 'react'
 import {
   ListRenderItemInfo,
   Platform,
@@ -9,9 +10,6 @@ import { useRouter } from 'solito/router'
 
 // Contexts
 import { useReadPassageContext } from '../contexts/ReadPassageContext'
-
-// Types
-import type { PropsWithChildren } from 'react'
 
 interface TranslationItem {
   language: 'Bahasa Indonesia' | 'Bahasa Inggris'

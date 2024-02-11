@@ -24,6 +24,7 @@ import {
 
 // Utils
 import dayjs from 'app/utils/dayjs'
+import { useAnalytics } from 'app/utils/hooks/useAnalytics'
 
 // Types
 import type { VerseData } from 'app/types'
@@ -33,8 +34,11 @@ export default function ReadScreen() {
   const {
     theme: { colors },
   } = useDripsyTheme()
-  const flatListRef = useRef<FlatList>()
+  const { trackEvent } = useAnalytics()
   const height = Dimensions.get('window').height
+
+  // Refs
+  const flatListRef = useRef<FlatList>()
 
   // Contexts
   const {
@@ -177,6 +181,19 @@ export default function ReadScreen() {
     computedVersesData,
     setGuideHasBeenRead,
   ])
+
+  useEffect(() => {
+    if (inGuide) {
+      const guideDateValue = guideDate || dayjs().format('DD-MM-YYYY')
+      trackEvent(`screen: read (guide: ${guideDateValue})`)
+    }
+  }, [inGuide])
+
+  useEffect(() => {
+    if (!inGuide) {
+      trackEvent(`screen: read (passage: ${passage})`)
+    }
+  }, [passage])
 
   return (
     <Fragment>

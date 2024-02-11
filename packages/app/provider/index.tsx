@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AppState, Platform } from 'react-native'
 import { focusManager } from '@tanstack/react-query'
+import { AptabaseProvider } from '@aptabase/react-native'
 
 // Providers
 import { Dripsy } from './dripsy'
@@ -26,16 +27,18 @@ export function Provider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <NavigationProvider>
-      <FontsProvider>
-        <Dripsy>
-          <QueryProvider>
-            <NetworkConnectionProvider>
-              <ReadContextProvider>{children}</ReadContextProvider>
-            </NetworkConnectionProvider>
-          </QueryProvider>
-        </Dripsy>
-      </FontsProvider>
-    </NavigationProvider>
+    <AptabaseProvider appKey={process.env.EXPO_PUBLIC_APTABASE_KEY!}>
+      <NavigationProvider>
+        <FontsProvider>
+          <Dripsy>
+            <QueryProvider>
+              <NetworkConnectionProvider>
+                <ReadContextProvider>{children}</ReadContextProvider>
+              </NetworkConnectionProvider>
+            </QueryProvider>
+          </Dripsy>
+        </FontsProvider>
+      </NavigationProvider>
+    </AptabaseProvider>
   )
 }

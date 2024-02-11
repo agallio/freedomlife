@@ -17,6 +17,7 @@
         "gradleCommand": ":app:assembleRelease"
       },
       "ios": {
+        "simulator": true,
         "resourceClass": "m-medium"
       }
     },

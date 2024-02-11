@@ -121,5 +121,7 @@ buck-out/
 .expo/
 web-build/
 dist/
+.env*
+eas-private.json
 
 # @end expo-cli
