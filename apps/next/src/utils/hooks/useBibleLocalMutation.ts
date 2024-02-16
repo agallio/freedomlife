@@ -7,7 +7,6 @@ import { db, type BibleModel, localDatabaseTables } from '~/database/dexie'
 
 // Utils
 import { checkTheme } from './useDynamicTheme'
-import { supabase } from '../supabase'
 
 export function useBibleLocalMutation({
   version,
@@ -34,11 +33,9 @@ export function useBibleLocalMutation({
   }
 
   const bibleFetcher = async () => {
-    const filename = `${version}_bible.json`
-
     const {
-      data: { publicUrl },
-    } = supabase.storage.from('bibles').getPublicUrl(filename)
+      data: { data: publicUrl },
+    } = await axios.get(`/api/bible/file?version=${version}`)
 
     const { data } = await axios.get(publicUrl)
 
