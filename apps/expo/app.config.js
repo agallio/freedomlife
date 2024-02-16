@@ -21,7 +21,7 @@ const config = {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '1.5.3',
+  version: '1.5.4',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -36,7 +36,7 @@ const config = {
   },
   android: {
     ...sharedSplash,
-    versionCode: 4,
+    versionCode: 5,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -53,6 +53,14 @@ const config = {
         android: {
           usesCleartextTraffic: true,
         },
+      },
+    ],
+    [
+      '@sentry/react-native/expo',
+      {
+        url: 'https://sentry.io/',
+        organization: process.env.SENTRY_ORG,
+        project: process.env.SENTRY_PROJECT,
       },
     ],
   ],

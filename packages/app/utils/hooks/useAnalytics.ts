@@ -5,7 +5,7 @@ export function useAnalytics() {
 
   const trackEvent: typeof aptabaseTrackEvent = (eventName, props) => {
     if (process.env.NODE_ENV === 'production') {
-      trackEvent(eventName, props)
+      aptabaseTrackEvent(eventName, props)
     }
   }
 

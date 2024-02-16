@@ -3,13 +3,21 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { captureException } from '@sentry/react-native'
 
 // Types
 import type { PropsWithChildren } from 'react'
 
 export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+    },
+  },
   queryCache: new QueryCache({
     onError: (error, query) => {
+      captureException(error)
+
       if (query.meta) {
         console.log(query.meta?.errorMessage, error)
         return
