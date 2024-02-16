@@ -93,7 +93,11 @@ export function BibleTranslateDialogItem({
           ? 'bg-emerald-300 text-emerald-900 dark:bg-emerald-700 dark:text-white'
           : 'bg-white text-gray-600 dark:bg-gray-600 dark:text-white md:hover:bg-emerald-300 md:hover:text-emerald-900 dark:md:hover:bg-emerald-700 dark:md:hover:text-white',
       )}
-      onClick={() => changeVersion(item)}
+      onClick={() => {
+        if (status !== 'pending') {
+          changeVersion(item)
+        }
+      }}
     >
       <span className="flex-1">{translationNames[item]}</span>
 
