@@ -147,13 +147,7 @@ export default function GuideScreen(
   )
 
   const Component = error ? (
-    <GuideItemCard
-      isError
-      sx={sx}
-      nativeColorScheme={colorScheme}
-      onGuidePress={onGuidePress}
-      isLoading={isLoading}
-    />
+    <GuideItemCard isError onGuidePress={onGuidePress} isLoading={isLoading} />
   ) : (
     <FlatList
       ref={flatListRef as any}
@@ -167,10 +161,8 @@ export default function GuideScreen(
       renderItem={({ item, index }: ListRenderItemInfo<GuideDataResponse>) => (
         <GuideItemCard
           item={item}
-          sx={sx}
           isLoading={isLoading}
           isLastChild={data ? index + 1 === data.length : false}
-          nativeColorScheme={colorScheme}
           onGuidePress={onGuidePress}
           hasBeenRead={hasBeenRead.includes(item.date || '')}
         />

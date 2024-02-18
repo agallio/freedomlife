@@ -1,11 +1,7 @@
-import {
-  ColorSchemeName,
-  Platform,
-  TouchableOpacity,
-  useColorScheme,
-} from 'react-native'
+import { memo } from 'react'
+import { Platform, TouchableOpacity, useColorScheme } from 'react-native'
 import { BlurTint, BlurView } from 'expo-blur'
-import { P, SxProp, Text, View } from 'dripsy'
+import { P, Text, View, useSx } from 'dripsy'
 import { Skeleton } from 'moti/skeleton'
 import { BookOpenIcon, CheckBadgeIcon } from 'react-native-heroicons/solid'
 import * as Burnt from 'burnt'
@@ -29,15 +25,13 @@ const gradientColorScheme = {
   darkColorScheme: ['rgba(16,185,129,1)', 'rgba(0,212,255,1)'],
 }
 
-export default function GuideItemCard({
+function GuideItemCard({
   isLoading,
   isError,
   web,
   item,
   isLastChild,
   hasBeenRead,
-  sx,
-  nativeColorScheme,
   onGuidePress,
 }: {
   isLoading: boolean
@@ -46,10 +40,9 @@ export default function GuideItemCard({
   item?: GuideDataResponse
   isLastChild?: boolean
   hasBeenRead?: boolean
-  sx: (_: SxProp) => any
-  nativeColorScheme: ColorSchemeName
   onGuidePress: (_: string) => void
 }) {
+  const sx = useSx()
   const colorScheme = useColorScheme()
 
   // Methods
@@ -109,9 +102,9 @@ export default function GuideItemCard({
                 onPress={openToast}
               >
                 <BlurView
-                  intensity={nativeColorScheme === 'light' ? 60 : 40}
+                  intensity={colorScheme === 'light' ? 60 : 40}
                   blurReductionFactor={0}
-                  tint={nativeColorScheme as BlurTint}
+                  tint={colorScheme as BlurTint}
                   style={sx({ padding: 12, borderRadius: 9999 })}
                 >
                   <CheckBadgeIcon size={24} style={sx({ color: 'tabText' })} />
@@ -124,9 +117,9 @@ export default function GuideItemCard({
               onPress={() => onGuidePress(item!.date as string)}
             >
               <BlurView
-                intensity={nativeColorScheme === 'light' ? 60 : 40}
+                intensity={colorScheme === 'light' ? 60 : 40}
                 blurReductionFactor={0}
-                tint={nativeColorScheme as BlurTint}
+                tint={colorScheme as BlurTint}
                 style={sx({ padding: 12, borderRadius: 9999 })}
               >
                 <BookOpenIcon size={24} style={sx({ color: 'tabText' })} />
@@ -241,7 +234,7 @@ export default function GuideItemCard({
               show={isLoading}
               width="100%"
               height={Platform.OS === 'android' ? 54 : 50}
-              colors={skeletonColors(nativeColorScheme)}
+              colors={skeletonColors(colorScheme)}
             >
               <View>
                 <Text
@@ -275,3 +268,5 @@ export default function GuideItemCard({
     </Card>
   )
 }
+
+export default memo(GuideItemCard)
