@@ -37,7 +37,7 @@ export function AptabaseScreenTrackingProvider({
     const screenName = routeMapping[pathname as keyof typeof routeMapping]
 
     if (screenName) {
-      trackEvent(screenName)
+      trackEvent(`screen: ${screenName}`)
     }
   }, [pathname, params])
 

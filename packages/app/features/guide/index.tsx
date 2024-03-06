@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FlatList, Platform, View, useColorScheme } from 'react-native'
 import { useFocusEffect } from 'expo-router'
 import { useRouter } from 'solito/router'
@@ -29,6 +29,9 @@ export default function GuideScreen() {
     setGuidedSelectedPassage,
     setSelectedBibleVersion,
   } = useReadPassageContext()
+
+  // Refs
+  const flatListRef = useRef<FlatList>()
 
   // States
   const [guidesHaveBeenRead, setGuidesHaveBeenRead] = useState<string[]>([])
@@ -66,6 +69,22 @@ export default function GuideScreen() {
     return guidesHaveBeenRead.includes(`read-${date}`)
   }
 
+  const scrollToTop = () => {
+    flatListRef.current!.scrollToIndex({
+      index: 0,
+      viewOffset: 20,
+    })
+  }
+
+  // Effects
+  useEffect(() => {
+    // Wait until the flatListRef is ready then,
+    // trigger scrollToTop right after the `guideMonth` changes.
+    if (flatListRef.current) {
+      scrollToTop()
+    }
+  }, [selectedGuideMonth])
+
   // Focus Effects (Native)
   useFocusEffect(
     useCallback(() => {
@@ -99,6 +118,7 @@ export default function GuideScreen() {
         </View>
       ) : (
         <FlatList
+          ref={flatListRef as any}
           data={data}
           keyExtractor={(_, index) => `item-${index}`}
           scrollEventThrottle={16}
