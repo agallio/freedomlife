@@ -1,0 +1,15 @@
+{
+  "extends": "@repo/typescript-config/react-native-library",
+  "include": ["nativewind-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules", "**/.*/"],
+  "compilerOptions": {
+    "strict": true,
+    "jsxImportSource": "nativewind",
+    "paths": {
+      "react-native": [
+        "../../node_modules/react-native",
+        "../../node_modules/nativewind"
+      ]
+    }
+  }
+}

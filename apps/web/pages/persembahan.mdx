@@ -1,0 +1,66 @@
+import Head from 'next/head'
+import { NextSeo } from 'next-seo'
+import MdxLayout from '@repo/app/components/mdx-layout.web'
+
+<Head>
+  <title>Persembahan | freedomlife</title>
+</Head>
+<NextSeo
+  noindex
+  nofollow
+  title="Persembahan | freedomlife"
+  description="Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta."
+  openGraph={{
+    url: 'https://freedomlife.id/persembahan',
+    title: 'Persembahan | freedomlife',
+    description:
+      'Halaman informasi persembahan dan perpuluhan Gereja Kristen Kemah Daud Yogyakarta.',
+    site_name: 'freedomlife',
+    images: [
+      {
+        url: 'https://freedomlife.id/images/og-persembahan.png',
+        alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Persembahan dan Perpuluhan'`,
+      },
+    ],
+  }}
+  twitter={{
+    cardType: 'summary_large_image',
+  }}
+/>
+
+Dukungan untuk pekerjaan & pelayanan Gereja Kristen Kemah Daud Yogyakarta dapat dilakukan melalui QRIS dibawah ini.
+
+<div className="flex items-center justify-center rounded-lg bg-white shadow-sm">
+  <img src="/images/qris.jpeg" alt="QRIS GKKD Yogyakarta" width="300" />
+</div>
+
+Dapat digunakan di semua aplikasi yang mendukung QRIS di Indonesia.
+
+<div className="flex flex-row items-center justify-center rounded-lg bg-white px-4 shadow-sm">
+  <img src="/images/ewallet.png" alt="All e-wallet images" />
+</div>
+
+Dapat juga dilakukan melalu transfer pada rekening bank dibawah ini.
+
+- **8000-7752-1000**
+
+  CIMB Niaga (a/n Gereja Kristen Kemah Daud)
+
+- **017-121-7007**
+
+  BCA (a/n GKKD Glory of God Yogyakarta)
+
+export default function MDXPage({ children }) {
+  return (
+    <MdxLayout
+      header={
+        <div className="pb-4 text-emerald-900 dark:text-white">
+          <h1 className="text-2xl font-bold">Persembahan & Persepuluhan</h1>
+          <p>Gereja Kristen Kemah Daud - Yogyakarta</p>
+        </div>
+      }
+    >
+      {children}
+    </MdxLayout>
+  )
+}

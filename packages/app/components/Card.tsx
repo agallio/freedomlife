@@ -1,102 +1,74 @@
-import { Platform, useColorScheme } from 'react-native'
-import { View, Text, useSx } from 'dripsy'
-import { Skeleton } from 'moti/skeleton'
+import { type ReactNode, type PropsWithChildren } from 'react'
+import { Platform, View } from 'react-native'
 
-// Constants
-import { skeletonColors } from 'app/provider/dripsy/colors'
+// Utils
+import { cn } from '../utils/helpers'
 
-// Types
-import type { PropsWithChildren, ReactNode } from 'react'
-
-interface CardProps {
-  title?: string
-  subtitle?: string
+export type CardProps = PropsWithChildren<{
+  variant?: 'base' | 'active'
+  title?: ReactNode
   footer?: ReactNode
-  actionButton?: ReactNode
-  options?: {
-    isLoading?: boolean
-    titleColor?: string
-    subtitleColor?: string
-    backgroundColor?: string
-    isLastChild?: boolean
-    lastChildPadding?: string | number
+}>
+
+const getShadow = () => {
+  if (Platform.OS === 'android') {
+    return undefined
   }
+
+  return 'shadow-sm shadow-gray-300 dark:shadow-gray-900'
+}
+
+const getShadowActive = () => {
+  if (Platform.OS === 'android') {
+    return 'shadow'
+  }
+
+  return 'shadow-sm shadow-gray-300 dark:shadow-gray-900'
 }
 
 export default function Card({
+  variant = 'base',
   title,
-  subtitle,
   footer,
-  actionButton,
-  options,
   children,
-}: PropsWithChildren<CardProps>) {
-  const sx = useSx()
-  const colorScheme = useColorScheme()
-
+}: CardProps) {
   return (
     <View
-      sx={{
-        borderRadius: 12,
-        boxShadow: 'container',
-        backgroundColor: options?.backgroundColor || 'tab',
-        marginBottom: options?.isLastChild
-          ? options?.lastChildPadding || 130
-          : 24,
-      }}
+      className={cn(
+        'flex flex-col justify-center rounded-lg',
+        variant === 'base' && `bg-white dark:bg-gray-700 ${getShadow()}`,
+        variant === 'active' &&
+          `bg-emerald-300 dark:bg-emerald-800 ${getShadowActive()}`,
+      )}
+      style={Platform.OS === 'android' ? { elevation: 2 } : undefined}
     >
       {title && (
         <View
-          sx={{
-            paddingX: 'md',
-            paddingY: 12,
-            borderBottomWidth: colorScheme === 'light' ? 1 : 0,
-            borderBottomColor: colorScheme === 'light' ? '#e6e6e6' : undefined,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
+          className={cn(
+            'flex w-full flex-col border-b',
+            variant === 'base' && 'border-gray-200 dark:border-gray-600',
+            variant === 'active' &&
+              'rounded-t-lg border-emerald-400 bg-emerald-400 dark:border-emerald-700 dark:bg-emerald-700',
+          )}
         >
-          <Skeleton
-            show={options?.isLoading}
-            width="50%"
-            colors={skeletonColors(colorScheme)}
-          >
-            <View>
-              <Text
-                allowFontScaling={false}
-                sx={{
-                  fontSize: 20,
-                  fontWeight: '800',
-                  color: options?.titleColor || 'text',
-                }}
-                // @ts-ignore
-                // https://github.com/nandorojo/dripsy/issues/206
-                style={Platform.OS === 'web' ? { fontWeight: 800 } : undefined}
-              >
-                {title}
-              </Text>
-              {subtitle && (
-                <Text
-                  allowFontScaling={false}
-                  sx={{
-                    color: options?.subtitleColor || 'text',
-                    marginTop: 'xs',
-                  }}
-                >
-                  {subtitle}
-                </Text>
-              )}
-            </View>
-          </Skeleton>
-
-          {actionButton}
+          {title}
         </View>
       )}
 
-      <View style={sx({ paddingX: 'md', paddingY: 12 })}>{children}</View>
+      {children}
 
-      {footer}
+      {footer && (
+        <View
+          className={cn(
+            'flex w-full flex-col border-t',
+            variant === 'base' && 'border-gray-200 dark:border-gray-600',
+            variant === 'active' &&
+              'rounded-b-lg border-emerald-400 bg-emerald-400 dark:border-emerald-700 dark:bg-emerald-700',
+          )}
+        >
+          {footer}
+        </View>
+      )}
     </View>
   )
 }

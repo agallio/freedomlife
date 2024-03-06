@@ -1,13 +1,19 @@
-import { ReadPassageContext } from './ReadPassageContext'
-import { ReadSettingsContext } from './ReadSettingsContext'
+import { type PropsWithChildren } from 'react'
+import { type Router } from 'next/router'
 
-// Types
-import type { PropsWithChildren } from 'react'
+// Contexts
+import { ReadPassageContextProvider } from './read-passage.context'
+import { ReadSettingsContextProvider } from './read-settings.context'
+import { ReadPassageChapterContextProvider } from './read-passage-chapter.context'
 
-export function ReadContextProvider({ children }: PropsWithChildren<{}>) {
+export type ReadProvidersProps = PropsWithChildren<{ router?: Router }>
+
+export default function ReadProviders({ children }: ReadProvidersProps) {
   return (
-    <ReadPassageContext>
-      <ReadSettingsContext>{children}</ReadSettingsContext>
-    </ReadPassageContext>
+    <ReadPassageContextProvider>
+      <ReadPassageChapterContextProvider>
+        <ReadSettingsContextProvider>{children}</ReadSettingsContextProvider>
+      </ReadPassageChapterContextProvider>
+    </ReadPassageContextProvider>
   )
 }

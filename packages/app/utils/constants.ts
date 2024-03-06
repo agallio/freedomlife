@@ -1,7 +1,62 @@
-// Types
-import type { PassageItem } from 'app/types'
+import { Platform } from 'react-native'
 
-export const passageData: PassageItem[] = [
+export type BibleTranslationItemType = {
+  language: string
+  versions: { key: string; name: string }[]
+}
+
+export const bibleTranslations: BibleTranslationItemType[] = [
+  {
+    language: 'Bahasa Indonesia',
+    versions: [
+      {
+        key: 'tb',
+        name: 'Terjemahan Baru (TB)',
+      },
+      {
+        key: 'bis',
+        name: 'Bahasa Indonesia Sehari-Hari (BIS)',
+      },
+      {
+        key: 'fayh',
+        name: 'Firman Allah Yang Hidup (FAYH)',
+      },
+      {
+        key: 'vmd',
+        name: 'Versi Mudah Dibaca (VMD)',
+      },
+    ],
+  },
+  {
+    language: 'Bahasa Inggris',
+    versions: [
+      {
+        key: 'msg',
+        name: 'The Message (MSG)',
+      },
+      {
+        key: 'nkjv',
+        name: 'New King James Version (NKJV)',
+      },
+      {
+        key: 'amp',
+        name: 'Amplified Bible (AMP)',
+      },
+      {
+        key: 'niv',
+        name: 'New International Version (NIV)',
+      },
+    ],
+  },
+]
+
+export type PassageDataItemType = {
+  name: string
+  abbr: string
+  passage: number
+}
+
+export const passageData: PassageDataItemType[] = [
   { name: 'search', abbr: '', passage: 0 },
   { name: 'Kejadian', abbr: 'kej', passage: 50 },
   { name: 'Keluaran', abbr: 'kel', passage: 40 },
@@ -73,6 +128,8 @@ export const passageData: PassageItem[] = [
 
 const apiEnv = process.env.EXPO_PUBLIC_API_ENV || 'production'
 export const apiUrl =
-  apiEnv === 'local' ? 'http://localhost:3000' : 'https://freedomlife.id'
-
-export const guideValueArray = ['pl_name', 'pb_name', 'in_name']
+  Platform.OS === 'web'
+    ? ''
+    : apiEnv === 'local'
+      ? 'http://192.168.100.11:3000'
+      : 'https://freedomlife.id'
