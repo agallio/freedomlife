@@ -1,35 +1,30 @@
 {
-  "name": "freedomlife-monorepo",
+  "name": "freedomlife",
   "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "devDependencies": {
-    "@types/react": "^18.2.48",
-    "@types/react-native": "^0.72.6",
-    "eslint": "^8.52.0",
-    "eslint-config-prettier": "^9.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
-    "turbo": "^1.10.16",
-    "typescript": "^5.3.3"
+  "scripts": {
+    "build": "turbo build",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,mdx}\" --ignore-path .gitignore",
+    "prepare": "husky"
   },
-  "engines": {
-    "node": ">=18.x.x",
-    "npm": "please-use-yarn"
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "turbo": "^1.12.4"
   },
   "lint-staged": {
-    "./apps/expo/**/*.{ts,tsx}": "bash -c \"yarn lint\"",
-    "./apps/next/**/*.{ts,tsx}": "bash -c \"cd apps/next && yarn lint\"",
-    "./packages/app/**/*.{ts,tsx}": "bash -c \"yarn lint\""
+    "*": "bash -c \"yarn lint\""
   },
-  "scripts": {
-    "native": "cd apps/expo && yarn start",
-    "web": "cd apps/next && yarn next",
-    "vercel-build": "cd apps/next && yarn build",
-    "lint": "eslint . --ext js,jsx,ts,tsx && tsc --pretty --noEmit",
-    "prepare": "husky install"
-  },
-  "packageManager": "yarn@3.4.1"
+  "engines": {
+    "node": ">=18"
+  }
 }

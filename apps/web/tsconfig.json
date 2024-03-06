@@ -1,0 +1,17 @@
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "jsxImportSource": "nativewind"
+  },
+  "include": [
+    "next-env.d.ts",
+    "nativewind-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ],
+  "exclude": ["node_modules", "**/.*/"]
+}

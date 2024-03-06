@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "React Native Library",
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "preserve",
+    "lib": ["DOM", "ESNext"],
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "ESNext"
+  }
+}

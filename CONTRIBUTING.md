@@ -1,17 +1,15 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via github issue, or
+When contributing to this repository, please first discuss the change you wish to make via GitHub issue, or
 email (<agallio@freedomlife.id>).
-
-Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a
-   build.
+1. It should start with an RFC / issue. Write a detail of the problems, and your solutions. Use the issue template provided (select the type of issue).
 2. Update the README.md with details of changes to the interface, this includes new environment
-   variables, exposed ports, useful file locations and container parameters.
-3. You may merge the Pull Request after you have received approval from the project maintainers.
+   variables, exposed ports, useful file locations.
+3. Create the PR and tag @agallio on GitHub.
+4. You may merge the Pull Request after you have received approval from the project maintainers.
 
 ## Code of Conduct
 

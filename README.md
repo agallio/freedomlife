@@ -1,6 +1,6 @@
 # freedomlife
 
-[![freedomlife logo](/apps/next/public/images/og-index.png)](https://freedomlife.id)
+[![freedomlife logo](/apps/web/public/images/og-index.png)](https://freedomlife.id)
 
 ## 🔦 About
 
@@ -8,8 +8,8 @@ freedomlife: your go-to **Indonesian bible app**!
 
 freedomlife is an **Indonesian bible app** with a full-year guide—no need to be confused about what to read anymore. There is a collection of reading guides for today and other days of the same year. You also can read the bible directly without guides.
 
-<a href="https://play.google.com/store/apps/details?id=id.freedomlife.android" target="_blank"><img src="/apps/next/public/images/google-play.svg" alt="Google Play Store Button" width="180"></a>
-<a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/apps/next/public/images/app-store.svg" alt="Apple App Store Button" width="180"></a>
+<a href="https://play.google.com/store/apps/details?id=id.freedomlife.android" target="_blank"><img src="/apps/web/public/images/google-play-badge.webp" alt="Google Play Store Button" width="130"></a>
+<a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/apps/web/public/images/app-store-badge.webp" alt="Apple App Store Button" width="120"></a>
 
 ## 📖 Available Bible Translations
 
@@ -31,7 +31,7 @@ International
 
 This monorepo is powered by [Solito](https://solito.dev) & [Turborepo](https://turbo.build/) with the power of [React Native](https://reactnative.dev/).
 
-For more details, please open the README file on each respective directory: iOS & Android lives on `apps/expo`, the web lives on `apps/next`.
+For more details, please open the README file on each respective directory: iOS & Android lives on `apps/native`, the web lives on `apps/web`.
 
 ## ☎️ Contacts
 

@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#__next {
+  -webkit-overflow-scrolling: touch;
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  @apply scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-50 dark:scrollbar-track-gray-800;
+}
+
+body {
+  /* Allows you to scroll below the viewport; default value is visible */
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: scrollbar;
+}
+
+/* 
+  Manually add dialog styles & animations.
+  Since nativewind `animate` class name still experimental
+  https://www.nativewind.dev/v4/tailwind/transitions-animation/animation#compatibility
+*/
+#dialog-overlay {
+  @apply fixed inset-0 z-[2] bg-black/30 dark:bg-black/40;
+}
+
+#dialog-overlay[data-state='open'] {
+  @apply animate-in fade-in-0;
+}
+
+#dialog-overlay[data-state='closed'] {
+  @apply animate-out fade-out-0;
+}
+
+#dialog-content {
+  @apply fixed left-1/2 top-1/2 z-[3] min-h-[300px] w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 shadow-lg shadow-gray-400 dark:bg-gray-800 dark:shadow-gray-900;
+}
+
+#dialog-content[data-state='open'] {
+  @apply !animate-in !fade-in-0 !zoom-in-95 !slide-in-from-left-1/2 !slide-in-from-top-[48%];
+}
+
+#dialog-content[data-state='closed'] {
+  @apply !animate-out !fade-out-0 !zoom-out-95 !slide-out-to-left-1/2 !slide-out-to-top-[48%];
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .full-height {
+    min-height: -webkit-fill-available;
+  }
+}
