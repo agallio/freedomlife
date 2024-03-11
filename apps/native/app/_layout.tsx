@@ -90,6 +90,7 @@ Sentry.init({
       routingInstrumentation: sentryRoutingInstrumentation,
     }),
   ],
+  ignoreErrors: [/Network Error/i],
 })
 
 // Add additional scope to sentry error tags.

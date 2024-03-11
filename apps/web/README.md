@@ -7,7 +7,7 @@ This directory is to handle the web version.
 | Technology | Version              |
 | ---------- | -------------------- |
 | node       | LTS (18 recommended) |
-| yarn       | 4.1 or Higher        |
+| yarn       | 1.22.19 or Higher    |
 
 ## 📦 Included Packages
 

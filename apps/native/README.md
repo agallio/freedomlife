@@ -7,7 +7,7 @@ This directory is to handle the native version (iOS & Android).
 | Technology | Version              |
 | ---------- | -------------------- |
 | node       | LTS (18 recommended) |
-| yarn       | 4.1 or Higher        |
+| yarn       | 1.22.19 or Higher    |
 
 ## 📦 Included Packages
 
