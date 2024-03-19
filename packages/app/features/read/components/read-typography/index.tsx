@@ -203,7 +203,9 @@ export default function ReadTypography() {
             contentContainerClassName="pb-40 sm:px-8 sm:gap-1"
           />
 
-          <ReadTypographyNavigator passageArray={bibleByDateData?.passage} />
+          <ReadTypographyNavigator
+            passageArray={bibleByDateData?.passage || []}
+          />
         </>
       )}
     </>

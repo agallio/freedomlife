@@ -25,7 +25,7 @@ const filteredPassageData = passageData.filter((p) => p.passage !== 0)
 export default function ReadTypographyNavigator({
   passageArray,
 }: {
-  passageArray?: string[]
+  passageArray: string[]
 }) {
   const colorScheme = useColorScheme()
   const router = useRouter()
@@ -43,12 +43,12 @@ export default function ReadTypographyNavigator({
   // Memoized Values
   const guidePassageIndex = useMemo(() => {
     if (guided.enabled) {
-      return passageArray!.findIndex(
+      return passageArray.findIndex(
         (passage) => passage === guided.selectedPassage,
       )
     }
 
-    // Make it more than -1, since -1 is reserved by `.find()`.
+    // Make it more than -1, since -1 is reserved by `.findIndex()`.
     return -2
   }, [passageArray, guided.enabled, guided.selectedPassage])
 
