@@ -110,7 +110,7 @@ export const passageData: PassageDataItemType[] = [
   { name: 'Filipi', abbr: 'flp', passage: 4 },
   { name: 'Kolose', abbr: 'kol', passage: 4 },
   { name: '1 Tesalonika', abbr: '1te', passage: 5 },
-  { name: '2 Tesalonika', abbr: '2te', passage: 5 },
+  { name: '2 Tesalonika', abbr: '2te', passage: 3 },
   { name: '1 Timotius', abbr: '1ti', passage: 6 },
   { name: '2 Timotius', abbr: '2ti', passage: 4 },
   { name: 'Titus', abbr: 'tit', passage: 3 },
