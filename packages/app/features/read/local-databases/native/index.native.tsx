@@ -5,7 +5,7 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react'
-import * as SQLite from 'expo-sqlite/next'
+import * as SQLite from 'expo-sqlite'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { captureException } from '@sentry/react-native'

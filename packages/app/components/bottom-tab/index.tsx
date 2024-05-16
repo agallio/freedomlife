@@ -69,6 +69,7 @@ function BottomTabContainer({
   const showOfflineToast = () => {
     Burnt.toast({
       preset: 'custom',
+      duration: 1.5,
       title: 'Anda Sedang Offline',
       icon: {
         ios: {

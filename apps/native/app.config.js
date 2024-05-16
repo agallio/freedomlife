@@ -21,7 +21,7 @@ export default {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '2.0.1',
+  version: '2.0.2',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -29,7 +29,7 @@ export default {
   splash: lightSplash,
   assetBundlePatterns: ['**/*'],
   runtimeVersion: {
-    policy: 'sdkVersion',
+    policy: 'appVersion',
   },
   ios: {
     ...sharedSplash,

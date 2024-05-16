@@ -31,6 +31,7 @@ export default function TranslateItemDownloadButton({
 
       Burnt.toast({
         preset: 'done',
+        duration: 1.5,
         title: Platform.OS === 'ios' ? title : `${title}\n${version.name}`,
         message: Platform.OS === 'ios' ? version.name : undefined,
       })
@@ -44,6 +45,7 @@ export default function TranslateItemDownloadButton({
 
       Burnt.toast({
         preset: 'done',
+        duration: 1.5,
         title: Platform.OS === 'ios' ? title : `${title}\n${version.name}`,
         message: Platform.OS === 'ios' ? version.name : undefined,
       })

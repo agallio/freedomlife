@@ -32,6 +32,7 @@ export default function TranslateItemDownloadButton({
     onSuccess: () => {
       Burnt.toast({
         preset: 'done',
+        duration: 1.5,
         // @ts-ignore
         title: (
           <ToasterWebComponent
@@ -54,6 +55,7 @@ export default function TranslateItemDownloadButton({
     if (isDownloaded) {
       Burnt.toast({
         preset: 'done',
+        duration: 1.5,
         // @ts-ignore
         title: (
           <ToasterWebComponent

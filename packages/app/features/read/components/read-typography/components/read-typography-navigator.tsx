@@ -157,6 +157,7 @@ export default function ReadTypographyNavigator({
 
     Burnt.toast({
       preset: 'custom',
+      duration: 1.5,
       // @ts-ignore
       title:
         Platform.OS === 'web' ? (

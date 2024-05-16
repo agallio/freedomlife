@@ -187,7 +187,9 @@ export default function ReadTypography() {
             />
           ))}
 
-          <ReadTypographyNavigator passageArray={bibleByDateData?.passage} />
+          <ReadTypographyNavigator
+            passageArray={bibleByDateData?.passage || []}
+          />
         </View>
       )}
     </View>

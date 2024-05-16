@@ -27,7 +27,6 @@ export default function ToasterContainer() {
             }
           : {
               '--width': '300px',
-              bottom: 'max(100px, env(safe-area-inset-bottom))',
             }
       }
       visibleToasts={1}

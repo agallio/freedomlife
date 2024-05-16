@@ -54,6 +54,7 @@ export default function GuideScreen() {
 
     Burnt.toast({
       preset: 'custom',
+      duration: 1.5,
       title: Platform.OS === 'ios' ? title : `${title}\n${message}`,
       message: Platform.OS === 'ios' ? message : '',
       icon: {

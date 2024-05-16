@@ -47,6 +47,7 @@ export default function ReadNavbarRight({
 
         Burnt.toast({
           preset: 'done',
+          duration: 1.5,
           // @ts-ignore
           title: (
             <ToasterWebComponent
