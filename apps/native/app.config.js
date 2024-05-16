@@ -38,7 +38,7 @@ export default {
   },
   android: {
     ...sharedSplash,
-    versionCode: 7,
+    versionCode: 8,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
