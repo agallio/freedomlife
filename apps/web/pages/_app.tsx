@@ -3,7 +3,6 @@ import '../styles/global.css'
 import { type AppProps } from 'next/app'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import Script from 'next/script'
 import { Inter } from 'next/font/google'
 import { DefaultSeo } from 'next-seo'
 
@@ -90,15 +89,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           <ToasterContainer />
         </ReadProviders>
       </QueryProvider>
-
-      {process.env.NODE_ENV === 'production' && (
-        <Script
-          async
-          defer
-          data-website-id="2eee9168-15ac-46de-814a-35725fc77c53"
-          src="https://analytics.agallio.xyz/script.js"
-        />
-      )}
     </>
   )
 }
