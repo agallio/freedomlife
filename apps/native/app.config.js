@@ -21,7 +21,7 @@ export default {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '2.0.4',
+  version: '2.0.5',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -38,7 +38,7 @@ export default {
   },
   android: {
     ...sharedSplash,
-    versionCode: 10,
+    versionCode: 11,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -47,6 +47,7 @@ export default {
   },
   plugins: [
     'expo-router',
+    'expo-localization',
     [
       'expo-build-properties',
       {
