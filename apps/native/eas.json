@@ -13,9 +13,6 @@
     "preview": {
       "channel": "preview",
       "distribution": "internal",
-      "env": {
-        "EXPO_PUBLIC_POSTHOG_KEY": "phc_DRs9QuRk9WyEqOzPDxGMWQxgzpRP30wcxsEVfbEy0xt"
-      },
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
@@ -27,9 +24,6 @@
     },
     "production": {
       "channel": "production",
-      "env": {
-        "EXPO_PUBLIC_POSTHOG_KEY": "phc_DRs9QuRk9WyEqOzPDxGMWQxgzpRP30wcxsEVfbEy0xt"
-      },
       "ios": {
         "resourceClass": "m-medium"
       }
