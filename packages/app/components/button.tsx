@@ -47,7 +47,7 @@ const buttonVariants = {
     text: 'uppercase tracking-wider',
   },
   passage: {
-    parent: `py-2 px-6 bg-emerald-300 dark:bg-emerald-800 ${getShadowPassage()}`,
+    parent: `py-2 px-6 bg-emerald-300 border border-emerald-400 dark:border-emerald-700 dark:bg-emerald-800 ${getShadowPassage()}`,
     hover:
       'web:active:bg-emerald-400 dark:web:active:bg-emerald-700 web:hover:bg-emerald-400 web:dark:hover:bg-emerald-700',
     text: undefined,
@@ -116,7 +116,7 @@ export function Button({
 type IconButtonProps = {
   icon: ReactNode
   size?: 'sm' | 'md' | 'lg'
-  variant?: 'base' | 'active' | 'transparent' | 'custom'
+  variant?: 'base' | 'active' | 'navigator' | 'transparent' | 'custom'
   noShadow?: boolean
   className?: string
   ariaLabel?: string
@@ -155,7 +155,9 @@ export function IconButton({
           variant === 'base' &&
             'web:hover:bg-gray-100 web:dark:hover:bg-gray-600 web:active:bg-gray-100 web:dark:active:bg-gray-900 border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700',
           variant === 'active' &&
-            'web:hover:bg-emerald-400 web:dark:hover:bg-emerald-600 web:active:bg-emerald-400 web:dark:active:bg-emerald-600 bg-emerald-300 dark:bg-emerald-700',
+            'web:hover:bg-emerald-400 web:dark:hover:bg-emerald-600 web:active:bg-emerald-400 web:dark:active:bg-emerald-600 border border-emerald-400 bg-emerald-300 dark:border-emerald-600 dark:bg-emerald-700',
+          variant === 'navigator' &&
+            'web:hover:bg-gray-100 web:dark:hover:bg-gray-600 web:active:bg-gray-100 web:dark:active:bg-gray-900 border border-gray-200 bg-white dark:border-gray-600 dark:bg-[#2c3440]',
           variant !== 'transparent' && size === 'sm' && 'p-2',
           variant !== 'transparent' && size === 'md' && 'p-3',
           variant !== 'transparent' && size === 'lg' && 'p-4',

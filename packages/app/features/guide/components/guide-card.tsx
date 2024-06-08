@@ -58,6 +58,7 @@ function BasicGuideCard({
           <View className="flex-row gap-2">
             {isRead && (
               <IconButton
+                noShadow
                 size="sm"
                 variant="active"
                 icon={
@@ -76,6 +77,7 @@ function BasicGuideCard({
             )}
 
             <IconButton
+              noShadow
               size="sm"
               variant="active"
               icon={
@@ -161,7 +163,7 @@ function ActiveGuideCard({
               noShadow
               size="sm"
               variant="custom"
-              className="web:hover:bg-emerald-800 web:dark:hover:bg-gray-800/50 web:active:bg-emerald-800 web:dark:active:bg-gray-800/50 bg-emerald-700 dark:bg-gray-800/30"
+              className="web:hover:bg-emerald-800 web:dark:hover:bg-gray-800/50 web:active:bg-emerald-800 web:dark:active:bg-gray-800/50 border border-emerald-600 bg-emerald-700 dark:border-transparent dark:bg-gray-800/30"
               icon={
                 <BookOpenIcon
                   size={20}

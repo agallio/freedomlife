@@ -20,7 +20,7 @@ This directory is to handle the native version (iOS & Android).
 | [TailwindCSS](https://tailwindcss.com/) + [NativeWind](https://nativewind.dev/) |
 | [Moti](https://moti.fyi/)                                                       |
 | [SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite-next/)                |
-| [Aptabase](https://aptabase.com/)                                               |
+| [PostHog](https://posthog.com/)                                                 |
 
 ## 🗂 Folder Layout
 

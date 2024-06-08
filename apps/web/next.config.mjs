@@ -44,9 +44,9 @@ const withMDX = createMDX({
 // Security
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.agallio.xyz;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.googletagmanager.com *.posthog.com;
   child-src *.googletagmanager.com;
-  style-src 'self' 'unsafe-inline' *.googleapis.com *.freedomlife.id *.agallio.xyz;
+  style-src 'self' 'unsafe-inline' *.googleapis.com *.freedomlife.id *.posthog.com;
   worker-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
@@ -126,6 +126,22 @@ const nextConfig = {
       },
     ]
   },
+
+  // PostHog
+  async rewrites() {
+    return [
+      {
+        source: '/ingest/static/:path*',
+        destination: 'https://eu-assets.i.posthog.com/static/:path*',
+      },
+      {
+        source: '/ingest/:path*',
+        destination: 'https://eu.i.posthog.com/:path*',
+      },
+    ]
+  },
+  // This is required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true,
 
   webpack: (config) => {
     // Handle @react-native-segmented-control/segmented-control in Next.js.
