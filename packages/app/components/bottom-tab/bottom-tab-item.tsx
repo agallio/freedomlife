@@ -66,14 +66,16 @@ export function BottomTabItem({
     >
       <View
         className={cn(
-          'flex h-[55px] flex-row items-center justify-center gap-2 rounded-[9999px] py-4 shadow-lg',
+          'flex h-[55px] flex-row items-center justify-center gap-2 rounded-[9999px] border py-4 shadow-lg',
           {
-            // Background colors
-            'bg-emerald-300 dark:bg-emerald-700': isFocused,
-            'bg-white dark:bg-gray-700': !isFocused,
+            // Background & Border colors
+            'border-emerald-400 bg-emerald-300 dark:border-emerald-600 dark:bg-emerald-700':
+              isFocused,
+            'border-gray-200 bg-white dark:border-gray-700 dark:bg-[#2c3440]':
+              !isFocused,
 
             // Shadow colors
-            'shadow-gray-600/20 dark:shadow-gray-800/50':
+            'shadow-gray-600/20 dark:shadow-black/15':
               Platform.OS !== 'android',
 
             // Hover for desktop
@@ -93,7 +95,10 @@ export function BottomTabItem({
               <View className="flex flex-row items-center justify-center gap-2">
                 <View>{icon}</View>
 
-                <Text className="select-none text-base tracking-wider">
+                <Text
+                  customFontWeight="font-medium"
+                  className="select-none text-base leading-tight tracking-wider"
+                >
                   {label}
                 </Text>
               </View>

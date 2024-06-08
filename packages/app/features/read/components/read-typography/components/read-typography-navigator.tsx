@@ -200,9 +200,10 @@ export default function ReadTypographyNavigator({
         {showPreviousButton && (
           <IconButton
             size="sm"
+            variant="navigator"
             icon={
               <ChevronLeftIcon
-                size={20}
+                size={24}
                 className={
                   Platform.OS === 'web'
                     ? 'text-emerald-900 dark:text-white'
@@ -255,9 +256,10 @@ export default function ReadTypographyNavigator({
         {showNextButton && (
           <IconButton
             size="sm"
+            variant="navigator"
             icon={
               <ChevronRightIcon
-                size={20}
+                size={24}
                 className={
                   Platform.OS === 'web'
                     ? 'text-emerald-900 dark:text-white'

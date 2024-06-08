@@ -1,14 +1,17 @@
 import '../styles/global.css'
 
+import { useEffect } from 'react'
 import { type AppProps } from 'next/app'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { Inter } from 'next/font/google'
 import { DefaultSeo } from 'next-seo'
+import posthog from 'posthog-js'
 
 // Contexts
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
+import PostHogProviderWeb from '@repo/app/providers/posthog/index.web'
 
 // Lazy-load Components
 const BottomTab = dynamic(() => import('@repo/app/components/bottom-tab'), {
@@ -18,6 +21,21 @@ const ToasterContainer = dynamic(
   () => import('@repo/app/components/toaster-container.web'),
   { ssr: false },
 )
+
+// PostHog
+// Check that PostHog is client-side (used to handle Next.js SSR)
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    api_host: '/ingest',
+    autocapture: false,
+    disable_session_recording: true,
+
+    // Enable debug mode in development
+    loaded: (posthog) => {
+      if (process.env.NODE_ENV === 'development') posthog.debug()
+    },
+  })
+}
 
 const interFont = Inter({
   subsets: ['latin'],
@@ -54,6 +72,18 @@ function SEO() {
 }
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  // Effects
+  useEffect(() => {
+    // Track page views
+    const handleRouteChange = () => posthog?.capture('$pageview')
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -69,26 +99,30 @@ export default function App({ Component, pageProps, router }: AppProps) {
         }
       `}</style>
 
-      <QueryProvider>
-        <ReadProviders router={router}>
-          <main className="antialiased">
-            <Component {...pageProps} />
+      <PostHogProviderWeb>
+        <QueryProvider>
+          <ReadProviders router={router}>
+            <main className="antialiased">
+              <Component {...pageProps} />
 
-            {router.pathname !== '/404' &&
-              router.pathname !== '/_error' &&
-              router.pathname !== '/learn' &&
-              router.pathname !== '/persembahan' && (
-                <BottomTab
-                  pathname={
-                    router.pathname.includes('read') ? '/read' : router.pathname
-                  }
-                />
-              )}
-          </main>
+              {router.pathname !== '/404' &&
+                router.pathname !== '/_error' &&
+                router.pathname !== '/learn' &&
+                router.pathname !== '/persembahan' && (
+                  <BottomTab
+                    pathname={
+                      router.pathname.includes('read')
+                        ? '/read'
+                        : router.pathname
+                    }
+                  />
+                )}
+            </main>
 
-          <ToasterContainer />
-        </ReadProviders>
-      </QueryProvider>
+            <ToasterContainer />
+          </ReadProviders>
+        </QueryProvider>
+      </PostHogProviderWeb>
     </>
   )
 }
