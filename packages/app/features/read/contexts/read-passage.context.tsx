@@ -5,6 +5,7 @@ import {
   useMemo,
   type PropsWithChildren,
 } from 'react'
+import { type Router } from 'next/router'
 import { Platform } from 'react-native'
 
 // Utils
@@ -13,7 +14,7 @@ import dayjs from '../../../utils/dayjs'
 import usePersistedState from '../../../utils/hooks/use-persisted-state'
 
 // Types
-import type { ReadProvidersProps } from '.'
+export type ReadProvidersProps = PropsWithChildren<{ router?: Router }>
 
 export type ReadHighlightedTextType = { verse: number; content: string }
 
