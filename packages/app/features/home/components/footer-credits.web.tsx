@@ -15,7 +15,7 @@ export default function FooterCredits() {
         customFontSize="text-xs"
         className="text-gray-600 dark:text-gray-300"
       >
-        Lisensi MIT © {dayjs().format('YYYY')} — freedomlife
+        Lisensi GPL-3.0 © {dayjs().format('YYYY')} — freedomlife
       </Text>
       <Text
         customFontSize="text-xs"
