@@ -53,28 +53,28 @@ export function ReadSettingsContextProvider({ children }: PropsWithChildren) {
       case 'sm':
         return 14 * fontScale
       case 'md':
-        return 16 * fontScale
+        return 17 * fontScale
       case 'lg':
-        return 18
+        return 19
       case 'xl':
-        return 20
+        return 21
       default:
-        return 16 * fontScale
+        return 17 * fontScale
     }
   }, [persistedVerseFontSize, fontScale])
 
   const nativeHeaderFontSize = useMemo(() => {
     switch (persistedVerseFontSize) {
       case 'sm':
-        return 16 * fontScale
+        return 17 * fontScale
       case 'md':
-        return 18 * fontScale
+        return 19 * fontScale
       case 'lg':
-        return 20 * fontScale
+        return 21 * fontScale
       case 'xl':
         return 24 * fontScale
       default:
-        return 16 * fontScale
+        return 17 * fontScale
     }
   }, [persistedVerseFontSize, fontScale])
 
@@ -94,10 +94,11 @@ export function ReadSettingsContextProvider({ children }: PropsWithChildren) {
   const nativeVerseNumberLineHeight = useMemo(() => {
     switch (persistedVerseFontSize) {
       case 'sm':
-      case 'md':
         return 20
+      case 'md':
+        return 21
       case 'lg':
-        return 24
+        return 26
       case 'xl':
         return 28
       default:

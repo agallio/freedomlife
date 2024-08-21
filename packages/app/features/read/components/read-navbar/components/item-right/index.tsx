@@ -1,5 +1,4 @@
 import { Platform, useColorScheme } from 'react-native'
-import { useRouter } from 'solito/router'
 import * as Clipboard from 'expo-clipboard'
 import * as Burnt from 'burnt'
 
@@ -11,6 +10,7 @@ import {
   generateTextToCopy,
   useReadPassageContext,
 } from '../../../../contexts/read-passage.context'
+import { useSettingSheetContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.native'
 
 export type ReadNavbarRightProps = {
   cleanPassageName: string
@@ -21,9 +21,9 @@ export default function ReadNavbarRight({
   cleanPassageName,
 }: ReadNavbarRightProps) {
   const colorScheme = useColorScheme()
-  const { push } = useRouter()
   const { highlightedText, selectedBibleVersion, updateHighlightedText } =
     useReadPassageContext()
+  const { showSheet } = useSettingSheetContext()
 
   // Constants
   const isHighlighted = highlightedText.length > 0
@@ -31,7 +31,7 @@ export default function ReadNavbarRight({
   // Methods
   const onSettingClick = () => {
     if (Platform.OS !== 'web') {
-      push('/setting')
+      showSheet()
     }
   }
 
