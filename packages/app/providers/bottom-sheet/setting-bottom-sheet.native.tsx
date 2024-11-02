@@ -11,6 +11,7 @@ import {
   Text as RNText,
   Platform,
   TouchableOpacity,
+  useWindowDimensions,
 } from 'react-native'
 import {
   BottomSheetModal,
@@ -38,6 +39,7 @@ const SettingSheetContext = createContext<SettingSheetContextType>({
 export function SettingSheetProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { dismiss } = useBottomSheetModal()
+  const { width } = useWindowDimensions()
 
   // Refs
   const settingSheetRef = useRef<BottomSheetModal>(null)
@@ -66,6 +68,7 @@ export function SettingSheetProvider({ children }: PropsWithChildren) {
         backgroundStyle={{
           backgroundColor: colorScheme === 'light' ? '#f3f4f6' : '#1f2937',
         }}
+        style={{ marginHorizontal: width > 500 ? width * 0.2 : 0 }}
       >
         <BottomSheetView>
           <View className="flex flex-row items-center justify-between rounded-t-[24px] border-b border-[#e6e6e6] px-5 py-4 dark:border-[#374151]">

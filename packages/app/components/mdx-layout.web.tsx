@@ -47,7 +47,7 @@ export default function MdxLayout({
           <div className="prose dark:prose-dark mb-8">{children}</div>
 
           {withCredit && (
-            <div className="mb-12 text-sm text-gray-500">
+            <div className="mb-12 text-sm text-gray-500 dark:text-gray-400">
               <p>
                 Aplikasi freedomlife dibuat oleh{' '}
                 <ExternalLink

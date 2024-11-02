@@ -55,9 +55,23 @@ export function BottomTabItem({
 
   return (
     <MotiPressable
-      accessibilityRole="button"
       accessibilityState={isFocused ? { selected: true } : {}}
-      accessibilityLabel={options?.tabBarAccessibilityLabel || label}
+      accessibilityRole={
+        // Native-only accessibility prop
+        Platform.OS !== 'web' ? 'button' : undefined
+      }
+      aria-label={
+        // Web-only accessibility prop
+        Platform.OS === 'web'
+          ? options?.tabBarAccessibilityLabel || label
+          : undefined
+      }
+      accessibilityLabel={
+        // Native-only accessibility prop
+        Platform.OS !== 'web'
+          ? options?.tabBarAccessibilityLabel || label
+          : undefined
+      }
       animate={pressableAnimate}
       transition={{ type: 'spring', damping: 15, mass: 0.4 }}
       onPress={onPress}

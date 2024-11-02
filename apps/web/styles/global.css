@@ -36,7 +36,7 @@ body {
   https://www.nativewind.dev/v4/tailwind/transitions-animation/animation#compatibility
 */
 #dialog-overlay {
-  @apply fixed inset-0 z-[2] bg-black/30 dark:bg-black/40;
+  @apply fixed inset-0 z-[2] bg-black/30 dark:bg-black/50;
 }
 
 #dialog-overlay[data-state='open'] {
@@ -48,7 +48,7 @@ body {
 }
 
 #dialog-content {
-  @apply fixed left-1/2 top-1/2 z-[3] min-h-[300px] w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-gray-50 shadow-lg shadow-gray-400 dark:bg-gray-800 dark:shadow-gray-900;
+  @apply fixed left-1/2 top-1/2 z-[3] min-h-[300px] w-full max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-gray-50 shadow-lg shadow-gray-400 dark:bg-gray-800 dark:shadow-gray-900;
 }
 
 #dialog-content[data-state='open'] {
