@@ -47,6 +47,7 @@ type ReadPassageContextType = {
   setSelectedBiblePassage: (_biblePassage: string) => void
   insertHighlightedText: (_highlightedText: ReadHighlightedTextType) => void
   updateHighlightedText: (_highlightedText: ReadHighlightedTextType[]) => void
+  resetHighlightedText: () => void
 }
 
 const ReadPassageContext = createContext<ReadPassageContextType>({
@@ -76,6 +77,7 @@ const ReadPassageContext = createContext<ReadPassageContextType>({
   setSelectedBiblePassage: () => {},
   insertHighlightedText: () => {},
   updateHighlightedText: () => {},
+  resetHighlightedText: () => {},
 })
 
 export function ReadPassageContextProvider({
@@ -157,6 +159,9 @@ export function ReadPassageContextProvider({
   ) => {
     setGeneralState((prevState) => ({ ...prevState, highlightedText }))
   }
+  const resetHighlightedText = () => {
+    setGeneralState((prevState) => ({ ...prevState, highlightedText: [] }))
+  }
 
   return (
     <ReadPassageContext.Provider
@@ -187,6 +192,7 @@ export function ReadPassageContextProvider({
         setSelectedBiblePassage: setStoredSelectedBiblePassage,
         insertHighlightedText,
         updateHighlightedText,
+        resetHighlightedText,
       }}
     >
       {children}

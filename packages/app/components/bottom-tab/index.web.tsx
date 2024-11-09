@@ -5,6 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 // Components
 import { BottomTabItem } from './bottom-tab-item'
 
+// Contexts
+import { useReadPassageContext } from '../../features/read/contexts/read-passage.context'
+
 type AvailableRoute = { label: string; path: string }
 
 const availableRoutes: AvailableRoute[] = [
@@ -38,10 +41,13 @@ function BottomTabContainer({
   route: AvailableRoute
 }) {
   const { push } = useRouter()
+  const { resetHighlightedText } = useReadPassageContext()
 
   // Methods
   const onPress = async () => {
     if (Platform.OS === 'web' && !isFocused) {
+      resetHighlightedText()
+
       if (route.label === 'Baca') {
         const storedWithGuide = await AsyncStorage.getItem('withGuide')
         const storedLastChapterRead = await AsyncStorage.getItem(
