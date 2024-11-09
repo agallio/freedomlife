@@ -21,7 +21,7 @@ export default {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '2.0.6',
+  version: '2.0.7',
   orientation: 'portrait',
   platforms: ['ios', 'android'],
   userInterfaceStyle: 'automatic',
@@ -34,11 +34,15 @@ export default {
   ios: {
     ...sharedSplash,
     supportsTablet: true,
+    buildNumber: '2',
     bundleIdentifier: 'id.freedomlife.app',
+    infoPlist: {
+      LSMinimumSystemVersion: '12.0',
+    },
   },
   android: {
     ...sharedSplash,
-    versionCode: 12,
+    versionCode: 14,
     package: 'id.freedomlife.android',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
