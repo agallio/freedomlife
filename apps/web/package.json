@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,18 +11,18 @@
   },
   "dependencies": {
     "@expo/next-adapter": "^6.0.0",
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.2.12",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^14.2.20",
     "@repo/app": "*",
-    "@supabase/supabase-js": "^2.43.2",
+    "@supabase/supabase-js": "^2.47.2",
     "burnt": "^0.12.2",
     "gray-matter": "^4.0.3",
     "lru-cache": "^10.2.2",
-    "next": "^14.2.12",
+    "next": "^14.2.20",
     "next-pwa": "^5.6.0",
-    "next-seo": "^6.5.0",
-    "posthog-js": "^1.194.1",
+    "next-seo": "^6.6.0",
+    "posthog-js": "^1.194.5",
     "raf": "^3.4.1",
     "react": "18.2.0",
     "react-dom": "^18.3.1",
@@ -33,19 +33,19 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "@types/node": "^20.12.12",
     "@types/react": "~18.2.79",
     "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "eslint-config-next": "14.2.3",
-    "nativewind": "^4.0.36",
+    "nativewind": "4.0.36",
     "postcss": "^8.4.38",
     "remove-flow-types-loader": "^1.1.0",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.3.3"
+    "typescript": "5.7.2"
   }
 }

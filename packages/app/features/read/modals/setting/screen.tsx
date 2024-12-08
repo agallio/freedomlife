@@ -39,10 +39,8 @@ export default function SettingScreenComponent() {
         selectedIndex={segmentedValues.findIndex(
           (value) => value.toLowerCase() === rawVerseFontSize,
         )}
-        onChange={(event) => {
-          setVerseFontSize(
-            event.nativeEvent.value.toLowerCase() as ReadSettingsFontSizeType,
-          )
+        onValueChange={(value) => {
+          setVerseFontSize(value.toLowerCase() as ReadSettingsFontSizeType)
 
           // if (Platform.OS !== 'web') {
           //   setTimeout(() => back(), 400)

@@ -10,22 +10,21 @@ import {
 import NetInfo from '@react-native-community/netinfo'
 import { onlineManager } from '@tanstack/react-query'
 
+// Components
+import NoInternetModal from '../features/home/components/no-internet.native'
+
 const NetworkConnectionContext = createContext<{
   isOffline: boolean
-  openOfflineModal: boolean
   setIsOffline: Dispatch<SetStateAction<boolean>>
-  setOpenOfflineModal: Dispatch<SetStateAction<boolean>>
 }>({
   isOffline: false,
-  openOfflineModal: false,
   setIsOffline: () => {},
-  setOpenOfflineModal: () => {},
 })
 
 /**
  * App only! (iOS + Android)
  */
-export function NetworkConnectionContextProvider({
+export function NetworkConnectionNativeProvider({
   children,
 }: PropsWithChildren) {
   const [isOffline, setIsOffline] = useState(false)
@@ -49,10 +48,13 @@ export function NetworkConnectionContextProvider({
   }, [])
 
   return (
-    <NetworkConnectionContext.Provider
-      value={{ isOffline, openOfflineModal, setOpenOfflineModal, setIsOffline }}
-    >
+    <NetworkConnectionContext.Provider value={{ isOffline, setIsOffline }}>
       {children}
+
+      <NoInternetModal
+        openOfflineModal={openOfflineModal}
+        setOpenOfflineModal={setOpenOfflineModal}
+      />
     </NetworkConnectionContext.Provider>
   )
 }
@@ -62,7 +64,7 @@ export function useNetworkConnectionContext() {
 
   if (!value) {
     throw new Error(
-      'useNetworkConnectionContext must be used within a NetworkConnectionContextProvider',
+      'useNetworkConnectionContext must be used within a NetworkConnectionNativeProvider',
     )
   }
 
