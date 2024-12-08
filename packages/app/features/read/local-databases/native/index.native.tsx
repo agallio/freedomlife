@@ -5,7 +5,7 @@ import {
   useState,
   type PropsWithChildren,
 } from 'react'
-import * as SQLite from 'expo-sqlite/next'
+import * as SQLite from 'expo-sqlite'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { captureException } from '@sentry/react-native'
@@ -77,10 +77,10 @@ export function ReadLocalDatabaseNativeProvider({
 
   // Methods
   const initDB = async () => {
-    const dbOpened = await SQLite.openDatabaseAsync('bibles.db')
+    try {
+      const dbOpened = await SQLite.openDatabaseAsync('bibles.db')
 
-    if (dbOpened) {
-      try {
+      if (dbOpened) {
         // Init Table
         await dbOpened.execAsync(queries.TABLE_INIT)
 
@@ -94,15 +94,15 @@ export function ReadLocalDatabaseNativeProvider({
         setDownloadedDataLength(
           storedDownloadedData[0] as DownloadedDataLengthType,
         )
-      } catch (e) {
-        console.log('error from initTable (local-db-native)', e)
-        captureException(e, {
-          tags: {
-            reactContext: 'read-local-database-native',
-            method: 'initDB',
-          },
-        })
       }
+    } catch (e) {
+      console.log('error from initTable (local-db-native)', e)
+      captureException(e, {
+        tags: {
+          reactContext: 'read-local-database-native',
+          method: 'initDB',
+        },
+      })
     }
   }
 

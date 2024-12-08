@@ -65,6 +65,7 @@ export function SettingSheetProvider({ children }: PropsWithChildren) {
             disappearsOnIndex={-1}
           />
         )}
+        enableDynamicSizing={false}
         backgroundStyle={{
           backgroundColor: colorScheme === 'light' ? '#f3f4f6' : '#1f2937',
         }}

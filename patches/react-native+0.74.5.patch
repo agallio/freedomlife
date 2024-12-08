@@ -1,8 +1,8 @@
-diff --git a/node_modules/react-native/React/Base/RCTConvert.m b/node_modules/react-native/React/Base/RCTConvert.m
-index 3a7d2b4..d0ebd5a 100644
---- a/node_modules/react-native/React/Base/RCTConvert.m
-+++ b/node_modules/react-native/React/Base/RCTConvert.m
-@@ -899,7 +899,7 @@ + (UIColor *)UIColor:(id)json
+diff --git a/node_modules/react-native/React/Base/RCTConvert.mm b/node_modules/react-native/React/Base/RCTConvert.mm
+index b868ee7..50e3b1c 100644
+--- a/node_modules/react-native/React/Base/RCTConvert.mm
++++ b/node_modules/react-native/React/Base/RCTConvert.mm
+@@ -896,7 +896,7 @@ + (UIColor *)UIColor:(id)json
    if ([json isKindOfClass:[NSArray class]]) {
      NSArray *components = [self NSNumberArray:json];
      CGFloat alpha = components.count > 3 ? [self CGFloat:components[3]] : 1.0;
@@ -11,7 +11,7 @@ index 3a7d2b4..d0ebd5a 100644
                             green:[self CGFloat:components[1]]
                              blue:[self CGFloat:components[2]]
                             alpha:alpha];
-@@ -909,7 +909,7 @@ + (UIColor *)UIColor:(id)json
+@@ -906,7 +906,7 @@ + (UIColor *)UIColor:(id)json
      CGFloat r = ((argb >> 16) & 0xFF) / 255.0;
      CGFloat g = ((argb >> 8) & 0xFF) / 255.0;
      CGFloat b = (argb & 0xFF) / 255.0;

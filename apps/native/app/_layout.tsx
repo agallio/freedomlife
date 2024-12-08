@@ -24,15 +24,16 @@ import {
 } from '@react-navigation/native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { focusManager } from '@tanstack/react-query'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import * as Sentry from '@sentry/react-native'
 
 // Contexts
 import PostHogProviderNative from '@repo/app/providers/posthog/index'
-import { NetworkConnectionContextProvider } from '@repo/app/providers/network'
+import { NetworkConnectionNativeProvider } from '@repo/app/providers/network'
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
 import { ReadLocalDatabaseNativeProvider } from '@repo/app/features/read/local-databases/native/index.native'
-import BottomSheetNativeProvider from '@repo/app/providers/bottom-sheet/index.native'
+import { SettingSheetProvider } from '@repo/app/providers/bottom-sheet/setting-bottom-sheet.native'
 
 // Utils
 import { getIconColor } from '@repo/app/utils/helpers'
@@ -192,86 +193,90 @@ function RootLayout() {
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryProvider>
-          <NetworkConnectionContextProvider>
-            <ReadLocalDatabaseNativeProvider>
-              <ThemeProvider
-                value={
-                  colorScheme === 'dark' ? CustomDarkTheme : CustomLightTheme
-                }
-              >
-                <ReadProviders>
-                  <BottomSheetNativeProvider>
-                    <Stack>
-                      {/* Tabs */}
-                      <Stack.Screen
-                        name="(tabs)"
-                        options={{ title: 'Beranda', headerShown: false }}
-                      />
-                      {/* Stacks */}
-                      <Stack.Screen
-                        name="(modal)/passage"
-                        options={{
-                          title: 'Pilih Kitab',
-                          headerBackTitle: 'Kembali',
-                          headerTintColor: getIconColor(colorScheme),
-                          animation:
-                            Platform.OS === 'android'
-                              ? 'fade_from_bottom'
-                              : undefined,
-                        }}
-                      />
-                      {/* Modals */}
-                      <Stack.Screen
-                        name="(modal)/translate"
-                        options={{
-                          presentation: 'modal',
-                          title: 'Pilih Terjemahan',
-                          headerTintColor: getIconColor(colorScheme),
-                          animation:
-                            Platform.OS === 'android'
-                              ? 'fade_from_bottom'
-                              : undefined,
-                        }}
-                      />
-                      <Stack.Screen
-                        name="(modal)/passage-chapter"
-                        options={{
-                          presentation: 'modal',
-                          title: 'Pilih Pasal',
-                          headerBackTitle: 'Kembali',
-                          headerTintColor: getIconColor(colorScheme),
-                          headerLeft: () =>
-                            Platform.OS === 'ios' ? (
-                              <TouchableOpacity onPress={() => router.back()}>
-                                <Text className="text-base text-emerald-900 dark:text-white">
-                                  Kembali
-                                </Text>
-                              </TouchableOpacity>
-                            ) : undefined,
-                          animation:
-                            Platform.OS === 'android'
-                              ? 'fade_from_bottom'
-                              : undefined,
-                        }}
-                      />
-                      <Stack.Screen
-                        name="(modal)/guide-month"
-                        options={{
-                          presentation: 'modal',
-                          title: 'Pilih Bulan Panduan',
-                          headerTintColor: getIconColor(colorScheme),
-                          animation:
-                            Platform.OS === 'android'
-                              ? 'fade_from_bottom'
-                              : undefined,
-                        }}
-                      />
-                    </Stack>
-                  </BottomSheetNativeProvider>
-                </ReadProviders>
-              </ThemeProvider>
-            </ReadLocalDatabaseNativeProvider>
-          </NetworkConnectionContextProvider>
+          <ReadLocalDatabaseNativeProvider>
+            <ReadProviders>
+              <BottomSheetModalProvider>
+                <NetworkConnectionNativeProvider>
+                  <SettingSheetProvider>
+                    <ThemeProvider
+                      value={
+                        colorScheme === 'dark'
+                          ? CustomDarkTheme
+                          : CustomLightTheme
+                      }
+                    >
+                      <Stack>
+                        {/* Tabs */}
+                        <Stack.Screen
+                          name="(tabs)"
+                          options={{ title: 'Beranda', headerShown: false }}
+                        />
+                        {/* Stacks */}
+                        <Stack.Screen
+                          name="(modal)/passage"
+                          options={{
+                            title: 'Pilih Kitab',
+                            headerBackTitle: 'Kembali',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                        {/* Modals */}
+                        <Stack.Screen
+                          name="(modal)/translate"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Terjemahan',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="(modal)/passage-chapter"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Pasal',
+                            headerBackTitle: 'Kembali',
+                            headerTintColor: getIconColor(colorScheme),
+                            headerLeft: () =>
+                              Platform.OS === 'ios' ? (
+                                <TouchableOpacity onPress={() => router.back()}>
+                                  <Text className="text-base text-emerald-900 dark:text-white">
+                                    Kembali
+                                  </Text>
+                                </TouchableOpacity>
+                              ) : undefined,
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="(modal)/guide-month"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Bulan Panduan',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                      </Stack>
+                    </ThemeProvider>
+                  </SettingSheetProvider>
+                </NetworkConnectionNativeProvider>
+              </BottomSheetModalProvider>
+            </ReadProviders>
+          </ReadLocalDatabaseNativeProvider>
         </QueryProvider>
       </GestureHandlerRootView>
     </PostHogProviderNative>

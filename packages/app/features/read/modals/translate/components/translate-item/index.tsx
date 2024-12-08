@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 
 // Components
 import TranslateItemComponent, {
@@ -19,7 +19,10 @@ function TranslateItem(props: TranslateItemProps) {
   const { downloadedData } = useReadLocalDatabaseNative()
 
   // Constants
-  const isDownloaded = downloadedData[props.version.key] === 1189
+  const isDownloaded = useMemo(
+    () => downloadedData[props.version.key] === 1189,
+    [downloadedData, props.version.key],
+  )
 
   return (
     <TranslateItemComponent
