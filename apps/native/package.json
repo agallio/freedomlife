@@ -1,6 +1,6 @@
 {
   "name": "native",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "expo-router/entry",
   "scripts": {
     "ios": "expo run:ios",
@@ -37,7 +37,7 @@
     "expo-updates": "~0.25.27",
     "expo-web-browser": "~13.0.3",
     "nativewind": "4.0.36",
-    "posthog-react-native": "^3.5.0",
+    "posthog-react-native": "3.6.3",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
