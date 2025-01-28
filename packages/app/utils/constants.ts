@@ -25,6 +25,10 @@ export const bibleTranslations: BibleTranslationItemType[] = [
         key: 'vmd',
         name: 'Versi Mudah Dibaca (VMD)',
       },
+      {
+        key: 'tsi',
+        name: 'Terjemahan Sederhana Indonesia (TSI)',
+      },
     ],
   },
   {
@@ -125,6 +129,36 @@ export const passageData: PassageDataItemType[] = [
   { name: 'Yudas', abbr: 'yud', passage: 1 },
   { name: 'Wahyu', abbr: 'why', passage: 22 },
 ]
+
+export const tsiExcludeAbbr = [
+  '1ta',
+  '2ta',
+  'ayb',
+  'mzm',
+  'kid',
+  'yes',
+  'yer',
+  'rat',
+  'yeh',
+  'dan',
+  'hos',
+  'yoe',
+  'amo',
+  'oba',
+  'mik',
+  'nah',
+  'hab',
+  'zef',
+  'hag',
+  'zak',
+]
+
+const tsiExcludeAbbrSet = new Set(tsiExcludeAbbr)
+export const tsiAbbrs = passageData
+  .filter((item) => !tsiExcludeAbbrSet.has(item.abbr))
+  .map((item) => item.abbr)
+
+export const apiRateLimit = 50
 
 const apiEnv = process.env.EXPO_PUBLIC_API_ENV || 'production'
 export const apiUrl =

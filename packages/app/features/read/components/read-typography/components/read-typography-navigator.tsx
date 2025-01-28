@@ -16,11 +16,14 @@ import { ToasterWebComponent } from '../../../../../components/toaster-container
 import { useReadPassageContext } from '../../../contexts/read-passage.context'
 
 // Utils
-import { passageData } from '../../../../../utils/constants'
+import { passageData, tsiAbbrs } from '../../../../../utils/constants'
 import { cn, getIconColor } from '../../../../../utils/helpers'
 import dayjs from '../../../../../utils/dayjs'
 
 const filteredPassageData = passageData.filter((p) => p.passage !== 0)
+const tsiPassageData = passageData.filter(
+  (p) => p.passage !== 0 && new Set(tsiAbbrs).has(p.abbr),
+)
 
 export default function ReadTypographyNavigator({
   passageArray,
@@ -32,6 +35,7 @@ export default function ReadTypographyNavigator({
   const {
     guided,
     selectedBiblePassage,
+    selectedBibleVersion,
     setGuidedSelectedPassage,
     setSelectedBiblePassage,
     updateHighlightedText,
@@ -95,12 +99,16 @@ export default function ReadTypographyNavigator({
     }
 
     const [abbr, chapter] = selectedBiblePassage.split('-')
-    const chapterIndex = filteredPassageData.findIndex(
-      (passage) => passage.abbr === abbr,
-    )
 
     if (Number(chapter) === 1) {
-      const previousPassage = filteredPassageData[chapterIndex - 1]
+      const chapterIndex =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData.findIndex((passage) => passage.abbr === abbr)
+          : filteredPassageData.findIndex((passage) => passage.abbr === abbr)
+      const previousPassage =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData[chapterIndex - 1]
+          : filteredPassageData[chapterIndex - 1]
 
       if (previousPassage) {
         handleSetSelectedBiblePassage(
@@ -130,15 +138,19 @@ export default function ReadTypographyNavigator({
     }
 
     const [abbr, chapter] = selectedBiblePassage.split('-')
-    const chapterIndex = filteredPassageData.findIndex(
-      (passage) => passage.abbr === abbr,
-    )
     const maximumChapter = filteredPassageData.find(
       (passage) => passage.abbr === abbr,
     )!.passage
 
     if (Number(chapter) === maximumChapter) {
-      const nextPassage = filteredPassageData[chapterIndex + 1]
+      const chapterIndex =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData.findIndex((passage) => passage.abbr === abbr)
+          : filteredPassageData.findIndex((passage) => passage.abbr === abbr)
+      const nextPassage =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData[chapterIndex + 1]
+          : filteredPassageData[chapterIndex + 1]
 
       if (nextPassage) {
         handleSetSelectedBiblePassage(`${nextPassage.abbr}-1`)

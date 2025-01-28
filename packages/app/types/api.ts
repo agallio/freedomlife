@@ -16,6 +16,7 @@ export interface GuideDataResponse {
     abbr: string
     value: string
   }[]
+  available_bible_translations?: string[]
 }
 
 export interface VerseData {
@@ -47,9 +48,7 @@ export interface BibleDataResponse {
 }
 
 export interface FlagDataResponse {
+  name: string
   enable: boolean
   context: any
 }
-
-
-

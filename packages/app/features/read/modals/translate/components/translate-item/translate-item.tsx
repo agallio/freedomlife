@@ -11,22 +11,17 @@ import { useReadPassageContext } from '../../../../contexts/read-passage.context
 export type TranslateItemComponentProps = {
   active: boolean
   version: { key: string; name: string }
-  isOffline?: boolean
-  isDownloaded?: boolean
+  disabled?: boolean
   onClick: (_bibleVersion: string) => void
 }
 
 export default function TranslateItemComponent({
   active,
   version,
-  isOffline = false,
-  isDownloaded = false,
+  disabled,
   onClick,
 }: TranslateItemComponentProps) {
   const { guided } = useReadPassageContext()
-
-  // Constants
-  const disabled = isOffline && !isDownloaded
 
   return (
     <ListItem
@@ -39,7 +34,7 @@ export default function TranslateItemComponent({
           <Text>{version.name}</Text>
         </View>
 
-        {!disabled && !guided.enabled && (
+        {!disabled && !guided.enabled && version.key !== 'tsi' && (
           <TranslateItemDownloadButton version={version} active={active} />
         )}
       </View>

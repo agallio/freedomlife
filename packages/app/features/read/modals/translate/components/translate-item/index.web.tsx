@@ -5,10 +5,15 @@ import TranslateItemComponent, {
   type TranslateItemComponentProps,
 } from './translate-item'
 
-type TranslateItemProps = Omit<TranslateItemComponentProps, 'isDownloaded' | 'isOffline'>
+type TranslateItemProps = Omit<
+  TranslateItemComponentProps,
+  'isDownloaded' | 'isOffline'
+> & { isLoading?: boolean }
 
 function TranslateItem(props: TranslateItemProps) {
-  return <TranslateItemComponent {...props} />
+  const disabled = props.isLoading
+
+  return <TranslateItemComponent {...props} disabled={disabled} />
 }
 
 export default memo(TranslateItem)

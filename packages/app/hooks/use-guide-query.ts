@@ -60,6 +60,7 @@ export function useGuideByDateQuery({
 
 export function useGuideByMonthQuery(month?: string) {
   const monthNumber = month || dayjs().format('MM')
+
   return useQuery({
     queryKey: ['guideByMonth', monthNumber],
     queryFn: () => fetchGuideByMonth(monthNumber),
