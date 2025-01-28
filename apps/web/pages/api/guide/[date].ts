@@ -3,6 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 // Utils
 import { supabase } from '../../../utils/supabase'
 import rateLimit from '../../../utils/rate-limit'
+import {
+  apiRateLimit,
+  bibleTranslations,
+  tsiAbbrs,
+} from '@repo/app/utils/constants'
 
 // Types
 import type { GuideDataResponse } from '@repo/app/types'
@@ -46,7 +51,7 @@ export default async function guideByDate(
   if (error) return res.status(500).json({ data: null, error: error.message })
 
   try {
-    await limiter.check(res, 25, 'API_RATE_LIMIT')
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
   } catch (e) {
     return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
@@ -193,9 +198,23 @@ export default async function guideByDate(
       ]
     }
 
+    // Check for available bible translations.
+    // Because 'TSI' version is not available in all abbr.
+    const currentBibleTranslations = bibleTranslations.flatMap((root) =>
+      root.versions.flatMap((version) => version.key),
+    )
+    const isTSIAvailable =
+      tsiAbbrs.includes(plAbbr) &&
+      tsiAbbrs.includes(pbAbbr) &&
+      tsiAbbrs.includes(inAbbr)
+    const availableBibleTranslations = isTSIAvailable
+      ? currentBibleTranslations
+      : currentBibleTranslations.filter((translation) => translation !== 'tsi')
+
     const newData: GuideDataResponse = {
       ...extractedData,
       guide_bible_data: guideBibleData(),
+      available_bible_translations: availableBibleTranslations,
     }
 
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')

@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { supabase } from '../../../../utils/supabase'
 import rateLimit from '../../../../utils/rate-limit'
 import dayjs from '@repo/app/utils/dayjs'
+import { apiRateLimit } from '@repo/app/utils/constants'
 
 const limiter = rateLimit()
 
@@ -51,7 +52,7 @@ export default async function guideByMonth(
   if (error) return res.status(500).json({ data: null, error: error.message })
 
   try {
-    await limiter.check(res, 25, 'API_RATE_LIMIT')
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
   } catch (e) {
     return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
