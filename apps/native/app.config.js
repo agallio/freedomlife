@@ -34,7 +34,7 @@ export default {
   ios: {
     ...sharedSplash,
     supportsTablet: true,
-    buildNumber: '1',
+    buildNumber: '2',
     bundleIdentifier: 'id.freedomlife.app',
     infoPlist: {
       LSMinimumSystemVersion: '12.0',
