@@ -60,7 +60,7 @@ export default function PassageSearchInput({
         className={cn(
           'flex-1 text-emerald-900 dark:text-white',
           Platform.OS === 'web' && 'px-3 text-base focus:outline-none',
-          Platform.OS !== 'web' && 'px-3',
+          Platform.OS !== 'web' && 'px-3 py-3',
         )}
         // text-gray-400
         placeholderTextColor="#9ca3af"
@@ -68,7 +68,7 @@ export default function PassageSearchInput({
       />
 
       {searchText !== '' && (
-        <View className="pr-1">
+        <View className="pl-2 pr-1">
           <IconButton
             size="sm"
             variant="transparent"

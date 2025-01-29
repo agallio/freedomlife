@@ -99,7 +99,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         }
       `}</style>
 
-      <PostHogProviderWeb>
+      <PostHogProviderWeb client={posthog}>
         <QueryProvider>
           <ReadProviders router={router}>
             <main className="antialiased">

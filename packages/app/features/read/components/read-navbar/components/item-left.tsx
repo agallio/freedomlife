@@ -12,7 +12,7 @@ import { useReadPassageContext } from '../../../contexts/read-passage.context'
 // Utils
 import { getIconColor } from '../../../../../utils/helpers'
 
-export default function ReadNavbarLeft() {
+export default function ReadNavbarLeft({ isLoading }: { isLoading?: boolean }) {
   const colorScheme = useColorScheme()
   const { push } = useRouter()
   const { setOpenTranslate } = useReadModalsContext()
@@ -72,6 +72,7 @@ export default function ReadNavbarLeft() {
           color={Platform.OS !== 'web' ? color : undefined}
         />
       }
+      disabled={isLoading}
       onClick={onTranslateClick}
     />
   )

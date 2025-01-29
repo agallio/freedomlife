@@ -12,6 +12,10 @@ import ReadNavbar from '@repo/app/features/read/components/read-navbar'
 
 // Contexts
 import { ReadLocalDatabaseWebProvider } from '@repo/app/features/read/local-databases/web/index.web'
+import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
+
+// Queries
+import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
 
 // Utils
 import { passageData } from '@repo/app/utils/constants'
@@ -32,6 +36,12 @@ const SettingScreen = dynamic(
 
 export default function ReadPage() {
   const router = useRouter()
+
+  // Queries
+  const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery({
+    name: 'feature_tsi_translation',
+    enabled: true,
+  })
 
   // Constants
   const chapterQuery = router.query.chapter as string
@@ -72,7 +82,16 @@ export default function ReadPage() {
         </div>
 
         {/* Modals */}
-        <TranslateScreen />
+        <FeatureFlagsProvider
+          featureFlags={{
+            feature_tsi_translation: {
+              data: tsiFlagData,
+              isLoading: tsiFlagLoading,
+            },
+          }}
+        >
+          <TranslateScreen />
+        </FeatureFlagsProvider>
         <PassageScreen />
         <SettingScreen />
       </ReadLocalDatabaseWebProvider>

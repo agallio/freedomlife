@@ -16,9 +16,14 @@ import { type BibleTranslationItemType } from '../../../../../utils/constants'
 type TranslateContainerProps = {
   language: string
   versions: BibleTranslationItemType['versions']
+  isLoading?: boolean
 }
 
-function TranslateContainer({ language, versions }: TranslateContainerProps) {
+function TranslateContainer({
+  language,
+  versions,
+  isLoading,
+}: TranslateContainerProps) {
   const router = useRouter()
   const { setOpenTranslate } = useReadModalsContext()
   const { selectedBibleVersion, setSelectedBibleVersion } =
@@ -42,6 +47,7 @@ function TranslateContainer({ language, versions }: TranslateContainerProps) {
         {versions.map((version) => (
           <TranslateItem
             key={version.key}
+            isLoading={isLoading}
             active={selectedBibleVersion === version.key}
             version={version}
             onClick={onTranslateClick}

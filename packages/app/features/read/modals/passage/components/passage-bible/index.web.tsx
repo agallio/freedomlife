@@ -9,10 +9,12 @@ import ListItem from '../../../../../../components/list-item'
 // Contexts
 import { useReadModalsContext } from '../../../../contexts/read-modals.context'
 import { useReadPassageChapterContext } from '../../../../contexts/read-passage-chapter.context'
+import { useReadPassageContext } from '../../../../contexts/read-passage.context'
 
 // Utils
 import {
   passageData,
+  tsiAbbrs,
   type PassageDataItemType,
 } from '../../../../../../utils/constants'
 
@@ -22,6 +24,7 @@ export type PassageBibleProps = {
 
 export default function PassageBible() {
   const { setOpenPassageChapter } = useReadModalsContext()
+  const { selectedBibleVersion } = useReadPassageContext()
   const { searchText, setDialogSelectedPassage } =
     useReadPassageChapterContext()
 
@@ -56,11 +59,40 @@ export default function PassageBible() {
     >
       <View className="gap-2">
         {filteredPassageData.map((passage) => (
-          <ListItem key={passage.abbr} onClick={() => onClick(passage.abbr)}>
-            <Text>{passage.name}</Text>
-          </ListItem>
+          <PassageBibleItem
+            key={passage.abbr}
+            abbr={passage.abbr}
+            name={passage.name}
+            selectedBibleVersion={selectedBibleVersion}
+            onClick={onClick}
+          />
         ))}
       </View>
     </MotiView>
+  )
+}
+
+function PassageBibleItem({
+  abbr,
+  name,
+  selectedBibleVersion,
+  onClick,
+}: {
+  abbr: string
+  name: string
+  selectedBibleVersion: string
+  onClick: (_selectedPassage: string) => void
+}) {
+  // Memoized Values
+  const disabled = useMemo(() => {
+    const tsiAbbrLookupSet = new Set(tsiAbbrs)
+
+    return selectedBibleVersion === 'tsi' && !tsiAbbrLookupSet.has(abbr)
+  }, [abbr, selectedBibleVersion])
+
+  return (
+    <ListItem disabled={disabled} onClick={() => onClick(abbr)}>
+      <Text>{name}</Text>
+    </ListItem>
   )
 }

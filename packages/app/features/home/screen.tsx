@@ -11,7 +11,7 @@ export default function HomeScreenComponent() {
       className={Platform.OS === 'web' ? 'flex flex-col gap-4' : undefined}
       contentContainerClassName={
         Platform.OS !== 'web'
-          ? 'flex flex-col px-6 pt-4 gap-4 pb-28 md:px-52 lg:px-96'
+          ? 'flex flex-col px-6 pt-4 gap-4 pb-28 min-[744px]:px-40 md:px-52 lg:px-96'
           : undefined
       }
     >

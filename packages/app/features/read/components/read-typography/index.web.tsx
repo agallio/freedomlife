@@ -161,7 +161,7 @@ export default function ReadTypography() {
   })
 
   return (
-    <View className="pb-40">
+    <View className="pb-44">
       {isError ? (
         <ErrorComponent invalid={selectedBiblePassage === 'invalid'} />
       ) : isLoading ? (

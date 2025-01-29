@@ -16,11 +16,14 @@ import { ToasterWebComponent } from '../../../../../components/toaster-container
 import { useReadPassageContext } from '../../../contexts/read-passage.context'
 
 // Utils
-import { passageData } from '../../../../../utils/constants'
+import { passageData, tsiAbbrs } from '../../../../../utils/constants'
 import { cn, getIconColor } from '../../../../../utils/helpers'
 import dayjs from '../../../../../utils/dayjs'
 
 const filteredPassageData = passageData.filter((p) => p.passage !== 0)
+const tsiPassageData = passageData.filter(
+  (p) => p.passage !== 0 && new Set(tsiAbbrs).has(p.abbr),
+)
 
 export default function ReadTypographyNavigator({
   passageArray,
@@ -32,6 +35,7 @@ export default function ReadTypographyNavigator({
   const {
     guided,
     selectedBiblePassage,
+    selectedBibleVersion,
     setGuidedSelectedPassage,
     setSelectedBiblePassage,
     updateHighlightedText,
@@ -95,12 +99,16 @@ export default function ReadTypographyNavigator({
     }
 
     const [abbr, chapter] = selectedBiblePassage.split('-')
-    const chapterIndex = filteredPassageData.findIndex(
-      (passage) => passage.abbr === abbr,
-    )
 
     if (Number(chapter) === 1) {
-      const previousPassage = filteredPassageData[chapterIndex - 1]
+      const chapterIndex =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData.findIndex((passage) => passage.abbr === abbr)
+          : filteredPassageData.findIndex((passage) => passage.abbr === abbr)
+      const previousPassage =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData[chapterIndex - 1]
+          : filteredPassageData[chapterIndex - 1]
 
       if (previousPassage) {
         handleSetSelectedBiblePassage(
@@ -130,15 +138,19 @@ export default function ReadTypographyNavigator({
     }
 
     const [abbr, chapter] = selectedBiblePassage.split('-')
-    const chapterIndex = filteredPassageData.findIndex(
-      (passage) => passage.abbr === abbr,
-    )
     const maximumChapter = filteredPassageData.find(
       (passage) => passage.abbr === abbr,
     )!.passage
 
     if (Number(chapter) === maximumChapter) {
-      const nextPassage = filteredPassageData[chapterIndex + 1]
+      const chapterIndex =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData.findIndex((passage) => passage.abbr === abbr)
+          : filteredPassageData.findIndex((passage) => passage.abbr === abbr)
+      const nextPassage =
+        selectedBibleVersion === 'tsi'
+          ? tsiPassageData[chapterIndex + 1]
+          : filteredPassageData[chapterIndex + 1]
 
       if (nextPassage) {
         handleSetSelectedBiblePassage(`${nextPassage.abbr}-1`)
@@ -189,14 +201,16 @@ export default function ReadTypographyNavigator({
   return (
     <View
       className={cn(
-        'bottom-[110px] left-0 right-0 flex-row items-center justify-between',
+        'bottom-[110px]',
         Platform.OS === 'web' &&
-          'pointer-events-none fixed mx-auto max-w-sm px-6 sm:max-w-md sm:px-0',
+          'pointer-events-none fixed left-0 right-0 mx-auto max-w-sm flex-row items-center justify-between px-6 sm:max-w-md sm:px-0',
+        // Platform.OS !== 'web' &&
+        //   'pointer-events-box-none absolute w-full p-0 md:px-12 lg:px-16',
         Platform.OS !== 'web' &&
-          'pointer-events-box-none absolute w-full p-0 md:px-12 lg:px-16',
+          'pointer-events-box-none absolute flex w-full flex-row items-center justify-between px-6 min-[744px]:px-32 md:px-80',
       )}
     >
-      <View>
+      <View className={Platform.OS !== 'web' ? 'h-[42px] w-[44px]' : undefined}>
         {showPreviousButton && (
           <IconButton
             size="sm"
@@ -212,10 +226,7 @@ export default function ReadTypographyNavigator({
                 color={Platform.OS !== 'web' ? color : undefined}
               />
             }
-            className={cn(
-              Platform.OS === 'web' && 'pointer-events-auto',
-              Platform.OS !== 'web' && 'ml-6 md:ml-12 lg:ml-16',
-            )}
+            className={cn(Platform.OS === 'web' && 'pointer-events-auto')}
             onClick={onPreviousPassage}
           />
         )}
@@ -227,7 +238,7 @@ export default function ReadTypographyNavigator({
             Platform.OS === 'web' &&
               'absolute left-1/2 z-[2] -translate-x-1/2 items-center justify-center',
             Platform.OS !== 'web' &&
-              'pointer-events-box-none absolute w-full flex-row items-center justify-center',
+              'pointer-events-box-none flex-row items-center justify-center',
           )}
         >
           <Button
@@ -252,7 +263,7 @@ export default function ReadTypographyNavigator({
         </View>
       )}
 
-      <View>
+      <View className={Platform.OS !== 'web' ? 'h-[42px] w-[44px]' : undefined}>
         {showNextButton && (
           <IconButton
             size="sm"
@@ -268,10 +279,7 @@ export default function ReadTypographyNavigator({
                 color={Platform.OS !== 'web' ? color : undefined}
               />
             }
-            className={cn(
-              Platform.OS === 'web' && 'pointer-events-auto',
-              Platform.OS !== 'web' && 'mr-6 md:mr-12 lg:mr-16',
-            )}
+            className={cn(Platform.OS === 'web' && 'pointer-events-auto')}
             onClick={onNextPassage}
           />
         )}

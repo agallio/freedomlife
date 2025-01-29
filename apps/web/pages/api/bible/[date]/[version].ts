@@ -8,6 +8,9 @@ import {
 } from '../../../../utils/supabase'
 import rateLimit from '../../../../utils/rate-limit'
 
+// Constants
+import { apiRateLimit, tsiAbbrs } from '@repo/app/utils/constants'
+
 // Types
 import type { ChaptersData } from '@repo/app/types'
 
@@ -52,6 +55,18 @@ export default async function bibleByDate(
   const plSpaceSplit = pl.split(' ')
   const pbSpaceSplit = pb.split(' ')
   const injSpaceSplit = inj ? inj.split(' ') : []
+
+  const isTSIAvailable =
+    tsiAbbrs.includes(plSpaceSplit[0]) &&
+    tsiAbbrs.includes(pbSpaceSplit[0]) &&
+    tsiAbbrs.includes(injSpaceSplit[0])
+
+  if (version === 'tsi' && !isTSIAvailable) {
+    return res.status(400).json({
+      data: null,
+      error: `Bible with param version: ${version} is not available.`,
+    })
+  }
 
   const plArr: ChaptersData[] = []
   const pbArr: ChaptersData[] = []
@@ -362,7 +377,7 @@ export default async function bibleByDate(
   }
 
   try {
-    await limiter.check(res, 25, 'API_RATE_LIMIT')
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
   } catch (e) {
     return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }

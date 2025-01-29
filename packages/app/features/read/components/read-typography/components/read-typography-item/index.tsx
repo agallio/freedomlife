@@ -64,7 +64,7 @@ function ReadTypographyItem({
         // Manually set fontSize via style prop to handle font scaling on native.
         style={{ fontSize: headerFontSize as number }}
       >
-        {cleanContent}
+        {item.content}
       </Header>
     )
   }

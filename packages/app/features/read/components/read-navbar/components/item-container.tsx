@@ -35,6 +35,11 @@ export default function ReadNavbarContainer() {
     })
 
   // Memoized Values
+  const isGuidedDataLoading = useMemo(
+    () => guideTodayLoading || guideByDateLoading || !guided.selectedPassage,
+    [guideTodayLoading, guideByDateLoading, guided.selectedPassage],
+  )
+
   const passageName = useMemo(() => {
     const selectedBibleVersionText =
       selectedBibleVersion !== 'tb'
@@ -45,7 +50,7 @@ export default function ReadNavbarContainer() {
 
     // Handle when guided
     if (guided.enabled) {
-      if (guideTodayLoading || guideByDateLoading || !guided.selectedPassage) {
+      if (isGuidedDataLoading) {
         return 'Memuat'
       }
 
@@ -87,9 +92,8 @@ export default function ReadNavbarContainer() {
     selectedBiblePassage,
     selectedBibleVersion,
     guideTodayData,
-    guideTodayLoading,
     guideByDateData,
-    guideByDateLoading,
+    isGuidedDataLoading,
   ])
 
   const cleanPassageName = useMemo(() => {
@@ -116,7 +120,7 @@ export default function ReadNavbarContainer() {
   return (
     <>
       <View>
-        <ReadNavbarLeft />
+        <ReadNavbarLeft isLoading={isGuidedDataLoading} />
       </View>
 
       <View>
