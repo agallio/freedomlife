@@ -200,7 +200,7 @@ export default function ReadTypography() {
                 onClick={onVerseClick}
               />
             )}
-            contentContainerClassName="pb-40 sm:px-8 sm:gap-1"
+            contentContainerClassName="pb-44 sm:px-8 sm:gap-1"
           />
 
           <ReadTypographyNavigator

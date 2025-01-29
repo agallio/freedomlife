@@ -103,16 +103,16 @@ export default function GuideScreen() {
 
   return (
     <>
-      <View className="border-b border-[#e6e6e6] px-6 pb-4 pt-2 md:px-52 lg:px-96 dark:border-[#374151]">
+      <View className="border-b border-[#e6e6e6] px-6 pb-4 pt-2 min-[744px]:px-40 md:px-52 lg:px-96 dark:border-[#374151]">
         <GuideMonthButton />
       </View>
 
       {isError ? (
-        <View className="gap-4 px-6 pt-4 md:px-52 lg:px-96">
+        <View className="gap-4 px-6 pt-4 min-[744px]:px-40 md:px-52 lg:px-96">
           <GuideErrorCard />
         </View>
       ) : isLoading ? (
-        <View className="gap-4 px-6 pb-28 pt-4 md:px-52 lg:px-96">
+        <View className="gap-4 px-6 pb-28 pt-4 min-[744px]:px-40 md:px-52 lg:px-96">
           {[...Array(3).keys()].map((_, i) => (
             <GuideCard key={i} isLoading />
           ))}
@@ -135,7 +135,7 @@ export default function GuideScreen() {
               onCheckMarkClick={onCheckMarkClick}
             />
           )}
-          contentContainerClassName="pt-4 px-6 pb-28 gap-4 md:px-52 lg:px-96"
+          contentContainerClassName="pt-4 px-6 pb-28 gap-4 min-[744px]:px-40 md:px-52 lg:px-96"
         />
       )}
     </>

@@ -1,17 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
+// Utils
+import { apiUrl } from '../utils/constants'
+
 // Types
 import type { FlagDataResponse } from '../types'
 
 const getFlag = async (
   name: string,
 ): Promise<{ data: FlagDataResponse; error: string | null }> => {
-  const { data } = await axios.get(`/api/flags?flags=${name}`)
+  const { data } = await axios.get(`${apiUrl}/api/flags?flags=${name}`)
   return data
 }
 
-export function useFlagQuery(name: string) {
+export function useFlagQuery({
+  name,
+  enabled = false,
+}: {
+  name: string
+  enabled?: boolean
+}) {
   const {
     data: rawData,
     error,
@@ -21,20 +30,17 @@ export function useFlagQuery(name: string) {
   } = useQuery({
     queryKey: ['flag', name],
     queryFn: () => getFlag(name),
-    enabled: true,
-    refetchOnWindowFocus: false,
 
     // Other options
-    networkMode: 'offlineFirst',
+    enabled,
     staleTime: 5 * 60 * 1000, // 5 min
+    networkMode: 'offlineFirst',
     meta: {
       errorMessage: 'error from useFlagQuery',
     },
   })
 
-  const data = rawData?.data
-    ? { enable: rawData.data.enable, context: rawData.data.context }
-    : undefined
+  const data = rawData?.data ? rawData.data : undefined
 
   return { data, error, isError, isLoading, refetch }
 }

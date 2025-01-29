@@ -12,7 +12,7 @@ import { useReadLocalDatabaseNative } from '../../../../local-databases/native/i
 type TranslateItemProps = Omit<
   TranslateItemComponentProps,
   'isDownloaded' | 'isOffline'
->
+> & { isLoading?: boolean }
 
 function TranslateItem(props: TranslateItemProps) {
   const { isOffline } = useNetworkConnectionContext()
@@ -24,13 +24,9 @@ function TranslateItem(props: TranslateItemProps) {
     [downloadedData, props.version.key],
   )
 
-  return (
-    <TranslateItemComponent
-      {...props}
-      isOffline={isOffline}
-      isDownloaded={isDownloaded}
-    />
-  )
+  const disabled = props.isLoading || (isOffline && !isDownloaded)
+
+  return <TranslateItemComponent {...props} disabled={disabled} />
 }
 
 export default memo(TranslateItem)

@@ -165,5 +165,5 @@ export const apiUrl =
   Platform.OS === 'web'
     ? ''
     : apiEnv === 'local'
-      ? 'http://192.168.100.11:3000'
+      ? 'http://192.168.1.5:3000'
       : 'https://freedomlife.id'

@@ -49,6 +49,13 @@ export interface BibleDataResponse {
 
 export interface FlagDataResponse {
   name: string
-  enable: boolean
+  enabled: boolean
   context: any
+}
+
+export interface FeatureFlagClientData {
+  [key: string]: {
+    data?: FlagDataResponse
+    isLoading: boolean
+  }
 }

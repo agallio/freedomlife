@@ -7,21 +7,24 @@ import TranslateContainer from './components/translate-container'
 
 // Contexts
 import { useReadModalsContext } from '../../contexts/read-modals.context'
+import { useFeatureFlagContext } from '../../../../providers/feature-flags'
 
 // Queries
 import {
   useGuideByDateQuery,
   useGuideTodayQuery,
 } from '../../../../hooks/use-guide-query'
-import { useFlagQuery } from '../../../../hooks/use-flag-query'
 
 // Utils
 import { bibleTranslations, tsiAbbrs } from '../../../../utils/constants'
 import { useReadPassageContext } from '../../contexts/read-passage.context'
+import { filterTranslationsWithLookupSet } from './utils'
 
 export default function TranslateScreen() {
   const { openTranslate, setOpenTranslate } = useReadModalsContext()
   const { guided, selectedBiblePassage } = useReadPassageContext()
+  const { data: tsiFlagData, isLoading: tsiFlagLoading } =
+    useFeatureFlagContext('feature_tsi_translation')
 
   // Queries
   const { data: guideTodayData, isLoading: guideTodayLoading } =
@@ -31,19 +34,17 @@ export default function TranslateScreen() {
       date: guided.date,
       enabled: guided.enabled && guided.date !== '',
     })
-  const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery(
-    'feature_tsi_translation',
-  )
 
   // Memoized Values
   const isLoading = useMemo(
-    () => tsiFlagLoading || guideTodayLoading || guideByDateLoading,
-    [tsiFlagLoading, guideTodayLoading, guideByDateLoading],
+    () => guideTodayLoading || guideByDateLoading || tsiFlagLoading,
+    [guideTodayLoading, guideByDateLoading, tsiFlagLoading],
   )
 
   const availableBibleTranslations = useMemo(() => {
     // Handle if TSI feature flag enabled.
-    if (tsiFlagData?.enable) {
+    const tsiTranslationEnabled = tsiFlagData?.enabled
+    if (tsiTranslationEnabled) {
       // Handle in guided mode
       // 1. If inside custom date, use available bible translations from custom date data
       // 2. If not, use available bible translations from today's data
@@ -67,7 +68,7 @@ export default function TranslateScreen() {
       // 2. If available, return all the data
       const selectedBibleAbbr = selectedBiblePassage.split('-')[0]
       const isTSIAvailable =
-        tsiAbbrs.includes(selectedBibleAbbr) && tsiFlagData?.enable
+        tsiAbbrs.includes(selectedBibleAbbr) && tsiTranslationEnabled
 
       if (!isTSIAvailable) {
         return bibleTranslations.map((item) => ({
@@ -90,8 +91,8 @@ export default function TranslateScreen() {
     guided.date,
     guideTodayData,
     guideByDateData,
-    tsiFlagData,
     selectedBiblePassage,
+    tsiFlagData?.enabled,
   ])
 
   return (
@@ -112,17 +113,4 @@ export default function TranslateScreen() {
       </View>
     </Drawer>
   )
-}
-
-function filterTranslationsWithLookupSet(
-  availableBibleTranslations?: string[],
-) {
-  const lookupSet = new Set(availableBibleTranslations)
-
-  return bibleTranslations
-    .map((item) => ({
-      ...item,
-      versions: item.versions.filter((version) => lookupSet.has(version.key)),
-    }))
-    .filter((item) => item.versions.length > 0)
 }
