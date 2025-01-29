@@ -144,7 +144,9 @@ export function IconButton({
       onPress={onClick}
       className={cn(
         variant !== 'transparent' && 'rounded-full',
-        !disabled && 'transition duration-300 ease-in-out active:scale-90',
+        !disabled &&
+          Platform.OS === 'web' &&
+          'transition duration-300 ease-in-out active:scale-90',
       )}
     >
       <View
