@@ -4,15 +4,14 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
-// Screen
-import { ReadScreen } from '@repo/app/features/read'
-
 // Components
 import ReadNavbar from '@repo/app/features/read/components/read-navbar'
+import ReadTypography from '@repo/app/features/read/components/read-typography'
 
 // Contexts
 import { ReadLocalDatabaseWebProvider } from '@repo/app/features/read/local-databases/web/index.web'
 import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
+import { useReadModalsContext } from '@repo/app/features/read/contexts/read-modals.context'
 
 // Queries
 import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
@@ -21,21 +20,23 @@ import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
 import { passageData } from '@repo/app/utils/constants'
 
 // Lazy-load Modals
-const TranslateScreen = dynamic(
+const TranslateModal = dynamic(
   () => import('@repo/app/features/read/modals/translate'),
   { ssr: false },
 )
-const PassageScreen = dynamic(
+const PassageModal = dynamic(
   () => import('@repo/app/features/read/modals/passage'),
   { ssr: false },
 )
-const SettingScreen = dynamic(
+const SettingsModal = dynamic(
   () => import('@repo/app/features/read/modals/setting'),
   { ssr: false },
 )
 
 export default function ReadPage() {
   const router = useRouter()
+  const { setOpenPassage, setOpenPassageChapter, setOpenTranslate } =
+    useReadModalsContext()
 
   // Queries
   const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery({
@@ -53,6 +54,37 @@ export default function ReadPage() {
     return passageData.slice(1).find((i) => i.abbr === abbrQuery)
   }, [abbrQuery])
 
+  // Methods
+  const redirectToPassageScreen = () => {
+    setOpenPassage(true)
+  }
+
+  const redirectToTranslateScreen = () => {
+    setOpenTranslate(true)
+  }
+
+  const redirectToBiblePassage = (passage: string) => {
+    router.push(`/read/bible?chapter=${passage}`)
+  }
+
+  const handlePassageBack = (abbr?: string) => {
+    setOpenPassage(false)
+
+    if (abbr) {
+      router.push(`/read/bible?chapter=${abbr}`)
+    }
+  }
+
+  const redirectToPassageChapterScreen = () => {
+    setOpenPassageChapter(true)
+  }
+
+  const handlePassageChapterBack = (passage: string) => {
+    setOpenPassage(false)
+    setOpenPassageChapter(false)
+    router.push(`/read/bible?chapter=${passage}`)
+  }
+
   // Effects
   useEffect(() => {
     // Handle if the required chapter query is missing,
@@ -66,7 +98,11 @@ export default function ReadPage() {
 
   return (
     <>
-      <ReadNavbar />
+      <ReadNavbar
+        redirectToPassageScreen={redirectToPassageScreen}
+        redirectToTranslateScreen={redirectToTranslateScreen}
+      />
+
       <Head>
         <title>
           {bibleDetail
@@ -77,8 +113,8 @@ export default function ReadPage() {
       <NextSeo noindex />
 
       <ReadLocalDatabaseWebProvider>
-        <div className="mx-auto mt-16 flex w-full max-w-sm flex-col sm:max-w-xl">
-          <ReadScreen />
+        <div className="mx-auto mt-16 flex w-full max-w-xl flex-col">
+          <ReadTypography redirectToBiblePassage={redirectToBiblePassage} />
         </div>
 
         {/* Modals */}
@@ -90,10 +126,14 @@ export default function ReadPage() {
             },
           }}
         >
-          <TranslateScreen />
+          <TranslateModal />
         </FeatureFlagsProvider>
-        <PassageScreen />
-        <SettingScreen />
+        <PassageModal
+          handlePassageBack={handlePassageBack}
+          redirectToPassageChapterScreen={redirectToPassageChapterScreen}
+          handlePassageChapterBack={handlePassageChapterBack}
+        />
+        <SettingsModal />
       </ReadLocalDatabaseWebProvider>
     </>
   )

@@ -10,13 +10,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Components
 import { Text } from '../../../../components/text'
-import Skeleton from '../../../../components/skeleton'
 import ReadTypographyItem from './components/read-typography-item'
 import ReadTypographyNavigator from './components/read-typography-navigator'
+import ReadTypographyLoading from './components/read-typography-loading'
 
 // Contexts
 import { useReadPassageContext } from '../../contexts/read-passage.context'
-import { useReadLocalDatabaseNative } from '../../local-databases/native/index.native'
+import { useReadLocalDatabaseMobile } from '../../local-databases/mobile/index.mobile'
 
 // Queries
 import {
@@ -25,10 +25,14 @@ import {
 } from '../../../../hooks/use-bible-query'
 
 // Utils
-import { cn } from '../../../../utils/helpers'
 import dayjs from '../../../../utils/dayjs'
 
-export default function ReadTypography() {
+// Types
+import type { ReadTypographyProps } from './types'
+
+export default function ReadTypography({
+  redirectToBiblePassage,
+}: ReadTypographyProps) {
   const {
     guided,
     selectedBiblePassage,
@@ -37,7 +41,7 @@ export default function ReadTypography() {
     insertHighlightedText,
     updateHighlightedText,
   } = useReadPassageContext()
-  const { downloadedData, getBibleData } = useReadLocalDatabaseNative()
+  const { downloadedData, getBibleData } = useReadLocalDatabaseMobile()
 
   // Refs
   const bibleTypographyRef = useRef<FlatList>()
@@ -163,51 +167,49 @@ export default function ReadTypography() {
     selectedBibleVersion,
   ])
 
+  if (isLoading) {
+    return (
+      <View className="absolute top-0">
+        <ReadTypographyLoading />
+      </View>
+    )
+  }
+
+  if (isError) {
+    return (
+      <Text className="mt-4 px-4 sm:px-0">
+        Terjadi kesalahan saat mengambil data Alkitab. Mohon coba beberapa saat
+        lagi.
+      </Text>
+    )
+  }
+
   return (
     <>
-      {isError ? (
-        <Text className="mt-4 px-4 sm:px-0">
-          Terjadi kesalahan saat mengambil data Alkitab. Mohon coba beberapa
-          saat lagi.
-        </Text>
-      ) : isLoading ? (
-        <View className="absolute top-0">
-          {[...Array(15).keys()].map((i) => (
-            <View
-              key={i}
-              className={cn(i === 0 && 'my-4 px-12', i > 0 && 'my-1.5 px-4')}
-            >
-              <Skeleton width="100%" height={i === 0 ? 28 : 20} />
-            </View>
-          ))}
-        </View>
-      ) : (
-        <>
-          <FlatList
-            ref={bibleTypographyRef as any}
-            data={versesData}
-            overScrollMode={Platform.OS === 'android' ? 'never' : 'always'}
-            initialNumToRender={7}
-            onMomentumScrollEnd={onMomentumScrollEnd}
-            keyExtractor={(_, index) => String(index)}
-            renderItem={({ item, index }) => (
-              <ReadTypographyItem
-                item={item}
-                index={index}
-                isHighlighted={Boolean(
-                  highlightedText.find((i) => i.verse === item.verse),
-                )}
-                onClick={onVerseClick}
-              />
+      <FlatList
+        ref={bibleTypographyRef as any}
+        data={versesData}
+        overScrollMode={Platform.OS === 'android' ? 'never' : 'always'}
+        initialNumToRender={7}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        keyExtractor={(_, index) => String(index)}
+        renderItem={({ item, index }) => (
+          <ReadTypographyItem
+            item={item}
+            index={index}
+            isHighlighted={Boolean(
+              highlightedText.find((i) => i.verse === item.verse),
             )}
-            contentContainerClassName="pb-44 sm:px-8 sm:gap-1"
+            onClick={onVerseClick}
           />
+        )}
+        contentContainerClassName="pb-44 sm:px-8 sm:gap-1"
+      />
 
-          <ReadTypographyNavigator
-            passageArray={bibleByDateData?.passage || []}
-          />
-        </>
-      )}
+      <ReadTypographyNavigator
+        passageArray={bibleByDateData?.passage || []}
+        redirectToBiblePassage={redirectToBiblePassage}
+      />
     </>
   )
 }

@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { View } from 'react-native'
-import { useRouter } from 'solito/router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Components
 import { Text } from '../../../../components/text'
 import { Button } from '../../../../components/button'
-import Skeleton from '../../../../components/skeleton'
 import ReadTypographyItem from './components/read-typography-item'
 import ReadTypographyNavigator from './components/read-typography-navigator'
+import ReadTypographyLoading from './components/read-typography-loading'
 
 // Contexts
 import { useReadPassageContext } from '../../contexts/read-passage.context'
@@ -21,10 +20,15 @@ import {
 } from '../../../../hooks/use-bible-query'
 
 // Utils
-import { cn } from '../../../../utils/helpers'
 import dayjs from '../../../../utils/dayjs'
 
-export default function ReadTypography() {
+// Types
+import type { ReadTypographyProps } from './types'
+
+export default function ReadTypography({
+  redirectToBiblePassage,
+  resetInvalidBibleChapter,
+}: ReadTypographyProps) {
   const {
     guided,
     selectedBiblePassage,
@@ -160,45 +164,54 @@ export default function ReadTypography() {
     }
   })
 
+  if (isLoading) {
+    return (
+      <View className="pb-44">
+        <ReadTypographyLoading />
+      </View>
+    )
+  }
+
+  if (isError) {
+    return (
+      <ErrorComponent
+        invalid={selectedBiblePassage === 'invalid'}
+        resetInvalidBibleChapter={resetInvalidBibleChapter}
+      />
+    )
+  }
+
   return (
     <View className="pb-44">
-      {isError ? (
-        <ErrorComponent invalid={selectedBiblePassage === 'invalid'} />
-      ) : isLoading ? (
-        [...Array(15).keys()].map((i) => (
-          <View
-            key={i}
-            className={cn(i === 0 && 'my-4 px-12', i > 0 && 'my-1.5 px-4')}
-          >
-            <Skeleton width="100%" height={i === 0 ? 28 : 20} />
-          </View>
-        ))
-      ) : (
-        <View ref={bibleTypographyRef as any} className="sm:gap-1">
-          {versesData.map((item, index) => (
-            <ReadTypographyItem
-              key={index}
-              item={item}
-              index={index}
-              isHighlighted={Boolean(
-                highlightedText.find((i) => i.verse === item.verse),
-              )}
-              onClick={onVerseClick}
-            />
-          ))}
-
-          <ReadTypographyNavigator
-            passageArray={bibleByDateData?.passage || []}
+      <View ref={bibleTypographyRef as any} className="sm:gap-1">
+        {versesData.map((item, index) => (
+          <ReadTypographyItem
+            key={index}
+            item={item}
+            index={index}
+            isHighlighted={Boolean(
+              highlightedText.find((i) => i.verse === item.verse),
+            )}
+            onClick={onVerseClick}
           />
-        </View>
-      )}
+        ))}
+
+        <ReadTypographyNavigator
+          passageArray={bibleByDateData?.passage || []}
+          redirectToBiblePassage={redirectToBiblePassage}
+        />
+      </View>
     </View>
   )
 }
 
-function ErrorComponent({ invalid }: { invalid: boolean }) {
-  const router = useRouter()
-
+function ErrorComponent({
+  invalid,
+  resetInvalidBibleChapter,
+}: {
+  invalid: boolean
+  resetInvalidBibleChapter: ReadTypographyProps['resetInvalidBibleChapter']
+}) {
   if (invalid) {
     return (
       <View className="mt-4 gap-2 px-4 sm:px-0">
@@ -209,7 +222,8 @@ function ErrorComponent({ invalid }: { invalid: boolean }) {
         <Button
           fullWidth
           text="Reset"
-          onClick={() => router.push(`/read/bible?chapter=kej-1`)}
+          // onClick={() => router.push(`/read/bible?chapter=kej-1`)}
+          onClick={resetInvalidBibleChapter}
         />
       </View>
     )

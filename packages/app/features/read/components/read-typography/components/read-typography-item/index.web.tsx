@@ -1,5 +1,5 @@
-import { Pressable, View } from 'react-native'
 import { memo } from 'react'
+import { Pressable, View } from 'react-native'
 
 // Components
 import {

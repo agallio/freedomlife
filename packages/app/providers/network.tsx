@@ -11,7 +11,7 @@ import NetInfo from '@react-native-community/netinfo'
 import { onlineManager } from '@tanstack/react-query'
 
 // Components
-import NoInternetModal from '../features/home/components/no-internet.native'
+import NoInternetModal from '../features/home/components/no-internet.mobile'
 
 const NetworkConnectionContext = createContext<{
   isOffline: boolean
@@ -26,7 +26,8 @@ const NetworkConnectionContext = createContext<{
  */
 export function NetworkConnectionNativeProvider({
   children,
-}: PropsWithChildren) {
+  redirectToReadScreen,
+}: PropsWithChildren<{ redirectToReadScreen: () => void }>) {
   const [isOffline, setIsOffline] = useState(false)
   const [openOfflineModal, setOpenOfflineModal] = useState(false)
 
@@ -54,6 +55,7 @@ export function NetworkConnectionNativeProvider({
       <NoInternetModal
         openOfflineModal={openOfflineModal}
         setOpenOfflineModal={setOpenOfflineModal}
+        redirectToReadScreen={redirectToReadScreen}
       />
     </NetworkConnectionContext.Provider>
   )

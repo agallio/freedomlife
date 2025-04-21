@@ -1,5 +1,4 @@
 import { Platform, View } from 'react-native'
-import { useRouter } from 'solito/router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Components
@@ -7,6 +6,9 @@ import { BottomTabItem } from './bottom-tab-item'
 
 // Contexts
 import { useReadPassageContext } from '../../features/read/contexts/read-passage.context'
+
+// Types
+import type { BottomTabProps } from './types'
 
 type AvailableRoute = { label: string; path: string }
 
@@ -16,7 +18,7 @@ const availableRoutes: AvailableRoute[] = [
   { label: 'Panduan', path: '/guide' },
 ]
 
-export default function BottomTab({ pathname }: { pathname?: string }) {
+export default function BottomTab({ pathname, webRouterPush }: BottomTabProps) {
   return (
     <View
       className="fixed flex flex-row items-center justify-center gap-3 bg-transparent"
@@ -27,6 +29,7 @@ export default function BottomTab({ pathname }: { pathname?: string }) {
           key={index}
           isFocused={pathname === route.path}
           route={route}
+          webRouterPush={webRouterPush}
         />
       ))}
     </View>
@@ -36,16 +39,17 @@ export default function BottomTab({ pathname }: { pathname?: string }) {
 function BottomTabContainer({
   isFocused,
   route,
+  webRouterPush,
 }: {
   isFocused: boolean
   route: AvailableRoute
+  webRouterPush?: BottomTabProps['webRouterPush']
 }) {
-  const { push } = useRouter()
   const { resetHighlightedText } = useReadPassageContext()
 
   // Methods
   const onPress = async () => {
-    if (Platform.OS === 'web' && !isFocused) {
+    if (Platform.OS === 'web' && !isFocused && webRouterPush) {
       resetHighlightedText()
 
       if (route.label === 'Baca') {
@@ -63,11 +67,11 @@ function BottomTabContainer({
           ? route.path
           : `${route.path}/bible${lastChapterRead}`
 
-        push(newPath)
+        webRouterPush(newPath)
         return
       }
 
-      push(route.path)
+      webRouterPush(route.path)
     }
   }
 

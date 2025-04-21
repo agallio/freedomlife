@@ -1,20 +1,23 @@
+import { MotiView } from 'moti'
 import { ChevronLeftIcon } from 'react-native-heroicons/solid'
-
-// Screens
-import PassageScreenComponent from './screen'
-import PassageChapterScreen from '../passage-chapter'
 
 // Components
 import { IconButton } from '../../../../components/button'
 import Drawer from '../../../../components/drawer'
-import PassageSearchInput from './components/passage-search-input'
+import PassageChapter from './passage-chapter'
+import PassageGuide from './passage-guide'
+import PassageBible from './passage-bible'
+import PassageSearchInput from './passage-bible/components/passage-search-input'
 
 // Contexts
 import { useReadModalsContext } from '../../contexts/read-modals.context'
 import { useReadPassageContext } from '../../contexts/read-passage.context'
 import { useReadPassageChapterContext } from '../../contexts/read-passage-chapter.context'
 
-export default function PassageScreen() {
+// Types
+import type { PassageModalProps } from './types'
+
+export default function PassageModal(props: PassageModalProps) {
   const {
     openPassage,
     openPassageChapter,
@@ -22,7 +25,8 @@ export default function PassageScreen() {
     setOpenPassageChapter,
   } = useReadModalsContext()
   const { guided } = useReadPassageContext()
-  const { setSearchText } = useReadPassageChapterContext()
+  const { setSearchText, setDialogSelectedPassage } =
+    useReadPassageChapterContext()
 
   return (
     <Drawer
@@ -37,7 +41,19 @@ export default function PassageScreen() {
       }}
       dismissible={openPassage && !openPassageChapter}
       title={guided.enabled ? 'Pilih Panduan Baca' : 'Pilih Kitab & Pasal'}
-      backButton={openPassageChapter ? <PassageBackButton /> : undefined}
+      backButton={
+        openPassageChapter ? (
+          <IconButton
+            ariaLabel="Tombol untuk menutup dialog"
+            size="sm"
+            icon={<ChevronLeftIcon size={20} className="dark:text-white" />}
+            onClick={() => {
+              setOpenPassageChapter(false)
+              setDialogSelectedPassage('')
+            }}
+          />
+        ) : undefined
+      }
       searchInput={
         !guided.enabled ? (
           <PassageSearchInput disabled={openPassageChapter} />
@@ -45,27 +61,34 @@ export default function PassageScreen() {
       }
     >
       {openPassage && openPassageChapter ? (
-        <PassageChapterScreen />
+        <MotiView
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ type: 'timing', duration: 200 }}
+        >
+          <PassageChapter
+            handlePassageChapterBack={props.handlePassageChapterBack}
+          />
+        </MotiView>
       ) : (
-        <PassageScreenComponent />
+        <PassageContainer {...props} guided={guided.enabled} />
       )}
     </Drawer>
   )
 }
 
-function PassageBackButton() {
-  const { setOpenPassageChapter } = useReadModalsContext()
-  const { setDialogSelectedPassage } = useReadPassageChapterContext()
+function PassageContainer({
+  guided,
+  handlePassageBack,
+  redirectToPassageChapterScreen,
+}: PassageModalProps & { guided: boolean }) {
+  if (guided) {
+    return <PassageGuide handlePassageBack={handlePassageBack} />
+  }
 
   return (
-    <IconButton
-      ariaLabel="Tombol untuk menutup dialog"
-      size="sm"
-      icon={<ChevronLeftIcon size={20} className="dark:text-white" />}
-      onClick={() => {
-        setOpenPassageChapter(false)
-        setDialogSelectedPassage('')
-      }}
+    <PassageBible
+      redirectToPassageChapterScreen={redirectToPassageChapterScreen}
     />
   )
 }

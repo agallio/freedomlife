@@ -10,7 +10,7 @@ import {
   generateTextToCopy,
   useReadPassageContext,
 } from '../../../../contexts/read-passage.context'
-import { useSettingSheetContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.native'
+import { useSettingSheetContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.mobile'
 
 export type ReadNavbarRightProps = {
   cleanPassageName: string

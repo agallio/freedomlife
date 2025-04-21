@@ -16,7 +16,6 @@ This directory is to handle the web version.
 | [Next.js](https://nextjs.org/)                                                  |
 | [React Native Web](https://necolas.github.io/react-native-web/)                 |
 | [TypeScript](https://www.typescriptlang.org/)                                   |
-| [Solito](https://solito.dev)                                                    |
 | [TailwindCSS](https://tailwindcss.com/) + [NativeWind](https://nativewind.dev/) |
 | [Moti](https://moti.fyi/)                                                       |
 | [Supabase](https://www.supabase.io/)                                            |

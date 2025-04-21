@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Platform, View } from 'react-native'
-import { useRouter } from 'solito/router'
 
 // Components
 import GradientCard from '../../../components/gradient-card'
@@ -21,8 +20,13 @@ import dayjs from '../../../utils/dayjs'
 // Types
 import type { GuideDataResponse } from '../../../types'
 
-export default function PassageCard() {
-  const router = useRouter()
+type PassageCardProps = {
+  redirectToReadScreen: () => void
+}
+
+export default function PassageCard({
+  redirectToReadScreen,
+}: PassageCardProps) {
   const {
     setGuidedEnable,
     setGuidedDate,
@@ -40,7 +44,7 @@ export default function PassageCard() {
     setGuidedSelectedPassage('pl-1')
     setSelectedBibleVersion('tb')
 
-    router.push('/read')
+    redirectToReadScreen()
   }
 
   return (

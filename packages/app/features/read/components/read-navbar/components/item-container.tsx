@@ -18,7 +18,15 @@ import {
 // Utils
 import { passageData } from '../../../../../utils/constants'
 
-export default function ReadNavbarContainer() {
+type ReadNavbarContainerProps = {
+  redirectToTranslateScreen: () => void
+  redirectToPassageScreen: () => void
+}
+
+export default function ReadNavbarContainer({
+  redirectToPassageScreen,
+  redirectToTranslateScreen,
+}: ReadNavbarContainerProps) {
   const { guided, selectedBibleVersion, selectedBiblePassage } =
     useReadPassageContext()
 
@@ -120,11 +128,17 @@ export default function ReadNavbarContainer() {
   return (
     <>
       <View>
-        <ReadNavbarLeft isLoading={isGuidedDataLoading} />
+        <ReadNavbarLeft
+          isLoading={isGuidedDataLoading}
+          redirectToTranslateScreen={redirectToTranslateScreen}
+        />
       </View>
 
       <View>
-        <ReadNavbarTitle passageName={passageName} />
+        <ReadNavbarTitle
+          passageName={passageName}
+          redirectToPassageScreen={redirectToPassageScreen}
+        />
       </View>
 
       <View>

@@ -1,5 +1,4 @@
 import { Platform, View, useColorScheme } from 'react-native'
-import { useRouter } from 'solito/router'
 import { ChevronDownIcon } from 'react-native-heroicons/solid'
 
 // Components
@@ -13,9 +12,12 @@ import { useReadPassageContext } from '../../read/contexts/read-passage.context'
 // Utils
 import dayjs from '../../../utils/dayjs'
 
-export default function GuideMonthButton() {
+export default function GuideMonthButton({
+  redirectToGuideMonthScreen,
+}: {
+  redirectToGuideMonthScreen: () => void
+}) {
   const colorScheme = useColorScheme()
-  const { push } = useRouter()
   const { setOpenGuideMonth } = useGuideModalsContext()
   const { selectedGuideMonth } = useReadPassageContext()
 
@@ -27,7 +29,7 @@ export default function GuideMonthButton() {
           return
         }
 
-        push('/guide-month')
+        redirectToGuideMonthScreen()
       }}
     >
       <View className="w-full flex-row items-center justify-between">

@@ -40,6 +40,7 @@ export default function GradientCard({
         className,
       )}
     >
+      {/* @ts-ignore: typing issue (https://github.com/EvanBacon/css-to-expo-linear-gradient/issues/9) */}
       <LinearGradient
         {...fromCSS(
           colorScheme === 'light'
