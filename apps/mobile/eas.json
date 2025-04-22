@@ -6,6 +6,7 @@
   "build": {
     "development": {
       "channel": "development",
+      "environment": "development",
       "distribution": "internal",
       "ios": {
         "resourceClass": "m-medium"
@@ -13,6 +14,7 @@
     },
     "preview": {
       "channel": "preview",
+      "environment": "preview",
       "distribution": "internal",
       "android": {
         "buildType": "apk",
@@ -25,6 +27,7 @@
     },
     "production": {
       "channel": "production",
+      "environment": "production",
       "ios": {
         "resourceClass": "m-medium"
       }

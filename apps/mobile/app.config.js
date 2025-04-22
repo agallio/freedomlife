@@ -38,6 +38,7 @@ export default {
     },
     infoPlist: {
       LSMinimumSystemVersion: '13.0.0',
+      ITSAppUsesNonExemptEncryption: false,
     },
     entitlements: {
       'aps-environment':
