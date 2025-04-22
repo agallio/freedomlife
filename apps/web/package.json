@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 2019",
-    "build": "next build",
+    "build": "cd ../.. && npx patch-package && cd apps/web && next build",
     "start": "next start -p 2019",
     "lint": "next lint"
   },
