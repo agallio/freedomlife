@@ -1,11 +1,8 @@
 import { useColorScheme } from 'react-native'
 import { Skeleton as MotiSkeleton } from 'moti/skeleton'
 
-export type SkeletonProps = {
-  width: number | string
-  height: number | string
-  circle?: boolean
-}
+// Types
+import type { SkeletonProps } from './types'
 
 export default function Skeleton({ width, height, circle }: SkeletonProps) {
   const colorScheme = useColorScheme()

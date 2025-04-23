@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 0.60.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "channel": "development",
+      "environment": "development",
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    },
+    "preview": {
+      "channel": "preview",
+      "environment": "preview",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "ios": {
+        "simulator": true,
+        "resourceClass": "m-medium"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "environment": "production",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

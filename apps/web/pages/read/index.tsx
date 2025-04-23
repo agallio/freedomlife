@@ -1,38 +1,68 @@
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
-// Screen
-import { ReadScreen } from '@repo/app/features/read'
+// Components
+import ReadNavbar from '@repo/app/features/read/components/read-navbar'
+import ReadTypography from '@repo/app/features/read/components/read-typography'
 
 // Contexts
 import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
+import { useReadModalsContext } from '@repo/app/features/read/contexts/read-modals.context'
 
 // Queries
 import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
 
-// Components
-import ReadNavbar from '@repo/app/features/read/components/read-navbar'
-
-// Lazy-load Modals
-const TranslateScreen = dynamic(
+// Lazy-load Components
+const TranslateModal = dynamic(
   () => import('@repo/app/features/read/modals/translate'),
   { ssr: false },
 )
-const PassageScreen = dynamic(
+const PassageModal = dynamic(
   () => import('@repo/app/features/read/modals/passage'),
   { ssr: false },
 )
-const SettingScreen = dynamic(
+const SettingsModal = dynamic(
   () => import('@repo/app/features/read/modals/setting'),
   { ssr: false },
 )
 
 export default function ReadPage() {
+  const router = useRouter()
+  const { setOpenPassage, setOpenPassageChapter, setOpenTranslate } =
+    useReadModalsContext()
+
+  // Queries
   const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery({
     name: 'feature_tsi_translation',
     enabled: true,
   })
+
+  // Methods
+  const redirectToPassageScreen = () => {
+    setOpenPassage(true)
+  }
+
+  const redirectToTranslateScreen = () => {
+    setOpenTranslate(true)
+  }
+
+  const redirectToBiblePassage = (passage: string) => {
+    router.push(`/read/bible?chapter=${passage}`)
+  }
+
+  const redirectToPassageChapterScreen = () => {
+    setOpenPassageChapter(true)
+  }
+
+  const handlePassageBack = (abbr?: string) => {
+    setOpenPassage(false)
+
+    if (abbr) {
+      router.push(`/read/bible?chapter=${abbr}`)
+    }
+  }
 
   return (
     <>
@@ -60,10 +90,13 @@ export default function ReadPage() {
         }}
       />
 
-      <ReadNavbar />
+      <ReadNavbar
+        redirectToPassageScreen={redirectToPassageScreen}
+        redirectToTranslateScreen={redirectToTranslateScreen}
+      />
 
-      <div className="mx-auto mt-16 flex w-full max-w-sm flex-col sm:max-w-xl">
-        <ReadScreen />
+      <div className="mx-auto mt-16 flex w-full max-w-xl flex-col">
+        <ReadTypography redirectToBiblePassage={redirectToBiblePassage} />
       </div>
 
       {/* Modals */}
@@ -75,10 +108,13 @@ export default function ReadPage() {
           },
         }}
       >
-        <TranslateScreen />
+        <TranslateModal />
       </FeatureFlagsProvider>
-      <PassageScreen />
-      <SettingScreen />
+      <PassageModal
+        handlePassageBack={handlePassageBack}
+        redirectToPassageChapterScreen={redirectToPassageChapterScreen}
+      />
+      <SettingsModal />
     </>
   )
 }

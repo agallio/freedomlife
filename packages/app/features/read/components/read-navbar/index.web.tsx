@@ -7,7 +7,10 @@ import ReadNavbarContainer from './components/item-container'
 // Contexts
 import { useReadPassageContext } from '../../contexts/read-passage.context'
 
-export default function ReadNavbar() {
+// Types
+import type { ReadNavbarProps } from './types'
+
+export default function ReadNavbar(props: ReadNavbarProps) {
   const { highlightedText } = useReadPassageContext()
 
   // Constants
@@ -16,7 +19,7 @@ export default function ReadNavbar() {
   return (
     <NavbarWeb active={isHighlighted}>
       <View className="relative w-full flex-row items-center justify-between">
-        <ReadNavbarContainer />
+        <ReadNavbarContainer {...props} />
       </View>
     </NavbarWeb>
   )

@@ -1,5 +1,4 @@
 import { Platform, View, useColorScheme } from 'react-native'
-import { useRouter } from 'solito/router'
 import { BookOpenIcon } from 'react-native-heroicons/solid'
 
 // Components
@@ -15,11 +14,14 @@ import { getIconColor } from '../../../../../utils/helpers'
 
 type ReadNavbarTitleProps = {
   passageName: string
+  redirectToPassageScreen: () => void
 }
 
-export default function ReadNavbarTitle({ passageName }: ReadNavbarTitleProps) {
+export default function ReadNavbarTitle({
+  passageName,
+  redirectToPassageScreen,
+}: ReadNavbarTitleProps) {
   const colorScheme = useColorScheme()
-  const { push } = useRouter()
   const { setOpenPassage } = useReadModalsContext()
   const { guided, highlightedText } = useReadPassageContext()
 
@@ -34,7 +36,7 @@ export default function ReadNavbarTitle({ passageName }: ReadNavbarTitleProps) {
       return
     }
 
-    push('/passage')
+    redirectToPassageScreen()
   }
 
   if (isHighlighted) {

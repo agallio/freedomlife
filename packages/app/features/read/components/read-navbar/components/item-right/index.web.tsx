@@ -48,7 +48,7 @@ export default function ReadNavbarRight({
         Burnt.toast({
           preset: 'done',
           duration: 1.5,
-          // @ts-ignore
+          // @ts-ignore: burnt typing issue
           title: (
             <ToasterWebComponent
               icon={

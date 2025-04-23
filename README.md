@@ -2,11 +2,16 @@
 
 [![freedomlife logo](/apps/web/public/images/og-index.png)](https://freedomlife.id)
 
-## 🔦 About
+## 📱 Indonesian Bible App with Reading Guides
 
-freedomlife: your go-to **Indonesian bible app**!
+**freedomlife** is your go-to Indonesian Bible application that makes daily, byte-sized Bible reading a breeze. With a structured approach to Scripture reading, you'll never wonder what to read next - our full-year guide provides daily readings that keep you on track in your spiritual journey.
 
-freedomlife is an **Indonesian bible app** with a full-year guide—no need to be confused about what to read anymore. There is a collection of reading guides for today and other days of the same year. You also can read the bible directly without guides.
+### Key Features:
+
+- **Guided Reading Plans**: Curated daily reading guides for the entire year
+- **Flexible Reading Options**: Follow guides or read the Bible freely
+- **Multiple Translations**: Comprehensive collection of Indonesian and English translations
+- **Cross-Platform**: Available on Android, iOS, and web
 
 <a href="https://play.google.com/store/apps/details?id=id.freedomlife.android" target="_blank"><img src="/apps/web/public/images/google-play-badge.webp" alt="Google Play Store Button" width="130"></a>
 <a href="https://apps.apple.com/id/app/freedomlife/id1643246287" target="_blank"><img src="/apps/web/public/images/app-store-badge.webp" alt="Apple App Store Button" width="120"></a>
@@ -19,6 +24,7 @@ Indonesian
 - Kabar Baik Bahasa Indonesia Sehari-Hari (BIS)
 - Firman Allah Yang Hidup (FAYH)
 - Versi Mudah Dibaca (VMD)
+- Terjemahan Sederhana Indonesia (TSI)
 
 International
 
@@ -29,9 +35,9 @@ International
 
 ## ⚡️ Technology
 
-This monorepo is powered by [Solito](https://solito.dev) & [Turborepo](https://turbo.build/) with the power of [React Native](https://reactnative.dev/).
+This monorepo is powered by [Turborepo](https://turbo.build/), [Expo](https://expo.dev/), [Next.js](https://nextjs.org/) with the power of [React Native](https://reactnative.dev/).
 
-For more details, please open the README file on each respective directory: iOS & Android lives on `apps/native`, the web lives on `apps/web`.
+For more details, please open the README file on each respective directory: iOS & Android lives on `apps/mobile`, the web lives on `apps/web`.
 
 ## ☎️ Contacts
 
@@ -39,13 +45,14 @@ For more details, please open the README file on each respective directory: iOS 
 
 Email: <agallio@freedomlife.id>
 
-## 🙏🏻 How Can I Thank You?
+## 🙏🏻 Support
 
-Give a star to this repository would be a great help!
+If you find freedomlife helpful in your spiritual journey, here's how you can support this project:
 
-Don't forget to share this application to your social media accounts if you find it helpful!
-
-You can also sponsor me on GitHub (take a look on this repo sponsor section!) or buy me a coffee! 😄 ☕️
+- ⭐ Star this repository
+- 📣 Share the app with friends and family
+- 💖 [Sponsor the project on GitHub](https://github.com/sponsors/agallio)
+- ☕ Buy me a coffee or donate to help with development costs
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/agallio)
 <a href="https://www.buymeacoffee.com/agallio" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>

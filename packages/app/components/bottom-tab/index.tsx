@@ -8,12 +8,8 @@ import { BottomTabItem } from './bottom-tab-item'
 // Contexts
 import { useNetworkConnectionContext } from '../../providers/network'
 
-type BottomTabProps = {
-  state?: BottomTabBarProps['state']
-  descriptors?: BottomTabBarProps['descriptors']
-  navigation?: BottomTabBarProps['navigation']
-  pathname?: string
-}
+// Types
+import type { BottomTabProps } from './types'
 
 export default function BottomTab({
   state,

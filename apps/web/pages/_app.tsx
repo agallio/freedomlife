@@ -2,6 +2,7 @@ import '../styles/global.css'
 
 import { useEffect } from 'react'
 import { type AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { Inter } from 'next/font/google'
@@ -9,9 +10,9 @@ import { DefaultSeo } from 'next-seo'
 import posthog from 'posthog-js'
 
 // Contexts
+import PostHogProviderWeb from '../providers/posthog.provider.web'
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
-import PostHogProviderWeb from '@repo/app/providers/posthog/index.web'
 
 // Lazy-load Components
 const BottomTab = dynamic(() => import('@repo/app/components/bottom-tab'), {
@@ -72,6 +73,8 @@ function SEO() {
 }
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  const nextRouter = useRouter()
+
   // Effects
   useEffect(() => {
     // Track page views
@@ -115,6 +118,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
                         ? '/read'
                         : router.pathname
                     }
+                    webRouterPush={nextRouter.push}
                   />
                 )}
             </main>

@@ -1,23 +1,78 @@
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
+import * as Burnt from 'burnt'
+import { CheckCircleIcon } from 'react-native-heroicons/outline'
 
-// Screen
-import GuideScreen from '@repo/app/features/guide'
+// Components
+import Drawer from '@repo/app/components/drawer'
+import GuideList from '@repo/app/features/guide/components/guide-list'
+import GuideMonthButton from '@repo/app/features/guide/components/guide-month-button'
+import GuideMonthList from '@repo/app/features/guide/components/guide-month-list'
+import { ToasterWebComponent } from '@repo/app/components/toaster-container.web'
 
 // Icon Components
 import FreedomlifeIcon from '@repo/app/components/icons/freedomlife-icon'
 
 // Contexts
-import { GuideModalsContextProvider } from '@repo/app/features/guide/contexts/guide-modals.context'
+import {
+  GuideModalsContextProvider,
+  useGuideModalsContext,
+} from '@repo/app/features/guide/contexts/guide-modals.context'
+import { useReadPassageContext } from '@repo/app/features/read/contexts/read-passage.context'
 
-// Lazy-load Modals
-const GuideMonthScreen = dynamic(
-  () => import('@repo/app/features/guide/modals/guide-month'),
-  { ssr: false },
-)
+// Queries
+import { useGuideByMonthQuery } from '@repo/app/hooks/use-guide-query'
+
+// Utils
+import dayjs from '@repo/app/utils/dayjs'
 
 export default function GuidePage() {
+  const router = useRouter()
+  const {
+    selectedGuideMonth,
+    setGuidedEnable,
+    setGuidedDate,
+    setGuidedSelectedPassage,
+    setSelectedBibleVersion,
+  } = useReadPassageContext()
+
+  // Queries
+  const queryData = useGuideByMonthQuery(selectedGuideMonth)
+
+  // Methods
+  const getGuideHasBeenRead = (date: string) => {
+    return localStorage.getItem(`read-${date}`) !== null
+  }
+
+  const onGuideClick = (date: string) => {
+    setGuidedEnable(true)
+    setGuidedDate(date)
+    setGuidedSelectedPassage('pl-1')
+    setSelectedBibleVersion('tb')
+    router.push('/read')
+  }
+
+  const onCheckMarkClick = (date: string) => {
+    Burnt.toast({
+      preset: 'done',
+      duration: 1.5,
+      // @ts-ignore
+      title: (
+        <ToasterWebComponent
+          icon={
+            <CheckCircleIcon
+              size={24}
+              className="text-emerald-900 dark:text-white"
+            />
+          }
+          title="Panduan Telah Dibaca"
+          message={dayjs(date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
+        />
+      ),
+    })
+  }
+
   return (
     <>
       <Head>
@@ -45,17 +100,56 @@ export default function GuidePage() {
       />
 
       <GuideModalsContextProvider>
-        <div className="mx-auto flex w-full max-w-sm flex-col px-6 pt-4 sm:max-w-md">
+        <div className="mx-auto flex w-full max-w-sm flex-col px-6 pb-28 pt-4 sm:max-w-md">
           <div className="flex pb-4">
             <FreedomlifeIcon className="w-[230px]" />
           </div>
 
-          <GuideScreen />
+          <GuideMonthButtonWrapper />
+
+          <GuideList
+            queryData={queryData}
+            getGuideHasBeenRead={getGuideHasBeenRead}
+            onGuideClick={onGuideClick}
+            onCheckMarkClick={onCheckMarkClick}
+          />
         </div>
 
-        {/* Modals */}
-        <GuideMonthScreen />
+        <GuideMonthModal />
       </GuideModalsContextProvider>
     </>
+  )
+}
+
+function GuideMonthButtonWrapper() {
+  const { setOpenGuideMonth } = useGuideModalsContext()
+
+  return (
+    <GuideMonthButton
+      redirectToGuideMonthScreen={() => setOpenGuideMonth(true)}
+    />
+  )
+}
+
+function GuideMonthModal() {
+  const { openGuideMonth, setOpenGuideMonth } = useGuideModalsContext()
+  const { selectedGuideMonth, setSelectedGuideMonth } = useReadPassageContext()
+
+  const onMonthClick = (monthString: string) => {
+    setSelectedGuideMonth(monthString)
+    setOpenGuideMonth(false)
+  }
+
+  return (
+    <Drawer
+      open={openGuideMonth}
+      title="Pilih Bulan Panduan"
+      setOpen={setOpenGuideMonth}
+    >
+      <GuideMonthList
+        selectedGuideMonth={selectedGuideMonth}
+        onMonthClick={onMonthClick}
+      />
+    </Drawer>
   )
 }

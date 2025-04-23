@@ -10,7 +10,10 @@ import { useReadPassageContext } from '../../contexts/read-passage.context'
 import { useSafeArea } from '../../../../utils/hooks/use-safe-area'
 import { cn } from '../../../../utils/helpers'
 
-export default function ReadNavbar() {
+// Types
+import type { ReadNavbarProps } from './types'
+
+export default function ReadNavbar(props: ReadNavbarProps) {
   const { top } = useSafeArea()
   const colorScheme = useColorScheme()
   const { highlightedText } = useReadPassageContext()
@@ -44,7 +47,7 @@ export default function ReadNavbar() {
         }}
       >
         <View className="w-full flex-row items-center justify-between">
-          <ReadNavbarContainer />
+          <ReadNavbarContainer {...props} />
         </View>
       </View>
     </>

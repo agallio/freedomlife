@@ -2,7 +2,7 @@
 import { cn } from '../../utils/helpers'
 
 // Types
-import type { SkeletonProps } from '.'
+import type { SkeletonProps } from './types'
 
 export default function SkeletonWeb({ width, height, circle }: SkeletonProps) {
   return (

@@ -108,11 +108,7 @@ const nextConfig = {
     'react-native-css-interop',
     '@react-native-segmented-control/segmented-control',
     'expo-linear-gradient',
-    'solito',
   ],
-  typescript: {
-    ignoreBuildErrors: true,
-  },
 
   async headers() {
     return [
@@ -147,9 +143,10 @@ const nextConfig = {
     // Handle @react-native-segmented-control/segmented-control in Next.js.
     // They write using flow but the devs don't strip the flow types yet, so it's broken in Next.js
     config.module.rules.push({
-      test: /\.jsx?$/,
+      test: /\.(js|jsx)?$/,
       use: ['remove-flow-types-loader'],
     })
+
     return config
   },
 }

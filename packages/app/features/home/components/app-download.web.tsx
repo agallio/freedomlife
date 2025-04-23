@@ -4,6 +4,9 @@ import Image from 'next/image'
 // Components
 import { Text } from '../../../components/text'
 
+/**
+ * Web only!
+ */
 export default function AppDownload() {
   return (
     <View className="mt-8 gap-2">

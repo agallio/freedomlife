@@ -12,7 +12,13 @@ import {
 
 const segmentedValues = ['SM', 'MD', 'LG', 'XL']
 
-export default function SettingScreenComponent() {
+type SettingScreenComponentProps = {
+  handleBackWeb?: () => void
+}
+
+export default function SettingScreenComponent({
+  handleBackWeb,
+}: SettingScreenComponentProps) {
   const colorScheme = useColorScheme()
   const { rawVerseFontSize, setVerseFontSize } = useReadSettingsContext()
 
@@ -42,9 +48,9 @@ export default function SettingScreenComponent() {
         onValueChange={(value) => {
           setVerseFontSize(value.toLowerCase() as ReadSettingsFontSizeType)
 
-          // if (Platform.OS !== 'web') {
-          //   setTimeout(() => back(), 400)
-          // }
+          if (Platform.OS !== 'web') {
+            setTimeout(() => handleBackWeb?.(), 400)
+          }
         }}
       />
     </View>

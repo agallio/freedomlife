@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Platform, View, useColorScheme } from 'react-native'
-import { useRouter } from 'solito/router'
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -20,6 +19,9 @@ import { passageData, tsiAbbrs } from '../../../../../utils/constants'
 import { cn, getIconColor } from '../../../../../utils/helpers'
 import dayjs from '../../../../../utils/dayjs'
 
+// Types
+import type { ReadTypographyProps } from '../types'
+
 const filteredPassageData = passageData.filter((p) => p.passage !== 0)
 const tsiPassageData = passageData.filter(
   (p) => p.passage !== 0 && new Set(tsiAbbrs).has(p.abbr),
@@ -27,11 +29,12 @@ const tsiPassageData = passageData.filter(
 
 export default function ReadTypographyNavigator({
   passageArray,
+  redirectToBiblePassage,
 }: {
   passageArray: string[]
+  redirectToBiblePassage: ReadTypographyProps['redirectToBiblePassage']
 }) {
   const colorScheme = useColorScheme()
-  const router = useRouter()
   const {
     guided,
     selectedBiblePassage,
@@ -83,7 +86,7 @@ export default function ReadTypographyNavigator({
   const handleSetSelectedBiblePassage = (newPassage: string) => {
     setSelectedBiblePassage(newPassage)
     if (Platform.OS === 'web') {
-      router.push(`/read/bible?chapter=${newPassage}`)
+      redirectToBiblePassage(newPassage)
     }
   }
 

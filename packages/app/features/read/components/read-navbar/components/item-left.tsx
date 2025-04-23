@@ -1,5 +1,4 @@
 import { Platform, useColorScheme } from 'react-native'
-import { useRouter } from 'solito/router'
 import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 
 // Components
@@ -12,9 +11,16 @@ import { useReadPassageContext } from '../../../contexts/read-passage.context'
 // Utils
 import { getIconColor } from '../../../../../utils/helpers'
 
-export default function ReadNavbarLeft({ isLoading }: { isLoading?: boolean }) {
+type ReadNavbarLeftProps = {
+  isLoading: boolean
+  redirectToTranslateScreen: () => void
+}
+
+export default function ReadNavbarLeft({
+  isLoading,
+  redirectToTranslateScreen,
+}: ReadNavbarLeftProps) {
   const colorScheme = useColorScheme()
-  const { push } = useRouter()
   const { setOpenTranslate } = useReadModalsContext()
   const { highlightedText, updateHighlightedText } = useReadPassageContext()
 
@@ -29,7 +35,7 @@ export default function ReadNavbarLeft({ isLoading }: { isLoading?: boolean }) {
       return
     }
 
-    push('/translate')
+    redirectToTranslateScreen()
   }
 
   const onResetHighlightClick = () => {
