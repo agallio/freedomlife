@@ -66,15 +66,15 @@ export function ReadSettingsContextProvider({ children }: PropsWithChildren) {
   const nativeHeaderFontSize = useMemo(() => {
     switch (persistedVerseFontSize) {
       case 'sm':
-        return 17 * fontScale
+        return 18 * fontScale
       case 'md':
-        return 19 * fontScale
+        return 20 * fontScale
       case 'lg':
-        return 21 * fontScale
+        return 22 * fontScale
       case 'xl':
-        return 24 * fontScale
+        return 25 * fontScale
       default:
-        return 17 * fontScale
+        return 18 * fontScale
     }
   }, [persistedVerseFontSize, fontScale])
 

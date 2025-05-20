@@ -7,7 +7,7 @@ import {
   type PropsWithChildren,
   type SetStateAction,
 } from 'react'
-import NetInfo from '@react-native-community/netinfo'
+import * as Network from 'expo-network'
 import { onlineManager } from '@tanstack/react-query'
 
 // Components
@@ -33,19 +33,19 @@ export function NetworkConnectionNativeProvider({
 
   // Effects
   useEffect(() => {
-    const removeNetInfoSubscription = NetInfo.addEventListener((state) => {
-      if (state.isInternetReachable !== null) {
-        const offline = !(
-          state.isConnected && state.isInternetReachable === true
-        )
-        setIsOffline(offline)
-        setOpenOfflineModal(offline)
-        // react-query already supports on reconnect auto refetch in web browser
-        onlineManager.setOnline(!offline)
-      }
+    const networkSubscription = Network.addNetworkStateListener((state) => {
+      const isConnected = state.isConnected !== null && state.isConnected
+      const isInternetReachable = Boolean(state.isInternetReachable)
+      const offline = !isConnected || !isInternetReachable
+
+      setIsOffline(offline)
+      setOpenOfflineModal(offline)
+      onlineManager.setOnline(!offline)
     })
 
-    return () => removeNetInfoSubscription()
+    return () => {
+      networkSubscription.remove()
+    }
   }, [])
 
   return (
