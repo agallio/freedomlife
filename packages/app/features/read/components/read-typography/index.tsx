@@ -190,16 +190,16 @@ export default function ReadTypography({
         ref={bibleTypographyRef as any}
         data={versesData}
         overScrollMode={Platform.OS === 'android' ? 'never' : 'always'}
-        initialNumToRender={7}
+        windowSize={5}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
         onMomentumScrollEnd={onMomentumScrollEnd}
         keyExtractor={(_, index) => String(index)}
         renderItem={({ item, index }) => (
           <ReadTypographyItem
             item={item}
             index={index}
-            isHighlighted={Boolean(
-              highlightedText.find((i) => i.verse === item.verse),
-            )}
+            isHighlighted={highlightedText.some((i) => i.verse === item.verse)}
             onClick={onVerseClick}
           />
         )}

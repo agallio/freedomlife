@@ -47,13 +47,13 @@ function ReadTypographyItem({
   const renderIndentation = (index: string) => {
     switch (index.length) {
       case 1:
-        return '    '
+        return '   '
       case 2:
-        return '     '
-      case 3:
-        return '       '
-      default:
         return '    '
+      case 3:
+        return '     '
+      default:
+        return '   '
     }
   }
 
