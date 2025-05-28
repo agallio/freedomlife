@@ -1,5 +1,10 @@
 import { PropsWithChildren } from 'react'
-import { PostHogProvider } from 'posthog-react-native'
+import { PostHogProvider, usePostHog } from 'posthog-react-native'
+
+// Contexts
+import EventTrackingProvider, {
+  type EventTrackingContextType,
+} from '@repo/app/providers/event-tracking'
 
 export default function PostHogProviderNative({
   apiKey,
@@ -13,7 +18,24 @@ export default function PostHogProviderNative({
         disabled: process.env.NODE_ENV !== 'production',
       }}
     >
-      {children}
+      <EventTrackingWrapper>{children}</EventTrackingWrapper>
     </PostHogProvider>
+  )
+}
+
+function EventTrackingWrapper({ children }: PropsWithChildren) {
+  const posthog = usePostHog()
+
+  const captureEvent: EventTrackingContextType['captureEvent'] = (
+    eventName,
+    properties,
+  ) => {
+    posthog.capture(eventName, properties)
+  }
+
+  return (
+    <EventTrackingProvider captureEvent={captureEvent}>
+      {children}
+    </EventTrackingProvider>
   )
 }

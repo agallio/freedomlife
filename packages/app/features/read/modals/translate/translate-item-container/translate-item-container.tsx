@@ -10,6 +10,10 @@ import { useReadPassageContext } from '../../../contexts/read-passage.context'
 
 // Utils
 import { type BibleTranslationItemType } from '../../../../../utils/constants'
+import {
+  EVENT_NAMES,
+  useEventTrackingContext,
+} from '../../../../../providers/event-tracking'
 
 type TranslateItemContainerProps = {
   language: string
@@ -26,8 +30,13 @@ function TranslateItemContainer({
 }: TranslateItemContainerProps) {
   const { selectedBibleVersion, setSelectedBibleVersion } =
     useReadPassageContext()
+  const { captureEvent } = useEventTrackingContext()
 
   const onTranslateClick = (selectedBibleVersion: string) => {
+    captureEvent?.(EVENT_NAMES.SET_BIBLE_VERSION, {
+      bible_version: selectedBibleVersion,
+    })
+
     setSelectedBibleVersion(selectedBibleVersion)
     handleBack()
   }
