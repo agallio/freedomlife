@@ -23,21 +23,6 @@ const ToasterContainer = dynamic(
   { ssr: false },
 )
 
-// PostHog
-// Check that PostHog is client-side (used to handle Next.js SSR)
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-    api_host: '/ingest',
-    autocapture: false,
-    disable_session_recording: true,
-
-    // Enable debug mode in development
-    loaded: (posthog) => {
-      if (process.env.NODE_ENV === 'development') posthog.debug()
-    },
-  })
-}
-
 const interFont = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -77,14 +62,15 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   // Effects
   useEffect(() => {
-    // Track page views
-    const handleRouteChange = () => posthog?.capture('$pageview')
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+      api_host: '/ingest',
+      capture_pageview: 'history_change',
 
-    router.events.on('routeChangeComplete', handleRouteChange)
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
+      // Enable debug mode in development
+      loaded: (posthog) => {
+        if (process.env.NODE_ENV === 'development') posthog.debug()
+      },
+    })
   }, [])
 
   return (
