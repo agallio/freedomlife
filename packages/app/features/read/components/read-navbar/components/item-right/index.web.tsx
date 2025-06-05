@@ -10,7 +10,7 @@ import { ToasterWebComponent } from '../../../../../../components/toaster-contai
 import { useReadModalsContext } from '../../../../contexts/read-modals.context'
 import {
   generateTextToCopy,
-  useReadPassageContext,
+  useReadPassageGeneralContext,
 } from '../../../../contexts/read-passage.context'
 
 // Types
@@ -20,8 +20,15 @@ export default function ReadNavbarRight({
   cleanPassageName,
 }: ReadNavbarRightProps) {
   const { setOpenSetting } = useReadModalsContext()
-  const { highlightedText, selectedBibleVersion, updateHighlightedText } =
-    useReadPassageContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const { updateHighlightedText } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
 
   // Constants
   const isHighlighted = highlightedText.length > 0

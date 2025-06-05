@@ -7,8 +7,8 @@ import ListItem from '../../../../../components/list-item'
 import PassageSearchInput from './components/passage-search-input'
 
 // Contexts
+import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
 import { useReadPassageChapterContext } from '../../../contexts/read-passage-chapter.context'
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
 
 // Utils
 import { passageData, tsiAbbrs } from '../../../../../utils/constants'
@@ -19,9 +19,13 @@ import type { PassageBibleProps } from '../types'
 export default function PassageBible({
   redirectToPassageChapterScreen,
 }: PassageBibleProps) {
-  const { selectedBibleVersion } = useReadPassageContext()
-  const { searchText, setDialogSelectedPassage } =
-    useReadPassageChapterContext()
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const searchText = useReadPassageChapterContext((state) => state.searchText)
+  const { setDialogSelectedPassage } = useReadPassageChapterContext(
+    (state) => state.actions,
+  )
 
   // Memoized Values
   const filteredPassageData = useMemo(() => {

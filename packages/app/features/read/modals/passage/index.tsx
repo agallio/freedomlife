@@ -5,7 +5,7 @@ import PassageGuide from './passage-guide'
 import PassageBible from './passage-bible'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import { useReadPassagePersistedContext } from '../../contexts/read-passage.context'
 
 // Types
 import type { PassageModalProps } from './types'
@@ -14,9 +14,9 @@ export default function PassageModal({
   handlePassageBack,
   redirectToPassageChapterScreen,
 }: PassageModalProps) {
-  const { guided } = useReadPassageContext()
+  const { guidedEnabled } = useReadPassagePersistedContext()
 
-  if (guided.enabled) {
+  if (guidedEnabled) {
     return (
       <ScrollView className="px-4 pb-20 pt-4">
         <PassageGuide handlePassageBack={handlePassageBack} />

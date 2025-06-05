@@ -7,7 +7,10 @@ import { Text } from '../../../../../components/text'
 
 // Contexts
 import { useReadModalsContext } from '../../../contexts/read-modals.context'
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../../contexts/read-passage.context'
 
 // Utils
 import { getIconColor } from '../../../../../utils/helpers'
@@ -23,7 +26,10 @@ export default function ReadNavbarTitle({
 }: ReadNavbarTitleProps) {
   const colorScheme = useColorScheme()
   const { setOpenPassage } = useReadModalsContext()
-  const { guided, highlightedText } = useReadPassageContext()
+  const { guidedEnabled } = useReadPassagePersistedContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
 
   // Constants
   const isHighlighted = highlightedText.length > 0
@@ -62,7 +68,7 @@ export default function ReadNavbarTitle({
         Need to do fully manual styling for the View (no tailwind).
         See the explanation in the parent component.
       */}
-      {guided.enabled && (
+      {guidedEnabled && (
         <View
           style={{
             position: 'absolute',

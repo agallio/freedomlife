@@ -4,7 +4,10 @@ import { useMemo } from 'react'
 import TranslateList from './translate-list'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../contexts/read-passage.context'
 
 // Queries
 import {
@@ -24,7 +27,9 @@ export type TranslateContainerProps = { handleBackMobile?: () => void }
 export default function TranslateContainer({
   handleBackMobile,
 }: TranslateContainerProps) {
-  const { guided, selectedBiblePassage } = useReadPassageContext()
+  const { guidedEnabled, selectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const guided = useReadPassageGeneralContext((state) => state.guided)
   const { data: tsiFlagData, isLoading: tsiFlagLoading } =
     useFeatureFlagContext('feature_tsi_translation')
 
@@ -34,7 +39,7 @@ export default function TranslateContainer({
   const { data: guideByDateData, isLoading: guideByDateLoading } =
     useGuideByDateQuery({
       date: guided.date,
-      enabled: guided.enabled && guided.date !== '',
+      enabled: guidedEnabled && guided.date !== '',
     })
 
   // Memoized Values
@@ -50,7 +55,7 @@ export default function TranslateContainer({
       // Handle in guided mode
       // 1. If inside custom date, use available bible translations from custom date data
       // 2. If not, use available bible translations from today's data
-      if (guided.enabled) {
+      if (guidedEnabled) {
         if (guided.date && guideByDateData) {
           return filterTranslationsWithLookupSet(
             guideByDateData.available_bible_translations,
@@ -89,7 +94,7 @@ export default function TranslateContainer({
       versions: item.versions.filter((version) => version.key !== 'tsi'),
     }))
   }, [
-    guided.enabled,
+    guidedEnabled,
     guided.date,
     guideTodayData,
     guideByDateData,

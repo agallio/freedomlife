@@ -8,7 +8,10 @@ import Card from '../../../../components/card'
 import ListItem from '../../../../components/list-item'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../contexts/read-passage.context'
 
 // Queries
 import {
@@ -23,28 +26,28 @@ import { cn } from '../../../../utils/helpers'
 import type { PassageGuideProps } from './types'
 
 export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
-  const {
-    guided,
-    setGuidedEnable,
-    setGuidedSelectedPassage,
-    setSelectedBiblePassage,
-  } = useReadPassageContext()
+  const { guidedEnabled, setGuidedEnabled, setSelectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const guided = useReadPassageGeneralContext((state) => state.guided)
+  const { setGuidedSelectedPassage } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
 
   // Queries
   const { data: guideTodayData } = useGuideTodayQuery()
   const { data: guideByDateData } = useGuideByDateQuery({
     date: guided.date,
-    enabled: guided.enabled && guided.date !== '',
+    enabled: guidedEnabled && guided.date !== '',
   })
 
   // Memoized Values
   const computedGuideData = useMemo(() => {
-    if (guided.enabled && guided.date !== '') {
+    if (guidedEnabled && guided.date !== '') {
       return guideByDateData?.guide_bible_data || []
     }
 
     return guideTodayData?.guide_bible_data || []
-  }, [guided.enabled, guided.date, guideTodayData, guideByDateData])
+  }, [guidedEnabled, guided.date, guideTodayData, guideByDateData])
 
   // Methods
   const onPassageClick = (passage: string) => {
@@ -59,7 +62,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
 
     if (activeGuideData) {
       setSelectedBiblePassage(activeGuideData.abbr)
-      setGuidedEnable(false)
+      setGuidedEnabled(false)
       handlePassageBack(
         Platform.OS === 'web' ? activeGuideData.abbr : undefined,
       )

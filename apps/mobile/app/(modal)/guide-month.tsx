@@ -4,11 +4,16 @@ import { useRouter } from 'expo-router'
 import GuideMonthList from '@repo/app/features/guide/components/guide-month-list'
 
 // Contexts
-import { useReadPassageContext } from '@repo/app/features/read/contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '@repo/app/features/read/contexts/read-passage.context'
 
 export default function GuideMonthScreen() {
   const router = useRouter()
-  const { selectedGuideMonth, setSelectedGuideMonth } = useReadPassageContext()
+  const selectedGuideMonth = useReadPassageGeneralContext(
+    (state) => state.selectedGuideMonth,
+  )
+  const { setSelectedGuideMonth } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
 
   // Methods
   const onMonthClick = (monthString: string) => {

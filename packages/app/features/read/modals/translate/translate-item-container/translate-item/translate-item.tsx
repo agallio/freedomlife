@@ -6,7 +6,7 @@ import ListItem from '../../../../../../components/list-item'
 import TranslateItemDownloadButton from '../../translate-item-download-button'
 
 // Contexts
-import { useReadPassageContext } from '../../../../contexts/read-passage.context'
+import { useReadPassagePersistedContext } from '../../../../contexts/read-passage.context'
 
 export type TranslateItemComponentProps = {
   active: boolean
@@ -21,7 +21,7 @@ export default function TranslateItemComponent({
   disabled,
   onClick,
 }: TranslateItemComponentProps) {
-  const { guided } = useReadPassageContext()
+  const { guidedEnabled } = useReadPassagePersistedContext()
 
   return (
     <ListItem
@@ -34,7 +34,7 @@ export default function TranslateItemComponent({
           <Text>{version.name}</Text>
         </View>
 
-        {!disabled && !guided.enabled && version.key !== 'tsi' && (
+        {!disabled && !guidedEnabled && version.key !== 'tsi' && (
           <TranslateItemDownloadButton version={version} active={active} />
         )}
       </View>

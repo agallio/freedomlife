@@ -7,7 +7,10 @@ import { Text } from '../../../../components/text'
 import { SquareButton } from '../../../../components/button'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../contexts/read-passage.context'
 import { useReadPassageChapterContext } from '../../contexts/read-passage-chapter.context'
 
 // Utils
@@ -19,10 +22,16 @@ import type { PassageChapterProps } from './types'
 export default function PassageChapter({
   handlePassageChapterBack,
 }: PassageChapterProps) {
-  const { updateHighlightedText, setSelectedBiblePassage } =
-    useReadPassageContext()
-  const { dialogSelectedPassage, setSearchText } =
-    useReadPassageChapterContext()
+  const { setSelectedBiblePassage } = useReadPassagePersistedContext()
+  const { updateHighlightedText } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
+  const dialogSelectedPassage = useReadPassageChapterContext(
+    (state) => state.dialogSelectedPassage,
+  )
+  const { setSearchText } = useReadPassageChapterContext(
+    (state) => state.actions,
+  )
 
   // Memoized Values
   const passageDetailData = useMemo(() => {

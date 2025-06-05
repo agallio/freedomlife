@@ -7,7 +7,7 @@ import { Text } from '../../../components/text'
 
 // Contexts
 import { useGuideModalsContext } from '../contexts/guide-modals.context'
-import { useReadPassageContext } from '../../read/contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../read/contexts/read-passage.context'
 
 // Utils
 import dayjs from '../../../utils/dayjs'
@@ -19,7 +19,9 @@ export default function GuideMonthButton({
 }) {
   const colorScheme = useColorScheme()
   const { setOpenGuideMonth } = useGuideModalsContext()
-  const { selectedGuideMonth } = useReadPassageContext()
+  const selectedGuideMonth = useReadPassageGeneralContext(
+    (state) => state.selectedGuideMonth,
+  )
 
   return (
     <ListItem

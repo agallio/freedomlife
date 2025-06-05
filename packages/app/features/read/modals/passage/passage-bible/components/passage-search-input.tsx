@@ -25,7 +25,10 @@ export default function PassageSearchInput({
   disabled,
 }: PassageSearchInputProps) {
   const colorScheme = useColorScheme()
-  const { searchText, setSearchText } = useReadPassageChapterContext()
+  const searchText = useReadPassageChapterContext((state) => state.searchText)
+  const { setSearchText } = useReadPassageChapterContext(
+    (state) => state.actions,
+  )
 
   return (
     <View

@@ -10,7 +10,10 @@ import ReadTypographyNavigator from './components/read-typography-navigator'
 import ReadTypographyLoading from './components/read-typography-loading'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../contexts/read-passage.context'
 import { useReadLocalDatabaseWeb } from '../../local-databases/web/index.web'
 
 // Queries
@@ -29,14 +32,17 @@ export default function ReadTypography({
   redirectToBiblePassage,
   resetInvalidBibleChapter,
 }: ReadTypographyProps) {
-  const {
-    guided,
-    selectedBiblePassage,
-    selectedBibleVersion,
-    highlightedText,
-    insertHighlightedText,
-    updateHighlightedText,
-  } = useReadPassageContext()
+  const { guidedEnabled, selectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const guided = useReadPassageGeneralContext((state) => state.guided)
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
+  const { insertHighlightedText, updateHighlightedText } =
+    useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
 
   // Refs
@@ -50,7 +56,7 @@ export default function ReadTypography({
   } = useBibleByDateQuery({
     date: guided.date,
     bibleVersion: selectedBibleVersion,
-    enabled: guided.enabled,
+    enabled: guidedEnabled,
   })
   const {
     data: bibleByPassageData,
@@ -59,7 +65,7 @@ export default function ReadTypography({
   } = useBibleByPassageQuery({
     passage: selectedBiblePassage,
     bibleVersion: selectedBibleVersion,
-    enabled: !guided.enabled && selectedBiblePassage !== 'invalid',
+    enabled: !guidedEnabled && selectedBiblePassage !== 'invalid',
     localBibleData: {
       isDownloaded: downloadedData[selectedBibleVersion],
       getBibleData,
@@ -67,15 +73,15 @@ export default function ReadTypography({
   })
 
   // Constants
-  const isLoading = guided.enabled ? bibleByDateLoading : bibleByPassageLoading
-  const isError = guided.enabled
+  const isLoading = guidedEnabled ? bibleByDateLoading : bibleByPassageLoading
+  const isError = guidedEnabled
     ? bibleByDateError
     : bibleByPassageError || selectedBiblePassage === 'invalid'
 
   // Memoized Values
   const versesData = useMemo(() => {
     // Handle when not guided - basic bible reading
-    if (!guided.enabled) {
+    if (!guidedEnabled) {
       return bibleByPassageData?.data || []
     }
 
@@ -105,7 +111,7 @@ export default function ReadTypography({
     // Fallback
     return []
   }, [
-    guided.enabled,
+    guidedEnabled,
     guided.selectedPassage,
     bibleByDateData,
     bibleByPassageData,

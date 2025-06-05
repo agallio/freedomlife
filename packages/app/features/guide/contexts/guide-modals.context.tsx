@@ -51,7 +51,7 @@ export function useGuideModalsContext() {
   const value = useContext(GuideModalsContext)
 
   if (!value) {
-    throw new Error(
+    console.log(
       'useGuideModalsContext must be used within GuideModalsContextProvider',
     )
   }

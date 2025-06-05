@@ -8,7 +8,10 @@ import { Button } from '../../../components/button'
 import Skeleton from '../../../components/skeleton'
 
 // Contexts
-import { useReadPassageContext } from '../../read/contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../read/contexts/read-passage.context'
 
 // Queries
 import { useGuideTodayQuery } from '../../../hooks/use-guide-query'
@@ -27,19 +30,16 @@ type PassageCardProps = {
 export default function PassageCard({
   redirectToReadScreen,
 }: PassageCardProps) {
-  const {
-    setGuidedEnable,
-    setGuidedDate,
-    setGuidedSelectedPassage,
-    setSelectedBibleVersion,
-  } = useReadPassageContext()
+  const { setGuidedEnabled } = useReadPassagePersistedContext()
+  const { setGuidedDate, setGuidedSelectedPassage, setSelectedBibleVersion } =
+    useReadPassageGeneralContext((state) => state.actions)
 
   // Queries
   const { data, isError, isLoading } = useGuideTodayQuery()
 
   // Methods
   const onClick = async () => {
-    setGuidedEnable(true)
+    setGuidedEnabled(true)
     setGuidedDate('')
     setGuidedSelectedPassage('pl-1')
     setSelectedBibleVersion('tb')

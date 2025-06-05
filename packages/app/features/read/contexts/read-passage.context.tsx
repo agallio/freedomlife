@@ -1,111 +1,79 @@
 import {
   createContext,
-  useState,
   useContext,
+  useRef,
   useMemo,
   type PropsWithChildren,
 } from 'react'
-import { type Router } from 'next/router'
+import { useStore } from 'zustand'
+
 import { Platform } from 'react-native'
+
+// Zustand Store
+import {
+  createReadPassageStore,
+  type ReadHighlightedTextType,
+  type ReadPassageStore,
+} from './read-passage.store'
 
 // Utils
 import { passageData } from '../../../utils/constants'
-import dayjs from '../../../utils/dayjs'
 import usePersistedState from '../../../utils/hooks/use-persisted-state'
 
-// Types
-export type ReadProvidersProps = PropsWithChildren<{ router?: Router }>
+type ReadPassagePersistedContextProps = PropsWithChildren<{
+  router?: { queryChapter?: string; pathname?: string }
+}>
 
-export type ReadHighlightedTextType = { verse: number; content: string }
-
-type ReadPassageContextGuidedStateType = {
-  enabled: boolean
-  date: string
-  selectedPassage: string
-}
-
-type ReadPassageContextType = {
-  // State - Guided
-  guided: ReadPassageContextGuidedStateType
-
-  // State - General
-  highlightedText: ReadHighlightedTextType[]
-  guidesHaveBeenRead: string[]
-  selectedGuideMonth: string
-  selectedBibleVersion: string
+type ReadPassageStoreApi = ReturnType<typeof createReadPassageStore>
+type ReadPassagePersistedApi = {
+  guidedEnabled: boolean
   selectedBiblePassage: string
-
-  // Methods - Guided
-  setGuidedEnable: (_guidedEnabled: boolean) => void
-  setGuidedDate: (_guidedDate: string) => void
-  setGuidedSelectedPassage: (_guidedPassage: string) => void
-
-  // Methods - General
-  setGuidesHaveBeenRead: (_guidesHaveBeenRead: string[]) => void
-  setSelectedGuideMonth: (_guideMonth: string) => void
-  setSelectedBibleVersion: (_bibleVersion: string) => void
-  setSelectedBiblePassage: (_biblePassage: string) => void
-  insertHighlightedText: (_highlightedText: ReadHighlightedTextType) => void
-  updateHighlightedText: (_highlightedText: ReadHighlightedTextType[]) => void
-  resetHighlightedText: () => void
+  setGuidedEnabled: (_guideEnabled: boolean) => void
+  setSelectedBiblePassage: (_selectedBiblePassage: string) => void
 }
 
-const ReadPassageContext = createContext<ReadPassageContextType>({
-  // State - Guided
-  guided: {
-    enabled: false,
-    date: '',
-    selectedPassage: '',
-  },
-
-  // State - General
-  highlightedText: [],
-  guidesHaveBeenRead: [],
-  selectedGuideMonth: '',
-  selectedBibleVersion: 'tb',
-  selectedBiblePassage: '',
-
-  // Methods - Guided
-  setGuidedEnable: () => {},
-  setGuidedDate: () => {},
-  setGuidedSelectedPassage: () => {},
-
-  // Methods - General
-  setGuidesHaveBeenRead: () => {},
-  setSelectedGuideMonth: () => {},
-  setSelectedBibleVersion: () => {},
-  setSelectedBiblePassage: () => {},
-  insertHighlightedText: () => {},
-  updateHighlightedText: () => {},
-  resetHighlightedText: () => {},
-})
+const ReadPassageGeneralContext = createContext<
+  ReadPassageStoreApi | undefined
+>(undefined)
+const ReadPassagePersistedContext = createContext<
+  ReadPassagePersistedApi | undefined
+>(undefined)
 
 export function ReadPassageContextProvider({
   children,
   router,
-}: PropsWithChildren<{ router?: ReadProvidersProps['router'] }>) {
-  // States
-  const [guidedState, setGuidedState] = useState({
-    date: '',
-    selectedPassage: 'pl-1',
-  })
-  const [generalState, setGeneralState] = useState({
-    highlightedText: [] as ReadHighlightedTextType[],
-    guidesHaveBeenRead: [] as string[],
-    selectedGuideMonth: dayjs().format('MM'),
-    selectedBibleVersion: 'tb',
-    selectedBiblePassageInvalid: false,
-  })
+}: ReadPassagePersistedContextProps) {
+  // Refs
+  const readPassageStoreRef = useRef<ReadPassageStoreApi | null>(null)
+  if (readPassageStoreRef.current === null) {
+    readPassageStoreRef.current = createReadPassageStore()
+  }
 
+  return (
+    <ReadPassageGeneralContext.Provider value={readPassageStoreRef.current}>
+      <ReadPassagePersistedContextProvider router={router}>
+        {children}
+      </ReadPassagePersistedContextProvider>
+    </ReadPassageGeneralContext.Provider>
+  )
+}
+
+function ReadPassagePersistedContextProvider({
+  children,
+  router,
+}: ReadPassagePersistedContextProps) {
   // Persisted State
-  const [guidedEnable, setGuidedEnable] = usePersistedState('withGuide', false)
+  const [guidedEnabled, setGuidedEnabled] = usePersistedState(
+    'withGuide',
+    false,
+  )
   const [storedSelectedBiblePassage, setStoredSelectedBiblePassage] =
     usePersistedState('selectedBiblePassage', 'kej-1')
 
   // Constants
-  const chapterQueryParam = (router?.query.chapter as string) || 'kej-1'
+  const chapterQueryParam = router?.queryChapter || 'kej-1'
   const isWebGuided = router?.pathname === '/read'
-  const isGuidedEnable = Platform.OS === 'web' ? isWebGuided : guidedEnable
+  const isGuidedEnabled = Platform.OS === 'web' ? isWebGuided : guidedEnabled
 
   // Memoized Values
   const selectedBiblePassage = useMemo(() => {
@@ -132,84 +100,44 @@ export function ReadPassageContextProvider({
     return storedSelectedBiblePassage
   }, [chapterQueryParam, storedSelectedBiblePassage])
 
-  // Methods - Guided
-  const setGuidedDate = (date: string) =>
-    setGuidedState((prevState) => ({ ...prevState, date }))
-  const setGuidedSelectedPassage = (selectedPassage: string) =>
-    setGuidedState((prevState) => ({ ...prevState, selectedPassage }))
-
-  // Methods - General
-  const setGuidesHaveBeenRead = (guidesHaveBeenRead: string[]) =>
-    setGeneralState((prevState) => ({ ...prevState, guidesHaveBeenRead }))
-
-  const setSelectedGuideMonth = (selectedGuideMonth: string) =>
-    setGeneralState((prevState) => ({ ...prevState, selectedGuideMonth }))
-
-  const setSelectedBibleVersion = (selectedBibleVersion: string) =>
-    setGeneralState((prevState) => ({ ...prevState, selectedBibleVersion }))
-
-  const insertHighlightedText = (highlightedText: ReadHighlightedTextType) => {
-    setGeneralState((prevState) => ({
-      ...prevState,
-      highlightedText: [...prevState.highlightedText, highlightedText],
-    }))
-  }
-  const updateHighlightedText = (
-    highlightedText: ReadHighlightedTextType[],
-  ) => {
-    setGeneralState((prevState) => ({ ...prevState, highlightedText }))
-  }
-  const resetHighlightedText = () => {
-    setGeneralState((prevState) => ({ ...prevState, highlightedText: [] }))
-  }
-
   return (
-    <ReadPassageContext.Provider
+    <ReadPassagePersistedContext.Provider
       value={{
-        // State - Guided
-        guided: {
-          enabled: isGuidedEnable,
-          date: guidedState.date,
-          selectedPassage: guidedState.selectedPassage,
-        },
-
-        // State - General
-        highlightedText: generalState.highlightedText,
-        guidesHaveBeenRead: generalState.guidesHaveBeenRead,
-        selectedGuideMonth: generalState.selectedGuideMonth,
-        selectedBibleVersion: generalState.selectedBibleVersion,
+        guidedEnabled: isGuidedEnabled,
         selectedBiblePassage,
-
-        // Methods - Guided
-        setGuidedEnable,
-        setGuidedDate,
-        setGuidedSelectedPassage,
-
-        // Methods - General
-        setGuidesHaveBeenRead,
-        setSelectedGuideMonth,
-        setSelectedBibleVersion,
+        setGuidedEnabled,
         setSelectedBiblePassage: setStoredSelectedBiblePassage,
-        insertHighlightedText,
-        updateHighlightedText,
-        resetHighlightedText,
       }}
     >
       {children}
-    </ReadPassageContext.Provider>
+    </ReadPassagePersistedContext.Provider>
   )
 }
 
-export function useReadPassageContext() {
-  const value = useContext(ReadPassageContext)
+export function useReadPassagePersistedContext() {
+  const value = useContext(ReadPassagePersistedContext)
 
   if (!value) {
     throw new Error(
-      'useReadPassageContext must be used within ReadPassageContextProvider',
+      'useReadPassagePersistedContext must be used within ReadPassageContextProvider',
     )
   }
 
   return value
+}
+
+export function useReadPassageGeneralContext<T>(
+  selector: (_store: ReadPassageStore) => T,
+) {
+  const value = useContext(ReadPassageGeneralContext)
+
+  if (!value) {
+    throw new Error(
+      'useReadPassageGeneralContext must be used within ReadPassageContextProvider',
+    )
+  }
+
+  return useStore(value, selector)
 }
 
 // Utils

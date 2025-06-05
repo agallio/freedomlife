@@ -15,7 +15,10 @@ import NoInternetIcon from '../../../components/icons/no-internet-icon'
 
 // Contexts
 import { useReadLocalDatabaseMobile } from '../../read/local-databases/mobile/index.mobile'
-import { useReadPassageContext } from '../../read/contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../read/contexts/read-passage.context'
 
 /**
  * Native only! (iOS + Android)
@@ -32,8 +35,11 @@ export default function NoInternetModal({
   const colorScheme = useColorScheme()
   const { width } = useWindowDimensions()
   const { downloadedData } = useReadLocalDatabaseMobile()
-  const { setGuidedEnable, setSelectedBiblePassage, setSelectedBibleVersion } =
-    useReadPassageContext()
+  const { setGuidedEnabled, setSelectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const setSelectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.actions.setSelectedBibleVersion,
+  )
 
   // Refs
   const noInternetSheetRef = useRef<BottomSheetModal>(null)
@@ -51,7 +57,7 @@ export default function NoInternetModal({
     if (isAnyDownloadedData && firstDownloadedData) {
       noInternetSheetRef.current?.close()
       setOpenOfflineModal(false)
-      setGuidedEnable(false)
+      setGuidedEnabled(false)
       setSelectedBiblePassage('kej-1')
       setSelectedBibleVersion(firstDownloadedData as string)
       redirectToReadScreen()
