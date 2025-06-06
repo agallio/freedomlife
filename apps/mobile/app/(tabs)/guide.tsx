@@ -9,7 +9,10 @@ import GuideMonthButton from '@repo/app/features/guide/components/guide-month-bu
 import GuideList from '@repo/app/features/guide/components/guide-list'
 
 // Contexts
-import { useReadPassageContext } from '@repo/app/features/read/contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '@repo/app/features/read/contexts/read-passage.context'
 
 // Queries
 import { useGuideByMonthQuery } from '@repo/app/hooks/use-guide-query'
@@ -20,13 +23,12 @@ import dayjs from '@repo/app/utils/dayjs'
 export default function GuideScreen() {
   const colorScheme = useColorScheme()
   const router = useRouter()
-  const {
-    selectedGuideMonth,
-    setGuidedEnable,
-    setGuidedDate,
-    setGuidedSelectedPassage,
-    setSelectedBibleVersion,
-  } = useReadPassageContext()
+  const { setGuidedEnabled } = useReadPassagePersistedContext()
+  const selectedGuideMonth = useReadPassageGeneralContext(
+    (state) => state.selectedGuideMonth,
+  )
+  const { setGuidedDate, setGuidedSelectedPassage, setSelectedBibleVersion } =
+    useReadPassageGeneralContext((state) => state.actions)
 
   // States
   const [guidesHaveBeenRead, setGuidesHaveBeenRead] = useState<string[]>([])
@@ -36,7 +38,7 @@ export default function GuideScreen() {
 
   // Methods
   const onGuideClick = (date: string) => {
-    setGuidedEnable(true)
+    setGuidedEnabled(true)
     setGuidedDate(date)
     setGuidedSelectedPassage('pl-1')
     setSelectedBibleVersion('tb')

@@ -5,13 +5,15 @@ import NavbarWeb from '../../../../components/navbar.web'
 import ReadNavbarContainer from './components/item-container'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../contexts/read-passage.context'
 
 // Types
 import type { ReadNavbarProps } from './types'
 
 export default function ReadNavbar(props: ReadNavbarProps) {
-  const { highlightedText } = useReadPassageContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
 
   // Constants
   const isHighlighted = highlightedText.length > 0

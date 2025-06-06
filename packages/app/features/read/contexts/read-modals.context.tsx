@@ -81,7 +81,7 @@ export function useReadModalsContext() {
   const value = useContext(ReadModalsContext)
 
   if (!value) {
-    throw new Error(
+    console.log(
       'useReadModalsContext must be used within ReadModalsContextProvider',
     )
   }

@@ -7,7 +7,10 @@ import ReadNavbarTitle from './item-title'
 import ReadNavbarRight from './item-right'
 
 // Contexts
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../../contexts/read-passage.context'
 
 // Queries
 import {
@@ -27,8 +30,12 @@ export default function ReadNavbarContainer({
   redirectToPassageScreen,
   redirectToTranslateScreen,
 }: ReadNavbarContainerProps) {
-  const { guided, selectedBibleVersion, selectedBiblePassage } =
-    useReadPassageContext()
+  const { guidedEnabled, selectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const guided = useReadPassageGeneralContext((state) => state.guided)
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
 
   // States
   const [mounted, setMounted] = useState(false)
@@ -39,7 +46,7 @@ export default function ReadNavbarContainer({
   const { data: guideByDateData, isLoading: guideByDateLoading } =
     useGuideByDateQuery({
       date: guided.date,
-      enabled: guided.enabled && guided.date !== '',
+      enabled: guidedEnabled && guided.date !== '',
     })
 
   // Memoized Values
@@ -57,7 +64,7 @@ export default function ReadNavbarContainer({
     if (!mounted) return 'Memuat'
 
     // Handle when guided
-    if (guided.enabled) {
+    if (guidedEnabled) {
       if (isGuidedDataLoading) {
         return 'Memuat'
       }
@@ -96,6 +103,7 @@ export default function ReadNavbarContainer({
       : 'Error'
   }, [
     mounted,
+    guidedEnabled,
     guided,
     selectedBiblePassage,
     selectedBibleVersion,

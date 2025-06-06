@@ -62,15 +62,17 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   // Effects
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: '/ingest',
-      capture_pageview: 'history_change',
+    if (process.env.NODE_ENV === 'production') {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+        api_host: '/ingest',
+        capture_pageview: 'history_change',
 
-      // Enable debug mode in development
-      loaded: (posthog) => {
-        if (process.env.NODE_ENV === 'development') posthog.debug()
-      },
-    })
+        // Enable debug mode in development
+        loaded: (posthog) => {
+          if (process.env.NODE_ENV === 'development') posthog.debug()
+        },
+      })
+    }
   }, [])
 
   return (
@@ -90,7 +92,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
       <PostHogProviderWeb client={posthog}>
         <QueryProvider>
-          <ReadProviders router={router}>
+          <ReadProviders
+            router={{
+              queryChapter: router.query.chapter as string,
+              pathname: router.pathname,
+            }}
+          >
             <main className="antialiased">
               <Component {...pageProps} />
 

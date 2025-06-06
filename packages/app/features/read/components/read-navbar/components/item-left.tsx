@@ -6,7 +6,7 @@ import { IconButton } from '../../../../../components/button'
 
 // Contexts
 import { useReadModalsContext } from '../../../contexts/read-modals.context'
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
 
 // Utils
 import { getIconColor } from '../../../../../utils/helpers'
@@ -22,7 +22,12 @@ export default function ReadNavbarLeft({
 }: ReadNavbarLeftProps) {
   const colorScheme = useColorScheme()
   const { setOpenTranslate } = useReadModalsContext()
-  const { highlightedText, updateHighlightedText } = useReadPassageContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
+  const { updateHighlightedText } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
 
   // Constants
   const isHighlighted = highlightedText.length > 0

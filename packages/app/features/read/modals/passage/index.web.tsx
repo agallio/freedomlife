@@ -11,7 +11,7 @@ import PassageSearchInput from './passage-bible/components/passage-search-input'
 
 // Contexts
 import { useReadModalsContext } from '../../contexts/read-modals.context'
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import { useReadPassagePersistedContext } from '../../contexts/read-passage.context'
 import { useReadPassageChapterContext } from '../../contexts/read-passage-chapter.context'
 
 // Types
@@ -24,9 +24,9 @@ export default function PassageModal(props: PassageModalProps) {
     setOpenPassage,
     setOpenPassageChapter,
   } = useReadModalsContext()
-  const { guided } = useReadPassageContext()
+  const { guidedEnabled } = useReadPassagePersistedContext()
   const { setSearchText, setDialogSelectedPassage } =
-    useReadPassageChapterContext()
+    useReadPassageChapterContext((state) => state.actions)
 
   return (
     <Drawer
@@ -40,7 +40,7 @@ export default function PassageModal(props: PassageModalProps) {
         }
       }}
       dismissible={openPassage && !openPassageChapter}
-      title={guided.enabled ? 'Pilih Panduan Baca' : 'Pilih Kitab & Pasal'}
+      title={guidedEnabled ? 'Pilih Panduan Baca' : 'Pilih Kitab & Pasal'}
       backButton={
         openPassageChapter ? (
           <IconButton
@@ -55,7 +55,7 @@ export default function PassageModal(props: PassageModalProps) {
         ) : undefined
       }
       searchInput={
-        !guided.enabled ? (
+        !guidedEnabled ? (
           <PassageSearchInput disabled={openPassageChapter} />
         ) : undefined
       }
@@ -71,7 +71,7 @@ export default function PassageModal(props: PassageModalProps) {
           />
         </MotiView>
       ) : (
-        <PassageContainer {...props} guided={guided.enabled} />
+        <PassageContainer {...props} guided={guidedEnabled} />
       )}
     </Drawer>
   )

@@ -4,7 +4,7 @@ import { View, useColorScheme } from 'react-native'
 import ReadNavbarContainer from './components/item-container'
 
 // Contexts
-import { useReadPassageContext } from '../../contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../contexts/read-passage.context'
 
 // Utils
 import { useSafeArea } from '../../../../utils/hooks/use-safe-area'
@@ -16,7 +16,9 @@ import type { ReadNavbarProps } from './types'
 export default function ReadNavbar(props: ReadNavbarProps) {
   const { top } = useSafeArea()
   const colorScheme = useColorScheme()
-  const { highlightedText } = useReadPassageContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
 
   // Constants
   const isHighlighted = highlightedText.length > 0

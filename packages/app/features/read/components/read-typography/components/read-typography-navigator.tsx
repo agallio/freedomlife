@@ -12,7 +12,10 @@ import { Button, IconButton } from '../../../../../components/button'
 import { ToasterWebComponent } from '../../../../../components/toaster-container.web'
 
 // Contexts
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../../contexts/read-passage.context'
 
 // Utils
 import { passageData, tsiAbbrs } from '../../../../../utils/constants'
@@ -35,21 +38,21 @@ export default function ReadTypographyNavigator({
   redirectToBiblePassage: ReadTypographyProps['redirectToBiblePassage']
 }) {
   const colorScheme = useColorScheme()
-  const {
-    guided,
-    selectedBiblePassage,
-    selectedBibleVersion,
-    setGuidedSelectedPassage,
-    setSelectedBiblePassage,
-    updateHighlightedText,
-  } = useReadPassageContext()
+  const { guidedEnabled, selectedBiblePassage, setSelectedBiblePassage } =
+    useReadPassagePersistedContext()
+  const guided = useReadPassageGeneralContext((state) => state.guided)
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const { setGuidedSelectedPassage, updateHighlightedText } =
+    useReadPassageGeneralContext((state) => state.actions)
 
   // Constants
   const color = getIconColor(colorScheme)
 
   // Memoized Values
   const guidePassageIndex = useMemo(() => {
-    if (guided.enabled) {
+    if (guidedEnabled) {
       return passageArray.findIndex(
         (passage) => passage === guided.selectedPassage,
       )
@@ -57,23 +60,23 @@ export default function ReadTypographyNavigator({
 
     // Make it more than -1, since -1 is reserved by `.findIndex()`.
     return -2
-  }, [passageArray, guided.enabled, guided.selectedPassage])
+  }, [passageArray, guidedEnabled, guided.selectedPassage])
 
   const showPreviousButton = useMemo(() => {
-    if (guided.enabled) {
+    if (guidedEnabled) {
       return guidePassageIndex > 0
     }
 
     return selectedBiblePassage !== 'kej-1'
-  }, [guidePassageIndex, guided.enabled, selectedBiblePassage])
+  }, [guidePassageIndex, guidedEnabled, selectedBiblePassage])
 
   const showNextButton = useMemo(() => {
-    if (guided.enabled) {
+    if (guidedEnabled) {
       return guidePassageIndex !== passageArray!.length - 1
     }
 
     return selectedBiblePassage !== 'why-22'
-  }, [passageArray, guidePassageIndex, guided.enabled, selectedBiblePassage])
+  }, [passageArray, guidePassageIndex, guidedEnabled, selectedBiblePassage])
 
   // Methods
   const scrollToTop = () => {
@@ -93,7 +96,7 @@ export default function ReadTypographyNavigator({
   const onPreviousPassage = () => {
     updateHighlightedText([])
 
-    if (guided.enabled) {
+    if (guidedEnabled) {
       if (guidePassageIndex <= 0) return
 
       scrollToTop()
@@ -129,7 +132,7 @@ export default function ReadTypographyNavigator({
   const onNextPassage = () => {
     updateHighlightedText([])
 
-    if (guided.enabled) {
+    if (guidedEnabled) {
       if (
         guidePassageIndex >= 0 &&
         guidePassageIndex < passageArray!.length - 1
@@ -235,7 +238,7 @@ export default function ReadTypographyNavigator({
         )}
       </View>
 
-      {guided.enabled && guided.date !== '' && (
+      {guidedEnabled && guided.date !== '' && (
         <View
           className={cn(
             Platform.OS === 'web' &&

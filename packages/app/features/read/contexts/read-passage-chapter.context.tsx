@@ -1,47 +1,46 @@
 import {
   createContext,
   useContext,
-  useState,
-  type Dispatch,
+  useRef,
   type PropsWithChildren,
-  type SetStateAction,
 } from 'react'
+import { useStore } from 'zustand'
 
-type ReadPassageChapterContextType = {
-  searchText: string
-  dialogSelectedPassage: string
-  setSearchText: Dispatch<SetStateAction<string>>
-  setDialogSelectedPassage: Dispatch<SetStateAction<string>>
-}
+// Zustand Store
+import {
+  createReadPassageChapterStore,
+  type ReadPassageChapterStore,
+} from './read-passage-chapter.store'
 
-const ReadPassageChapterContext = createContext<ReadPassageChapterContextType>({
-  searchText: '',
-  dialogSelectedPassage: '',
-  setSearchText: () => {},
-  setDialogSelectedPassage: () => {},
-})
+type ReadPassageChapterContextType = ReturnType<
+  typeof createReadPassageChapterStore
+>
+
+const ReadPassageChapterContext = createContext<
+  ReadPassageChapterContextType | undefined
+>(undefined)
 
 export function ReadPassageChapterContextProvider({
   children,
 }: PropsWithChildren) {
-  const [searchText, setSearchText] = useState('')
-  const [dialogSelectedPassage, setDialogSelectedPassage] = useState('')
+  const readPassageChapterStoreRef =
+    useRef<ReadPassageChapterContextType | null>(null)
+  if (readPassageChapterStoreRef.current === null) {
+    readPassageChapterStoreRef.current = createReadPassageChapterStore()
+  }
 
   return (
     <ReadPassageChapterContext.Provider
-      value={{
-        searchText,
-        dialogSelectedPassage,
-        setSearchText,
-        setDialogSelectedPassage,
-      }}
+      value={readPassageChapterStoreRef.current}
     >
       {children}
     </ReadPassageChapterContext.Provider>
   )
 }
 
-export function useReadPassageChapterContext() {
+export function useReadPassageChapterContext<T>(
+  selector: (_store: ReadPassageChapterStore) => T,
+) {
   const value = useContext(ReadPassageChapterContext)
 
   if (!value) {
@@ -50,5 +49,5 @@ export function useReadPassageChapterContext() {
     )
   }
 
-  return value
+  return useStore(value, selector)
 }

@@ -8,7 +8,7 @@ import ItemRightIcon from './item-right-icon'
 // Contexts
 import {
   generateTextToCopy,
-  useReadPassageContext,
+  useReadPassageGeneralContext,
 } from '../../../../contexts/read-passage.context'
 import { useSettingSheetContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.mobile'
 
@@ -21,8 +21,15 @@ export default function ReadNavbarRight({
   cleanPassageName,
 }: ReadNavbarRightProps) {
   const colorScheme = useColorScheme()
-  const { highlightedText, selectedBibleVersion, updateHighlightedText } =
-    useReadPassageContext()
+  const highlightedText = useReadPassageGeneralContext(
+    (state) => state.highlightedText,
+  )
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const { updateHighlightedText } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
   const { showSheet } = useSettingSheetContext()
 
   // Constants

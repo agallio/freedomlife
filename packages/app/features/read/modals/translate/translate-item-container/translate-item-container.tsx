@@ -6,7 +6,7 @@ import { Header } from '../../../../../components/text'
 import TranslateItem from './translate-item'
 
 // Contexts
-import { useReadPassageContext } from '../../../contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
 
 // Utils
 import { type BibleTranslationItemType } from '../../../../../utils/constants'
@@ -28,8 +28,12 @@ function TranslateItemContainer({
   isLoading,
   handleBack,
 }: TranslateItemContainerProps) {
-  const { selectedBibleVersion, setSelectedBibleVersion } =
-    useReadPassageContext()
+  const selectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.selectedBibleVersion,
+  )
+  const { setSelectedBibleVersion } = useReadPassageGeneralContext(
+    (state) => state.actions,
+  )
   const { captureEvent } = useEventTrackingContext()
 
   const onTranslateClick = (selectedBibleVersion: string) => {

@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { BottomTabItem } from './bottom-tab-item'
 
 // Contexts
-import { useReadPassageContext } from '../../features/read/contexts/read-passage.context'
+import { useReadPassageGeneralContext } from '../../features/read/contexts/read-passage.context'
 
 // Types
 import type { BottomTabProps } from './types'
@@ -45,7 +45,9 @@ function BottomTabContainer({
   route: AvailableRoute
   webRouterPush?: BottomTabProps['webRouterPush']
 }) {
-  const { resetHighlightedText } = useReadPassageContext()
+  const resetHighlightedText = useReadPassageGeneralContext(
+    (state) => state.actions.resetHighlightedText,
+  )
 
   // Methods
   const onPress = async () => {
