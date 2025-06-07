@@ -8,7 +8,7 @@ export interface JumpResult {
 
 export function detectPassageJump(searchText: string): JumpResult | null {
   // Must be exactly 2 parts: abbreviation and chapter
-  const parts = searchText.trim().split(' ')
+  const parts = searchText.toLowerCase().trim().split(' ')
 
   if (parts.length !== 2) return null
 

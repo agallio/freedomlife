@@ -107,17 +107,25 @@ export default function PassageBible({
       transition={{ type: 'timing', duration: 200 }}
     >
       <View className="gap-2">
-        {filteredPassageData.map((passage) => (
-          <PassageBibleItem
-            key={passage.abbr}
-            abbr={passage.abbr}
-            name={passage.name}
-            selectedBibleVersion={selectedBibleVersion}
-            onClick={onClick}
-            isJumpResult={passage.isJumpResult}
-            chapter={passage.passage}
-          />
-        ))}
+        {searchText.length > 0 && filteredPassageData.length === 0 ? (
+          <View className="flex-1 items-center justify-center py-4">
+            <Text className="text-center">
+              Tidak ada hasil untuk &quot;{searchText}&quot;
+            </Text>
+          </View>
+        ) : (
+          filteredPassageData.map((passage) => (
+            <PassageBibleItem
+              key={passage.abbr}
+              abbr={passage.abbr}
+              name={passage.name}
+              selectedBibleVersion={selectedBibleVersion}
+              onClick={onClick}
+              isJumpResult={passage.isJumpResult}
+              chapter={passage.passage}
+            />
+          ))
+        )}
       </View>
     </MotiView>
   )
