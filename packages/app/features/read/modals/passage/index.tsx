@@ -26,6 +26,7 @@ export default function PassageModal({
 
   return (
     <PassageBible
+      handlePassageBack={handlePassageBack}
       redirectToPassageChapterScreen={redirectToPassageChapterScreen}
     />
   )

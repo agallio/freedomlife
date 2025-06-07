@@ -1,6 +1,8 @@
 import { Platform, TextInput, View, useColorScheme } from 'react-native'
+import { useMemo, useState } from 'react'
 import { BackspaceIcon } from 'react-native-heroicons/outline'
 import { MagnifyingGlassIcon } from 'react-native-heroicons/solid'
+import debounce from 'lodash.debounce'
 
 // Components
 import { IconButton } from '../../../../../../components/button'
@@ -25,10 +27,33 @@ export default function PassageSearchInput({
   disabled,
 }: PassageSearchInputProps) {
   const colorScheme = useColorScheme()
-  const searchText = useReadPassageChapterContext((state) => state.searchText)
+  const globalSearchText = useReadPassageChapterContext(
+    (state) => state.searchText,
+  )
   const { setSearchText } = useReadPassageChapterContext(
     (state) => state.actions,
   )
+
+  // States
+  const [localSearchText, setLocalSearchText] = useState(globalSearchText)
+
+  // Memoized Values
+  const debouncedSearch = useMemo(
+    () => debounce(setSearchText, 300),
+    [setSearchText],
+  )
+
+  // Methods
+  const handleTextChange = (text: string) => {
+    setLocalSearchText(text)
+    debouncedSearch(text)
+  }
+
+  const handleClear = () => {
+    setLocalSearchText('')
+    setSearchText('')
+    debouncedSearch.cancel()
+  }
 
   return (
     <View
@@ -54,11 +79,11 @@ export default function PassageSearchInput({
 
       <TextInput
         allowFontScaling={false}
-        value={searchText}
+        value={localSearchText}
         editable={!disabled}
         selectTextOnFocus={!disabled}
         contextMenuHidden={disabled}
-        onChangeText={setSearchText}
+        onChangeText={handleTextChange}
         placeholder="Cari Kitab ..."
         className={cn(
           'flex-1 text-emerald-900 dark:text-white',
@@ -70,7 +95,7 @@ export default function PassageSearchInput({
         style={Platform.OS !== 'web' ? { fontSize: 16 } : undefined}
       />
 
-      {searchText !== '' && (
+      {localSearchText !== '' && (
         <View className="pl-2 pr-1">
           <IconButton
             size="sm"
@@ -89,7 +114,7 @@ export default function PassageSearchInput({
                 }
               />
             }
-            onClick={() => setSearchText('')}
+            onClick={handleClear}
           />
         </View>
       )}
