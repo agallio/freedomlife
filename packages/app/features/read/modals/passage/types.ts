@@ -6,9 +6,9 @@ export type PassageModalProps = {
 
 export type PassageGuideProps = Pick<PassageModalProps, 'handlePassageBack'>
 
-export type PassageBibleProps = Pick<
+export type PassageBibleProps = Omit<
   PassageModalProps,
-  'redirectToPassageChapterScreen'
+  'handlePassageChapterBack'
 >
 
 export type PassageChapterProps = Pick<

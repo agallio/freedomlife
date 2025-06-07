@@ -88,6 +88,7 @@ function PassageContainer({
 
   return (
     <PassageBible
+      handlePassageBack={handlePassageBack}
       redirectToPassageChapterScreen={redirectToPassageChapterScreen}
     />
   )
