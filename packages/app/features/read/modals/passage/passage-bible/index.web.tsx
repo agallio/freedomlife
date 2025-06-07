@@ -148,12 +148,9 @@ function PassageBibleItem({
 }) {
   // Memoized Values
   const disabled = useMemo(() => {
-    // Jump results are never disabled
-    if (isJumpResult) return false
-
     const tsiAbbrLookupSet = new Set(tsiAbbrs)
     return selectedBibleVersion === 'tsi' && !tsiAbbrLookupSet.has(abbr)
-  }, [abbr, selectedBibleVersion, isJumpResult])
+  }, [abbr, selectedBibleVersion])
 
   return (
     <ListItem
