@@ -4,14 +4,14 @@ import { memo, useMemo } from 'react'
 import TranslateItemComponent from './translate-item'
 
 // Contexts
-import { useNetworkConnectionContext } from '../../../../../../providers/network'
+import { useNetworkConnectionMobileContext } from '../../../../../../providers/network'
 import { useReadLocalDatabaseMobile } from '../../../../local-databases/mobile/index.mobile'
 
 // Types
 import type { TranslateItemProps } from './types'
 
 function TranslateItem(props: TranslateItemProps) {
-  const { isOffline } = useNetworkConnectionContext()
+  const { isOffline } = useNetworkConnectionMobileContext()
   const { downloadedData } = useReadLocalDatabaseMobile()
 
   // Constants

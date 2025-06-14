@@ -26,17 +26,17 @@ import { Text } from '../../components/text'
 // Screen
 import SettingScreen from '../../features/read/modals/setting'
 
-type SettingSheetContextType = {
+type SettingSheetMobileContextType = {
   showSheet: () => void
   dismiss: () => void
 }
 
-const SettingSheetContext = createContext<SettingSheetContextType>({
+const SettingSheetMobileContext = createContext<SettingSheetMobileContextType>({
   showSheet: () => {},
   dismiss: () => {},
 })
 
-export function SettingSheetProvider({ children }: PropsWithChildren) {
+export function SettingSheetMobileProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { dismiss } = useBottomSheetModal()
   const { width } = useWindowDimensions()
@@ -50,7 +50,7 @@ export function SettingSheetProvider({ children }: PropsWithChildren) {
   }, [])
 
   return (
-    <SettingSheetContext.Provider value={{ showSheet, dismiss }}>
+    <SettingSheetMobileContext.Provider value={{ showSheet, dismiss }}>
       {children}
 
       <BottomSheetModal
@@ -104,16 +104,16 @@ export function SettingSheetProvider({ children }: PropsWithChildren) {
           <SettingScreen />
         </BottomSheetView>
       </BottomSheetModal>
-    </SettingSheetContext.Provider>
+    </SettingSheetMobileContext.Provider>
   )
 }
 
-export function useSettingSheetContext() {
-  const value = useContext(SettingSheetContext)
+export function useSettingSheetMobileContext() {
+  const value = useContext(SettingSheetMobileContext)
 
   if (!value && process.env.NODE_ENV === 'development') {
     console.log(
-      'useSettingSheetContext must be used within SettingSheetProvider',
+      'useSettingSheetMobileContext must be used within SettingSheetMobileProvider',
     )
   }
 

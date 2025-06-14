@@ -26,11 +26,11 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 // Contexts
 import PostHogProviderNative from '../providers/posthog.provider.mobile'
-import { NetworkConnectionNativeProvider } from '@repo/app/providers/network'
+import { NetworkConnectionMobileProvider } from '@repo/app/providers/network'
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
 import { ReadLocalDatabaseMobileProvider } from '@repo/app/features/read/local-databases/mobile/index.mobile'
-import { SettingSheetProvider } from '@repo/app/providers/bottom-sheet/setting-bottom-sheet.mobile'
+import { SheetsMobileProvider } from '@repo/app/providers/bottom-sheet/index.mobile'
 import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
 
 // Queries
@@ -155,10 +155,10 @@ function RootLayoutComponent() {
     <ReadLocalDatabaseMobileProvider>
       <ReadProviders>
         <BottomSheetModalProvider>
-          <NetworkConnectionNativeProvider
+          <NetworkConnectionMobileProvider
             redirectToReadScreen={redirectToReadScreen}
           >
-            <SettingSheetProvider>
+            <SheetsMobileProvider>
               <FeatureFlagsProvider
                 featureFlags={{
                   feature_tsi_translation: {
@@ -254,8 +254,8 @@ function RootLayoutComponent() {
                   </Stack>
                 </ThemeProvider>
               </FeatureFlagsProvider>
-            </SettingSheetProvider>
-          </NetworkConnectionNativeProvider>
+            </SheetsMobileProvider>
+          </NetworkConnectionMobileProvider>
         </BottomSheetModalProvider>
       </ReadProviders>
     </ReadLocalDatabaseMobileProvider>

@@ -6,7 +6,7 @@ import * as Burnt from 'burnt'
 import { BottomTabItem } from './bottom-tab-item'
 
 // Contexts
-import { useNetworkConnectionContext } from '../../providers/network'
+import { useNetworkConnectionMobileContext } from '../../providers/network'
 
 // Types
 import type { BottomTabProps } from './types'
@@ -16,7 +16,7 @@ export default function BottomTab({
   descriptors,
   navigation,
 }: BottomTabProps) {
-  const { isOffline } = useNetworkConnectionContext()
+  const { isOffline } = useNetworkConnectionMobileContext()
 
   return (
     <View

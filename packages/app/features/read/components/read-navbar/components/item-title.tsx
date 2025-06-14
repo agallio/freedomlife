@@ -6,7 +6,7 @@ import { Button } from '../../../../../components/button'
 import { Text } from '../../../../../components/text'
 
 // Contexts
-import { useReadModalsContext } from '../../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../../contexts/read-modals.context.web'
 import {
   useReadPassageGeneralContext,
   useReadPassagePersistedContext,
@@ -25,7 +25,7 @@ export default function ReadNavbarTitle({
   redirectToPassageScreen,
 }: ReadNavbarTitleProps) {
   const colorScheme = useColorScheme()
-  const { setOpenPassage } = useReadModalsContext()
+  const { setOpenPassage } = useReadModalsWebContext()
   const { guidedEnabled } = useReadPassagePersistedContext()
   const highlightedText = useReadPassageGeneralContext(
     (state) => state.highlightedText,

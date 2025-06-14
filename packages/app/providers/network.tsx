@@ -13,7 +13,7 @@ import { onlineManager } from '@tanstack/react-query'
 // Components
 import NoInternetModal from '../features/home/components/no-internet.mobile'
 
-const NetworkConnectionContext = createContext<{
+const NetworkConnectionMobileContext = createContext<{
   isOffline: boolean
   setIsOffline: Dispatch<SetStateAction<boolean>>
 }>({
@@ -24,7 +24,7 @@ const NetworkConnectionContext = createContext<{
 /**
  * App only! (iOS + Android)
  */
-export function NetworkConnectionNativeProvider({
+export function NetworkConnectionMobileProvider({
   children,
   redirectToReadScreen,
 }: PropsWithChildren<{ redirectToReadScreen: () => void }>) {
@@ -49,7 +49,9 @@ export function NetworkConnectionNativeProvider({
   }, [])
 
   return (
-    <NetworkConnectionContext.Provider value={{ isOffline, setIsOffline }}>
+    <NetworkConnectionMobileContext.Provider
+      value={{ isOffline, setIsOffline }}
+    >
       {children}
 
       <NoInternetModal
@@ -57,16 +59,16 @@ export function NetworkConnectionNativeProvider({
         setOpenOfflineModal={setOpenOfflineModal}
         redirectToReadScreen={redirectToReadScreen}
       />
-    </NetworkConnectionContext.Provider>
+    </NetworkConnectionMobileContext.Provider>
   )
 }
 
-export function useNetworkConnectionContext() {
-  const value = useContext(NetworkConnectionContext)
+export function useNetworkConnectionMobileContext() {
+  const value = useContext(NetworkConnectionMobileContext)
 
   if (!value) {
     throw new Error(
-      'useNetworkConnectionContext must be used within a NetworkConnectionNativeProvider',
+      'useNetworkConnectionMobileContext must be used within a NetworkConnectionMobileProvider',
     )
   }
 

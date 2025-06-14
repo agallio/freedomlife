@@ -1,17 +1,14 @@
-import type {
-  Dispatch,
-  PropsWithChildren,
-  ReactNode,
-  SetStateAction,
-} from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 
 export type DrawerProps = PropsWithChildren<{
   open: boolean
   title: string
-  size?: 'small' | 'base'
+  size?: 'small' | 'base' | 'saver'
+  maxWidth?: 'small' | 'full'
+  isModal?: boolean
   dismissible?: boolean
   fixedHeight?: boolean
   backButton?: ReactNode
   searchInput?: ReactNode
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen: (_open: boolean) => void
 }>

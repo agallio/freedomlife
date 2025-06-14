@@ -167,3 +167,72 @@ export const apiUrl =
     : apiEnv === 'local'
       ? 'http://192.168.1.5:3000'
       : 'https://freedomlife.id'
+
+export const highlighterColors = {
+  yellow: {
+    color: 'bg-yellow-300 dark:bg-yellow-700',
+    textColor: 'text-gray-900 dark:text-white',
+    hoverColor: 'hover:bg-yellow-400 dark:hover:bg-yellow-800',
+    iconColor: {
+      light: '#000000',
+      dark: '#ffffff',
+    },
+    accessibility: {
+      label: 'Sorot dengan warna kuning',
+      hint: 'Tekan untuk menyorot ayat dengan warna kuning',
+    },
+  },
+  blue: {
+    color: 'bg-blue-300 dark:bg-sky-800',
+    textColor: 'text-gray-900 dark:text-white',
+    hoverColor: 'hover:bg-blue-400 dark:hover:bg-sky-700',
+    iconColor: {
+      light: '#000000',
+      dark: '#ffffff',
+    },
+    accessibility: {
+      label: 'Sorot dengan warna biru',
+      hint: 'Tekan untuk menyorot ayat dengan warna biru',
+    },
+  },
+  emerald: {
+    color: 'bg-emerald-300 dark:bg-emerald-800',
+    textColor: 'text-gray-900 dark:text-white',
+    hoverColor: 'hover:bg-emerald-400 dark:hover:bg-emerald-700',
+    iconColor: {
+      light: '#000000',
+      dark: '#ffffff',
+    },
+    accessibility: {
+      label: 'Sorot dengan warna hijau',
+      hint: 'Tekan untuk menyorot ayat dengan warna hijau',
+    },
+  },
+  neutral: {
+    color: 'bg-gray-800 dark:bg-gray-200',
+    textColor: 'text-white dark:text-gray-900',
+    hoverColor: 'hover:bg-gray-700 dark:hover:bg-gray-300',
+    iconColor: {
+      light: '#ffffff',
+      dark: '#000000',
+    },
+    accessibility: {
+      label: 'Sorot dengan warna abu-abu',
+      hint: 'Tekan untuk menyorot ayat dengan warna abu-abu',
+    },
+  },
+  bookmark: {
+    color:
+      'bg-white dark:bg-gray-700 border border-gray-400/50 dark:border-gray-600',
+    textColor: 'text-gray-900 dark:text-white',
+    hoverColor: 'hover:bg-gray-400 dark:hover:bg-gray-600',
+    iconColor: {
+      light: '#000000',
+      dark: '#ffffff',
+    },
+    accessibility: {
+      label: 'Tandai sebagai bookmark',
+      hint: 'Tekan untuk menandai ayat sebagai bookmark',
+    },
+  },
+}

@@ -1,33 +1,16 @@
-import { Platform } from 'react-native'
-import * as Burnt from 'burnt'
-import { CheckCircleIcon } from 'react-native-heroicons/outline'
+import { Platform, View } from 'react-native'
 
 // Components
 import ItemRightIcon from './item-right-icon'
-import { ToasterWebComponent } from '../../../../../../components/toaster-container.web'
 
 // Contexts
-import { useReadModalsContext } from '../../../../contexts/read-modals.context'
-import {
-  generateTextToCopy,
-  useReadPassageGeneralContext,
-} from '../../../../contexts/read-passage.context'
+import { useReadModalsWebContext } from '../../../../contexts/read-modals.context.web'
+import { useReadPassageGeneralContext } from '../../../../contexts/read-passage.context'
 
-// Types
-import type { ReadNavbarRightProps } from '.'
-
-export default function ReadNavbarRight({
-  cleanPassageName,
-}: ReadNavbarRightProps) {
-  const { setOpenSetting } = useReadModalsContext()
+export default function ReadNavbarRight() {
+  const { setOpenSetting } = useReadModalsWebContext()
   const highlightedText = useReadPassageGeneralContext(
     (state) => state.highlightedText,
-  )
-  const selectedBibleVersion = useReadPassageGeneralContext(
-    (state) => state.selectedBibleVersion,
-  )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
-    (state) => state.actions,
   )
 
   // Constants
@@ -40,45 +23,7 @@ export default function ReadNavbarRight({
     }
   }
 
-  const onCopyClick = async () => {
-    if (Platform.OS === 'web') {
-      const textToCopy = generateTextToCopy(
-        highlightedText,
-        selectedBibleVersion,
-        cleanPassageName,
-      )
+  if (isHighlighted) return <View className="h-[28px] w-[28px]" />
 
-      try {
-        await navigator.clipboard.writeText(textToCopy)
-        updateHighlightedText([])
-
-        Burnt.toast({
-          preset: 'done',
-          duration: 1.5,
-          // @ts-ignore: burnt typing issue
-          title: (
-            <ToasterWebComponent
-              icon={
-                <CheckCircleIcon
-                  size={26}
-                  className="text-emerald-900 dark:text-white"
-                />
-              }
-              title="Ayat Tersalin!"
-            />
-          ),
-        })
-      } catch (err) {
-        console.error('Failed to copy: ', err)
-      }
-    }
-  }
-
-  return (
-    <ItemRightIcon
-      isHighlighted={isHighlighted}
-      onCopyClick={onCopyClick}
-      onSettingClick={onSettingClick}
-    />
-  )
+  return <ItemRightIcon onSettingClick={onSettingClick} />
 }

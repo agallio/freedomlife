@@ -5,7 +5,7 @@ import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 import { IconButton } from '../../../../../components/button'
 
 // Contexts
-import { useReadModalsContext } from '../../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../../contexts/read-modals.context.web'
 import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
 
 // Utils
@@ -21,7 +21,7 @@ export default function ReadNavbarLeft({
   redirectToTranslateScreen,
 }: ReadNavbarLeftProps) {
   const colorScheme = useColorScheme()
-  const { setOpenTranslate } = useReadModalsContext()
+  const { setOpenSaver, setOpenTranslate } = useReadModalsWebContext()
   const highlightedText = useReadPassageGeneralContext(
     (state) => state.highlightedText,
   )
@@ -44,6 +44,10 @@ export default function ReadNavbarLeft({
   }
 
   const onResetHighlightClick = () => {
+    if (Platform.OS === 'web') {
+      setOpenSaver(false)
+    }
+
     updateHighlightedText([])
   }
 

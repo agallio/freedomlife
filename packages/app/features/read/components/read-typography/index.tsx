@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   FlatList,
   Platform,
@@ -20,6 +20,7 @@ import {
   useReadPassagePersistedContext,
 } from '../../contexts/read-passage.context'
 import { useReadLocalDatabaseMobile } from '../../local-databases/mobile/index.mobile'
+import { useSaverSheetStoreMobileContext } from '../../../../providers/bottom-sheet/saver-bottom-sheet/saver-bottom-sheet.mobile'
 
 // Queries
 import {
@@ -48,6 +49,9 @@ export default function ReadTypography({
   const { insertHighlightedText, updateHighlightedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseMobile()
+  const saverSheetOpen = useSaverSheetStoreMobileContext(
+    (state) => state.saverSheetOpen,
+  )
 
   // Refs
   const bibleTypographyRef = useRef<FlatList>(null)
@@ -119,18 +123,72 @@ export default function ReadTypography({
     bibleByPassageData,
   ])
 
+  const passageData = useMemo(() => {
+    // Return: `${book} ${chapter}`
+    // Example: `Kejadian 1`
+    // Fallback: ''
+
+    // Handle when guided
+    if (guidedEnabled) {
+      if (guided.selectedPassage.includes('pl')) {
+        const bibleByDateDataPL = bibleByDateData?.pl.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataPL
+          ? `${bibleByDateDataPL.book} ${bibleByDateDataPL.chapter}`
+          : ''
+      }
+      if (guided.selectedPassage.includes('pb')) {
+        const bibleByDateDataPB = bibleByDateData?.pb.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataPB
+          ? `${bibleByDateDataPB.book} ${bibleByDateDataPB.chapter}`
+          : ''
+      }
+      if (guided.selectedPassage.includes('in')) {
+        const bibleByDateDataIN = bibleByDateData?.in.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataIN
+          ? `${bibleByDateDataIN.book} ${bibleByDateDataIN.chapter}`
+          : ''
+      }
+    }
+
+    // Handle when not guided
+    return bibleByPassageData
+      ? `${bibleByPassageData.book} ${bibleByPassageData.chapter}`
+      : ''
+  }, [
+    guidedEnabled,
+    guided.selectedPassage,
+    bibleByDateData,
+    bibleByPassageData,
+  ])
+
   // Methods
   const nativeScrollToTop = () => {
     bibleTypographyRef!.current?.scrollToIndex({ index: 0, viewOffset: 15 })
   }
 
-  const onVerseClick = (content: string, verse: number) => {
-    if (highlightedText.find((i) => i.verse === verse)) {
-      updateHighlightedText(highlightedText.filter((i) => i.verse !== verse))
-    } else {
-      insertHighlightedText({ verse, content })
-    }
-  }
+  const onVerseClick = useCallback(
+    (content: string, verse: number) => {
+      if (highlightedText.find((i) => i.verse === verse)) {
+        const filteredHighlightedText = highlightedText.filter(
+          (i) => i.verse !== verse,
+        )
+
+        updateHighlightedText(filteredHighlightedText)
+      } else {
+        insertHighlightedText({ passage: passageData, verse, content })
+      }
+    },
+    [highlightedText, passageData],
+  )
 
   const onMomentumScrollEnd = async ({
     nativeEvent: { layoutMeasurement, contentOffset, contentSize },
@@ -209,7 +267,10 @@ export default function ReadTypography({
             onClick={onVerseClick}
           />
         )}
-        contentContainerClassName="pb-44 sm:px-8 sm:gap-1"
+        contentContainerClassName="sm:px-8 sm:gap-1"
+        contentContainerStyle={{
+          paddingBottom: saverSheetOpen ? 310 : 176,
+        }}
       />
 
       <ReadTypographyNavigator

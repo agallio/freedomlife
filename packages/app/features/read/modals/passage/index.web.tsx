@@ -10,7 +10,7 @@ import PassageBible from './passage-bible'
 import PassageSearchInput from './passage-bible/components/passage-search-input'
 
 // Contexts
-import { useReadModalsContext } from '../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../contexts/read-modals.context.web'
 import { useReadPassagePersistedContext } from '../../contexts/read-passage.context'
 import { useReadPassageChapterContext } from '../../contexts/read-passage-chapter.context'
 
@@ -23,7 +23,7 @@ export default function PassageModal(props: PassageModalProps) {
     openPassageChapter,
     setOpenPassage,
     setOpenPassageChapter,
-  } = useReadModalsContext()
+  } = useReadModalsWebContext()
   const { guidedEnabled } = useReadPassagePersistedContext()
   const { setSearchText, setDialogSelectedPassage } =
     useReadPassageChapterContext((state) => state.actions)

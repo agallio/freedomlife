@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 
 // Contexts
-import { ReadModalsContextProvider } from './read-modals.context'
+import { ReadModalsWebContextProvider } from './read-modals.context.web'
 import { ReadPassageContextProvider } from './read-passage.context'
 import { ReadSettingsContextProvider } from './read-settings.context'
 import { ReadPassageChapterContextProvider } from './read-passage-chapter.context'
@@ -13,12 +13,12 @@ export default function ReadProviders({
   router?: { queryChapter?: string; pathname?: string }
 }>) {
   return (
-    <ReadModalsContextProvider>
+    <ReadModalsWebContextProvider>
       <ReadPassageContextProvider router={router}>
         <ReadPassageChapterContextProvider>
           <ReadSettingsContextProvider>{children}</ReadSettingsContextProvider>
         </ReadPassageChapterContextProvider>
       </ReadPassageContextProvider>
-    </ReadModalsContextProvider>
+    </ReadModalsWebContextProvider>
   )
 }

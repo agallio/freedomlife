@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -27,6 +27,7 @@ import dayjs from '../../../../utils/dayjs'
 
 // Types
 import type { ReadTypographyProps } from './types'
+import { useReadModalsWebContext } from '../../contexts/read-modals.context.web'
 
 export default function ReadTypography({
   redirectToBiblePassage,
@@ -44,6 +45,7 @@ export default function ReadTypography({
   const { insertHighlightedText, updateHighlightedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
+  const { openSaver, setOpenSaver } = useReadModalsWebContext()
 
   // Refs
   const bibleTypographyRef = useRef<HTMLDivElement | null>(null)
@@ -117,14 +119,69 @@ export default function ReadTypography({
     bibleByPassageData,
   ])
 
-  // Methods
-  const onVerseClick = (content: string, verse: number) => {
-    if (highlightedText.find((i) => i.verse === verse)) {
-      updateHighlightedText(highlightedText.filter((i) => i.verse !== verse))
-    } else {
-      insertHighlightedText({ verse, content })
+  const passageData = useMemo(() => {
+    // Return: `${book} ${chapter}`
+    // Example: `Kejadian 1`
+    // Fallback: ''
+
+    // Handle when guided
+    if (guidedEnabled) {
+      if (guided.selectedPassage.includes('pl')) {
+        const bibleByDateDataPL = bibleByDateData?.pl.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataPL
+          ? `${bibleByDateDataPL.book} ${bibleByDateDataPL.chapter}`
+          : ''
+      }
+      if (guided.selectedPassage.includes('pb')) {
+        const bibleByDateDataPB = bibleByDateData?.pb.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataPB
+          ? `${bibleByDateDataPB.book} ${bibleByDateDataPB.chapter}`
+          : ''
+      }
+      if (guided.selectedPassage.includes('in')) {
+        const bibleByDateDataIN = bibleByDateData?.in.find(
+          (i) => i.passagePlace === guided.selectedPassage,
+        )
+
+        return bibleByDateDataIN
+          ? `${bibleByDateDataIN.book} ${bibleByDateDataIN.chapter}`
+          : ''
+      }
     }
-  }
+
+    // Handle when not guided
+    return bibleByPassageData
+      ? `${bibleByPassageData.book} ${bibleByPassageData.chapter}`
+      : ''
+  }, [
+    guidedEnabled,
+    guided.selectedPassage,
+    bibleByDateData,
+    bibleByPassageData,
+  ])
+
+  // Methods
+  const onVerseClick = useCallback(
+    (content: string, verse: number) => {
+      if (highlightedText.find((i) => i.verse === verse)) {
+        const filteredHighlightedText = highlightedText.filter(
+          (i) => i.verse !== verse,
+        )
+        updateHighlightedText(filteredHighlightedText)
+        setOpenSaver(Boolean(filteredHighlightedText.length))
+      } else {
+        insertHighlightedText({ passage: passageData, verse, content })
+        setOpenSaver(true)
+      }
+    },
+    [highlightedText, passageData],
+  )
 
   const handleScroll = async () => {
     if (
@@ -201,6 +258,7 @@ export default function ReadTypography({
             onClick={onVerseClick}
           />
         ))}
+        {openSaver && <View className="h-[150px]" />}
 
         <ReadTypographyNavigator
           passageArray={bibleByDateData?.passage || []}

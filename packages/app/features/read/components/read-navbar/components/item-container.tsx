@@ -21,15 +21,13 @@ import {
 // Utils
 import { passageData } from '../../../../../utils/constants'
 
-type ReadNavbarContainerProps = {
-  redirectToTranslateScreen: () => void
-  redirectToPassageScreen: () => void
-}
+// Types
+import type { ReadNavbarProps } from '../types'
 
 export default function ReadNavbarContainer({
   redirectToPassageScreen,
   redirectToTranslateScreen,
-}: ReadNavbarContainerProps) {
+}: ReadNavbarProps) {
   const { guidedEnabled, selectedBiblePassage } =
     useReadPassagePersistedContext()
   const guided = useReadPassageGeneralContext((state) => state.guided)
@@ -112,22 +110,6 @@ export default function ReadNavbarContainer({
     isGuidedDataLoading,
   ])
 
-  const cleanPassageName = useMemo(() => {
-    // Make a clean passage name that will be used when copying verses.
-    // Example:
-    // - `Kejadian 1 (BIS)` --> `Kejadian 1`
-    // - `Matius 119:89-110` --> `Matius 119`
-    const versionStripped = passageName.replace(/\((.*)\)/g, '')
-    const verseSplitted = versionStripped.split(':')
-
-    if (verseSplitted.length > 0) {
-      const trimmedVerseSplitted = verseSplitted[0]?.trim() || ''
-      return trimmedVerseSplitted as string
-    }
-
-    return versionStripped
-  }, [passageName])
-
   // Effects
   useEffect(() => {
     setMounted(true)
@@ -150,7 +132,7 @@ export default function ReadNavbarContainer({
       </View>
 
       <View>
-        <ReadNavbarRight cleanPassageName={cleanPassageName} />
+        <ReadNavbarRight />
       </View>
     </>
   )

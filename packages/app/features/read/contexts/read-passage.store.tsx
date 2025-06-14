@@ -1,7 +1,11 @@
 import { createStore } from 'zustand/vanilla'
 import dayjs from '../../../utils/dayjs'
 
-export type ReadHighlightedTextType = { verse: number; content: string }
+export type ReadHighlightedTextType = {
+  passage: string
+  verse: number
+  content: string
+}
 
 type ReadPassageContextGuidedStateType = {
   date: string

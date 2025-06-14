@@ -48,12 +48,12 @@ function ReadTypographyItem({
       <Pressable onPress={() => onClick(item.content, item.verse)}>
         <Text
           customFontSize={verseFontSize as CustomFontSizeType}
-          className="leading-loose text-gray-900"
+          className="leading-loose"
         >
           <sup className="relative -top-1 mr-2 text-xs text-emerald-800 dark:text-emerald-300">
             {item.verse}
           </sup>
-          {item.content}
+          <span className={cn('py-0.5')}>{item.content}</span>
         </Text>
       </Pressable>
     </View>

@@ -144,11 +144,11 @@ export function useReadPassageGeneralContext<T>(
 export function generateTextToCopy(
   highlightedText: ReadHighlightedTextType[],
   bibleVersion: string,
-  passageTitle: string,
 ) {
   let mapHighlightedContent
   let mapHighlightedVerse
 
+  const passageTitle = highlightedText[0].passage
   const sortedHighlightedText = highlightedText.sort(
     (a, b) => a.verse - b.verse,
   )
