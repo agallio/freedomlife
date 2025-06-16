@@ -35,7 +35,9 @@ export default function PassageChapter({
 
   // Memoized Values
   const passageDetailData = useMemo(() => {
-    return passageData.find((passage) => passage.abbr === dialogSelectedPassage)
+    return passageData.find(
+      (passage) => dialogSelectedPassage.includes(passage.abbr) && passage.abbr,
+    )
   }, [dialogSelectedPassage])
 
   // Methods
