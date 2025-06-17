@@ -5,13 +5,13 @@ import { MagnifyingGlassIcon } from 'react-native-heroicons/solid'
 import debounce from 'lodash.debounce'
 
 // Components
-import { IconButton } from '../../../../../../components/button'
+import { IconButton } from '../../components/button'
 
 // Contexts
-import { useReadPassageChapterContext } from '../../../../contexts/read-passage-chapter.context'
+import { useReadPassageChapterContext } from '../read/contexts/read-passage-chapter.context'
 
 // Utils
-import { cn, getIconColor } from '../../../../../../utils/helpers'
+import { cn, getIconColor } from '../../utils/helpers'
 
 type PassageSearchInputProps = {
   disabled?: boolean
@@ -23,7 +23,7 @@ const getShadow = () => {
   return 'shadow-sm shadow-gray-300 dark:shadow-gray-900'
 }
 
-export default function PassageSearchInput({
+export default function SharedPassageSearchInput({
   disabled,
 }: PassageSearchInputProps) {
   const colorScheme = useColorScheme()

@@ -1,10 +1,7 @@
 import { useMemo } from 'react'
-import { View } from 'react-native'
-import { MotiView } from 'moti'
 
 // Components
-import { Text } from '../../../../../components/text'
-import ListItem from '../../../../../components/list-item'
+import SharedPassageList from '../../../../[shared]/shared-passage-list'
 
 // Contexts
 import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
@@ -14,7 +11,6 @@ import { useReadPassageChapterContext } from '../../../contexts/read-passage-cha
 // Utils
 import {
   passageData,
-  tsiAbbrs,
   type PassageDataItemType,
 } from '../../../../../utils/constants'
 import { detectPassageJump } from '../../../utils/passage-jump-detector'
@@ -101,65 +97,12 @@ export default function PassageBible({
   }
 
   return (
-    <MotiView
-      from={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ type: 'timing', duration: 200 }}
-    >
-      <View className="gap-2">
-        {searchText.length > 0 && filteredPassageData.length === 0 ? (
-          <View className="flex-1 items-center justify-center py-4">
-            <Text className="text-center">
-              Tidak ada hasil untuk &quot;{searchText}&quot;
-            </Text>
-          </View>
-        ) : (
-          filteredPassageData.map((passage) => (
-            <PassageBibleItem
-              key={passage.abbr}
-              abbr={passage.abbr}
-              name={passage.name}
-              selectedBibleVersion={selectedBibleVersion}
-              onClick={onClick}
-              isJumpResult={passage.isJumpResult}
-              chapter={passage.passage}
-            />
-          ))
-        )}
-      </View>
-    </MotiView>
-  )
-}
-
-function PassageBibleItem({
-  abbr,
-  name,
-  selectedBibleVersion,
-  onClick,
-  isJumpResult = false,
-  chapter,
-}: {
-  abbr: string
-  name: string
-  selectedBibleVersion: string
-  onClick: (_: { selectedPassage: string; isJumpResult?: boolean }) => void
-  isJumpResult?: boolean
-  chapter?: number
-}) {
-  // Memoized Values
-  const disabled = useMemo(() => {
-    const tsiAbbrLookupSet = new Set(tsiAbbrs)
-    return selectedBibleVersion === 'tsi' && !tsiAbbrLookupSet.has(abbr)
-  }, [abbr, selectedBibleVersion])
-
-  return (
-    <ListItem
-      disabled={disabled}
-      onClick={() => {
-        onClick({ selectedPassage: `${abbr}-${chapter}`, isJumpResult })
-      }}
-    >
-      <Text>{name}</Text>
-    </ListItem>
+    <SharedPassageList
+      isEmpty={searchText.length > 0 && filteredPassageData.length === 0}
+      emptyText={`Tidak ada hasil untuk "${searchText}"`}
+      passageData={filteredPassageData}
+      selectedBibleVersion={selectedBibleVersion}
+      handleSelectPassage={onClick}
+    />
   )
 }

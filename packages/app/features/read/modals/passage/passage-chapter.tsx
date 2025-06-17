@@ -1,10 +1,7 @@
 import { useMemo } from 'react'
-import { View } from 'react-native'
 
 // Components
-import Card from '../../../../components/card'
-import { Text } from '../../../../components/text'
-import { SquareButton } from '../../../../components/button'
+import SharedPassageChapterList from '../../../[shared]/shared-passage-chapter-list'
 
 // Contexts
 import {
@@ -60,31 +57,10 @@ export default function PassageChapter({
     }
   }
 
-  if (!passageDetailData) {
-    return (
-      <View>
-        <Text>Pasal tidak ditemukan.</Text>
-      </View>
-    )
-  }
-
   return (
-    <Card
-      title={
-        <View className="flex items-center py-2">
-          <Text customFontWeight="font-semibold">{passageDetailData.name}</Text>
-        </View>
-      }
-    >
-      <View className="flex flex-row flex-wrap justify-center gap-2 p-4">
-        {[...Array(passageDetailData.passage).keys()].map((passageNumber) => (
-          <SquareButton
-            key={passageNumber}
-            text={String(passageNumber + 1)}
-            onClick={() => onPassageNumberClick(passageNumber + 1)}
-          />
-        ))}
-      </View>
-    </Card>
+    <SharedPassageChapterList
+      passageDetailData={passageDetailData}
+      handlePassageNumberClick={onPassageNumberClick}
+    />
   )
 }

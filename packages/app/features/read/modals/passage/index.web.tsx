@@ -7,7 +7,7 @@ import Drawer from '../../../../components/drawer'
 import PassageChapter from './passage-chapter'
 import PassageGuide from './passage-guide'
 import PassageBible from './passage-bible'
-import PassageSearchInput from './passage-bible/components/passage-search-input'
+import SharedPassageSearchInput from '../../../[shared]/shared-passage-search-input'
 
 // Contexts
 import { useReadModalsWebContext } from '../../contexts/read-modals.context.web'
@@ -56,7 +56,7 @@ export default function PassageModal(props: PassageModalProps) {
       }
       searchInput={
         !guidedEnabled ? (
-          <PassageSearchInput disabled={openPassageChapter} />
+          <SharedPassageSearchInput disabled={openPassageChapter} />
         ) : undefined
       }
     >

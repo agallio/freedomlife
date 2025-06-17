@@ -14,7 +14,7 @@ export default function TranslateModal() {
       title="Pilih Terjemahan"
       setOpen={setOpenTranslate}
     >
-      <TranslateContainer />
+      <TranslateContainer handleBack={() => setOpenTranslate(false)} />
     </Drawer>
   )
 }

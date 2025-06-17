@@ -7,9 +7,9 @@ export default function TranslateScreen() {
   const router = useRouter()
 
   // Methods
-  const handleBackMobile = () => {
+  const handleBack = () => {
     router.back()
   }
 
-  return <TranslateModal handleBackMobile={handleBackMobile} />
+  return <TranslateModal handleBack={handleBack} />
 }
