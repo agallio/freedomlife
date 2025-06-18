@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { ScrollView } from 'react-native'
 import { useRouter } from 'expo-router'
 
@@ -8,9 +9,10 @@ export default function PassageChapterScreen() {
   const router = useRouter()
 
   // Methods
-  const handlePassageChapterBack = () => {
+  const handlePassageChapterBack = useCallback(() => {
+    if (router.canDismiss()) router.dismissAll()
     router.replace('/read')
-  }
+  }, [])
 
   return (
     <ScrollView contentContainerClassName="px-4 pb-20 pt-4">
