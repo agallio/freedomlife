@@ -72,6 +72,22 @@ export default function TabLayout() {
           headerTitleAlign: 'center',
         }}
       />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: 'Tersimpan',
+          headerTitle: () => (
+            <FreedomlifeIcon style={{ width: 180, height: '100%' }} />
+          ),
+          headerStyle: {
+            height: top + 50,
+            borderBottomWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
     </Tabs>
   )
 }

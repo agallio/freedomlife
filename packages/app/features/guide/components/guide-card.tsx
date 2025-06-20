@@ -3,7 +3,7 @@ import { Platform, View, useColorScheme } from 'react-native'
 import { BookOpenIcon, CheckIcon } from 'react-native-heroicons/solid'
 
 // Components
-import Card from '../../../components/card'
+import { Card } from '../../../components/card'
 import GradientCard from '../../../components/gradient-card'
 import { Header, Text } from '../../../components/text'
 import { IconButton } from '../../../components/button'

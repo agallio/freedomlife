@@ -4,7 +4,7 @@ import { Platform, View } from 'react-native'
 // Components
 import { Header, Text } from '../../../../components/text'
 import { Button } from '../../../../components/button'
-import Card from '../../../../components/card'
+import { Card } from '../../../../components/card'
 import ListItem from '../../../../components/list-item'
 
 // Contexts

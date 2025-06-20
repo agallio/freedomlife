@@ -169,10 +169,10 @@ export const apiUrl =
       : 'https://freedomlife.id'
 
 export const highlighterColors = {
-  yellow: {
-    color: 'bg-yellow-300 dark:bg-yellow-700',
+  kuning: {
+    color: 'bg-amber-200 dark:bg-yellow-800',
     textColor: 'text-gray-900 dark:text-white',
-    hoverColor: 'hover:bg-yellow-400 dark:hover:bg-yellow-800',
+    hoverColor: 'hover:bg-amber-300 dark:hover:bg-yellow-900',
     iconColor: {
       light: '#000000',
       dark: '#ffffff',
@@ -182,10 +182,10 @@ export const highlighterColors = {
       hint: 'Tekan untuk menyorot ayat dengan warna kuning',
     },
   },
-  blue: {
-    color: 'bg-blue-300 dark:bg-sky-800',
+  biru: {
+    color: 'bg-blue-200 dark:bg-sky-800',
     textColor: 'text-gray-900 dark:text-white',
-    hoverColor: 'hover:bg-blue-400 dark:hover:bg-sky-700',
+    hoverColor: 'hover:bg-blue-300 dark:hover:bg-sky-900',
     iconColor: {
       light: '#000000',
       dark: '#ffffff',
@@ -195,7 +195,7 @@ export const highlighterColors = {
       hint: 'Tekan untuk menyorot ayat dengan warna biru',
     },
   },
-  emerald: {
+  hijau: {
     color: 'bg-emerald-300 dark:bg-emerald-800',
     textColor: 'text-gray-900 dark:text-white',
     hoverColor: 'hover:bg-emerald-400 dark:hover:bg-emerald-700',
@@ -208,7 +208,7 @@ export const highlighterColors = {
       hint: 'Tekan untuk menyorot ayat dengan warna hijau',
     },
   },
-  neutral: {
+  netral: {
     color: 'bg-gray-800 dark:bg-gray-200',
     textColor: 'text-white dark:text-gray-900',
     hoverColor: 'hover:bg-gray-700 dark:hover:bg-gray-300',

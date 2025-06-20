@@ -1,5 +1,6 @@
 import { memo, useMemo } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, useColorScheme, View } from 'react-native'
+// import { BookmarkIcon } from 'react-native-heroicons/solid'
 
 // Components
 import { Header, Text } from '../../../../../../components/text'
@@ -29,6 +30,7 @@ function ReadTypographyItem({
   isHighlighted,
   onClick,
 }: ReadTypographyItemProps) {
+  const colorScheme = useColorScheme()
   const {
     verseFontSize,
     headerFontSize,
@@ -42,6 +44,10 @@ function ReadTypographyItem({
     // Will break the layout in native (iOS & Android)
     return item.content.replace(/\r?\n|\r/, '')
   }, [item.content])
+
+  const bookmarkIconColor = useMemo(() => {
+    return colorScheme === 'light' ? '#047857' : '#10b981'
+  }, [colorScheme])
 
   // Methods
   const renderIndentation = (index: string) => {
@@ -73,35 +79,48 @@ function ReadTypographyItem({
     <Pressable onPress={() => onClick(cleanContent, item.verse)}>
       <View
         className={cn(
-          'relative flex-row items-center',
+          'relative flex-row',
           isHighlighted
             ? 'bg-gray-300/70 px-4 sm:rounded-lg dark:bg-gray-700'
             : 'px-4',
           index === 0 && 'pt-4',
         )}
       >
-        <Text
-          customFontSize="custom"
-          className={cn(
-            'absolute top-[4px] mr-1 pl-4 dark:text-emerald-200',
-            index === 0 && 'pt-4',
-          )}
-          style={{
-            fontSize: nativeVerseNumberFontSize,
-            lineHeight: nativeVerseNumberLineHeight,
-          }}
-        >
-          {item.verse}
-        </Text>
+        <View className="relative flex-1 flex-row items-center">
+          <Text
+            customFontSize="custom"
+            className="absolute top-[4px] mr-1 dark:text-emerald-200"
+            style={{
+              fontSize: nativeVerseNumberFontSize,
+              lineHeight: nativeVerseNumberLineHeight,
+            }}
+          >
+            {item.verse}
+          </Text>
 
-        <Text
-          className="leading-loose text-gray-900"
-          // Manually set fontSize via style prop to handle font scaling on native.
-          style={{ fontSize: verseFontSize as number }}
-        >
-          {renderIndentation(String(item.verse))}
-          {cleanContent}
-        </Text>
+          <Text style={{ lineHeight: Number(verseFontSize) * 2 }}>
+            {renderIndentation(String(item.verse))}
+            <Text
+              className={cn(
+                'text-gray-900',
+                // index === 2 ? 'bg-emerald-300 dark:bg-emerald-800' : '',
+              )}
+              style={{
+                lineHeight: Number(verseFontSize) * 2,
+                // Manually set fontSize via style prop to handle font scaling on native.
+                fontSize: verseFontSize as number,
+              }}
+            >
+              {cleanContent}
+            </Text>
+          </Text>
+        </View>
+
+        {/* {index === 3 && (
+          <View className="mt-[9px] h-[16px] w-[16px] flex-shrink-0">
+            <BookmarkIcon size={16} color={bookmarkIconColor} />
+          </View>
+        )} */}
       </View>
     </Pressable>
   )

@@ -21,7 +21,7 @@ const availableRoutes: AvailableRoute[] = [
 export default function BottomTab({ pathname, webRouterPush }: BottomTabProps) {
   return (
     <View
-      className="fixed flex flex-row items-center justify-center gap-3 bg-transparent"
+      className="fixed flex flex-row items-center justify-center gap-1 bg-transparent min-[374px]:gap-3"
       style={{ bottom: 30, left: 0, right: 0 }}
     >
       {availableRoutes.map((route, index) => (

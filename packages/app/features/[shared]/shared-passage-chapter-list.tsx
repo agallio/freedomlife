@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
 // Components
-import Card from '../../components/card'
+import { Card } from '../../components/card'
 import { Text } from '../../components/text'
 import { SquareButton } from '../../components/button'
 

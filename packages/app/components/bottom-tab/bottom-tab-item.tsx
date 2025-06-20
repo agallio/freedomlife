@@ -6,6 +6,7 @@ import {
   HomeIcon,
   BookOpenIcon,
   BookmarkIcon,
+  RectangleStackIcon,
 } from 'react-native-heroicons/solid'
 
 // Components
@@ -47,6 +48,8 @@ export function BottomTabItem({
       case 'Baca':
         return <BookOpenIcon size={20} color={color} />
       case 'Panduan':
+        return <RectangleStackIcon size={20} color={color} />
+      case 'Tersimpan':
         return <BookmarkIcon size={20} color={color} />
       default:
         return
@@ -80,7 +83,7 @@ export function BottomTabItem({
     >
       <View
         className={cn(
-          'flex h-[55px] flex-row items-center justify-center gap-2 rounded-[9999px] border py-4 shadow-lg',
+          'flex h-[48px] flex-row items-center justify-center gap-2 rounded-[9999px] border py-4 shadow-lg min-[374px]:h-[55px]',
           {
             // Background & Border colors
             'border-emerald-400 bg-emerald-300 dark:border-emerald-600 dark:bg-emerald-700':

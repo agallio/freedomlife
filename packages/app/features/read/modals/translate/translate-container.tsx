@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 // Components
-import SharedTranslateList from '../../../[shared]/shared-translate-list/index.web'
+import SharedTranslateList from '../../../[shared]/shared-translate-list/index'
 import TranslateItemDownloadButton from './translate-item-download-button'
 
 // Contexts

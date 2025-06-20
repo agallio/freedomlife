@@ -1,5 +1,3 @@
-import { View } from 'react-native'
-
 // Components
 import TranslateContainer, {
   type TranslateContainerProps,
@@ -8,9 +6,5 @@ import TranslateContainer, {
 export default function TranslateModal({
   handleBack,
 }: TranslateContainerProps) {
-  return (
-    <View className="p-4">
-      <TranslateContainer handleBack={handleBack} />
-    </View>
-  )
+  return <TranslateContainer handleBack={handleBack} />
 }

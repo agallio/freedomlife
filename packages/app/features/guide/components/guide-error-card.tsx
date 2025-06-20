@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
 // Components
-import Card from '../../../components/card'
+import { Card } from '../../../components/card'
 import { Header, Text } from '../../../components/text'
 
 export default function GuideErrorCard() {
