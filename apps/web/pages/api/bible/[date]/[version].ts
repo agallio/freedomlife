@@ -179,9 +179,10 @@ export default async function bibleByDate(
   }
 
   // Perjanjian Baru (PB)
+  const pbDashSplit = pbSpaceSplit[1]!.split('-')
   const pbColonSplit = pbSpaceSplit[1]!.split(':')
   if (pbColonSplit.length > 1) {
-    const pbDashSplit = pbColonSplit[1]!.split('-')
+    const pbDashColonSplit = pbColonSplit[1]!.split('-')
 
     try {
       const { data, error: pbError } = await supabase
@@ -203,11 +204,11 @@ export default async function bibleByDate(
           version: (version as string) || 'tb',
           book: pbData[0]!.book,
           chapter: pbData[0]!.chapter,
-          passagePlace: `pb`,
+          passagePlace: `pb-1`,
           data: pbData[0]!.verses.filter(
             (item) =>
-              item.verse >= Number(pbDashSplit[0]) &&
-              item.verse <= Number(pbDashSplit[1]),
+              item.verse >= Number(pbDashColonSplit[0]) &&
+              item.verse <= Number(pbDashColonSplit[1]),
           ),
         })
       }
@@ -216,6 +217,42 @@ export default async function bibleByDate(
       return res
         .status(500)
         .json({ data: null, error: 'Internal server error. (pb-colon)' })
+    }
+  } else if (pbDashSplit.length > 1) {
+    let place = 1
+
+    for (let i = Number(pbDashSplit[0]); i <= Number(pbDashSplit[1]); i++) {
+      try {
+        const { data, error: pbError } = await supabase
+          .from('bibles')
+          .select()
+          .filter('abbr', 'eq', pbSpaceSplit[0])
+          .filter('chapter', 'eq', i)
+          .filter('version', 'eq', version || 'tb')
+        const pbData = data as SupabaseBibles[]
+
+        if (pbError) {
+          return res
+            .status(500)
+            .json({ data: null, error: `${pbError} (pb-${place})` })
+        }
+
+        if (pbData) {
+          pbArr.push({
+            version: (version as string) || 'tb',
+            book: pbData[0]!.book,
+            chapter: String(i),
+            passagePlace: `pb-${place++}`,
+            data: pbData[0]!.verses,
+          })
+        }
+      } catch (e) {
+        console.error(e)
+        return res.status(500).json({
+          data: null,
+          error: `Internal server error. (pb-${place})`,
+        })
+      }
     }
   } else {
     try {
@@ -236,7 +273,7 @@ export default async function bibleByDate(
           version: (version as string) || 'tb',
           book: pbData[0]!.book,
           chapter: pbData[0]!.chapter,
-          passagePlace: `pb`,
+          passagePlace: `pb-1`,
           data: pbData[0]!.verses,
         })
       }
@@ -364,13 +401,18 @@ export default async function bibleByDate(
     plList.push(`pl-${i}`)
   }
 
+  const pbList: string[] = []
+  for (let i = 1; i <= pbArr.length; i++) {
+    pbList.push(`pb-${i}`)
+  }
+
   const injList: string[] = []
   for (let i = 1; i <= injArr.length; i++) {
     injList.push(`in-${i}`)
   }
 
   const readyToSendData = {
-    passage: [...plList, 'pb', ...injList],
+    passage: [...plList, ...pbList, ...injList],
     pl: [...plArr],
     pb: [...pbArr],
     in: [...injArr],

@@ -95,7 +95,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
         </View>
       </Card>
 
-      <View className="gap-2">
+      <View className={cn('gap-2', Platform.OS !== 'web' ? 'pb-20' : '')}>
         {computedGuideData.map((guideData, index) => (
           <ListItem
             key={index}

@@ -12,6 +12,13 @@ import {
 // Types
 import type { GuideDataResponse } from '@repo/app/types'
 
+type GuideBibleDataItem = {
+  title: string
+  subtitle: string
+  abbr: string
+  value: string
+}
+
 const limiter = rateLimit()
 
 export default async function guideByDate(
@@ -61,6 +68,7 @@ export default async function guideByDate(
       ? { ...data[0], date, year: String(date).split('-')[2] }
       : data[0]
     const plSpaceSplit = extractedData.pl_name.split(' ')
+    const pbSpaceSplit = extractedData.pb_name.split(' ')
     const inSpaceSplit = extractedData.in_name.split(' ')
     const [plAbbr, plChapter] = extractedData.pl.split(' ')
     const [plChapterSplitted] = plChapter.split('-')
@@ -69,15 +77,8 @@ export default async function guideByDate(
     const [inAbbr, inChapter] = extractedData?.in?.split(' ') || []
     const [inChapterSplitted] = inChapter?.split(':') || []
 
-    const plDashSplit =
-      plSpaceSplit.length === 3
-        ? plSpaceSplit[2] !== undefined
-          ? plSpaceSplit[2].split('-')
-          : []
-        : plSpaceSplit[1] !== undefined
-          ? plSpaceSplit[1].split('-')
-          : []
-
+    // Splitter - Perjanjian Lama
+    const plDashSplit = [...plSpaceSplit].pop().split('-')
     const plList = Array.from(
       {
         length: (Number(plDashSplit[1]) - Number(plDashSplit[0])) / 1 + 1,
@@ -85,18 +86,17 @@ export default async function guideByDate(
       (_, i) => Number(plDashSplit[0]) + i,
     )
 
-    const dashSplitFn = (): string[] => {
-      switch (inSpaceSplit.length) {
-        case 4:
-          return inSpaceSplit[3] !== undefined ? inSpaceSplit[3].split('-') : []
-        case 3:
-          return inSpaceSplit[2] !== undefined ? inSpaceSplit[2].split('-') : []
-        default:
-          return inSpaceSplit[1] !== undefined ? inSpaceSplit[1].split('-') : []
-      }
-    }
-    const inDashSplit = dashSplitFn()
+    // Splitter - Perjanjian Baru
+    const pbDashSplit = [...pbSpaceSplit].pop().split('-')
+    const pbList = Array.from(
+      {
+        length: (Number(pbDashSplit[1]) - Number(pbDashSplit[0])) / 1 + 1,
+      },
+      (_, i) => Number(pbDashSplit[0]) + i,
+    )
 
+    // Splitter - Kitab Injil
+    const inDashSplit = [...inSpaceSplit].pop().split('-')
     const inList = Array.from(
       {
         length: (Number(inDashSplit[1]) - Number(inDashSplit[0])) / 1 + 1,
@@ -105,97 +105,80 @@ export default async function guideByDate(
     )
 
     const guideBibleData = () => {
-      if (plList.length > 0 && inList.length > 0) {
-        const plArray = plList.map((pl, index) => ({
-          title:
-            plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${pl}`
-              : `${plSpaceSplit[0]} ${pl}`,
-          subtitle: `Perjanjian Lama ${index + 1}`,
-          abbr: `${plAbbr}-${pl}`,
-          value: `pl-${index + 1}`,
-        }))
+      let plArray: GuideBibleDataItem[] = []
+      let pbArray: GuideBibleDataItem[] = []
+      let inArray: GuideBibleDataItem[] = []
 
-        const inArray = inList.map((inItem, index) => {
-          const inItemTitle = () => {
-            switch (inSpaceSplit.length) {
-              case 4:
-                return `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inSpaceSplit[2]} ${inItem}`
-              case 3:
-                return `${inSpaceSplit[0]} ${inSpaceSplit[1]} ${inItem}`
-              default:
-                return `${inSpaceSplit[0]} ${inItem}`
-            }
-          }
+      // Perjanjian Lama
+      if (plList.length > 0) {
+        plArray = plList.map((pl, index) => {
+          const titleWithoutChapter = [...plSpaceSplit].slice(0, -1).join(' ')
 
           return {
-            title: inItemTitle(),
-            subtitle: `Kitab Rasuli ${index + 1}`,
-            abbr: `${inAbbr}-${inItem}`,
-            value: `in-${index + 1}`,
+            title: `${titleWithoutChapter} ${pl}`,
+            subtitle: `Perjanjian Lama ${index + 1}`,
+            abbr: `${plAbbr}-${pl}`,
+            value: `pl-${index + 1}`,
           }
         })
-
-        return [
-          ...plArray,
+      } else if (plList.length === 0) {
+        plArray = [
           {
-            title: extractedData.pb_name,
-            subtitle: 'Perjanjian Baru',
-            abbr: `${pbAbbr}-${pbChapterSplitted}`,
-            value: 'pb',
+            title: extractedData.pl_name,
+            subtitle: 'Perjanjian Lama 1',
+            abbr: `${plAbbr}-${plChapterSplitted}`,
+            value: 'pl-1',
           },
-          ...inArray,
         ]
       }
 
-      if (plList.length > 0) {
-        const plArray = plList.map((pl, index) => ({
-          title:
-            plSpaceSplit.length === 3
-              ? `${plSpaceSplit[0]} ${plSpaceSplit[1]} ${pl}`
-              : `${plSpaceSplit[0]} ${pl}`,
-          subtitle: `Perjanjian Lama ${index + 1}`,
-          abbr: `${plAbbr}-${pl}`,
-          value: `pl-${index + 1}`,
-        }))
+      // Perjanjian Baru
+      if (pbList.length > 0) {
+        pbArray = pbList.map((pb, index) => {
+          const titleWithoutChapter = [...pbSpaceSplit].slice(0, -1).join(' ')
 
-        return [
-          ...plArray,
+          return {
+            title: `${titleWithoutChapter} ${pb}`,
+            subtitle: `Perjanjian Baru ${index + 1}`,
+            abbr: `${pbAbbr}-${pbChapterSplitted}`,
+            value: `pb-${index + 1}`,
+          }
+        })
+      } else if (pbList.length === 0) {
+        pbArray = [
           {
             title: extractedData.pb_name,
-            subtitle: 'Kitab Injil',
+            subtitle: 'Perjanjian Baru 1',
             abbr: `${pbAbbr}-${pbChapterSplitted}`,
-            value: 'pb',
+            value: 'pb-1',
           },
-          extractedData?.in && {
+        ]
+      }
+
+      // Kitab Rasuli
+      if (inList.length > 0) {
+        inArray = inList.map((inItem, index) => {
+          const titleWithoutChapter = [...inSpaceSplit].slice(0, -1).join(' ')
+
+          return {
+            title: `${titleWithoutChapter} ${inItem}`,
+            subtitle: `Kitab Rasuli ${index + 1}`,
+            abbr: `${inAbbr}-${inChapterSplitted}`,
+            value: `in-${index + 1}`,
+          }
+        })
+      } else if (inList.length === 0) {
+        inArray = [
+          {
             title: extractedData.in_name,
-            subtitle: 'Kitab Rasuli',
+            subtitle: 'Kitab Rasuli 1',
             abbr: `${inAbbr}-${inChapterSplitted}`,
             value: 'in-1',
           },
         ]
       }
 
-      return [
-        {
-          title: extractedData.pl_name,
-          subtitle: 'Perjanjian Lama 1',
-          abbr: `${plAbbr}-${plChapterSplitted}`,
-          value: 'pl-1',
-        },
-        {
-          title: extractedData.pb_name,
-          subtitle: 'Perjanjian Baru',
-          abbr: `${pbAbbr}-${pbChapterSplitted}`,
-          value: 'pb',
-        },
-        extractedData?.in && {
-          title: extractedData.in_name,
-          subtitle: 'Kitab Injil',
-          abbr: `${inAbbr}-${inChapterSplitted}`,
-          value: 'in-1',
-        },
-      ]
+      return [...plArray, ...pbArray, ...inArray]
     }
 
     // Check for available bible translations.
