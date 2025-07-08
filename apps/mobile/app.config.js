@@ -38,6 +38,9 @@ export default {
       light: './assets/ios-light.png',
       tinted: './assets/ios-tinted.png',
     },
+    infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     ...sharedSplash,
