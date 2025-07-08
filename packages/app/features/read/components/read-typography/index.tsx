@@ -50,7 +50,7 @@ export default function ReadTypography({
   const { downloadedData, getBibleData } = useReadLocalDatabaseMobile()
 
   // Refs
-  const bibleTypographyRef = useRef<FlatList>()
+  const bibleTypographyRef = useRef<FlatList>(null)
 
   // Queries
   const {
