@@ -24,6 +24,12 @@ export default async function biblePassage(
     })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   const passageSplit = (passage as string).split('-')
 
   const { data: rawData, error } = await supabase
@@ -35,12 +41,6 @@ export default async function biblePassage(
   const data = rawData as SupabaseBibles[]
 
   if (error) return res.status(500).json({ data: null, error: error.message })
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
-  }
 
   if (data) {
     try {

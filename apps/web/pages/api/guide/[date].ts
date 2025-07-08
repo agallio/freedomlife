@@ -37,6 +37,12 @@ export default async function guideByDate(
       .json({ data: null, error: `Param 'date' is missing.` })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   // Handle 2023 No Data
   const { data: rawFlagData } = await supabase
     .from('flags')
@@ -56,12 +62,6 @@ export default async function guideByDate(
     .filter('date', 'eq', formattedGuideDate)
 
   if (error) return res.status(500).json({ data: null, error: error.message })
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
-  }
 
   if (data && data.length > 0) {
     const extractedData = flagData

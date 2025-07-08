@@ -22,6 +22,12 @@ export default async function updateFeatureFlag(
     return res.status(401).json({ data: null, error: 'Unauthorized.' })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   if (!name || typeof enable === 'undefined') {
     return res.status(400).json({
       data: null,
@@ -37,12 +43,6 @@ export default async function updateFeatureFlag(
     .update(dataToUpdate)
     .eq('name', name)
     .select()
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
-  }
 
   res.json({ data, error })
 }

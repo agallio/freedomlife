@@ -1,4 +1,4 @@
-import { Children } from 'react'
+import React, { Children } from 'react'
 import { AppRegistry } from 'react-native'
 import NextDocument, {
   Head,
@@ -17,7 +17,14 @@ export default class Document extends NextDocument {
     const styles = [getStyleElement()]
 
     const initialProps = await NextDocument.getInitialProps(ctx)
-    return { ...initialProps, styles: Children.toArray(styles) }
+    return {
+      ...initialProps,
+      styles: Children.toArray(styles).map((style, index) =>
+        React.isValidElement(style)
+          ? React.cloneElement(style, { key: `style-${index}` })
+          : style,
+      ),
+    }
   }
 
   render() {

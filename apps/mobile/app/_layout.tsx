@@ -70,7 +70,7 @@ function RootLayout() {
   const colorScheme = useColorScheme()
 
   // Refs
-  const ref = useNavigationContainerRef()
+  const navigationRef = useNavigationContainerRef()
   const appState = useRef(AppState.currentState)
 
   // States
@@ -86,10 +86,10 @@ function RootLayout() {
 
   useEffect(() => {
     // Register expo-router navigationRef to Sentry.
-    if (ref) {
-      navigationIntegration.registerNavigationContainer(ref)
+    if (navigationRef) {
+      navigationIntegration.registerNavigationContainer(navigationRef)
     }
-  }, [ref])
+  }, [navigationRef])
 
   useEffect(() => {
     // Listen to AppState changes.
@@ -115,6 +115,7 @@ function RootLayout() {
   return (
     <PostHogProviderNative
       apiKey={(process.env as any).EXPO_PUBLIC_POSTHOG_KEY!}
+      navigationRef={navigationRef}
     >
       <View
         className="flex-1"
@@ -207,6 +208,14 @@ function RootLayoutComponent() {
                           Platform.OS === 'android'
                             ? 'fade_from_bottom'
                             : undefined,
+                        headerLeft: () =>
+                          Platform.OS === 'ios' ? (
+                            <TouchableOpacity onPress={() => router.back()}>
+                              <Text className="text-base text-emerald-900 dark:text-white">
+                                Kembali
+                              </Text>
+                            </TouchableOpacity>
+                          ) : undefined,
                       }}
                     />
                     <Stack.Screen

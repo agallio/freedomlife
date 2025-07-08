@@ -1,40 +1,11 @@
 import { withExpo } from '@expo/next-adapter'
 import createMDX from '@next/mdx'
-import createNextPWA from 'next-pwa'
 
 // Rehype Plugins
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 // Next.js Plugins
-const withPWA = createNextPWA({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  runtimeCaching: [
-    {
-      urlPattern: /^https?.*/,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'offlineCache',
-        expiration: {
-          maxEntries: 200,
-        },
-      },
-    },
-  ],
-  buildExcludes: [
-    /chunks\/images\/.*$/, // Don't precache files under .next/static/chunks/images this improves next-optimized-images behaviour
-    /chunks\/pages\/api\/.*/, // Don't cache the API it needs fresh serverinfo
-  ],
-  exclude: [
-    /\.map$/, // Don't cache map files
-    /^.*ts.*$/, // Don't let serviceworker touch the TS streams
-    /-manifest.json$/, // Exclude those pesky json files in _next root but still serve the ones we need from /_next/static
-    /-manifest.js$/, // Exclude Next.js middleware manifest
-  ],
-  reloadOnOnline: false, // Prevents reloads on offline/online switch
-})
-
 const withMDX = createMDX({
   options: {
     rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
@@ -106,7 +77,6 @@ const nextConfig = {
     'react-native-heroicons',
     'react-native-reanimated',
     'react-native-css-interop',
-    '@react-native-segmented-control/segmented-control',
     'expo-linear-gradient',
   ],
 
@@ -143,12 +113,19 @@ const nextConfig = {
     // Handle @react-native-segmented-control/segmented-control in Next.js.
     // They write using flow but the devs don't strip the flow types yet, so it's broken in Next.js
     config.module.rules.push({
-      test: /\.(js|jsx)?$/,
-      use: ['remove-flow-types-loader'],
+      test: /\.(js|jsx)$/,
+      include: [/node_modules\/@react-native-segmented-control/],
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [['@babel/preset-flow', { all: true }], 'next/babel'],
+          cacheDirectory: true,
+        },
+      },
     })
 
     return config
   },
 }
 
-export default withExpo(withPWA(withMDX(nextConfig)))
+export default withMDX(withExpo(nextConfig))

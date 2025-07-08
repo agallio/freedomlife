@@ -48,6 +48,12 @@ export default async function bibleByDate(
       .json({ data: null, error: 'Internal server error. (guide not found)' })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   const pl = guideByDateData[0]!.pl
   const pb = guideByDateData[0]!.pb
   const inj = guideByDateData[0]!.in
@@ -416,12 +422,6 @@ export default async function bibleByDate(
     pl: [...plArr],
     pb: [...pbArr],
     in: [...injArr],
-  }
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
 
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
