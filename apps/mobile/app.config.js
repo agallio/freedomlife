@@ -18,7 +18,7 @@ export default {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '2.2.2',
+  version: '2.3.0',
   orientation: 'portrait',
   icon: './assets/ios-light.png',
   userInterfaceStyle: 'automatic',
@@ -27,28 +27,26 @@ export default {
   runtimeVersion: {
     policy: 'appVersion',
   },
+  newArchEnabled: true,
   ios: {
     ...sharedSplash,
     supportsTablet: true,
     bundleIdentifier: 'id.freedomlife.app',
+    buildNumber: '1',
     icon: {
       dark: './assets/ios-dark.png',
       light: './assets/ios-light.png',
       tinted: './assets/ios-tinted.png',
     },
     infoPlist: {
-      LSMinimumSystemVersion: '13.0.0',
       ITSAppUsesNonExemptEncryption: false,
-    },
-    entitlements: {
-      'aps-environment':
-        process.env.NODE_ENV === 'development' ? 'development' : 'production',
     },
   },
   android: {
     ...sharedSplash,
     package: 'id.freedomlife.android',
-    versionCode: 20,
+    versionCode: 21,
+    edgeToEdgeEnabled: true,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
@@ -58,7 +56,6 @@ export default {
     'expo-router',
     'expo-sqlite',
     'expo-localization',
-    'react-native-edge-to-edge',
     [
       'expo-build-properties',
       {

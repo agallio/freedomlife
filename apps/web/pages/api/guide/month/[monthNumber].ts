@@ -31,6 +31,12 @@ export default async function guideByMonth(
     })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   // Handle 2023 No Data
   const { data: rawFlagData } = await supabase
     .from('flags')
@@ -50,12 +56,6 @@ export default async function guideByMonth(
     .order('date', { ascending: true })
 
   if (error) return res.status(500).json({ data: null, error: error.message })
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
-  }
 
   if (data && data.length > 0) {
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')

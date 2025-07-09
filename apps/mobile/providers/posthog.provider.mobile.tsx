@@ -8,11 +8,13 @@ import EventTrackingProvider, {
 
 export default function PostHogProviderNative({
   apiKey,
+  navigationRef,
   children,
-}: PropsWithChildren<{ apiKey: string }>) {
+}: PropsWithChildren<{ apiKey: string; navigationRef: any }>) {
   return (
     <PostHogProvider
       apiKey={apiKey}
+      autocapture={{ captureScreens: true, navigationRef }}
       options={{
         host: 'https://eu.i.posthog.com',
         disabled: process.env.NODE_ENV !== 'production',

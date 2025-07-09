@@ -46,7 +46,7 @@ export default function ReadTypography({
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
 
   // Refs
-  const bibleTypographyRef = useRef<HTMLDivElement | undefined>()
+  const bibleTypographyRef = useRef<HTMLDivElement | null>(null)
 
   // Queries
   const {

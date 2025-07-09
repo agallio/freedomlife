@@ -35,6 +35,12 @@ export default async function getBibleFile(
     })
   }
 
+  try {
+    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
+  } catch {
+    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
+  }
+
   if (!availableVersions.includes(version as string)) {
     return res.status(400).json({ data: null, error: 'Version not available.' })
   }
@@ -47,12 +53,6 @@ export default async function getBibleFile(
 
   if (!publicUrl) {
     return res.status(404).json({ data: null, error: 'Bible data not found.' })
-  }
-
-  try {
-    await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
-    return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
 
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')

@@ -21,7 +21,7 @@ export default function GuideList({
   const { data, isLoading, isError } = queryData
 
   // Refs
-  const flatListRef = useRef<FlatList>()
+  const flatListRef = useRef<FlatList>(null)
 
   // Methods
   const scrollToTop = () => {

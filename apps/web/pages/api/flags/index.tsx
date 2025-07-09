@@ -34,7 +34,7 @@ export default async function featureFlags(
 
   try {
     await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
-  } catch (e) {
+  } catch {
     return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
 
