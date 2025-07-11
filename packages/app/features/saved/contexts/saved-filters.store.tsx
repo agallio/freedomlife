@@ -27,8 +27,9 @@ export const createSavedFiltersStore = (
 
     // Actions
     actions: {
-      setSavedFilter: (filter) =>
-        set((prevState) => ({ ...prevState, ...filter })),
+      setSavedFilter: (filter) => {
+        set((prevState) => ({ ...prevState, ...filter }))
+      },
     },
   }))
 }

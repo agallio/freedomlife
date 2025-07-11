@@ -61,9 +61,21 @@ export default {
       {
         ios: {
           deploymentTarget: '15.1',
+          extraPods: [
+            {
+              name: 'simdjson',
+              configurations: ['Debug', 'Release'],
+              path: '../../../node_modules/@nozbe/simdjson',
+              modular_headers: true,
+            },
+          ],
         },
         android: {
+          kotlinVersion: '1.9.25',
           usesCleartextTraffic: true,
+          packagingOptions: {
+            pickFirst: ['**/libc++_shared.so'],
+          },
         },
       },
     ],

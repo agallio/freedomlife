@@ -1,13 +1,26 @@
-import { FlatList, View } from 'react-native'
-import { useColorScheme } from 'react-native'
+import { useCallback } from 'react'
+import { FlatList, View, useColorScheme } from 'react-native'
 import { CheckIcon } from 'react-native-heroicons/solid'
 import { BookmarkIcon as BookmarkIconOutline } from 'react-native-heroicons/outline'
+
+// Components
 import { Text } from '../../../components/text'
-import { highlighterColors } from '../../../utils/constants'
 import ListItem from '../../../components/list-item'
+
+// Contexts
+import { useSavedFilters } from '../contexts/saved-filters.context'
+
+// Utils
+import { highlighterColors } from '../../../utils/constants'
 import { cn, getIconColor } from '../../../utils/helpers'
 
-export const filters = Object.entries(highlighterColors).map(
+type FilterOption = {
+  type: 'bookmark' | 'highlight'
+  colorName: string
+  color: string
+}
+
+export const filters: FilterOption[] = Object.entries(highlighterColors).map(
   ([key, value]) => ({
     type: key === 'bookmark' ? 'bookmark' : 'highlight',
     colorName: key,
@@ -15,16 +28,57 @@ export const filters = Object.entries(highlighterColors).map(
   }),
 )
 
-export default function SavedFiltersSelectionScreen() {
+export default function SavedFiltersSelectionScreen({
+  dismissSavedFiltersSheet,
+}: {
+  dismissSavedFiltersSheet: () => void
+}) {
   const colorScheme = useColorScheme()
+  const savedFilterType = useSavedFilters((state) => state.type)
+  const savedFilterColor = useSavedFilters((state) => state.color)
+  const { setSavedFilter } = useSavedFilters((state) => state.actions)
 
+  // Constants
   const iconColor = getIconColor(colorScheme)
+
+  // Methods
+  const handleSelectFilter = useCallback(
+    ({ type, colorName }: Omit<FilterOption, 'color'>) => {
+      if (savedFilterType === type && savedFilterColor === colorName) {
+        setSavedFilter({ type: '', color: '' })
+        dismissSavedFiltersSheet()
+        return
+      }
+
+      if (type === 'bookmark' && savedFilterType === type) {
+        setSavedFilter({ type: '', color: '' })
+        dismissSavedFiltersSheet()
+        return
+      }
+
+      setSavedFilter({
+        type,
+        color: type === 'bookmark' ? '' : colorName,
+      })
+      dismissSavedFiltersSheet()
+    },
+    [
+      savedFilterColor,
+      savedFilterType,
+      setSavedFilter,
+      dismissSavedFiltersSheet,
+    ],
+  )
 
   return (
     <FlatList
       data={filters}
       renderItem={({ item }) => (
-        <ListItem>
+        <ListItem
+          onClick={() =>
+            handleSelectFilter({ type: item.type, colorName: item.colorName })
+          }
+        >
           <View className="w-full flex-row items-center justify-between">
             <View className="flex-row items-center gap-2">
               {item.type === 'highlight' ? (
@@ -40,7 +94,14 @@ export default function SavedFiltersSelectionScreen() {
               </Text>
             </View>
 
-            <CheckIcon size={20} color={iconColor} />
+            {savedFilterType === item.type &&
+              savedFilterColor === item.colorName && (
+                <CheckIcon size={20} color={iconColor} />
+              )}
+
+            {item.type === 'bookmark' && savedFilterType === 'bookmark' && (
+              <CheckIcon size={20} color={iconColor} />
+            )}
           </View>
         </ListItem>
       )}

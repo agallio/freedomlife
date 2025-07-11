@@ -131,7 +131,9 @@ export function SavedFiltersSheetMobileProvider({
             </View>
           </View>
 
-          <SavedFiltersSelectionScreen />
+          <SavedFiltersSelectionScreen
+            dismissSavedFiltersSheet={() => dismissSavedFiltersSheet()}
+          />
         </BottomSheetView>
       </BottomSheetModal>
     </SavedFiltersSheetStoreMobileContext.Provider>

@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { useEffect, useState } from 'react'
 import { Q } from '@nozbe/watermelondb'
+import { captureException } from '@sentry/react-native'
 
 // Components
 import SavedFiltersButton from '@repo/app/features/saved/components/saved-filters-button.mobile'
@@ -41,12 +42,18 @@ export default function SavedPage() {
     const subscription = savedVersesQuery.observe().subscribe({
       next: (verses) => {
         setSavedVerses(verses)
-        console.log(
-          `Saved verses loaded successfully! Found ${verses.length} verses.`,
-        )
       },
       error: (err) => {
-        console.error('Error loading saved verses:', err)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error loading saved verses:', err)
+        }
+
+        captureException(err, {
+          tags: {
+            page: 'SavedPage',
+          },
+        })
+
         setIsError(true)
       },
     })
