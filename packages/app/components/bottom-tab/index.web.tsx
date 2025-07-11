@@ -45,14 +45,14 @@ function BottomTabContainer({
   route: AvailableRoute
   webRouterPush?: BottomTabProps['webRouterPush']
 }) {
-  const resetHighlightedText = useReadPassageGeneralContext(
-    (state) => state.actions.resetHighlightedText,
+  const resetSelectedText = useReadPassageGeneralContext(
+    (state) => state.actions.resetSelectedText,
   )
 
   // Methods
   const onPress = async () => {
     if (Platform.OS === 'web' && !isFocused && webRouterPush) {
-      resetHighlightedText()
+      resetSelectedText()
 
       if (route.label === 'Baca') {
         const storedWithGuide = await AsyncStorage.getItem('withGuide')

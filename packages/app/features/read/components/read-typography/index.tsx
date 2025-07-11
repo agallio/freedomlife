@@ -21,6 +21,10 @@ import {
 } from '../../contexts/read-passage.context'
 import { useReadLocalDatabaseMobile } from '../../local-databases/mobile/index.mobile'
 import { useSaverSheetStoreMobileContext } from '../../../../providers/bottom-sheet/saver-bottom-sheet/saver-bottom-sheet.mobile'
+import {
+  useSavedVersesActionContext,
+  useSavedVersesContext,
+} from '../../../saved/contexts/saved-verses.context'
 
 // Queries
 import {
@@ -30,28 +34,28 @@ import {
 
 // Utils
 import dayjs from '../../../../utils/dayjs'
+import { parseCurrentPassage } from '../../../../utils/helpers'
 
-// Types
-import type { ReadTypographyProps } from './types'
-
-export default function ReadTypography({
-  redirectToBiblePassage,
-}: ReadTypographyProps) {
+export default function ReadTypography() {
   const { guidedEnabled, selectedBiblePassage } =
     useReadPassagePersistedContext()
   const guided = useReadPassageGeneralContext((state) => state.guided)
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { insertHighlightedText, updateHighlightedText } =
+  const { insertSelectedText, updateSelectedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseMobile()
   const saverSheetOpen = useSaverSheetStoreMobileContext(
     (state) => state.saverSheetOpen,
   )
+  const currentContextVerses = useSavedVersesContext(
+    (state) => state.currentContextVerses,
+  )
+  const { loadCurrentContextVerses } = useSavedVersesActionContext()
 
   // Refs
   const bibleTypographyRef = useRef<FlatList>(null)
@@ -92,36 +96,28 @@ export default function ReadTypography({
     }
 
     // Handled when guided
-    if (guided.selectedPassage.includes('pl')) {
+    if (guided.selectedOrder.includes('pl')) {
       return (
-        bibleByDateData?.pl.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pl.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('pb')) {
+    if (guided.selectedOrder.includes('pb')) {
       return (
-        bibleByDateData?.pb.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pb.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('in')) {
+    if (guided.selectedOrder.includes('in')) {
       return (
-        bibleByDateData?.in.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.in.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
 
     // Fallback
     return []
-  }, [
-    guidedEnabled,
-    guided.selectedPassage,
-    bibleByDateData,
-    bibleByPassageData,
-  ])
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
 
   const passageData = useMemo(() => {
     // Return: `${book} ${chapter}`
@@ -130,27 +126,27 @@ export default function ReadTypography({
 
     // Handle when guided
     if (guidedEnabled) {
-      if (guided.selectedPassage.includes('pl')) {
+      if (guided.selectedOrder.includes('pl')) {
         const bibleByDateDataPL = bibleByDateData?.pl.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataPL
           ? `${bibleByDateDataPL.book} ${bibleByDateDataPL.chapter}`
           : ''
       }
-      if (guided.selectedPassage.includes('pb')) {
+      if (guided.selectedOrder.includes('pb')) {
         const bibleByDateDataPB = bibleByDateData?.pb.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataPB
           ? `${bibleByDateDataPB.book} ${bibleByDateDataPB.chapter}`
           : ''
       }
-      if (guided.selectedPassage.includes('in')) {
+      if (guided.selectedOrder.includes('in')) {
         const bibleByDateDataIN = bibleByDateData?.in.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataIN
@@ -163,12 +159,33 @@ export default function ReadTypography({
     return bibleByPassageData
       ? `${bibleByPassageData.book} ${bibleByPassageData.chapter}`
       : ''
-  }, [
-    guidedEnabled,
-    guided.selectedPassage,
-    bibleByDateData,
-    bibleByPassageData,
-  ])
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
+
+  const highlightOrBookmarkData = useMemo(() => {
+    const { data, status } = parseCurrentPassage(passageData)
+
+    if (status === 'error') return undefined
+
+    const filteredSavedVerses = currentContextVerses.filter(
+      (i) => i.book === data!.book && i.chapter === data!.chapter,
+    )
+
+    if (filteredSavedVerses.length === 0) return undefined
+
+    const formattedFilteredSavedVerses = filteredSavedVerses.reduce(
+      (object, item) => {
+        object[item.verse] = {
+          kind: item.kind,
+          color: item.color,
+        }
+
+        return object
+      },
+      {} as Record<string, { kind: string; color: string | null }>,
+    )
+
+    return formattedFilteredSavedVerses
+  }, [currentContextVerses, passageData])
 
   // Methods
   const nativeScrollToTop = () => {
@@ -177,25 +194,25 @@ export default function ReadTypography({
 
   const onVerseClick = useCallback(
     (content: string, verse: number) => {
-      if (highlightedText.find((i) => i.verse === verse)) {
-        const filteredHighlightedText = highlightedText.filter(
+      if (selectedText.find((i) => i.verse === verse)) {
+        const filteredSelectedText = selectedText.filter(
           (i) => i.verse !== verse,
         )
 
-        updateHighlightedText(filteredHighlightedText)
+        updateSelectedText(filteredSelectedText)
       } else {
-        insertHighlightedText({ passage: passageData, verse, content })
+        insertSelectedText({ passage: passageData, verse, content })
       }
     },
-    [highlightedText, passageData],
+    [selectedText, passageData],
   )
 
   const onMomentumScrollEnd = async ({
     nativeEvent: { layoutMeasurement, contentOffset, contentSize },
   }: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (
-      (guided.selectedPassage.includes('pb') ||
-        guided.selectedPassage.includes('in')) &&
+      (guided.selectedOrder.includes('pb') ||
+        guided.selectedOrder.includes('in')) &&
       layoutMeasurement.height + contentOffset.y >= contentSize.height - 20
     ) {
       const storageKey = `read-${guided.date || dayjs().format('DD-MM-YYYY')}`
@@ -211,7 +228,7 @@ export default function ReadTypography({
   // Effects
   useEffect(() => {
     // This effect is triggered when either one of these values changed:
-    // - guided.selectedPassage (when guided)
+    // - guided.selectedOrder (when guided)
     // - selectedBiblePassage (when not guided)
     // - selectedBibleVersion
     //
@@ -224,12 +241,28 @@ export default function ReadTypography({
       }
     }
   }, [
-    guided.selectedPassage,
+    guided.selectedOrder,
     isLoading,
     versesData,
     selectedBiblePassage,
     selectedBibleVersion,
   ])
+
+  useEffect(() => {
+    // This effect is triggered when passageData & selectedBibleVersion changes
+    // To load saved verses for current context (current bible version, book & chapter)
+    if (passageData) {
+      const { status, data } = parseCurrentPassage(passageData)
+
+      if (status === 'error') return
+
+      loadCurrentContextVerses({
+        book: data!.book,
+        chapter: data!.chapter,
+        selectedBibleVersion,
+      })
+    }
+  }, [passageData, selectedBibleVersion])
 
   if (isLoading) {
     return (
@@ -263,7 +296,10 @@ export default function ReadTypography({
           <ReadTypographyItem
             item={item}
             index={index}
-            isHighlighted={highlightedText.some((i) => i.verse === item.verse)}
+            isSelected={selectedText.some((i) => i.verse === item.verse)}
+            highlightOrBookmarkData={
+              highlightOrBookmarkData?.[String(item.verse)]
+            }
             onClick={onVerseClick}
           />
         )}
@@ -273,10 +309,7 @@ export default function ReadTypography({
         }}
       />
 
-      <ReadTypographyNavigator
-        passageArray={bibleByDateData?.passage || []}
-        redirectToBiblePassage={redirectToBiblePassage}
-      />
+      <ReadTypographyNavigator passageArray={bibleByDateData?.passage || []} />
     </>
   )
 }

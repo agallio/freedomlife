@@ -18,34 +18,31 @@ import {
 
 export default function SaverScreen() {
   const { openSaver, setOpenSaver } = useReadModalsWebContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
   // Methods
   const handleBack = (open: boolean) => {
     if (!open) {
-      updateHighlightedText([])
+      updateSelectedText([])
     }
     setOpenSaver(open)
   }
 
   const handleCopyClick = async () => {
     if (Platform.OS === 'web') {
-      const textToCopy = generateTextToCopy(
-        highlightedText,
-        selectedBibleVersion,
-      )
+      const textToCopy = generateTextToCopy(selectedText, selectedBibleVersion)
 
       try {
         await navigator.clipboard.writeText(textToCopy)
-        updateHighlightedText([])
+        updateSelectedText([])
         setOpenSaver(false)
 
         Burnt.toast({

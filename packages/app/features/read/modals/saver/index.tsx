@@ -16,26 +16,24 @@ import type { SaverScreenProps } from './types'
 
 export default function SaverScreen({ dismissSaverSheet }: SaverScreenProps) {
   const colorScheme = useColorScheme()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
   // Methods
   const handleCopyClick = async () => {
     if (Platform.OS !== 'web') {
-      const textToCopy = generateTextToCopy(
-        highlightedText,
-        selectedBibleVersion,
-      )
+      const textToCopy = generateTextToCopy(selectedText, selectedBibleVersion)
+
       await Clipboard.setStringAsync(textToCopy)
       dismissSaverSheet?.()
-      updateHighlightedText([])
+      updateSelectedText([])
 
       Burnt.toast({
         preset: 'custom',

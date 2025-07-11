@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Platform, View } from 'react-native'
 
 // Components
@@ -9,12 +10,12 @@ import { useReadPassageGeneralContext } from '../../../../contexts/read-passage.
 
 export default function ReadNavbarRight() {
   const { setOpenSetting } = useReadModalsWebContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onSettingClick = () => {
@@ -23,7 +24,7 @@ export default function ReadNavbarRight() {
     }
   }
 
-  if (isHighlighted) return <View className="h-[28px] w-[28px]" />
+  if (isSelected) return <View className="h-[28px] w-[28px]" />
 
   return <ItemRightIcon onSettingClick={onSettingClick} />
 }

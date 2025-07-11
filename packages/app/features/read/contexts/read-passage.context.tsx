@@ -12,7 +12,7 @@ import { Platform } from 'react-native'
 // Zustand Store
 import {
   createReadPassageStore,
-  type ReadHighlightedTextType,
+  type ReadSelectedTextType,
   type ReadPassageStore,
 } from './read-passage.store'
 
@@ -142,40 +142,38 @@ export function useReadPassageGeneralContext<T>(
 
 // Utils
 export function generateTextToCopy(
-  highlightedText: ReadHighlightedTextType[],
+  selectedText: ReadSelectedTextType[],
   bibleVersion: string,
 ) {
-  let mapHighlightedContent
-  let mapHighlightedVerse
+  let mapSelectedContent
+  let mapSelectedVerse
 
-  const passageTitle = highlightedText[0].passage
-  const sortedHighlightedText = highlightedText.sort(
-    (a, b) => a.verse - b.verse,
-  )
+  const passageTitle = selectedText[0].passage
+  const sortedSelectedText = selectedText.sort((a, b) => a.verse - b.verse)
 
-  const highlightedContent = sortedHighlightedText.map((item) => item.content)
-  const highlightedVerse = sortedHighlightedText.map((item) => item.verse)
-  const checkDiffVerse = highlightedVerse
+  const selectedContent = sortedSelectedText.map((item) => item.content)
+  const selectedVerse = sortedSelectedText.map((item) => item.verse)
+  const checkDiffVerse = selectedVerse
     .slice(1)
-    .map((n, i) => n - highlightedVerse[i]!)
+    .map((n, i) => n - selectedVerse[i]!)
   const isIncreasingSequence = checkDiffVerse.every((value) => value === 1)
 
-  if (highlightedVerse.length > 1) {
+  if (selectedVerse.length > 1) {
     if (isIncreasingSequence) {
-      mapHighlightedVerse = `${highlightedVerse[0]}-${
-        highlightedVerse[highlightedVerse.length - 1]
+      mapSelectedVerse = `${selectedVerse[0]}-${
+        selectedVerse[selectedVerse.length - 1]
       }`
-      mapHighlightedContent = highlightedContent.join(' ')
+      mapSelectedContent = selectedContent.join(' ')
     } else {
-      mapHighlightedVerse = highlightedVerse.join(',')
-      mapHighlightedContent = highlightedContent
-        .map((item, index) => `${highlightedVerse[index]}. ${item}`)
+      mapSelectedVerse = selectedVerse.join(',')
+      mapSelectedContent = selectedContent
+        .map((item, index) => `${selectedVerse[index]}. ${item}`)
         .join('\n\n')
     }
   } else {
-    mapHighlightedVerse = highlightedVerse[0]
-    mapHighlightedContent = highlightedContent[0]
+    mapSelectedVerse = selectedVerse[0]
+    mapSelectedContent = selectedContent[0]
   }
 
-  return `"${mapHighlightedContent}" - ${passageTitle}:${mapHighlightedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
+  return `"${mapSelectedContent}" - ${passageTitle}:${mapSelectedVerse} (${bibleVersion.toUpperCase()}) \n\n(Disalin dari https://freedomlife.id)`
 }

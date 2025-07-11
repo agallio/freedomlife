@@ -8,6 +8,7 @@
     "lib": ["DOM", "ESNext"],
     "noEmit": true,
     "resolveJsonModule": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "experimentalDecorators": true
   }
 }

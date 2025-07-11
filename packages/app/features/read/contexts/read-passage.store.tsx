@@ -1,7 +1,9 @@
 import { createStore } from 'zustand/vanilla'
+
+// Utils
 import dayjs from '../../../utils/dayjs'
 
-export type ReadHighlightedTextType = {
+export type ReadSelectedTextType = {
   passage: string
   verse: number
   content: string
@@ -9,7 +11,7 @@ export type ReadHighlightedTextType = {
 
 type ReadPassageContextGuidedStateType = {
   date: string
-  selectedPassage: string
+  selectedOrder: string
 }
 
 type ReadPassageState = {
@@ -17,7 +19,7 @@ type ReadPassageState = {
   guided: ReadPassageContextGuidedStateType
 
   // State - General
-  highlightedText: ReadHighlightedTextType[]
+  selectedText: ReadSelectedTextType[]
   guidesHaveBeenRead: string[]
   selectedGuideMonth: string
   selectedBibleVersion: string
@@ -33,9 +35,9 @@ type ReadPassageActions = {
     setGuidesHaveBeenRead: (_guidesHaveBeenRead: string[]) => void
     setSelectedGuideMonth: (_guideMonth: string) => void
     setSelectedBibleVersion: (_bibleVersion: string) => void
-    insertHighlightedText: (_highlightedText: ReadHighlightedTextType) => void
-    updateHighlightedText: (_highlightedText: ReadHighlightedTextType[]) => void
-    resetHighlightedText: () => void
+    insertSelectedText: (_selectedText: ReadSelectedTextType) => void
+    updateSelectedText: (_selectedText: ReadSelectedTextType[]) => void
+    resetSelectedText: () => void
   }
 }
 
@@ -45,11 +47,11 @@ const defaultReadPassageState: ReadPassageState = {
   // State - Guided
   guided: {
     date: '',
-    selectedPassage: 'pl-1',
+    selectedOrder: 'pl-1',
   },
 
   // State - General
-  highlightedText: [],
+  selectedText: [],
   guidesHaveBeenRead: [],
   selectedGuideMonth: dayjs().format('MM'),
   selectedBibleVersion: 'tb',
@@ -69,10 +71,10 @@ export const createReadPassageStore = (
           ...prevState,
           guided: { ...prevState.guided, date: guidedDate },
         })),
-      setGuidedSelectedPassage: (guidedPassage) =>
+      setGuidedSelectedPassage: (guidedOrder) =>
         set((prevState) => ({
           ...prevState,
-          guided: { ...prevState.guided, selectedPassage: guidedPassage },
+          guided: { ...prevState.guided, selectedOrder: guidedOrder },
         })),
 
       // Actions - General
@@ -82,15 +84,15 @@ export const createReadPassageStore = (
         set((prevState) => ({ ...prevState, selectedGuideMonth })),
       setSelectedBibleVersion: (selectedBibleVersion) =>
         set((prevState) => ({ ...prevState, selectedBibleVersion })),
-      insertHighlightedText: (highlightedText) =>
+      insertSelectedText: (selectedText) =>
         set((prevState) => ({
           ...prevState,
-          highlightedText: [...prevState.highlightedText, highlightedText],
+          selectedText: [...prevState.selectedText, selectedText],
         })),
-      updateHighlightedText: (highlightedText) =>
-        set((prevState) => ({ ...prevState, highlightedText })),
-      resetHighlightedText: () =>
-        set((prevState) => ({ ...prevState, highlightedText: [] })),
+      updateSelectedText: (selectedText) =>
+        set((prevState) => ({ ...prevState, selectedText })),
+      resetSelectedText: () =>
+        set((prevState) => ({ ...prevState, selectedText: [] })),
     },
   }))
 }

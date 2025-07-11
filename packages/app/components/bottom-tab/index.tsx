@@ -20,7 +20,7 @@ export default function BottomTab({
 
   return (
     <View
-      className="absolute flex flex-row items-center justify-center gap-3 bg-transparent"
+      className="absolute flex flex-row items-center justify-center gap-2 bg-transparent"
       style={{ bottom: 30, left: 0, right: 0 }}
     >
       {state!.routes.map((route, index) => (

@@ -57,7 +57,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
 
   const onExitGuideClick = () => {
     const activeGuideData = computedGuideData.find(
-      (guide) => guide.value === guided.selectedPassage,
+      (guide) => guide.value === guided.selectedOrder,
     )
 
     if (activeGuideData) {
@@ -99,7 +99,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
         {computedGuideData.map((guideData, index) => (
           <ListItem
             key={index}
-            active={guideData.value === guided.selectedPassage}
+            active={guideData.value === guided.selectedOrder}
             onClick={() => onPassageClick(guideData.value)}
           >
             <View>
@@ -115,7 +115,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
                 customFontSize="text-sm"
                 className={cn(
                   'mb-0.5',
-                  guideData.value === guided.selectedPassage
+                  guideData.value === guided.selectedOrder
                     ? 'text-emerald-800'
                     : 'text-emerald-900',
                 )}

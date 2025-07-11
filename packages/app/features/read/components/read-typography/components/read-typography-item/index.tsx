@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react'
 import { Pressable, useColorScheme, View } from 'react-native'
-// import { BookmarkIcon } from 'react-native-heroicons/solid'
+import { BookmarkIcon } from 'react-native-heroicons/solid'
 
 // Components
 import { Header, Text } from '../../../../../../components/text'
@@ -10,16 +10,10 @@ import { useReadSettingsContext } from '../../../../contexts/read-settings.conte
 
 // Utils
 import { cn } from '../../../../../../utils/helpers'
+import { highlighterColors } from '../../../../../../utils/constants'
 
 // Types
-import type { VerseData } from '../../../../../../types'
-
-export type ReadTypographyItemProps = {
-  item: VerseData
-  index: number
-  isHighlighted?: boolean
-  onClick: (_content: string, _verse: number) => void
-}
+import type { ReadTypographyItemProps } from './types'
 
 /**
  * Native only!
@@ -27,7 +21,8 @@ export type ReadTypographyItemProps = {
 function ReadTypographyItem({
   item,
   index,
-  isHighlighted,
+  isSelected,
+  highlightOrBookmarkData,
   onClick,
 }: ReadTypographyItemProps) {
   const colorScheme = useColorScheme()
@@ -44,6 +39,31 @@ function ReadTypographyItem({
     // Will break the layout in native (iOS & Android)
     return item.content.replace(/\r?\n|\r/, '')
   }, [item.content])
+
+  const textHighlightedColors = useMemo(() => {
+    if (
+      !highlightOrBookmarkData ||
+      highlightOrBookmarkData.kind === 'bookmark'
+    ) {
+      return { backgroundColor: '', textColor: '' }
+    }
+
+    let backgroundColor = ''
+    let textColor = ''
+
+    if (highlightOrBookmarkData.kind === 'highlight') {
+      backgroundColor = highlighterColors[highlightOrBookmarkData.color!].color
+      textColor = highlighterColors[highlightOrBookmarkData.color!].textColor
+    } else {
+      backgroundColor = highlighterColors['bookmark'].color
+      textColor = highlighterColors['bookmark'].textColor
+    }
+
+    return {
+      backgroundColor,
+      textColor,
+    }
+  }, [highlightOrBookmarkData])
 
   const bookmarkIconColor = useMemo(() => {
     return colorScheme === 'light' ? '#047857' : '#10b981'
@@ -80,7 +100,7 @@ function ReadTypographyItem({
       <View
         className={cn(
           'relative flex-row',
-          isHighlighted
+          isSelected
             ? 'bg-gray-300/70 px-4 sm:rounded-lg dark:bg-gray-700'
             : 'px-4',
           index === 0 && 'pt-4',
@@ -103,7 +123,8 @@ function ReadTypographyItem({
             <Text
               className={cn(
                 'text-gray-900',
-                // index === 2 ? 'bg-emerald-300 dark:bg-emerald-800' : '',
+                textHighlightedColors.textColor,
+                textHighlightedColors.backgroundColor,
               )}
               style={{
                 lineHeight: Number(verseFontSize) * 2,
@@ -116,11 +137,11 @@ function ReadTypographyItem({
           </Text>
         </View>
 
-        {/* {index === 3 && (
+        {highlightOrBookmarkData?.kind === 'bookmark' && (
           <View className="mt-[9px] h-[16px] w-[16px] flex-shrink-0">
             <BookmarkIcon size={16} color={bookmarkIconColor} />
           </View>
-        )} */}
+        )}
       </View>
     </Pressable>
   )

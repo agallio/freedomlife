@@ -35,7 +35,7 @@ export default function ReadTypographyNavigator({
   redirectToBiblePassage,
 }: {
   passageArray: string[]
-  redirectToBiblePassage: ReadTypographyProps['redirectToBiblePassage']
+  redirectToBiblePassage?: ReadTypographyProps['redirectToBiblePassage']
 }) {
   const colorScheme = useColorScheme()
   const { guidedEnabled, selectedBiblePassage, setSelectedBiblePassage } =
@@ -44,7 +44,7 @@ export default function ReadTypographyNavigator({
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const { setGuidedSelectedPassage, updateHighlightedText } =
+  const { setGuidedSelectedPassage, updateSelectedText } =
     useReadPassageGeneralContext((state) => state.actions)
 
   // Constants
@@ -54,13 +54,13 @@ export default function ReadTypographyNavigator({
   const guidePassageIndex = useMemo(() => {
     if (guidedEnabled) {
       return passageArray.findIndex(
-        (passage) => passage === guided.selectedPassage,
+        (passage) => passage === guided.selectedOrder,
       )
     }
 
     // Make it more than -1, since -1 is reserved by `.findIndex()`.
     return -2
-  }, [passageArray, guidedEnabled, guided.selectedPassage])
+  }, [passageArray, guidedEnabled, guided.selectedOrder])
 
   const showPreviousButton = useMemo(() => {
     if (guidedEnabled) {
@@ -89,12 +89,12 @@ export default function ReadTypographyNavigator({
   const handleSetSelectedBiblePassage = (newPassage: string) => {
     setSelectedBiblePassage(newPassage)
     if (Platform.OS === 'web') {
-      redirectToBiblePassage(newPassage)
+      redirectToBiblePassage?.(newPassage)
     }
   }
 
   const onPreviousPassage = () => {
-    updateHighlightedText([])
+    updateSelectedText([])
 
     if (guidedEnabled) {
       if (guidePassageIndex <= 0) return
@@ -130,7 +130,7 @@ export default function ReadTypographyNavigator({
   }
 
   const onNextPassage = () => {
-    updateHighlightedText([])
+    updateSelectedText([])
 
     if (guidedEnabled) {
       if (

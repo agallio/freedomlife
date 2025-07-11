@@ -15,12 +15,12 @@ import { useReadSettingsContext } from '../../../../contexts/read-settings.conte
 import { cn } from '../../../../../../utils/helpers'
 
 // Types
-import type { ReadTypographyItemProps } from '.'
+import type { ReadTypographyItemProps } from './types'
 
 function ReadTypographyItem({
   item,
   index,
-  isHighlighted,
+  isSelected,
   onClick,
 }: ReadTypographyItemProps) {
   const { verseFontSize, headerFontSize } = useReadSettingsContext()
@@ -39,7 +39,7 @@ function ReadTypographyItem({
   return (
     <View
       className={cn(
-        isHighlighted
+        isSelected
           ? 'bg-gray-200 px-4 transition duration-200 sm:-mx-4 sm:my-0 sm:rounded-lg dark:bg-gray-700'
           : 'px-4 sm:px-0',
         index === 0 && 'pt-4',

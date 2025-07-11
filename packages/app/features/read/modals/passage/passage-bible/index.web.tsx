@@ -30,7 +30,7 @@ export default function PassageBible({
     (state) => state.selectedBibleVersion,
   )
   const { setSelectedBiblePassage } = useReadPassagePersistedContext()
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
   const searchText = useReadPassageChapterContext((state) => state.searchText)
@@ -79,7 +79,7 @@ export default function PassageBible({
     if (isJumpResult) {
       // Direct jump: set both book and chapter, then close modal
       // Remove all highlighted text
-      updateHighlightedText([])
+      updateSelectedText([])
 
       // Select the new bible passage
       setSelectedBiblePassage(selectedPassage)

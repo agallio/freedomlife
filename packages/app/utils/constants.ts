@@ -168,7 +168,23 @@ export const apiUrl =
       ? 'http://192.168.1.5:3000'
       : 'https://freedomlife.id'
 
-export const highlighterColors = {
+export type HighlighterColorType = {
+  [key: string]: {
+    color: string
+    textColor: string
+    hoverColor: string
+    iconColor: {
+      light: string
+      dark: string
+    }
+    accessibility: {
+      label: string
+      hint: string
+    }
+  }
+}
+
+export const highlighterColors: HighlighterColorType = {
   kuning: {
     color: 'bg-amber-200 dark:bg-yellow-800',
     textColor: 'text-gray-900 dark:text-white',

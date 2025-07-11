@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { View, useColorScheme } from 'react-native'
 
 // Components
@@ -16,12 +17,12 @@ import type { ReadNavbarProps } from './types'
 export default function ReadNavbar(props: ReadNavbarProps) {
   const { top } = useSafeArea()
   const colorScheme = useColorScheme()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   return (
     <>
@@ -33,17 +34,17 @@ export default function ReadNavbar(props: ReadNavbarProps) {
       <View
         className={cn(
           'w-full flex-row items-end justify-between border-b px-6 sm:px-10',
-          isHighlighted ? 'bg-emerald-300 dark:bg-emerald-700' : undefined,
+          isSelected ? 'bg-emerald-300 dark:bg-emerald-700' : undefined,
         )}
         style={{
           height: top + 50,
           paddingBottom: 8,
           borderBottomColor:
             colorScheme === 'light'
-              ? isHighlighted
+              ? isSelected
                 ? '#34d399'
                 : '#e6e6e6'
-              : isHighlighted
+              : isSelected
                 ? '#065f46'
                 : '#374151',
         }}

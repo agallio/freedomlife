@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Platform, useColorScheme } from 'react-native'
 import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 
@@ -22,16 +23,18 @@ export default function ReadNavbarLeft({
 }: ReadNavbarLeftProps) {
   const colorScheme = useColorScheme()
   const { setOpenSaver, setOpenTranslate } = useReadModalsWebContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
   // Constants
-  const isHighlighted = highlightedText.length > 0
   const color = getIconColor(colorScheme)
+
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onTranslateClick = () => {
@@ -48,10 +51,10 @@ export default function ReadNavbarLeft({
       setOpenSaver(false)
     }
 
-    updateHighlightedText([])
+    updateSelectedText([])
   }
 
-  if (isHighlighted) {
+  if (isSelected) {
     return (
       <IconButton
         ariaLabel="Tombol untuk menghapus sorotan"

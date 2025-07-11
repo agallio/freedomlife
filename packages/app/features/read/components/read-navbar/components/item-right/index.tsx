@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Platform, View } from 'react-native'
 
 // Components
@@ -9,13 +10,13 @@ import { useSettingSheetMobileContext } from '../../../../../../providers/bottom
 
 // Needs to separate native and web since expo-clipboard crash on web.
 export default function ReadNavbarRight() {
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
   const { showSheet } = useSettingSheetMobileContext()
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onSettingClick = () => {
@@ -24,7 +25,7 @@ export default function ReadNavbarRight() {
     }
   }
 
-  if (isHighlighted) return <View className="h-[28px] w-[28px]" />
+  if (isSelected) return <View className="h-[28px] w-[28px]" />
 
   return <ItemRightIcon onSettingClick={onSettingClick} />
 }

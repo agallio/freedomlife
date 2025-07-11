@@ -55,10 +55,10 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
   const { dismiss } = useBottomSheetModal()
   const { width } = useWindowDimensions()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
@@ -85,8 +85,8 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
 
   const dismissAndReset = useCallback(() => {
     dismiss()
-    updateHighlightedText([])
-  }, [dismiss, updateHighlightedText])
+    updateSelectedText([])
+  }, [])
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === 0) {
@@ -102,12 +102,12 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
 
   // Effects
   useEffect(() => {
-    if (highlightedText.length > 0) {
+    if (selectedText.length > 0) {
       showSaverSheet()
     } else {
       saverSheetRef.current?.dismiss()
     }
-  }, [highlightedText.length])
+  }, [selectedText.length])
 
   return (
     <SaverSheetStoreMobileContext.Provider value={saverSheetStoreRef.current}>
@@ -125,7 +125,7 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
         name="saver-sheet"
         snapPoints={[300]}
         handleComponent={null}
-        backdropComponent={null}
+        backdropComponent={undefined}
         enableDynamicSizing={false}
         enablePanDownToClose={false}
         animationConfigs={fastAnimationConfigs}

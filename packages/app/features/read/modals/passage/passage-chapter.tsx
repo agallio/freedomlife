@@ -20,7 +20,7 @@ export default function PassageChapter({
   handlePassageChapterBack,
 }: PassageChapterProps) {
   const { setSelectedBiblePassage } = useReadPassagePersistedContext()
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
   const dialogSelectedPassage = useReadPassageChapterContext(
@@ -43,7 +43,7 @@ export default function PassageChapter({
       const newPassage = `${passageDetailData.abbr}-${passageNumber}`
 
       // Remove all highlighted text
-      updateHighlightedText([])
+      updateSelectedText([])
 
       // Select the new bible passage
       setSelectedBiblePassage(newPassage)

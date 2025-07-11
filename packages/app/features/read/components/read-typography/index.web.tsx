@@ -39,10 +39,10 @@ export default function ReadTypography({
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { insertHighlightedText, updateHighlightedText } =
+  const { insertSelectedText, updateSelectedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
   const { openSaver, setOpenSaver } = useReadModalsWebContext()
@@ -88,36 +88,28 @@ export default function ReadTypography({
     }
 
     // Handled when guided
-    if (guided.selectedPassage.includes('pl')) {
+    if (guided.selectedOrder.includes('pl')) {
       return (
-        bibleByDateData?.pl.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pl.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('pb')) {
+    if (guided.selectedOrder.includes('pb')) {
       return (
-        bibleByDateData?.pb.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pb.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('in')) {
+    if (guided.selectedOrder.includes('in')) {
       return (
-        bibleByDateData?.in.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.in.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
 
     // Fallback
     return []
-  }, [
-    guidedEnabled,
-    guided.selectedPassage,
-    bibleByDateData,
-    bibleByPassageData,
-  ])
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
 
   const passageData = useMemo(() => {
     // Return: `${book} ${chapter}`
@@ -126,27 +118,27 @@ export default function ReadTypography({
 
     // Handle when guided
     if (guidedEnabled) {
-      if (guided.selectedPassage.includes('pl')) {
+      if (guided.selectedOrder.includes('pl')) {
         const bibleByDateDataPL = bibleByDateData?.pl.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataPL
           ? `${bibleByDateDataPL.book} ${bibleByDateDataPL.chapter}`
           : ''
       }
-      if (guided.selectedPassage.includes('pb')) {
+      if (guided.selectedOrder.includes('pb')) {
         const bibleByDateDataPB = bibleByDateData?.pb.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataPB
           ? `${bibleByDateDataPB.book} ${bibleByDateDataPB.chapter}`
           : ''
       }
-      if (guided.selectedPassage.includes('in')) {
+      if (guided.selectedOrder.includes('in')) {
         const bibleByDateDataIN = bibleByDateData?.in.find(
-          (i) => i.passagePlace === guided.selectedPassage,
+          (i) => i.passagePlace === guided.selectedOrder,
         )
 
         return bibleByDateDataIN
@@ -159,34 +151,29 @@ export default function ReadTypography({
     return bibleByPassageData
       ? `${bibleByPassageData.book} ${bibleByPassageData.chapter}`
       : ''
-  }, [
-    guidedEnabled,
-    guided.selectedPassage,
-    bibleByDateData,
-    bibleByPassageData,
-  ])
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
 
   // Methods
   const onVerseClick = useCallback(
     (content: string, verse: number) => {
-      if (highlightedText.find((i) => i.verse === verse)) {
-        const filteredHighlightedText = highlightedText.filter(
+      if (selectedText.find((i) => i.verse === verse)) {
+        const filteredSelectedText = selectedText.filter(
           (i) => i.verse !== verse,
         )
-        updateHighlightedText(filteredHighlightedText)
-        setOpenSaver(Boolean(filteredHighlightedText.length))
+        updateSelectedText(filteredSelectedText)
+        setOpenSaver(Boolean(filteredSelectedText.length))
       } else {
-        insertHighlightedText({ passage: passageData, verse, content })
+        insertSelectedText({ passage: passageData, verse, content })
         setOpenSaver(true)
       }
     },
-    [highlightedText, passageData],
+    [selectedText, passageData],
   )
 
   const handleScroll = async () => {
     if (
-      !guided.selectedPassage.includes('pb') &&
-      !guided.selectedPassage.includes('in')
+      !guided.selectedOrder.includes('pb') &&
+      !guided.selectedOrder.includes('in')
     ) {
       return
     }
@@ -252,9 +239,7 @@ export default function ReadTypography({
             key={index}
             item={item}
             index={index}
-            isHighlighted={Boolean(
-              highlightedText.find((i) => i.verse === item.verse),
-            )}
+            isSelected={selectedText.some((i) => i.verse === item.verse)}
             onClick={onVerseClick}
           />
         ))}

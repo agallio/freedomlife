@@ -28,7 +28,7 @@ import { bibleTranslations, tsiAbbrs } from '../../../../utils/constants'
 // Utils
 import { filterTranslationsWithLookupSet } from './utils'
 
-export type TranslateContainerProps = { handleBack: () => void }
+export type TranslateContainerProps = { handleBack?: () => void }
 
 export default function TranslateContainer({
   handleBack,
@@ -107,7 +107,7 @@ export default function TranslateContainer({
     })
 
     setSelectedBibleVersion(selectedBibleVersion)
-    handleBack()
+    handleBack?.()
   }
 
   return (

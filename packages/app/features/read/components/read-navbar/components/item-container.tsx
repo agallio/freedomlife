@@ -49,8 +49,8 @@ export default function ReadNavbarContainer({
 
   // Memoized Values
   const isGuidedDataLoading = useMemo(
-    () => guideTodayLoading || guideByDateLoading || !guided.selectedPassage,
-    [guideTodayLoading, guideByDateLoading, guided.selectedPassage],
+    () => guideTodayLoading || guideByDateLoading || !guided.selectedOrder,
+    [guideTodayLoading, guideByDateLoading, guided.selectedOrder],
   )
 
   const passageName = useMemo(() => {
@@ -70,7 +70,7 @@ export default function ReadNavbarContainer({
       // Handle guided with custom date
       if (guided.date !== '' && guideByDateData) {
         const guidedDateData = guideByDateData.guide_bible_data?.find(
-          (passage) => passage.value === guided.selectedPassage,
+          (passage) => passage.value === guided.selectedOrder,
         )
 
         return guidedDateData
@@ -81,7 +81,7 @@ export default function ReadNavbarContainer({
       // Handle guided with today's date
       if (guideTodayData) {
         const guidedTodayData = guideTodayData.guide_bible_data?.find(
-          (passage) => passage.value === guided.selectedPassage,
+          (passage) => passage.value === guided.selectedOrder,
         )
 
         return guidedTodayData
