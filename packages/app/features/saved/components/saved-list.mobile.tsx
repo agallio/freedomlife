@@ -133,7 +133,7 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
         </View>
       }
     >
-      <View className="gap-3 px-4 pb-3 pt-2">
+      <View className="gap-3 px-4 pb-4 pt-3">
         <Text>
           <Text
             className={cn(

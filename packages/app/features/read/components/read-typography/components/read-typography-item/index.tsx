@@ -101,7 +101,7 @@ function ReadTypographyItem({
         className={cn(
           'relative flex-row',
           isSelected
-            ? 'bg-gray-300/70 px-4 sm:rounded-lg dark:bg-gray-700'
+            ? 'bg-gray-300/70 px-4 sm:rounded-lg dark:bg-gray-700/50'
             : 'px-4',
           index === 0 && 'pt-4',
         )}

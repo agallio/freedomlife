@@ -209,7 +209,7 @@ export default function SaverScreenComponent({
         </View>
       </View>
 
-      <View className="flex w-full max-w-[300px] flex-row justify-between">
+      <View className="flex w-full max-w-[280px] flex-row justify-between">
         {Object.entries(highlighterColors).map(([key, value]) => (
           <HighlightBookmarkButton
             key={key}
@@ -277,7 +277,7 @@ function HighlightBookmarkButton({
     >
       <View
         className={cn(
-          'flex h-[50px] w-[50px] items-center justify-center rounded-full',
+          'flex h-[44px] w-[44px] items-center justify-center rounded-full',
           Platform.OS === 'web' &&
             `transition duration-200 ease-in-out ${value.hoverColor}`,
           value.color,

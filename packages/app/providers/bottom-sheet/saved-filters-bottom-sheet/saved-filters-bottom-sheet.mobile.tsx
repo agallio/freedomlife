@@ -86,8 +86,9 @@ export function SavedFiltersSheetMobileProvider({
       <BottomSheetModal
         ref={savedFiltersSheetRef}
         name="saved-filters-sheet"
-        snapPoints={[400]}
+        snapPoints={[390]}
         handleComponent={null}
+        enableDynamicSizing={false}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}
@@ -95,7 +96,6 @@ export function SavedFiltersSheetMobileProvider({
             disappearsOnIndex={-1}
           />
         )}
-        enableDynamicSizing={false}
         backgroundStyle={{
           backgroundColor: colorScheme === 'light' ? '#f3f4f6' : '#1f2937',
         }}

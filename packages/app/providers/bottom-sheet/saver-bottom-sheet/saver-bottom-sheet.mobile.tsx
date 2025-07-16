@@ -123,7 +123,7 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
       <BottomSheetModal
         ref={saverSheetRef}
         name="saver-sheet"
-        snapPoints={[300]}
+        snapPoints={[280]}
         handleComponent={null}
         backdropComponent={undefined}
         enableDynamicSizing={false}

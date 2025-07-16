@@ -58,6 +58,7 @@ export function SettingSheetMobileProvider({ children }: PropsWithChildren) {
         name="setting-sheet"
         snapPoints={[270]}
         handleComponent={null}
+        enableDynamicSizing={false}
         backdropComponent={(props) => (
           <BottomSheetBackdrop
             {...props}
@@ -65,7 +66,6 @@ export function SettingSheetMobileProvider({ children }: PropsWithChildren) {
             disappearsOnIndex={-1}
           />
         )}
-        enableDynamicSizing={false}
         backgroundStyle={{
           backgroundColor: colorScheme === 'light' ? '#f3f4f6' : '#1f2937',
         }}
