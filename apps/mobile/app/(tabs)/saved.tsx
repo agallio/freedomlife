@@ -18,13 +18,47 @@ export default function SavedPage() {
   // Local state for saved page
   const [savedVerses, setSavedVerses] = useState<SavedVerseModel[]>([])
   const [isError, setIsError] = useState(false)
+  const [totalCount, setTotalCount] = useState(0)
 
   // Filter integration
   const filterType = useSavedFilters((state) => state.type)
   const filterColor = useSavedFilters((state) => state.color)
 
+  // Effects
+  // Track total count efficiently to determine if filters should be disabled
+  useEffect(() => {
+    const countSubscription = database.collections
+      .get<SavedVerseModel>('saved_verses')
+      .query()
+      .observeCount()
+      .subscribe({
+        next: (count) => {
+          setTotalCount(count)
+        },
+        error: (err) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('Error counting saved verses:', err)
+          }
+          captureException(err, {
+            tags: {
+              page: 'SavedPage',
+              operation: 'count',
+            },
+          })
+        },
+      })
+
+    return () => countSubscription.unsubscribe()
+  }, [])
+
   // Dynamic database subscription with filtering
   useEffect(() => {
+    // If no data exists, don't apply filters and just show empty state
+    if (totalCount === 0) {
+      setSavedVerses([])
+      return
+    }
+
     let savedVersesQuery = database.collections
       .get<SavedVerseModel>('saved_verses')
       .query(Q.sortBy('created_at', 'desc'))
@@ -51,6 +85,7 @@ export default function SavedPage() {
         captureException(err, {
           tags: {
             page: 'SavedPage',
+            operation: 'load',
           },
         })
 
@@ -59,12 +94,12 @@ export default function SavedPage() {
     })
 
     return () => subscription.unsubscribe()
-  }, [filterType, filterColor])
+  }, [filterType, filterColor, totalCount])
 
   return (
     <>
       <View className="border-b border-[#e6e6e6] px-6 pb-4 pt-2 min-[744px]:px-40 md:px-52 lg:px-96 dark:border-[#374151]">
-        <SavedFiltersButton />
+        <SavedFiltersButton disabled={totalCount === 0} />
       </View>
 
       <SavedList

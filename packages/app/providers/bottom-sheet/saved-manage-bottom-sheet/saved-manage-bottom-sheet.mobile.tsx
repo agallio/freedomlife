@@ -107,7 +107,7 @@ export function SavedManageSheetMobileProvider({
             <View className="w-full flex-1 items-center">
               {Platform.OS === 'ios' ? (
                 <RNText className="text-[17px] font-semibold text-emerald-900 dark:text-white">
-                  Manajemen Simpanan
+                  Data Simpanan
                 </RNText>
               ) : (
                 <Text
@@ -115,7 +115,7 @@ export function SavedManageSheetMobileProvider({
                   customFontWeight="font-semibold"
                   className="text-[17px]"
                 >
-                  Manajemen Simpanan
+                  Data Simpanan
                 </Text>
               )}
             </View>

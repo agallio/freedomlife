@@ -16,11 +16,14 @@ import { PressableCard } from '../../../components/card'
 import SavedVerseModel from '../../../database/models/saved-verse.model'
 
 // Contexts
-import { useReadPassagePersistedContext } from '../../read/contexts/read-passage.context'
+import {
+  useReadPassageGeneralContext,
+  useReadPassagePersistedContext,
+} from '../../read/contexts/read-passage.context'
 
 // Utils
 import { cn } from '../../../utils/helpers'
-import { highlighterColors } from '../../../utils/constants'
+import { bibleTranslations, highlighterColors } from '../../../utils/constants'
 
 type SavedListProps = {
   savedVerses: SavedVerseModel[]
@@ -83,6 +86,9 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
   const { fontScale } = useWindowDimensions()
   const { setSelectedBiblePassage, setGuidedEnabled } =
     useReadPassagePersistedContext()
+  const setSelectedBibleVersion = useReadPassageGeneralContext(
+    (state) => state.actions.setSelectedBibleVersion,
+  )
 
   // Memoized Values
   const textHighlightedColors = useMemo(() => {
@@ -108,21 +114,35 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
   const handleVersePress = () => {
     setGuidedEnabled(false)
     setSelectedBiblePassage(`${verse.abbr}-${verse.chapter}`)
+    setCorrectBibleVersion(verse.version)
     router.push('/read')
+  }
+
+  const setCorrectBibleVersion = (version: string) => {
+    const bibleTranslationsArray = bibleTranslations
+      .flatMap((item) => item.versions)
+      .map((item) => item.key)
+
+    const correctBibleTranslation = bibleTranslationsArray.includes(version)
+      ? version
+      : 'tb'
+
+    setSelectedBibleVersion(correctBibleTranslation)
   }
 
   return (
     <PressableCard
       onPress={handleVersePress}
       title={
-        <View className="flex w-full flex-row items-center justify-between px-4 py-2">
+        <View className="flex w-full flex-row items-center justify-between px-4 py-3">
           <View>
             <Header
               aria-level={2}
               customFontSize="text-lg"
               className="leading-snug"
             >
-              {verse.book} {verse.chapter}:{verse.verse}
+              {verse.book} {verse.chapter}:{verse.verse} (
+              {verse.version.toUpperCase()})
             </Header>
           </View>
           {verse.kind === 'bookmark' && (

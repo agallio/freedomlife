@@ -14,7 +14,11 @@ import { useSavedFilters } from '../contexts/saved-filters.context'
 // Utils
 import { getIconColor } from '../../../utils/helpers'
 
-export default function SavedFiltersButton() {
+export default function SavedFiltersButton({
+  disabled = false,
+}: {
+  disabled?: boolean
+}) {
   const colorScheme = useColorScheme()
   const savedFilterType = useSavedFilters((state) => state.type)
   const savedFilterColor = useSavedFilters((state) => state.color)
@@ -40,14 +44,27 @@ export default function SavedFiltersButton() {
     return ''
   }, [savedFilterType])
 
+  const savedFilterText = useMemo(() => {
+    if (disabled) {
+      return 'Filter (Tidak Ada Data)'
+    }
+
+    return isFilterActive
+      ? `Filter Aktif (${savedFilterTypeText})`
+      : 'Pilih Filter'
+  }, [disabled, isFilterActive, savedFilterTypeText])
+
+  // Methods
+  const handlePress = () => {
+    if (!disabled) {
+      showSavedFiltersSheet()
+    }
+  }
+
   return (
-    <ListItem onClick={showSavedFiltersSheet}>
+    <ListItem onClick={handlePress} disabled={disabled}>
       <View className="w-full flex-row items-center justify-between">
-        <Text>
-          {isFilterActive
-            ? `Filter Aktif (${savedFilterTypeText})`
-            : 'Pilih Filter'}
-        </Text>
+        <Text>{savedFilterText}</Text>
         {isFilterActive ? (
           <FunnelIconSolid size={18} color={iconColor} />
         ) : (

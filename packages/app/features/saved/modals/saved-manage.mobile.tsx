@@ -9,11 +9,15 @@ import {
 import { Text } from '../../../components/text'
 import ListItem from '../../../components/list-item'
 
+// Contexts
+import { useSavedVersesActionContext } from '../contexts/saved-verses.context'
+
 // Utils
 import { getIconColor } from '../../../utils/helpers'
 
 export default function SavedManageScreen() {
   const colorScheme = useColorScheme()
+  const { resetDatabase } = useSavedVersesActionContext()
 
   // Constants
   const iconColor = getIconColor(colorScheme)
@@ -33,7 +37,7 @@ export default function SavedManageScreen() {
           <Text>Impor Data</Text>
         </View>
       </ListItem>
-      <ListItem>
+      <ListItem onClick={() => resetDatabase()}>
         <View className="flex-row items-center gap-2">
           <TrashIcon size={19} color={deleteIconColor} />
           <Text className="text-red-500 dark:text-red-400">
