@@ -110,7 +110,7 @@ export default function TabLayout() {
               ariaLabel="Tombol untuk menghapus simpanan"
               variant="transparent"
               className="pr-6 sm:pr-10"
-              icon={<TrashIcon size={24} color={color} />}
+              icon={<TrashIcon size={23} color={color} />}
               onClick={alertDeleteSavedItem}
             />
           ),

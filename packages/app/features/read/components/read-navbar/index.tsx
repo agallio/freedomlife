@@ -37,7 +37,7 @@ export default function ReadNavbar(props: ReadNavbarProps) {
           isSelected ? 'bg-emerald-300 dark:bg-emerald-700' : undefined,
         )}
         style={{
-          height: top + 50,
+          height: top + 55,
           paddingBottom: 8,
           borderBottomColor:
             colorScheme === 'light'
