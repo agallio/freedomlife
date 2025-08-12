@@ -123,7 +123,7 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
       <BottomSheetModal
         ref={saverSheetRef}
         name="saver-sheet"
-        snapPoints={[280]}
+        snapPoints={[290]}
         handleComponent={null}
         backdropComponent={undefined}
         enableDynamicSizing={false}
@@ -140,7 +140,7 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 0,
           },
           shadowOpacity: 0.25,
           shadowRadius: 3.84,

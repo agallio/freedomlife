@@ -1,6 +1,6 @@
-import { useColorScheme } from 'react-native'
+import { Alert, useColorScheme } from 'react-native'
 import { Tabs, useRouter } from 'expo-router'
-import { ArchiveBoxArrowDownIcon, CogIcon } from 'react-native-heroicons/solid'
+import { TrashIcon } from 'react-native-heroicons/solid'
 
 // Components
 import BottomTab from '@repo/app/components/bottom-tab'
@@ -13,13 +13,13 @@ import FreedomlifeIcon from '@repo/app/components/icons/freedomlife-icon'
 // Utils
 import { useSafeArea } from '@repo/app/utils/hooks/use-safe-area'
 import { getIconColor } from '@repo/app/utils/helpers'
-import { useSavedManageSheetActionsMobileContext } from '@repo/app/providers/bottom-sheet/saved-manage-bottom-sheet/saved-manage-bottom-sheet.mobile'
+import { useSavedVersesActionContext } from '@repo/app/features/saved/contexts/saved-verses.context'
 
 export default function TabLayout() {
   const { top } = useSafeArea()
   const router = useRouter()
   const colorScheme = useColorScheme()
-  const { showSavedManageSheet } = useSavedManageSheetActionsMobileContext()
+  const { resetDatabase } = useSavedVersesActionContext()
 
   // Constant
   const color = getIconColor(colorScheme)
@@ -33,8 +33,22 @@ export default function TabLayout() {
     router.push('/translate')
   }
 
-  const openSavedManageSheet = () => {
-    showSavedManageSheet()
+  const alertDeleteSavedItem = () => {
+    Alert.alert(
+      'Hapus Simpanan',
+      'Apakah Anda yakin ingin semua menghapus marka buku dan sorotan?',
+      [
+        {
+          text: 'Batal',
+          style: 'cancel',
+        },
+        {
+          text: 'Hapus',
+          style: 'destructive',
+          onPress: () => resetDatabase(),
+        },
+      ],
+    )
   }
 
   return (
@@ -93,11 +107,11 @@ export default function TabLayout() {
           ),
           headerRight: () => (
             <IconButton
-              ariaLabel="Tombol pengaturan"
+              ariaLabel="Tombol untuk menghapus simpanan"
               variant="transparent"
               className="pr-6 sm:pr-10"
-              icon={<ArchiveBoxArrowDownIcon size={24} color={color} />}
-              onClick={openSavedManageSheet}
+              icon={<TrashIcon size={24} color={color} />}
+              onClick={alertDeleteSavedItem}
             />
           ),
           headerStyle: {

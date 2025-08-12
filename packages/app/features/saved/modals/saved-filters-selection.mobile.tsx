@@ -105,7 +105,7 @@ export default function SavedFiltersSelectionScreen({
           </View>
         </ListItem>
       )}
-      contentContainerClassName="pt-4 px-4 gap-3"
+      contentContainerClassName="px-4 py-4 gap-3"
     />
   )
 }

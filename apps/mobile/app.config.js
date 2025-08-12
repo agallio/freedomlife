@@ -71,7 +71,7 @@ export default {
           ],
         },
         android: {
-          kotlinVersion: '1.9.25',
+          kotlinVersion: '2.0.21',
           usesCleartextTraffic: true,
           packagingOptions: {
             pickFirst: ['**/libc++_shared.so'],
