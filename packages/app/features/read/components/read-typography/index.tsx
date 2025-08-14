@@ -36,7 +36,11 @@ import {
 import dayjs from '../../../../utils/dayjs'
 import { parseCurrentPassage } from '../../../../utils/helpers'
 
-export default function ReadTypography() {
+// Types
+import type { ReadTypographyProps } from './types'
+
+// Props are being used by the web component
+export default function ReadTypography(_: ReadTypographyProps) {
   const { guidedEnabled, selectedBiblePassage } =
     useReadPassagePersistedContext()
   const guided = useReadPassageGeneralContext((state) => state.guided)

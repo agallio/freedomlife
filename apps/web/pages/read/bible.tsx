@@ -32,10 +32,6 @@ const SettingsModal = dynamic(
   () => import('@repo/app/features/read/modals/setting'),
   { ssr: false },
 )
-const SaverModal = dynamic(
-  () => import('@repo/app/features/read/modals/saver'),
-  { ssr: false },
-)
 
 export default function ReadPage() {
   const router = useRouter()
@@ -138,7 +134,6 @@ export default function ReadPage() {
           handlePassageChapterBack={handlePassageChapterBack}
         />
         <SettingsModal />
-        <SaverModal />
       </ReadLocalDatabaseWebProvider>
     </>
   )

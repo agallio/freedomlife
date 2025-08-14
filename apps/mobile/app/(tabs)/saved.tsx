@@ -13,11 +13,12 @@ import { useSavedFilters } from '@repo/app/features/saved/contexts/saved-filters
 // Database
 import database from '@repo/app/database'
 import SavedVerseModel from '@repo/app/database/models/saved-verse.model'
+import SearchInput from '@repo/app/components/search-input'
 
 export default function SavedPage() {
-  // Local state for saved page
   const [savedVerses, setSavedVerses] = useState<SavedVerseModel[]>([])
   const [isError, setIsError] = useState(false)
+  const [searchText, setSearchText] = useState('')
   const [totalCount, setTotalCount] = useState(0)
 
   // Filter integration
@@ -63,6 +64,17 @@ export default function SavedPage() {
       .get<SavedVerseModel>('saved_verses')
       .query(Q.sortBy('created_at', 'desc'))
 
+    // Add search filter if search text is provided (minimum 2 characters)
+    if (searchText && searchText.length >= 2) {
+      savedVersesQuery = savedVersesQuery.extend(
+        Q.or(
+          Q.where('book', Q.like(`%${searchText}%`)),
+          Q.where('chapter', Q.like(`%${searchText}%`)),
+          Q.where('verse_text', Q.like(`%${searchText}%`)),
+        ),
+      )
+    }
+
     // Add type filter if selected
     if (filterType) {
       savedVersesQuery = savedVersesQuery.extend(Q.where('kind', filterType))
@@ -94,18 +106,28 @@ export default function SavedPage() {
     })
 
     return () => subscription.unsubscribe()
-  }, [filterType, filterColor, totalCount])
+  }, [filterType, filterColor, totalCount, searchText])
 
   return (
     <>
-      <View className="border-b border-[#e6e6e6] px-6 pb-4 pt-2 min-[744px]:px-40 md:px-52 lg:px-96 dark:border-[#374151]">
+      <View className="gap-3 border-b border-[#e6e6e6] px-6 pb-4 pt-2 min-[744px]:px-40 md:px-52 lg:px-96 dark:border-[#374151]">
         <SavedFiltersButton disabled={totalCount === 0} />
+
+        <SearchInput
+          withClearButton
+          placeholderText="Cari Ayat ..."
+          disabled={isError || totalCount === 0}
+          initialSearchText={searchText}
+          updateSearchText={setSearchText}
+        />
       </View>
 
       <SavedList
         savedVerses={savedVerses}
         isError={isError}
-        hasFilters={Boolean(filterType || filterColor)}
+        hasFilters={Boolean(
+          filterType || filterColor || (searchText && searchText.length >= 2),
+        )}
       />
     </>
   )

@@ -27,7 +27,6 @@ import dayjs from '../../../../utils/dayjs'
 
 // Types
 import type { ReadTypographyProps } from './types'
-import { useReadModalsWebContext } from '../../contexts/read-modals.context.web'
 
 export default function ReadTypography({
   redirectToBiblePassage,
@@ -45,7 +44,6 @@ export default function ReadTypography({
   const { insertSelectedText, updateSelectedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
-  const { openSaver, setOpenSaver } = useReadModalsWebContext()
 
   // Refs
   const bibleTypographyRef = useRef<HTMLDivElement | null>(null)
@@ -161,10 +159,8 @@ export default function ReadTypography({
           (i) => i.verse !== verse,
         )
         updateSelectedText(filteredSelectedText)
-        setOpenSaver(Boolean(filteredSelectedText.length))
       } else {
         insertSelectedText({ passage: passageData, verse, content })
-        setOpenSaver(true)
       }
     },
     [selectedText, passageData],
@@ -243,7 +239,6 @@ export default function ReadTypography({
             onClick={onVerseClick}
           />
         ))}
-        {openSaver && <View className="h-[150px]" />}
 
         <ReadTypographyNavigator
           passageArray={bibleByDateData?.passage || []}
