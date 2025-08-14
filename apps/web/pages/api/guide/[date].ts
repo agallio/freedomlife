@@ -5,7 +5,7 @@ import { supabase } from '../../../utils/supabase'
 import rateLimit from '../../../utils/rate-limit'
 import {
   apiRateLimit,
-  bibleTranslations,
+  bibleTranslationsFlat,
   tsiAbbrs,
 } from '@repo/app/utils/constants'
 
@@ -183,8 +183,8 @@ export default async function guideByDate(
 
     // Check for available bible translations.
     // Because 'TSI' version is not available in all abbr.
-    const currentBibleTranslations = bibleTranslations.flatMap((root) =>
-      root.versions.flatMap((version) => version.key),
+    const currentBibleTranslations = bibleTranslationsFlat.map(
+      (version) => version.key,
     )
     const isTSIAvailable =
       tsiAbbrs.includes(plAbbr) &&

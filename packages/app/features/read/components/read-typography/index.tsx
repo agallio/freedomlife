@@ -197,7 +197,7 @@ export default function ReadTypography(_: ReadTypographyProps) {
   }
 
   const onVerseClick = useCallback(
-    (content: string, verse: number) => {
+    (content: string, verse: number, index: number) => {
       if (selectedText.find((i) => i.verse === verse)) {
         const filteredSelectedText = selectedText.filter(
           (i) => i.verse !== verse,
@@ -205,6 +205,15 @@ export default function ReadTypography(_: ReadTypographyProps) {
 
         updateSelectedText(filteredSelectedText)
       } else {
+        // Scroll to the verse
+        if (bibleTypographyRef.current) {
+          bibleTypographyRef.current.scrollToIndex({
+            index,
+            viewPosition: 0.2, // Position verse near the top (20% from top)
+            animated: true,
+          })
+        }
+
         insertSelectedText({ passage: passageData, verse, content })
       }
     },
@@ -304,7 +313,7 @@ export default function ReadTypography(_: ReadTypographyProps) {
             highlightOrBookmarkData={
               highlightOrBookmarkData?.[String(item.verse)]
             }
-            onClick={onVerseClick}
+            onClick={(content, verse) => onVerseClick(content, verse, index)}
           />
         )}
         contentContainerClassName="sm:px-8 sm:gap-1"

@@ -6,6 +6,7 @@ import { captureException } from '@sentry/react-native'
 // Components
 import SavedFiltersButton from '@repo/app/features/saved/components/saved-filters-button.mobile'
 import SavedList from '@repo/app/features/saved/components/saved-list.mobile'
+import SearchInput from '@repo/app/components/search-input'
 
 // Contexts
 import { useSavedFilters } from '@repo/app/features/saved/contexts/saved-filters.context'
@@ -13,7 +14,6 @@ import { useSavedFilters } from '@repo/app/features/saved/contexts/saved-filters
 // Database
 import database from '@repo/app/database'
 import SavedVerseModel from '@repo/app/database/models/saved-verse.model'
-import SearchInput from '@repo/app/components/search-input'
 
 export default function SavedPage() {
   const [savedVerses, setSavedVerses] = useState<SavedVerseModel[]>([])
@@ -70,6 +70,7 @@ export default function SavedPage() {
         Q.or(
           Q.where('book', Q.like(`%${searchText}%`)),
           Q.where('chapter', Q.like(`%${searchText}%`)),
+          Q.where('version', Q.like(`%${searchText}%`)),
           Q.where('verse_text', Q.like(`%${searchText}%`)),
         ),
       )

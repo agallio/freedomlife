@@ -23,7 +23,10 @@ import {
 
 // Utils
 import { cn } from '../../../utils/helpers'
-import { bibleTranslations, highlighterColors } from '../../../utils/constants'
+import {
+  bibleTranslationsFlat,
+  highlighterColors,
+} from '../../../utils/constants'
 
 type SavedListProps = {
   savedVerses: SavedVerseModel[]
@@ -110,6 +113,10 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
     return colorScheme === 'light' ? '#047857' : '#10b981'
   }, [colorScheme])
 
+  const bibleTranslationVersion = useMemo(() => {
+    return bibleTranslationsFlat.find((item) => item.key === verse.version)
+  }, [verse.version])
+
   // Methods
   const handleVersePress = () => {
     setGuidedEnabled(false)
@@ -119,9 +126,9 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
   }
 
   const setCorrectBibleVersion = (version: string) => {
-    const bibleTranslationsArray = bibleTranslations
-      .flatMap((item) => item.versions)
-      .map((item) => item.key)
+    const bibleTranslationsArray = bibleTranslationsFlat.map(
+      (version) => version.key,
+    )
 
     const correctBibleTranslation = bibleTranslationsArray.includes(version)
       ? version
@@ -134,19 +141,19 @@ function SavedVerseCard({ verse }: { verse: SavedVerseModel }) {
     <PressableCard
       onPress={handleVersePress}
       title={
-        <View className="flex w-full flex-row items-center justify-between px-4 py-3">
+        <View className="w-full flex-row justify-between px-4 py-3">
           <View>
             <Header
               aria-level={2}
               customFontSize="text-lg"
               className="leading-snug"
             >
-              {verse.book} {verse.chapter}:{verse.verse} (
-              {verse.version.toUpperCase()})
+              {verse.book} {verse.chapter}:{verse.verse}
             </Header>
+            <Text>{bibleTranslationVersion?.name || ''}</Text>
           </View>
           {verse.kind === 'bookmark' && (
-            <View>
+            <View className="mt-0.5">
               <BookmarkIcon size={20} color={bookmarkIconColor} />
             </View>
           )}

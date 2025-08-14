@@ -32,6 +32,7 @@ export default function SharedPassageSearchInput({
 
   return (
     <SearchInput
+      autoCapitalize
       withClearButton
       withMarginBottom
       initialSearchText={globalSearchText}

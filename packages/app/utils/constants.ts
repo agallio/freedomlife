@@ -54,6 +54,10 @@ export const bibleTranslations: BibleTranslationItemType[] = [
   },
 ]
 
+export const bibleTranslationsFlat = bibleTranslations.flatMap(
+  (item) => item.versions,
+)
+
 export type PassageDataItemType = {
   name: string
   abbr: string

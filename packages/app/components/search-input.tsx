@@ -20,6 +20,7 @@ type SearchInputProps = {
   placeholderText: string
   disabled?: boolean
   debounceDelay?: number
+  autoCapitalize?: boolean
   withClearButton?: boolean
   withMarginBottom?: boolean
   LeftIcon?: ReactNode
@@ -31,6 +32,7 @@ export default function SearchInput({
   placeholderText,
   disabled,
   debounceDelay,
+  autoCapitalize,
   withClearButton,
   withMarginBottom,
   LeftIcon,
@@ -74,6 +76,7 @@ export default function SearchInput({
         allowFontScaling={false}
         value={localSearchText}
         editable={!disabled}
+        autoCapitalize={autoCapitalize ? 'sentences' : 'none'}
         selectTextOnFocus={!disabled}
         contextMenuHidden={disabled}
         onChangeText={handleTextChange}
