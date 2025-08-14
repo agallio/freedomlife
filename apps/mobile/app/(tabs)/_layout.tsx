@@ -10,10 +10,12 @@ import { IconButton } from '@repo/app/components/button'
 // Icon Component
 import FreedomlifeIcon from '@repo/app/components/icons/freedomlife-icon'
 
+// Contexts
+import { useSavedVersesActionContext } from '@repo/app/features/saved/contexts/saved-verses.context'
+
 // Utils
 import { useSafeArea } from '@repo/app/utils/hooks/use-safe-area'
 import { getIconColor } from '@repo/app/utils/helpers'
-import { useSavedVersesActionContext } from '@repo/app/features/saved/contexts/saved-verses.context'
 
 export default function TabLayout() {
   const { top } = useSafeArea()

@@ -16,14 +16,14 @@ import database from '@repo/app/database'
 import SavedVerseModel from '@repo/app/database/models/saved-verse.model'
 
 export default function SavedPage() {
+  const filterType = useSavedFilters((state) => state.type)
+  const filterColor = useSavedFilters((state) => state.color)
+
+  // States
   const [savedVerses, setSavedVerses] = useState<SavedVerseModel[]>([])
   const [isError, setIsError] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [totalCount, setTotalCount] = useState(0)
-
-  // Filter integration
-  const filterType = useSavedFilters((state) => state.type)
-  const filterColor = useSavedFilters((state) => state.color)
 
   // Effects
   // Track total count efficiently to determine if filters should be disabled
