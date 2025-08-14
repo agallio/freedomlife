@@ -1754,6 +1754,11 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
+"@posthog/core@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@posthog/core/-/core-1.0.0.tgz#ee65f82c445317f8a1cc863da9c004507bef64f6"
+  integrity sha512-gquQld+duT9DdzLIFoHZkUMW0DZOTSLCtSjuuC/zKFz65Qecbz9p37DHBJMkw0dCuB8Mgh2GtH8Ag3PznJrP3g==
+
 "@radix-ui/primitive@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/primitive/-/primitive-1.1.2.tgz#83f415c4425f21e3d27914c12b3272a32e3dae65"
@@ -7833,20 +7838,22 @@ postcss@~8.4.32:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-posthog-js@^1.256.2:
-  version "1.257.0"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.257.0.tgz#7adfffa024756b910ee87a978e0fc6c12a9fa730"
-  integrity sha512-Ujg9RGtWVCu+4tmlRpALSy2ZOZI6JtieSYXIDDdgMWm167KYKvTtbMPHdoBaPWcNu0Km+1hAIBnQFygyn30KhA==
+posthog-js@^1.260.1:
+  version "1.260.1"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.260.1.tgz#7a0011c768bd06debabd14f86d372d26d0c50c6e"
+  integrity sha512-DD8ZSRpdScacMqtqUIvMFme8lmOWkOvExG8VvjONE7Cm3xpRH5xXpfrwMJE4bayTGWKMx4ij6SfphK6dm/o2ug==
   dependencies:
     core-js "^3.38.1"
     fflate "^0.4.8"
     preact "^10.19.3"
     web-vitals "^4.2.4"
 
-posthog-react-native@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/posthog-react-native/-/posthog-react-native-4.1.4.tgz#8c8487cccd326c74c04066dd6a0e2ee26d97f1ae"
-  integrity sha512-VVp4YaKV04U8WvEi86+W9LuNMk4BnftUnAm7TH1yItulhvuALK8TR7dK7oLu7X2fiFV1GnRJF8SKWJnsrB6Jhg==
+posthog-react-native@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/posthog-react-native/-/posthog-react-native-4.4.0.tgz#853fb085c409a35a921467b7428e3c2e8a1ff67b"
+  integrity sha512-+n9tXx+MZ9+5eF+h0yzZ7rd7H0eoVmg8hwoIhX9OayRpVRxHRdD42xDKQCXiWEjHVCHrCizfhIt7yPNwcz4p+w==
+  dependencies:
+    "@posthog/core" "1.0.0"
 
 preact@^10.19.3:
   version "10.26.9"
