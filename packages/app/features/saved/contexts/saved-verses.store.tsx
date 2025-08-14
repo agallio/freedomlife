@@ -27,7 +27,7 @@ const defaultSavedVersesState: SavedVersesState = {
 export const createSavedVersesStore = (
   initialState = defaultSavedVersesState,
 ) => {
-  return createStore<SavedVersesStore>()((set, get) => ({
+  return createStore<SavedVersesStore>()((set) => ({
     // Initialize state with default or provided initial state
     ...initialState,
 

@@ -9,6 +9,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "target": "ESNext",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
