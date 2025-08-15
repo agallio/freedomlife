@@ -2,6 +2,7 @@ import { createContext, useContext, type PropsWithChildren } from 'react'
 
 export const EVENT_NAMES = {
   SET_BIBLE_VERSION: 'set_bible_version',
+  SAVED_VERSE: 'saved_verse',
 } as const
 
 export type EventTrackingContextType = {

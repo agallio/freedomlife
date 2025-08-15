@@ -27,6 +27,12 @@ import {
   useGuideTodayQuery,
 } from '../../../../hooks/use-guide-query'
 
+// Providers
+import {
+  EVENT_NAMES,
+  useEventTrackingContext,
+} from '../../../../providers/event-tracking'
+
 // Utils
 import {
   cn,
@@ -46,6 +52,7 @@ export default function SaverScreenComponent({
   handleCopyClick,
 }: SaverScreenComponentProps) {
   const colorScheme = useColorScheme()
+  const { captureEvent } = useEventTrackingContext()
   const { guidedEnabled, selectedBiblePassage } =
     useReadPassagePersistedContext()
   const guided = useReadPassageGeneralContext((state) => state.guided)
@@ -190,6 +197,10 @@ export default function SaverScreenComponent({
         selectedBibleVersion,
       })
     }
+
+    captureEvent?.(EVENT_NAMES.SAVED_VERSE, {
+      saved_type: type === 'bookmark' ? 'bookmark' : colorValue,
+    })
   }
 
   return (
