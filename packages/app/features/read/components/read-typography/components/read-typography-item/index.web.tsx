@@ -15,12 +15,12 @@ import { useReadSettingsContext } from '../../../../contexts/read-settings.conte
 import { cn } from '../../../../../../utils/helpers'
 
 // Types
-import type { ReadTypographyItemProps } from '.'
+import type { ReadTypographyItemProps } from './types'
 
 function ReadTypographyItem({
   item,
   index,
-  isHighlighted,
+  isSelected,
   onClick,
 }: ReadTypographyItemProps) {
   const { verseFontSize, headerFontSize } = useReadSettingsContext()
@@ -39,7 +39,7 @@ function ReadTypographyItem({
   return (
     <View
       className={cn(
-        isHighlighted
+        isSelected
           ? 'bg-gray-200 px-4 transition duration-200 sm:-mx-4 sm:my-0 sm:rounded-lg dark:bg-gray-700'
           : 'px-4 sm:px-0',
         index === 0 && 'pt-4',
@@ -48,12 +48,12 @@ function ReadTypographyItem({
       <Pressable onPress={() => onClick(item.content, item.verse)}>
         <Text
           customFontSize={verseFontSize as CustomFontSizeType}
-          className="leading-loose text-gray-900"
+          className="leading-loose"
         >
           <sup className="relative -top-1 mr-2 text-xs text-emerald-800 dark:text-emerald-300">
             {item.verse}
           </sup>
-          {item.content}
+          <span className={cn('py-0.5')}>{item.content}</span>
         </Text>
       </Pressable>
     </View>

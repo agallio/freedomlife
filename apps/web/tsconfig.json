@@ -3,7 +3,9 @@
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "jsxImportSource": "nativewind",
-    "typeRoots": []
+    "typeRoots": [],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

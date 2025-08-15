@@ -1,37 +1,32 @@
+import { useMemo } from 'react'
 import { Platform } from 'react-native'
 import * as Burnt from 'burnt'
-import { CheckCircleIcon } from 'react-native-heroicons/outline'
 
 // Components
 import ItemRightIcon from './item-right-icon'
 import { ToasterWebComponent } from '../../../../../../components/toaster-container.web'
 
 // Contexts
-import { useReadModalsContext } from '../../../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../../../contexts/read-modals.context.web'
 import {
   generateTextToCopy,
   useReadPassageGeneralContext,
 } from '../../../../contexts/read-passage.context'
 
-// Types
-import type { ReadNavbarRightProps } from '.'
-
-export default function ReadNavbarRight({
-  cleanPassageName,
-}: ReadNavbarRightProps) {
-  const { setOpenSetting } = useReadModalsContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+export default function ReadNavbarRight() {
+  const { setOpenSetting } = useReadModalsWebContext()
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onSettingClick = () => {
@@ -42,31 +37,17 @@ export default function ReadNavbarRight({
 
   const onCopyClick = async () => {
     if (Platform.OS === 'web') {
-      const textToCopy = generateTextToCopy(
-        highlightedText,
-        selectedBibleVersion,
-        cleanPassageName,
-      )
+      const textToCopy = generateTextToCopy(selectedText, selectedBibleVersion)
 
       try {
         await navigator.clipboard.writeText(textToCopy)
-        updateHighlightedText([])
+        updateSelectedText([])
 
         Burnt.toast({
           preset: 'done',
           duration: 1.5,
           // @ts-ignore: burnt typing issue
-          title: (
-            <ToasterWebComponent
-              icon={
-                <CheckCircleIcon
-                  size={26}
-                  className="text-emerald-900 dark:text-white"
-                />
-              }
-              title="Ayat Tersalin!"
-            />
-          ),
+          title: <ToasterWebComponent title="Ayat Tersalin!" />,
         })
       } catch (err) {
         console.error('Failed to copy: ', err)
@@ -76,7 +57,7 @@ export default function ReadNavbarRight({
 
   return (
     <ItemRightIcon
-      isHighlighted={isHighlighted}
+      isSelected={isSelected}
       onCopyClick={onCopyClick}
       onSettingClick={onSettingClick}
     />

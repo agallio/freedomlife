@@ -21,15 +21,13 @@ import {
 // Utils
 import { passageData } from '../../../../../utils/constants'
 
-type ReadNavbarContainerProps = {
-  redirectToTranslateScreen: () => void
-  redirectToPassageScreen: () => void
-}
+// Types
+import type { ReadNavbarProps } from '../types'
 
 export default function ReadNavbarContainer({
   redirectToPassageScreen,
   redirectToTranslateScreen,
-}: ReadNavbarContainerProps) {
+}: ReadNavbarProps) {
   const { guidedEnabled, selectedBiblePassage } =
     useReadPassagePersistedContext()
   const guided = useReadPassageGeneralContext((state) => state.guided)
@@ -51,8 +49,8 @@ export default function ReadNavbarContainer({
 
   // Memoized Values
   const isGuidedDataLoading = useMemo(
-    () => guideTodayLoading || guideByDateLoading || !guided.selectedPassage,
-    [guideTodayLoading, guideByDateLoading, guided.selectedPassage],
+    () => guideTodayLoading || guideByDateLoading || !guided.selectedOrder,
+    [guideTodayLoading, guideByDateLoading, guided.selectedOrder],
   )
 
   const passageName = useMemo(() => {
@@ -72,7 +70,7 @@ export default function ReadNavbarContainer({
       // Handle guided with custom date
       if (guided.date !== '' && guideByDateData) {
         const guidedDateData = guideByDateData.guide_bible_data?.find(
-          (passage) => passage.value === guided.selectedPassage,
+          (passage) => passage.value === guided.selectedOrder,
         )
 
         return guidedDateData
@@ -83,7 +81,7 @@ export default function ReadNavbarContainer({
       // Handle guided with today's date
       if (guideTodayData) {
         const guidedTodayData = guideTodayData.guide_bible_data?.find(
-          (passage) => passage.value === guided.selectedPassage,
+          (passage) => passage.value === guided.selectedOrder,
         )
 
         return guidedTodayData
@@ -112,22 +110,6 @@ export default function ReadNavbarContainer({
     isGuidedDataLoading,
   ])
 
-  const cleanPassageName = useMemo(() => {
-    // Make a clean passage name that will be used when copying verses.
-    // Example:
-    // - `Kejadian 1 (BIS)` --> `Kejadian 1`
-    // - `Matius 119:89-110` --> `Matius 119`
-    const versionStripped = passageName.replace(/\((.*)\)/g, '')
-    const verseSplitted = versionStripped.split(':')
-
-    if (verseSplitted.length > 0) {
-      const trimmedVerseSplitted = verseSplitted[0]?.trim() || ''
-      return trimmedVerseSplitted as string
-    }
-
-    return versionStripped
-  }, [passageName])
-
   // Effects
   useEffect(() => {
     setMounted(true)
@@ -150,7 +132,7 @@ export default function ReadNavbarContainer({
       </View>
 
       <View>
-        <ReadNavbarRight cleanPassageName={cleanPassageName} />
+        <ReadNavbarRight />
       </View>
     </>
   )

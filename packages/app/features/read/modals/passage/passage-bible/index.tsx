@@ -1,10 +1,7 @@
 import { useMemo } from 'react'
-import { FlatList, View } from 'react-native'
 
 // Components
-import { Text } from '../../../../../components/text'
-import ListItem from '../../../../../components/list-item'
-import PassageSearchInput from './components/passage-search-input'
+import SharedPassageList from '../../../../[shared]/shared-passage-list'
 
 // Contexts
 import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
@@ -14,7 +11,6 @@ import { useReadPassageChapterContext } from '../../../contexts/read-passage-cha
 // Utils
 import {
   passageData,
-  tsiAbbrs,
   type PassageDataItemType,
 } from '../../../../../utils/constants'
 import { detectPassageJump } from '../../../utils/passage-jump-detector'
@@ -34,7 +30,7 @@ export default function PassageBible({
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
   const searchText = useReadPassageChapterContext((state) => state.searchText)
@@ -90,7 +86,7 @@ export default function PassageBible({
     if (isJumpResult) {
       // Direct jump: set both book and chapter, then close modal
       // Remove all highlighted text
-      updateHighlightedText([])
+      updateSelectedText([])
 
       // Select the new bible passage
       setSelectedBiblePassage(selectedPassage)
@@ -107,84 +103,13 @@ export default function PassageBible({
     }
   }
 
-  const renderEmptyComponent = () => {
-    // Only show empty state if there's a search query but no results
-    // (filteredPassageData.length <= 1 means only search input exists)
-    if (searchText.length > 0 && filteredPassageData.length <= 1) {
-      return (
-        <View className="flex-1 items-center justify-center py-4">
-          <Text className="text-center text-green-500 dark:text-white">
-            Tidak ada hasil untuk &quot;{searchText}&quot;
-          </Text>
-        </View>
-      )
-    }
-    return null
-  }
-
   return (
-    <FlatList
-      data={filteredPassageData}
-      keyExtractor={(_, index) => `item-${index}`}
-      scrollEventThrottle={16}
-      renderItem={({ item }) => (
-        <PassageBibleItem
-          name={item.name}
-          abbr={item?.abbr}
-          selectedBibleVersion={selectedBibleVersion}
-          onClick={onClick}
-          isJumpResult={item.isJumpResult}
-          chapter={item.passage}
-        />
-      )}
-      ListEmptyComponent={renderEmptyComponent}
-      contentContainerClassName="px-4 pt-4 pb-20 gap-2"
+    <SharedPassageList
+      isEmpty={searchText.length > 0 && filteredPassageData.length === 0}
+      emptyText={`Tidak ada hasil untuk "${searchText}"`}
+      passageData={filteredPassageData}
+      selectedBibleVersion={selectedBibleVersion}
+      handleSelectPassage={onClick}
     />
-  )
-}
-
-function PassageBibleItem({
-  name,
-  abbr,
-  selectedBibleVersion,
-  onClick,
-  isJumpResult = false,
-  chapter,
-}: {
-  name: string
-  abbr?: string
-  selectedBibleVersion: string
-  onClick: (_: { selectedPassage: string; isJumpResult?: boolean }) => void
-  isJumpResult?: boolean
-  chapter?: number
-}) {
-  // Memoized Values
-  const disabled = useMemo(() => {
-    const tsiAbbrLookupSet = new Set(tsiAbbrs)
-
-    return abbr
-      ? selectedBibleVersion === 'tsi' && !tsiAbbrLookupSet.has(abbr)
-      : false
-  }, [abbr, selectedBibleVersion])
-
-  if (name === 'search') {
-    return <PassageSearchInput />
-  }
-
-  return (
-    <ListItem
-      disabled={disabled}
-      onClick={() => {
-        if (abbr) {
-          if (isJumpResult && chapter) {
-            onClick({ selectedPassage: `${abbr}-${chapter}`, isJumpResult })
-          } else {
-            onClick({ selectedPassage: abbr, isJumpResult: false })
-          }
-        }
-      }}
-    >
-      <Text>{name}</Text>
-    </ListItem>
   )
 }

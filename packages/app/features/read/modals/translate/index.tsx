@@ -4,7 +4,7 @@ import TranslateContainer, {
 } from './translate-container'
 
 export default function TranslateModal({
-  handleBackMobile,
+  handleBack,
 }: TranslateContainerProps) {
-  return <TranslateContainer handleBackMobile={handleBackMobile} />
+  return <TranslateContainer handleBack={handleBack} />
 }

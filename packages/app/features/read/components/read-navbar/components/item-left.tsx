@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Platform, useColorScheme } from 'react-native'
 import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 
@@ -5,7 +6,7 @@ import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 import { IconButton } from '../../../../../components/button'
 
 // Contexts
-import { useReadModalsContext } from '../../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../../contexts/read-modals.context.web'
 import { useReadPassageGeneralContext } from '../../../contexts/read-passage.context'
 
 // Utils
@@ -21,17 +22,19 @@ export default function ReadNavbarLeft({
   redirectToTranslateScreen,
 }: ReadNavbarLeftProps) {
   const colorScheme = useColorScheme()
-  const { setOpenTranslate } = useReadModalsContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const { setOpenSaver, setOpenTranslate } = useReadModalsWebContext()
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
+  const { updateSelectedText } = useReadPassageGeneralContext(
     (state) => state.actions,
   )
 
   // Constants
-  const isHighlighted = highlightedText.length > 0
   const color = getIconColor(colorScheme)
+
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onTranslateClick = () => {
@@ -44,10 +47,14 @@ export default function ReadNavbarLeft({
   }
 
   const onResetHighlightClick = () => {
-    updateHighlightedText([])
+    if (Platform.OS === 'web') {
+      setOpenSaver(false)
+    }
+
+    updateSelectedText([])
   }
 
-  if (isHighlighted) {
+  if (isSelected) {
     return (
       <IconButton
         ariaLabel="Tombol untuk menghapus sorotan"

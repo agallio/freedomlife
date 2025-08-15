@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Platform, View, useColorScheme } from 'react-native'
 import { BookOpenIcon } from 'react-native-heroicons/solid'
 
@@ -6,7 +7,7 @@ import { Button } from '../../../../../components/button'
 import { Text } from '../../../../../components/text'
 
 // Contexts
-import { useReadModalsContext } from '../../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../../contexts/read-modals.context.web'
 import {
   useReadPassageGeneralContext,
   useReadPassagePersistedContext,
@@ -25,15 +26,17 @@ export default function ReadNavbarTitle({
   redirectToPassageScreen,
 }: ReadNavbarTitleProps) {
   const colorScheme = useColorScheme()
-  const { setOpenPassage } = useReadModalsContext()
+  const { setOpenPassage } = useReadModalsWebContext()
   const { guidedEnabled } = useReadPassagePersistedContext()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
 
   // Constants
-  const isHighlighted = highlightedText.length > 0
   const color = getIconColor(colorScheme)
+
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onClick = () => {
@@ -45,11 +48,11 @@ export default function ReadNavbarTitle({
     redirectToPassageScreen()
   }
 
-  if (isHighlighted) {
+  if (isSelected) {
     return (
       <View className="h-[40px] justify-center">
         <Text customFontWeight="font-medium">
-          {highlightedText.length} Ayat Terpilih
+          {selectedText.length} Ayat Terpilih
         </Text>
       </View>
     )

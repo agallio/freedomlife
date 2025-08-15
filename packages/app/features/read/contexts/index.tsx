@@ -7,11 +7,12 @@ import { ReadPassageChapterContextProvider } from './read-passage-chapter.contex
 
 export default function ReadProviders({
   children,
+  router,
 }: PropsWithChildren<{
   router?: { queryChapter?: string; pathname?: string }
 }>) {
   return (
-    <ReadPassageContextProvider>
+    <ReadPassageContextProvider router={router}>
       <ReadPassageChapterContextProvider>
         <ReadSettingsContextProvider>{children}</ReadSettingsContextProvider>
       </ReadPassageChapterContextProvider>

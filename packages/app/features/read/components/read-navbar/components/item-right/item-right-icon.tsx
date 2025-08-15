@@ -8,13 +8,13 @@ import { IconButton } from '../../../../../../components/button'
 import { getIconColor } from '../../../../../../utils/helpers'
 
 type ItemRightIconProps = {
-  isHighlighted: boolean
-  onCopyClick: () => void
+  isSelected?: boolean
+  onCopyClick?: () => void
   onSettingClick: () => void
 }
 
 export default function ItemRightIcon({
-  isHighlighted,
+  isSelected,
   onCopyClick,
   onSettingClick,
 }: ItemRightIconProps) {
@@ -23,7 +23,7 @@ export default function ItemRightIcon({
   // Constant
   const color = getIconColor(colorScheme)
 
-  if (isHighlighted) {
+  if (isSelected && Platform.OS === 'web') {
     return (
       <IconButton
         ariaLabel="Tombol untuk menyalin ayat ke papan klip"

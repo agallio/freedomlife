@@ -1,20 +1,30 @@
-import { useColorScheme } from 'react-native'
+import { Alert, useColorScheme } from 'react-native'
 import { Tabs, useRouter } from 'expo-router'
+import { TrashIcon } from 'react-native-heroicons/solid'
 
 // Components
 import BottomTab from '@repo/app/components/bottom-tab'
 import ReadNavbar from '@repo/app/features/read/components/read-navbar'
+import { IconButton } from '@repo/app/components/button'
 
 // Icon Component
 import FreedomlifeIcon from '@repo/app/components/icons/freedomlife-icon'
 
+// Contexts
+import { useSavedVersesActionContext } from '@repo/app/features/saved/contexts/saved-verses.context'
+
 // Utils
 import { useSafeArea } from '@repo/app/utils/hooks/use-safe-area'
+import { getIconColor } from '@repo/app/utils/helpers'
 
 export default function TabLayout() {
   const { top } = useSafeArea()
   const router = useRouter()
   const colorScheme = useColorScheme()
+  const { resetDatabase } = useSavedVersesActionContext()
+
+  // Constant
+  const color = getIconColor(colorScheme)
 
   // Methods
   const redirectToPassageScreen = () => {
@@ -23,6 +33,24 @@ export default function TabLayout() {
 
   const redirectToTranslateScreen = () => {
     router.push('/translate')
+  }
+
+  const alertDeleteSavedItem = () => {
+    Alert.alert(
+      'Hapus Simpanan',
+      'Apakah Anda yakin ingin semua menghapus marka buku dan sorotan?',
+      [
+        {
+          text: 'Batal',
+          style: 'cancel',
+        },
+        {
+          text: 'Hapus',
+          style: 'destructive',
+          onPress: () => resetDatabase(),
+        },
+      ],
+    )
   }
 
   return (
@@ -62,6 +90,31 @@ export default function TabLayout() {
           title: 'Panduan',
           headerTitle: () => (
             <FreedomlifeIcon style={{ width: 180, height: '100%' }} />
+          ),
+          headerStyle: {
+            height: top + 50,
+            borderBottomWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: 'Tersimpan',
+          headerTitle: () => (
+            <FreedomlifeIcon style={{ width: 180, height: '100%' }} />
+          ),
+          headerRight: () => (
+            <IconButton
+              ariaLabel="Tombol untuk menghapus simpanan"
+              variant="transparent"
+              className="pr-6 sm:pr-10"
+              icon={<TrashIcon size={23} color={color} />}
+              onClick={alertDeleteSavedItem}
+            />
           ),
           headerStyle: {
             height: top + 50,

@@ -11,7 +11,7 @@ import ReadTypography from '@repo/app/features/read/components/read-typography'
 // Contexts
 import { ReadLocalDatabaseWebProvider } from '@repo/app/features/read/local-databases/web/index.web'
 import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
-import { useReadModalsContext } from '@repo/app/features/read/contexts/read-modals.context'
+import { useReadModalsWebContext } from '@repo/app/features/read/contexts/read-modals.context.web'
 
 // Queries
 import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
@@ -36,7 +36,7 @@ const SettingsModal = dynamic(
 export default function ReadPage() {
   const router = useRouter()
   const { setOpenPassage, setOpenPassageChapter, setOpenTranslate } =
-    useReadModalsContext()
+    useReadModalsWebContext()
 
   // Queries
   const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery({

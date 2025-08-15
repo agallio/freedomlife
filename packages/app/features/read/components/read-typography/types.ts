@@ -1,4 +1,4 @@
 export type ReadTypographyProps = {
-  redirectToBiblePassage: (_passage: string) => void
+  redirectToBiblePassage?: (_passage: string) => void
   resetInvalidBibleChapter?: () => void
 }

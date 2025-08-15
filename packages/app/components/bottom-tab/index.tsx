@@ -6,7 +6,7 @@ import * as Burnt from 'burnt'
 import { BottomTabItem } from './bottom-tab-item'
 
 // Contexts
-import { useNetworkConnectionContext } from '../../providers/network'
+import { useNetworkConnectionMobileContext } from '../../providers/network'
 
 // Types
 import type { BottomTabProps } from './types'
@@ -16,11 +16,11 @@ export default function BottomTab({
   descriptors,
   navigation,
 }: BottomTabProps) {
-  const { isOffline } = useNetworkConnectionContext()
+  const { isOffline } = useNetworkConnectionMobileContext()
 
   return (
     <View
-      className="absolute flex flex-row items-center justify-center gap-3 bg-transparent"
+      className="absolute flex flex-row items-center justify-center gap-2 bg-transparent"
       style={{ bottom: 30, left: 0, right: 0 }}
     >
       {state!.routes.map((route, index) => (

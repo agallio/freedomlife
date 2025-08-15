@@ -26,11 +26,13 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 // Contexts
 import PostHogProviderNative from '../providers/posthog.provider.mobile'
-import { NetworkConnectionNativeProvider } from '@repo/app/providers/network'
+import { NetworkConnectionMobileProvider } from '@repo/app/providers/network'
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
+import { SavedFiltersProvider } from '@repo/app/features/saved/contexts/saved-filters.context'
+import { SavedVersesProvider } from '@repo/app/features/saved/contexts/saved-verses.context'
 import { ReadLocalDatabaseMobileProvider } from '@repo/app/features/read/local-databases/mobile/index.mobile'
-import { SettingSheetProvider } from '@repo/app/providers/bottom-sheet/setting-bottom-sheet.mobile'
+import { SheetsMobileProvider } from '@repo/app/providers/bottom-sheet/index.mobile'
 import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
 
 // Queries
@@ -152,113 +154,119 @@ function RootLayoutComponent() {
   })
 
   return (
-    <ReadLocalDatabaseMobileProvider>
-      <ReadProviders>
-        <BottomSheetModalProvider>
-          <NetworkConnectionNativeProvider
-            redirectToReadScreen={redirectToReadScreen}
-          >
-            <SettingSheetProvider>
-              <FeatureFlagsProvider
-                featureFlags={{
-                  feature_tsi_translation: {
-                    data: tsiFlagData,
-                    isLoading: tsiFlagLoading,
-                  },
-                }}
+    <ReadProviders>
+      <SavedVersesProvider>
+        <SavedFiltersProvider>
+          <ReadLocalDatabaseMobileProvider>
+            <BottomSheetModalProvider>
+              <NetworkConnectionMobileProvider
+                redirectToReadScreen={redirectToReadScreen}
               >
-                <ThemeProvider
-                  value={
-                    colorScheme === 'dark' ? CustomDarkTheme : CustomLightTheme
-                  }
-                >
-                  <Stack>
-                    {/* Tabs */}
-                    <Stack.Screen
-                      name="(tabs)"
-                      options={{ title: 'Beranda', headerShown: false }}
-                    />
+                <SheetsMobileProvider>
+                  <FeatureFlagsProvider
+                    featureFlags={{
+                      feature_tsi_translation: {
+                        data: tsiFlagData,
+                        isLoading: tsiFlagLoading,
+                      },
+                    }}
+                  >
+                    <ThemeProvider
+                      value={
+                        colorScheme === 'dark'
+                          ? CustomDarkTheme
+                          : CustomLightTheme
+                      }
+                    >
+                      <Stack>
+                        {/* Tabs */}
+                        <Stack.Screen
+                          name="(tabs)"
+                          options={{ title: 'Beranda', headerShown: false }}
+                        />
 
-                    {/* Stacks */}
-                    <Stack.Screen
-                      name="(modal)/passage"
-                      options={{
-                        title: 'Pilih Kitab',
-                        presentation:
-                          Platform.OS === 'ios' && Platform.isPad
-                            ? 'modal'
-                            : undefined,
-                        headerBackTitle: 'Kembali',
-                        headerTintColor: getIconColor(colorScheme),
-                        animation:
-                          Platform.OS === 'android'
-                            ? 'fade_from_bottom'
-                            : undefined,
-                      }}
-                    />
+                        {/* Stacks */}
+                        <Stack.Screen
+                          name="(modal)/passage"
+                          options={{
+                            title: 'Pilih Kitab',
+                            presentation:
+                              Platform.OS === 'ios' && Platform.isPad
+                                ? 'modal'
+                                : undefined,
+                            headerBackTitle: 'Kembali',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
 
-                    {/* Modals */}
-                    <Stack.Screen
-                      name="(modal)/translate"
-                      options={{
-                        presentation: 'modal',
-                        title: 'Pilih Terjemahan',
-                        headerTintColor: getIconColor(colorScheme),
-                        animation:
-                          Platform.OS === 'android'
-                            ? 'fade_from_bottom'
-                            : undefined,
-                        headerLeft: () =>
-                          Platform.OS === 'ios' ? (
-                            <TouchableOpacity onPress={() => router.back()}>
-                              <Text className="text-base text-emerald-900 dark:text-white">
-                                Kembali
-                              </Text>
-                            </TouchableOpacity>
-                          ) : undefined,
-                      }}
-                    />
-                    <Stack.Screen
-                      name="(modal)/passage-chapter"
-                      options={{
-                        presentation: 'modal',
-                        title: 'Pilih Pasal',
-                        headerBackTitle: 'Kembali',
-                        headerTintColor: getIconColor(colorScheme),
-                        headerLeft: () =>
-                          Platform.OS === 'ios' ? (
-                            <TouchableOpacity onPress={() => router.back()}>
-                              <Text className="text-base text-emerald-900 dark:text-white">
-                                Kembali
-                              </Text>
-                            </TouchableOpacity>
-                          ) : undefined,
-                        animation:
-                          Platform.OS === 'android'
-                            ? 'fade_from_bottom'
-                            : undefined,
-                      }}
-                    />
-                    <Stack.Screen
-                      name="(modal)/guide-month"
-                      options={{
-                        presentation: 'modal',
-                        title: 'Pilih Bulan Panduan',
-                        headerTintColor: getIconColor(colorScheme),
-                        animation:
-                          Platform.OS === 'android'
-                            ? 'fade_from_bottom'
-                            : undefined,
-                      }}
-                    />
-                  </Stack>
-                </ThemeProvider>
-              </FeatureFlagsProvider>
-            </SettingSheetProvider>
-          </NetworkConnectionNativeProvider>
-        </BottomSheetModalProvider>
-      </ReadProviders>
-    </ReadLocalDatabaseMobileProvider>
+                        {/* Modals */}
+                        <Stack.Screen
+                          name="(modal)/translate"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Terjemahan',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                            headerLeft: () =>
+                              Platform.OS === 'ios' ? (
+                                <TouchableOpacity onPress={() => router.back()}>
+                                  <Text className="text-base text-emerald-900 dark:text-white">
+                                    Kembali
+                                  </Text>
+                                </TouchableOpacity>
+                              ) : undefined,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="(modal)/passage-chapter"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Pasal',
+                            headerBackTitle: 'Kembali',
+                            headerTintColor: getIconColor(colorScheme),
+                            headerLeft: () =>
+                              Platform.OS === 'ios' ? (
+                                <TouchableOpacity onPress={() => router.back()}>
+                                  <Text className="text-base text-emerald-900 dark:text-white">
+                                    Kembali
+                                  </Text>
+                                </TouchableOpacity>
+                              ) : undefined,
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                        <Stack.Screen
+                          name="(modal)/guide-month"
+                          options={{
+                            presentation: 'modal',
+                            title: 'Pilih Bulan Panduan',
+                            headerTintColor: getIconColor(colorScheme),
+                            animation:
+                              Platform.OS === 'android'
+                                ? 'fade_from_bottom'
+                                : undefined,
+                          }}
+                        />
+                      </Stack>
+                    </ThemeProvider>
+                  </FeatureFlagsProvider>
+                </SheetsMobileProvider>
+              </NetworkConnectionMobileProvider>
+            </BottomSheetModalProvider>
+          </ReadLocalDatabaseMobileProvider>
+        </SavedFiltersProvider>
+      </SavedVersesProvider>
+    </ReadProviders>
   )
 }
 

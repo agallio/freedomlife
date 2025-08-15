@@ -5,10 +5,10 @@ import SettingScreenComponent from './screen'
 import Drawer from '../../../../components/drawer'
 
 // Contexts
-import { useReadModalsContext } from '../../contexts/read-modals.context'
+import { useReadModalsWebContext } from '../../contexts/read-modals.context.web'
 
 export default function SettingScreen() {
-  const { openSetting, setOpenSetting } = useReadModalsContext()
+  const { openSetting, setOpenSetting } = useReadModalsWebContext()
 
   return (
     <Drawer

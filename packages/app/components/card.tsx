@@ -1,5 +1,10 @@
-import { type ReactNode, type PropsWithChildren } from 'react'
-import { Platform, View } from 'react-native'
+import {
+  type ReactNode,
+  type PropsWithChildren,
+  type ComponentProps,
+  useMemo,
+} from 'react'
+import { Platform, View, Pressable } from 'react-native'
 
 // Utils
 import { cn } from '../utils/helpers'
@@ -9,6 +14,12 @@ export type CardProps = PropsWithChildren<{
   title?: ReactNode
   footer?: ReactNode
 }>
+
+type PressableCardProps = PropsWithChildren<
+  Pick<CardProps, 'title' | 'footer'> & {
+    onPress?: ComponentProps<typeof Pressable>['onPress']
+  }
+>
 
 const getShadow = () => {
   if (Platform.OS === 'android') {
@@ -26,21 +37,44 @@ const getShadowActive = () => {
   return 'shadow-sm shadow-gray-300 dark:shadow-gray-900'
 }
 
-export default function Card({
+type CardBaseProps = PropsWithChildren<{
+  variant?: 'base' | 'active'
+  title?: ReactNode
+  footer?: ReactNode
+  className?: string
+  style?: any
+  backgroundClassName?: string
+}>
+
+function CardBase({
   variant = 'base',
   title,
   footer,
   children,
-}: CardProps) {
+  className,
+  style,
+  backgroundClassName,
+}: CardBaseProps) {
+  const getBackgroundClasses = useMemo(() => {
+    if (backgroundClassName) {
+      return backgroundClassName
+    }
+
+    if (variant === 'active') {
+      return `bg-emerald-300 dark:bg-emerald-800 ${getShadowActive()}`
+    }
+
+    return `bg-white dark:bg-gray-700 ${getShadow()}`
+  }, [variant, backgroundClassName])
+
   return (
     <View
       className={cn(
         'flex flex-col justify-center rounded-lg',
-        variant === 'base' && `bg-white dark:bg-gray-700 ${getShadow()}`,
-        variant === 'active' &&
-          `bg-emerald-300 dark:bg-emerald-800 ${getShadowActive()}`,
+        getBackgroundClasses,
+        className,
       )}
-      style={Platform.OS === 'android' ? { elevation: 2 } : undefined}
+      style={style}
     >
       {title && (
         <View
@@ -70,5 +104,50 @@ export default function Card({
         </View>
       )}
     </View>
+  )
+}
+
+export function Card({ variant = 'base', title, footer, children }: CardProps) {
+  return (
+    <CardBase
+      variant={variant}
+      title={title}
+      footer={footer}
+      style={Platform.OS === 'android' ? { elevation: 2 } : undefined}
+    >
+      {children}
+    </CardBase>
+  )
+}
+
+export function PressableCard({
+  title,
+  footer,
+  children,
+  onPress,
+}: PressableCardProps) {
+  return (
+    <Pressable
+      onPress={onPress}
+      className={cn(
+        'rounded-lg transition duration-200 ease-in-out active:scale-[0.99]',
+      )}
+    >
+      {({ pressed }) => (
+        <CardBase
+          variant="base"
+          title={title}
+          footer={footer}
+          backgroundClassName={
+            pressed
+              ? `bg-gray-100 dark:bg-gray-600 ${getShadow()}`
+              : `bg-white dark:bg-gray-700 ${getShadow()}`
+          }
+          style={Platform.OS === 'android' ? { elevation: 2 } : undefined}
+        >
+          {children}
+        </CardBase>
+      )}
+    </Pressable>
   )
 }

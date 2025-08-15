@@ -21,7 +21,7 @@ const availableRoutes: AvailableRoute[] = [
 export default function BottomTab({ pathname, webRouterPush }: BottomTabProps) {
   return (
     <View
-      className="fixed flex flex-row items-center justify-center gap-3 bg-transparent"
+      className="fixed flex flex-row items-center justify-center gap-1 bg-transparent min-[374px]:gap-3"
       style={{ bottom: 30, left: 0, right: 0 }}
     >
       {availableRoutes.map((route, index) => (
@@ -45,14 +45,14 @@ function BottomTabContainer({
   route: AvailableRoute
   webRouterPush?: BottomTabProps['webRouterPush']
 }) {
-  const resetHighlightedText = useReadPassageGeneralContext(
-    (state) => state.actions.resetHighlightedText,
+  const resetSelectedText = useReadPassageGeneralContext(
+    (state) => state.actions.resetSelectedText,
   )
 
   // Methods
   const onPress = async () => {
     if (Platform.OS === 'web' && !isFocused && webRouterPush) {
-      resetHighlightedText()
+      resetSelectedText()
 
       if (route.label === 'Baca') {
         const storedWithGuide = await AsyncStorage.getItem('withGuide')

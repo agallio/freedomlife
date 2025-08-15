@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -38,10 +38,10 @@ export default function ReadTypography({
   const selectedBibleVersion = useReadPassageGeneralContext(
     (state) => state.selectedBibleVersion,
   )
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const { insertHighlightedText, updateHighlightedText } =
+  const { insertSelectedText, updateSelectedText } =
     useReadPassageGeneralContext((state) => state.actions)
   const { downloadedData, getBibleData } = useReadLocalDatabaseWeb()
 
@@ -86,50 +86,90 @@ export default function ReadTypography({
     }
 
     // Handled when guided
-    if (guided.selectedPassage.includes('pl')) {
+    if (guided.selectedOrder.includes('pl')) {
       return (
-        bibleByDateData?.pl.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pl.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('pb')) {
+    if (guided.selectedOrder.includes('pb')) {
       return (
-        bibleByDateData?.pb.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.pb.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
-    if (guided.selectedPassage.includes('in')) {
+    if (guided.selectedOrder.includes('in')) {
       return (
-        bibleByDateData?.in.find(
-          (i) => i.passagePlace === guided.selectedPassage,
-        )?.data || []
+        bibleByDateData?.in.find((i) => i.passagePlace === guided.selectedOrder)
+          ?.data || []
       )
     }
 
     // Fallback
     return []
-  }, [
-    guidedEnabled,
-    guided.selectedPassage,
-    bibleByDateData,
-    bibleByPassageData,
-  ])
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
+
+  const passageData = useMemo(() => {
+    // Return: `${book} ${chapter}`
+    // Example: `Kejadian 1`
+    // Fallback: ''
+
+    // Handle when guided
+    if (guidedEnabled) {
+      if (guided.selectedOrder.includes('pl')) {
+        const bibleByDateDataPL = bibleByDateData?.pl.find(
+          (i) => i.passagePlace === guided.selectedOrder,
+        )
+
+        return bibleByDateDataPL
+          ? `${bibleByDateDataPL.book} ${bibleByDateDataPL.chapter}`
+          : ''
+      }
+      if (guided.selectedOrder.includes('pb')) {
+        const bibleByDateDataPB = bibleByDateData?.pb.find(
+          (i) => i.passagePlace === guided.selectedOrder,
+        )
+
+        return bibleByDateDataPB
+          ? `${bibleByDateDataPB.book} ${bibleByDateDataPB.chapter}`
+          : ''
+      }
+      if (guided.selectedOrder.includes('in')) {
+        const bibleByDateDataIN = bibleByDateData?.in.find(
+          (i) => i.passagePlace === guided.selectedOrder,
+        )
+
+        return bibleByDateDataIN
+          ? `${bibleByDateDataIN.book} ${bibleByDateDataIN.chapter}`
+          : ''
+      }
+    }
+
+    // Handle when not guided
+    return bibleByPassageData
+      ? `${bibleByPassageData.book} ${bibleByPassageData.chapter}`
+      : ''
+  }, [guidedEnabled, guided.selectedOrder, bibleByDateData, bibleByPassageData])
 
   // Methods
-  const onVerseClick = (content: string, verse: number) => {
-    if (highlightedText.find((i) => i.verse === verse)) {
-      updateHighlightedText(highlightedText.filter((i) => i.verse !== verse))
-    } else {
-      insertHighlightedText({ verse, content })
-    }
-  }
+  const onVerseClick = useCallback(
+    (content: string, verse: number) => {
+      if (selectedText.find((i) => i.verse === verse)) {
+        const filteredSelectedText = selectedText.filter(
+          (i) => i.verse !== verse,
+        )
+        updateSelectedText(filteredSelectedText)
+      } else {
+        insertSelectedText({ passage: passageData, verse, content })
+      }
+    },
+    [selectedText, passageData],
+  )
 
   const handleScroll = async () => {
     if (
-      !guided.selectedPassage.includes('pb') &&
-      !guided.selectedPassage.includes('in')
+      !guided.selectedOrder.includes('pb') &&
+      !guided.selectedOrder.includes('in')
     ) {
       return
     }
@@ -195,9 +235,7 @@ export default function ReadTypography({
             key={index}
             item={item}
             index={index}
-            isHighlighted={Boolean(
-              highlightedText.find((i) => i.verse === item.verse),
-            )}
+            isSelected={selectedText.some((i) => i.verse === item.verse)}
             onClick={onVerseClick}
           />
         ))}

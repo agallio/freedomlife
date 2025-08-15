@@ -1,39 +1,22 @@
-import { Platform, useColorScheme } from 'react-native'
-import * as Clipboard from 'expo-clipboard'
-import * as Burnt from 'burnt'
+import { useMemo } from 'react'
+import { Platform, View } from 'react-native'
 
 // Components
 import ItemRightIcon from './item-right-icon'
 
 // Contexts
-import {
-  generateTextToCopy,
-  useReadPassageGeneralContext,
-} from '../../../../contexts/read-passage.context'
-import { useSettingSheetContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.mobile'
-
-export type ReadNavbarRightProps = {
-  cleanPassageName: string
-}
+import { useReadPassageGeneralContext } from '../../../../contexts/read-passage.context'
+import { useSettingSheetMobileContext } from '../../../../../../providers/bottom-sheet/setting-bottom-sheet.mobile'
 
 // Needs to separate native and web since expo-clipboard crash on web.
-export default function ReadNavbarRight({
-  cleanPassageName,
-}: ReadNavbarRightProps) {
-  const colorScheme = useColorScheme()
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+export default function ReadNavbarRight() {
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
-  const selectedBibleVersion = useReadPassageGeneralContext(
-    (state) => state.selectedBibleVersion,
-  )
-  const { updateHighlightedText } = useReadPassageGeneralContext(
-    (state) => state.actions,
-  )
-  const { showSheet } = useSettingSheetContext()
+  const { showSheet } = useSettingSheetMobileContext()
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   // Methods
   const onSettingClick = () => {
@@ -42,35 +25,7 @@ export default function ReadNavbarRight({
     }
   }
 
-  const onCopyClick = async () => {
-    if (Platform.OS !== 'web') {
-      const textToCopy = generateTextToCopy(
-        highlightedText,
-        selectedBibleVersion,
-        cleanPassageName,
-      )
-      await Clipboard.setStringAsync(textToCopy)
-      updateHighlightedText([])
+  if (isSelected) return <View className="h-[28px] w-[28px]" />
 
-      Burnt.toast({
-        preset: 'custom',
-        title: 'Ayat Tersalin!',
-        duration: 1.5,
-        icon: {
-          ios: {
-            name: 'checkmark.circle',
-            color: colorScheme === 'light' ? '#047857' : '#6ee7b7',
-          },
-        },
-      })
-    }
-  }
-
-  return (
-    <ItemRightIcon
-      isHighlighted={isHighlighted}
-      onCopyClick={onCopyClick}
-      onSettingClick={onSettingClick}
-    />
-  )
+  return <ItemRightIcon onSettingClick={onSettingClick} />
 }

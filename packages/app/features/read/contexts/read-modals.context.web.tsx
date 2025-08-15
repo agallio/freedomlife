@@ -12,13 +12,15 @@ type InitialState = {
   openPassage: boolean
   openPassageChapter: boolean
   openSetting: boolean
+  openSaver: boolean
 }
 
-type ReadModalsContextType = InitialState & {
+type ReadModalsWebContextType = InitialState & {
   setOpenTranslate: Dispatch<SetStateAction<boolean>>
   setOpenPassage: Dispatch<SetStateAction<boolean>>
   setOpenPassageChapter: Dispatch<SetStateAction<boolean>>
   setOpenSetting: Dispatch<SetStateAction<boolean>>
+  setOpenSaver: Dispatch<SetStateAction<boolean>>
 }
 
 const initialState: InitialState = {
@@ -26,9 +28,10 @@ const initialState: InitialState = {
   openPassage: false,
   openPassageChapter: false,
   openSetting: false,
+  openSaver: false,
 }
 
-const ReadModalsContext = createContext<ReadModalsContextType>({
+const ReadModalsWebContext = createContext<ReadModalsWebContextType>({
   ...initialState,
 
   // Methods
@@ -36,12 +39,13 @@ const ReadModalsContext = createContext<ReadModalsContextType>({
   setOpenPassage: () => {},
   setOpenPassageChapter: () => {},
   setOpenSetting: () => {},
+  setOpenSaver: () => {},
 })
 
 /**
  * Web Only!
  */
-export function ReadModalsContextProvider({ children }: PropsWithChildren) {
+export function ReadModalsWebContextProvider({ children }: PropsWithChildren) {
   const [openTranslate, setOpenTranslate] = useState<boolean>(
     initialState.openTranslate,
   )
@@ -54,35 +58,38 @@ export function ReadModalsContextProvider({ children }: PropsWithChildren) {
   const [openSetting, setOpenSetting] = useState<boolean>(
     initialState.openSetting,
   )
+  const [openSaver, setOpenSaver] = useState<boolean>(initialState.openSaver)
 
   return (
-    <ReadModalsContext.Provider
+    <ReadModalsWebContext.Provider
       value={{
         openTranslate,
         openPassage,
         openPassageChapter,
         openSetting,
+        openSaver,
 
         setOpenTranslate,
         setOpenPassage,
         setOpenPassageChapter,
         setOpenSetting,
+        setOpenSaver,
       }}
     >
       {children}
-    </ReadModalsContext.Provider>
+    </ReadModalsWebContext.Provider>
   )
 }
 
 /**
  * Web Only!
  */
-export function useReadModalsContext() {
-  const value = useContext(ReadModalsContext)
+export function useReadModalsWebContext() {
+  const value = useContext(ReadModalsWebContext)
 
   if (!value) {
     console.log(
-      'useReadModalsContext must be used within ReadModalsContextProvider',
+      'useReadModalsWebContext must be used within ReadModalsWebContextProvider',
     )
   }
 

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 // Components
@@ -11,15 +12,15 @@ import { useReadPassageGeneralContext } from '../../contexts/read-passage.contex
 import type { ReadNavbarProps } from './types'
 
 export default function ReadNavbar(props: ReadNavbarProps) {
-  const highlightedText = useReadPassageGeneralContext(
-    (state) => state.highlightedText,
+  const selectedText = useReadPassageGeneralContext(
+    (state) => state.selectedText,
   )
 
-  // Constants
-  const isHighlighted = highlightedText.length > 0
+  // Memoized Values
+  const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
   return (
-    <NavbarWeb active={isHighlighted}>
+    <NavbarWeb active={isSelected}>
       <View className="relative w-full flex-row items-center justify-between">
         <ReadNavbarContainer {...props} />
       </View>
