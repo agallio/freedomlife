@@ -19,7 +19,7 @@
     "dexie": "^4.0.11",
     "dexie-react-hooks": "^1.1.7",
     "gray-matter": "^4.0.3",
-    "next": "15.3.4",
+    "next": "15.4.7",
     "next-seo": "^6.8.0",
     "posthog-js": "^1.260.1",
     "react": "19.0.0",
