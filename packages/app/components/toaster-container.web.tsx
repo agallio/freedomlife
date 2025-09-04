@@ -7,6 +7,7 @@ import { Text } from './text'
 
 // Utils
 import useMediaQuery from '../utils/hooks/use-media-query.web'
+import { cn } from '../utils/helpers'
 
 /**
  * Web only!
@@ -54,7 +55,7 @@ export function ToasterWebComponent({
     <View className="flex w-full flex-row flex-wrap items-center gap-3 text-emerald-900 dark:text-white">
       {icon}
 
-      <View className="flex-wrap">
+      <View className={cn('flex-wrap', !icon ? 'pl-2' : undefined)}>
         <Text customFontWeight="font-semibold">{title}</Text>
         <Text customFontSize="text-sm">{message}</Text>
       </View>

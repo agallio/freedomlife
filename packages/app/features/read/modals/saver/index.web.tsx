@@ -50,17 +50,7 @@ export default function SaverScreen() {
           preset: 'done',
           duration: 1.5,
           // @ts-ignore: burnt typing issue
-          title: (
-            <ToasterWebComponent
-              icon={
-                <CheckCircleIcon
-                  size={26}
-                  className="text-emerald-900 dark:text-white"
-                />
-              }
-              title="Ayat Tersalin!"
-            />
-          ),
+          title: <ToasterWebComponent title="Ayat Tersalin!" />,
         })
       } catch (err) {
         console.error('Failed to copy: ', err)

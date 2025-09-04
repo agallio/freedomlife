@@ -34,12 +34,6 @@ export default function TranslateItemDownloadButton({
         // @ts-ignore
         title: (
           <ToasterWebComponent
-            icon={
-              <CheckCircleIcon
-                size={24}
-                className="text-emerald-900 dark:text-white"
-              />
-            }
             title="Berhasil Mengunduh Alkitab"
             message={version.name}
           />
@@ -57,12 +51,6 @@ export default function TranslateItemDownloadButton({
         // @ts-ignore
         title: (
           <ToasterWebComponent
-            icon={
-              <CheckCircleIcon
-                size={24}
-                className="text-emerald-900 dark:text-white"
-              />
-            }
             title="Alkitab Telah Diunduh"
             message={version.name}
           />

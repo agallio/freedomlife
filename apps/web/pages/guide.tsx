@@ -62,12 +62,6 @@ export default function GuidePage() {
       // @ts-ignore
       title: (
         <ToasterWebComponent
-          icon={
-            <CheckCircleIcon
-              size={24}
-              className="text-emerald-900 dark:text-white"
-            />
-          }
           title="Panduan Telah Dibaca"
           message={dayjs(date, 'DD-MM-YYYY').format('DD MMMM YYYY')}
         />
