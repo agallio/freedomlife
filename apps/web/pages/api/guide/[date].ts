@@ -29,6 +29,8 @@ export default async function guideByDate(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
+  res.setHeader('Netlify-Vary', 'query')
+
   const { date } = req.query
 
   if (!date) {
