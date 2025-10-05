@@ -26,6 +26,8 @@ export default async function getBibleFile(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
+  res.setHeader('Netlify-Vary', 'query')
+
   const { version } = req.query
 
   if (!version) {
