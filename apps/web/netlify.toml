@@ -1,5 +1,0 @@
-[[headers]]
-  for = "/sw.js"
-  [headers.values]
-    Cache-Control = "public, max-age=43200, immutable"
-    Service-Worker-Allowed = "/"
