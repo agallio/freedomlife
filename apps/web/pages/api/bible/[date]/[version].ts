@@ -24,8 +24,6 @@ export default async function bibleByDate(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
-  res.setHeader('Netlify-Vary', 'query')
-
   const { date, version } = req.query
 
   if (!date) {

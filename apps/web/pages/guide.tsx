@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import * as Burnt from 'burnt'
-import { CheckCircleIcon } from 'react-native-heroicons/outline'
 
 // Components
 import Drawer from '@repo/app/components/drawer'

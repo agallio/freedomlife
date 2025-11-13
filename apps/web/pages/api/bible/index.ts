@@ -15,8 +15,6 @@ export default async function biblePassage(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
-  res.setHeader('Netlify-Vary', 'query')
-
   const { passage, version } = req.query
 
   if (!passage || !version) {

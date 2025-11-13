@@ -88,13 +88,7 @@ const nextConfig = {
       },
       {
         source: '/:path*',
-        headers: [
-          ...securityHeaders,
-          {
-            key: 'Netlify-Vary',
-            value: 'query',
-          },
-        ],
+        headers: securityHeaders,
       },
     ]
   },

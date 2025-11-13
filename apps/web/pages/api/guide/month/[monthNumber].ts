@@ -16,8 +16,6 @@ export default async function guideByMonth(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
-  res.setHeader('Netlify-Vary', 'query')
-
   const { monthNumber } = req.query
 
   if (!monthNumber) {

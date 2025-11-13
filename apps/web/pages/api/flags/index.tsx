@@ -15,8 +15,6 @@ export default async function featureFlags(
     return res.status(405).json({ data: null, error: 'Method not allowed.' })
   }
 
-  res.setHeader('Netlify-Vary', 'query')
-
   const { flags } = req.query
 
   if (!flags) {

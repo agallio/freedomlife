@@ -44,3 +44,6 @@ yarn-error.log*
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 **/public/fallback-*.js
+
+# opennext
+/.open-next/
