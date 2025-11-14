@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start -p 2019",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy -- --keep-vars",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload -- --keep-vars",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "lint": "next lint"
   },
@@ -21,12 +21,12 @@
     "@repo/app": "*",
     "@supabase/supabase-js": "^2.57.0",
     "burnt": "^0.13.0",
-    "dexie": "^4.2.0",
+    "dexie": "^4.2.1",
     "dexie-react-hooks": "^4.2.0",
     "gray-matter": "^4.0.3",
     "next": "15.5.2",
     "next-seo": "^6.8.0",
-    "posthog-js": "^1.261.6",
+    "posthog-js": "^1.292.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native-web": "^0.20.0"
@@ -56,6 +56,6 @@
     "tailwindcss": "3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.8.3",
-    "wrangler": "^4.47.0"
+    "wrangler": "^4.48.0"
   }
 }
