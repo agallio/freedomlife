@@ -4,10 +4,10 @@ This directory is to handle the native version (iOS & Android).
 
 ## ⚙️ Requirements
 
-| Technology | Version              |
-| ---------- | -------------------- |
-| node       | LTS (18 recommended) |
-| yarn       | 1.22.19 or Higher    |
+| Technology | Version           |
+| ---------- | ----------------- |
+| node       | LTS (>= 20)       |
+| pnpm       | 10.23.0 or Higher |
 
 ## 📦 Included Packages
 
@@ -45,8 +45,8 @@ After that you need some API keys. For that, you can contact me (see contact lin
 
 After you get the API keys you can follow these steps below.
 
-- Install dependencies from the root directory: `yarn`
+- Install dependencies from the root directory: `pnpm`
 - Go to `apps/mobile`
-- Run `yarn ios` or `yarn android`.
+- Run `pnpm ios` or `pnpm android`.
 
-Sometimes, NativeWind styles are not generated properly. If that happens, run `yarn run:ios` or `yarn run:android` to clear the cache and regenerate the styles.
+Sometimes, NativeWind styles are not generated properly. If that happens, run `pnpm run:ios` or `pnpm run:android` to clear the cache and regenerate the styles.

@@ -71,15 +71,17 @@ function ReadTypographyItem({
 
   // Methods
   const renderIndentation = (index: string) => {
+    const isLargeFont = typeof verseFontSize === 'number' && verseFontSize > 17
+
     switch (index.length) {
       case 1:
-        return '   '
+        return isLargeFont ? '    ' : '   '
       case 2:
-        return '    '
+        return isLargeFont ? '     ' : '    '
       case 3:
-        return '     '
+        return isLargeFont ? '      ' : '     '
       default:
-        return '   '
+        return isLargeFont ? '    ' : '   '
     }
   }
 
@@ -118,7 +120,11 @@ function ReadTypographyItem({
             {item.verse}
           </Text>
 
-          <Text style={{ lineHeight: Number(verseFontSize) * 2 }}>
+          <Text
+            style={{
+              lineHeight: Number(verseFontSize) * 2.1,
+            }}
+          >
             {renderIndentation(String(item.verse))}
             <Text
               className={cn(
@@ -127,7 +133,7 @@ function ReadTypographyItem({
                 textHighlightedColors.backgroundColor,
               )}
               style={{
-                lineHeight: Number(verseFontSize) * 2,
+                lineHeight: Number(verseFontSize) * 2.1,
                 // Manually set fontSize via style prop to handle font scaling on native.
                 fontSize: verseFontSize as number,
               }}

@@ -96,9 +96,9 @@ export function ReadSettingsContextProvider({ children }: PropsWithChildren) {
       case 'sm':
         return 20
       case 'md':
-        return 21
+        return 22
       case 'lg':
-        return 26
+        return 27
       case 'xl':
         return 28
       default:

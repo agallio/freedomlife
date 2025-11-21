@@ -4,10 +4,10 @@ This directory is to handle the web version.
 
 ## ⚙️ Requirements
 
-| Technology | Version              |
-| ---------- | -------------------- |
-| node       | LTS (18 recommended) |
-| yarn       | 1.22.19 or Higher    |
+| Technology | Version           |
+| ---------- | ----------------- |
+| node       | LTS (>= 20)       |
+| pnpm       | 10.23.0 or Higher |
 
 ## 📦 Included Packages
 
@@ -20,7 +20,6 @@ This directory is to handle the web version.
 | [Moti](https://moti.fyi/)                                                       |
 | [Supabase](https://www.supabase.io/)                                            |
 | [Dexie.js](https://dexie.org/)                                                  |
-| [Workbox](https://developers.google.com/web/tools/workbox)                      |
 
 ## 🗂 Folder Layout
 
@@ -46,6 +45,6 @@ After that you need some API keys. For that, you can contact me (see contact lin
 
 After you get the API keys you can follow these steps below.
 
-- Install dependencies from the root directory: `yarn`
+- Install dependencies from the root directory: `pnpm`
 - Go to `apps/web`
-- Run `yarn dev`
+- Run `pnpm dev`

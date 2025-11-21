@@ -4,7 +4,6 @@ const path = require('path')
 
 // Find the project and workspace directories
 const projectRoot = __dirname
-// This can be replaced with `find-yarn-workspace-root`
 const monorepoRoot = path.resolve(projectRoot, '../..')
 
 const config = getSentryExpoConfig(projectRoot)

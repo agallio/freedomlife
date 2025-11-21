@@ -10,8 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Monorepo Organization
 - **Root**: Turborepo configuration with shared tooling (Prettier, ESLint, Husky)
-- **apps/mobile**: React Native app using Expo 52 for iOS and Android
-- **apps/web**: Next.js 14 web application with React Native Web
+- **apps/mobile**: React Native app using Expo 54 for iOS and Android
+- **apps/web**: Next.js 15 web application with React Native Web
 - **packages/app**: Shared UI components and business logic (`@repo/app`)
 - **packages/typescript-config**: Shared TypeScript configurations
 
@@ -26,39 +26,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Root Level
 ```bash
-yarn install          # Install all dependencies
-yarn build            # Build all apps using Turborepo
-yarn lint             # Lint all projects
-yarn format           # Format code with Prettier
-yarn clean            # Clean builds and node_modules
+pnpm install          # Install all dependencies
+pnpm build            # Build all apps using Turborepo
+pnpm lint             # Lint all projects
+pnpm format           # Format code with Prettier
+pnpm clean            # Clean builds and node_modules
 ```
 
 ### Mobile Development (apps/mobile)
 ```bash
 cd apps/mobile
-yarn start            # Start Expo dev server with cache clear
-yarn ios              # Run on iOS simulator
-yarn android          # Run on Android emulator
-yarn lint             # Lint mobile-specific code
+pnpm start            # Start Expo dev server with cache clear
+pnpm ios              # Run on iOS simulator
+pnpm android          # Run on Android emulator
+pnpm lint             # Lint mobile-specific code
 ```
 
 ### Web Development (apps/web)
 ```bash
 cd apps/web
-yarn dev              # Start Next.js dev server on port 2019
-yarn build            # Build for production (includes patch-package)
-yarn start            # Start production server on port 2019
-yarn lint             # Lint web-specific code
+pnpm dev              # Start Next.js dev server on port 2019
+pnpm build            # Build for production
+pnpm start            # Start production server on port 2019
+pnpm lint             # Lint web-specific code
 ```
 
 ## Technology Stack
 
-- **Mobile**: Expo 53, React Native 0.79.5, Expo Router, SQLite
-- **Web**: Next.js 15, React Native Web, Dexie.js, Supabase
+- **Mobile**: Expo 54, React Native 0.81.5, React 19.1, Expo Router, SQLite
+- **Web**: Next.js 15.5, React 19.1, React Native Web, Dexie.js, Supabase
 - **Database**: WatermelonDB for reactive local storage (verses, highlights, bookmarks)
-- **Styling**: TailwindCSS 3.4.17 with NativeWind 4.1.10
-- **State**: Zustand 5.0.6, React Query (@tanstack/react-query 5.81.5)
-- **Build**: Turborepo 2.5.0, Yarn 1.22.22
+- **Styling**: TailwindCSS 3.4.17 with NativeWind 4.2.1
+- **State**: Zustand 5.0.8, React Query (@tanstack/react-query 5.90.10)
+- **Build**: Turborepo 2.6.1, pnpm 10.23.0
 
 ## Code Organization Patterns
 
@@ -166,9 +166,9 @@ Web (`.env.local.example`):
 - Output caching configured for `.next/**` (excluding cache)
 
 ### Key Build Notes
-- Web build runs `patch-package` before Next.js build
 - Mobile uses Expo's build system with EAS
-- Both apps version together (currently 2.2.2)
+- Both apps version together (currently 2.5.0)
+- Project uses pnpm workspaces for monorepo management
 
 ## Testing & Code Quality
 

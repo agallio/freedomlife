@@ -14,7 +14,7 @@ import { captureException } from '@sentry/react-native'
 import { queries } from './sqlite.mobile'
 
 // Constants
-import { apiUrl } from '../../../../utils/constants'
+import { apiUrl } from '../../../../utils/rn-constants'
 
 // Types
 import type { DownloadedDataLengthType, GetBibleDataArgs } from '../types'

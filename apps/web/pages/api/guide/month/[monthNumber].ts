@@ -2,11 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 // Utils
 import { supabase } from '../../../../utils/supabase'
-import rateLimit from '../../../../utils/rate-limit'
+import { apiRateLimit, rateLimitFn } from '../../../../utils/rate-limit'
 import dayjs from '@repo/app/utils/dayjs'
-import { apiRateLimit } from '@repo/app/utils/constants'
 
-const limiter = rateLimit()
+const limiter = rateLimitFn()
 
 export default async function guideByMonth(
   req: NextApiRequest,

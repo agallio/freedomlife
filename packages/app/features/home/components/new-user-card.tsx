@@ -29,7 +29,7 @@ export default function NewUserCard({
             fullWidth
             text="Pelajari Lebih Lanjut"
             variant="card"
-            className="web:hover:bg-blue-800/50 web:dark:hover:bg-gray-900/30 web:active:bg-blue-800/50 web:dark:active:bg-gray-900/30 bg-blue-800/70 dark:bg-gray-800/30"
+            className="bg-blue-800/70 web:hover:bg-blue-800/50 web:active:bg-blue-800/50 dark:bg-gray-800/30 web:dark:hover:bg-gray-900/30 web:dark:active:bg-gray-900/30"
             textClassName="text-sm text-white"
             onClick={openLearnMore}
           />

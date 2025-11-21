@@ -7,29 +7,31 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.30.1",
-    "@repo/typescript-config": "*",
+    "@eslint/js": "^9.39.1",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/lodash.debounce": "^4.0.9",
-    "@types/react": "~19.0.10",
+    "@types/react": "~19.1.17",
     "tailwindcss": "3.4.17",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   },
   "dependencies": {
     "@bacons/css-to-expo-linear-gradient": "^1.3.0",
-    "@radix-ui/react-dialog": "^1.1.14",
-    "@tanstack/react-query": "^5.81.5",
-    "axios": "1.12.2",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@tanstack/react-query": "^5.90.10",
+    "axios": "^1.13.2",
+    "burnt": "^0.13.0",
     "clsx": "^2.1.1",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.19",
     "lodash.debounce": "^4.0.8",
     "moti": "^0.30.0",
-    "nativewind": "4.1.10",
-    "react": "19.0.0",
-    "react-native": "0.79.5",
+    "nativewind": "4.2.1",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
     "react-native-heroicons": "^4.0.0",
     "tailwind-merge": "^2.6.0",
-    "uuid": "^11.1.0",
-    "vaul": "^1.1.2",
-    "zustand": "^5.0.6"
+    "uuid": "^13.0.0",
+    "vaul": "1.1.2",
+    "zustand": "^5.0.8"
   }
 }

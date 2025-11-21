@@ -71,7 +71,7 @@ export default function PassageCard({
                 className={cn(
                   'bg-emerald-700 dark:bg-gray-800/30',
                   Platform.OS === 'web' &&
-                    'web:hover:bg-emerald-600 web:dark:hover:bg-gray-900/30 web:active:bg-emerald-600 web:dark:active:bg-gray-900/30',
+                    'web:hover:bg-emerald-600 web:active:bg-emerald-600 web:dark:hover:bg-gray-900/30 web:dark:active:bg-gray-900/30',
                 )}
                 textClassName="text-sm text-white"
                 onClick={onClick}

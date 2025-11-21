@@ -71,11 +71,10 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
 
   // Constants
   const fastAnimationConfigs = useBottomSheetSpringConfigs({
-    damping: 50,
+    damping: 25,
+    stiffness: 600,
+    mass: 0.8,
     overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-    stiffness: 800,
   })
 
   // Methods
@@ -173,7 +172,7 @@ export function SaverSheetMobileProvider({ children }: PropsWithChildren) {
             <View className="flex-1 items-end">
               <TouchableOpacity onPress={() => dismissAndReset()}>
                 <RNText className="text-[16px] text-emerald-900 dark:text-white">
-                  Tutup
+                  Kembali
                 </RNText>
               </TouchableOpacity>
             </View>

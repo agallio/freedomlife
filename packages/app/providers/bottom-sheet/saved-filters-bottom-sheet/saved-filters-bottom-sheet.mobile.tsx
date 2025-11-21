@@ -125,7 +125,7 @@ export function SavedFiltersSheetMobileProvider({
             <View className="flex-1 items-end">
               <TouchableOpacity onPress={() => dismissSavedFiltersSheet()}>
                 <RNText className="text-[16px] text-emerald-900 dark:text-white">
-                  Tutup
+                  Kembali
                 </RNText>
               </TouchableOpacity>
             </View>

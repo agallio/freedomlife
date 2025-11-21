@@ -1,4 +1,3 @@
-import { CheckCircleIcon } from 'react-native-heroicons/solid'
 import * as Burnt from 'burnt'
 
 // Components

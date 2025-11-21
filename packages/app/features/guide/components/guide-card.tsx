@@ -147,7 +147,7 @@ function ActiveGuideCard({
                 noShadow
                 size="sm"
                 variant="custom"
-                className="web:hover:bg-emerald-800 web:dark:hover:bg-gray-800/50 web:active:bg-emerald-800 web:dark:active:bg-gray-800/50 bg-emerald-700 dark:bg-gray-800/30"
+                className="bg-emerald-700 web:hover:bg-emerald-800 web:active:bg-emerald-800 dark:bg-gray-800/30 web:dark:hover:bg-gray-800/50 web:dark:active:bg-gray-800/50"
                 icon={
                   <CheckIcon
                     size={20}
@@ -163,7 +163,7 @@ function ActiveGuideCard({
               noShadow
               size="sm"
               variant="custom"
-              className="web:hover:bg-emerald-800 web:dark:hover:bg-gray-800/50 web:active:bg-emerald-800 web:dark:active:bg-gray-800/50 border border-emerald-600 bg-emerald-700 dark:border-transparent dark:bg-gray-800/30"
+              className="border border-emerald-600 bg-emerald-700 web:hover:bg-emerald-800 web:active:bg-emerald-800 dark:border-transparent dark:bg-gray-800/30 web:dark:hover:bg-gray-800/50 web:dark:active:bg-gray-800/50"
               icon={
                 <BookOpenIcon
                   size={20}

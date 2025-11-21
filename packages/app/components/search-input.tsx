@@ -62,10 +62,10 @@ export default function SearchInput({
   return (
     <View
       className={cn(
-        'web:mx-4 h-[50px] flex-row items-center rounded-lg border bg-white px-2 dark:bg-gray-700',
+        'h-[50px] flex-row items-center rounded-lg border bg-white px-2 web:mx-4 dark:bg-gray-700',
         getShadow(),
         disabled
-          ? 'web:cursor-not-allowed border-gray-300 bg-gray-300 opacity-60 dark:border-gray-900 dark:bg-gray-900'
+          ? 'border-gray-300 bg-gray-300 opacity-60 web:cursor-not-allowed dark:border-gray-900 dark:bg-gray-900'
           : 'border-gray-200 dark:border-gray-600',
         withMarginBottom && 'mb-3',
       )}

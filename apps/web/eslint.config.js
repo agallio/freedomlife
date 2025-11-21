@@ -1,6 +1,6 @@
 const { defineConfig } = require('eslint/config')
-
 const js = require('@eslint/js')
+const reactCompiler = require('eslint-plugin-react-compiler')
 
 const { FlatCompat } = require('@eslint/eslintrc')
 
@@ -11,6 +11,17 @@ const compat = new FlatCompat({
 })
 
 module.exports = defineConfig([
+  {
+    ignores: [
+      '.next/**',
+      '.swc/**',
+      'out/**',
+      'build/**',
+      'dist/**',
+      'node_modules/**',
+      '.turbo/**',
+    ],
+  },
   {
     extends: compat.extends(
       'eslint:recommended',
@@ -33,4 +44,5 @@ module.exports = defineConfig([
       ],
     },
   },
+  reactCompiler.configs.recommended,
 ])

@@ -85,7 +85,7 @@ export function Button({
     >
       <View
         className={cn(
-          'web:transition web:duration-200 flex-row items-center justify-center rounded-full py-2',
+          'flex-row items-center justify-center rounded-full py-2 web:transition web:duration-200',
           fullWidth ? 'w-full' : 'w-[fit-content] px-4',
           buttonVariants[variant]?.parent,
           !disabled && buttonVariants[variant]?.hover,
@@ -151,15 +151,15 @@ export function IconButton({
     >
       <View
         className={cn(
-          'web:transition web:duration-200 flex items-center justify-center self-start',
+          'flex items-center justify-center self-start web:transition web:duration-200',
           variant !== 'transparent' && 'rounded-full',
           withShadow && getShadow(),
           variant === 'base' &&
-            'web:hover:bg-gray-100 web:dark:hover:bg-gray-600 web:active:bg-gray-100 web:dark:active:bg-gray-900 border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700',
+            'border border-gray-200 bg-white web:hover:bg-gray-100 web:active:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 web:dark:hover:bg-gray-600 web:dark:active:bg-gray-900',
           variant === 'active' &&
-            'web:hover:bg-emerald-400 web:dark:hover:bg-emerald-600 web:active:bg-emerald-400 web:dark:active:bg-emerald-600 border border-emerald-400 bg-emerald-300 dark:border-emerald-600 dark:bg-emerald-700',
+            'border border-emerald-400 bg-emerald-300 web:hover:bg-emerald-400 web:active:bg-emerald-400 dark:border-emerald-600 dark:bg-emerald-700 web:dark:hover:bg-emerald-600 web:dark:active:bg-emerald-600',
           variant === 'navigator' &&
-            'web:hover:bg-gray-100 web:dark:hover:bg-gray-600 web:active:bg-gray-100 web:dark:active:bg-gray-900 border border-gray-200 bg-white dark:border-gray-600 dark:bg-[#2c3440]',
+            'border border-gray-200 bg-white web:hover:bg-gray-100 web:active:bg-gray-100 dark:border-gray-600 dark:bg-[#2c3440] web:dark:hover:bg-gray-600 web:dark:active:bg-gray-900',
           variant !== 'transparent' && size === 'sm' && 'p-2',
           variant !== 'transparent' && size === 'md' && 'p-3',
           variant !== 'transparent' && size === 'lg' && 'p-4',
@@ -216,7 +216,7 @@ export function SquareButton({
     >
       <View
         className={cn(
-          'web:hover:bg-gray-100 web:dark:hover:bg-gray-800 web:transition web:duration-200 items-center justify-center rounded border-2 border-gray-300 bg-white dark:border-gray-500 dark:bg-gray-700',
+          'items-center justify-center rounded border-2 border-gray-300 bg-white web:transition web:duration-200 web:hover:bg-gray-100 dark:border-gray-500 dark:bg-gray-700 web:dark:hover:bg-gray-800',
           squareButtonVariants[size].parent,
         )}
       >

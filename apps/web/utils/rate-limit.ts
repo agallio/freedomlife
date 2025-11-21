@@ -16,7 +16,9 @@ interface RateLimit {
   ) => Promise<void | null>
 }
 
-const rateLimit = (options?: Options): RateLimit => {
+export const apiRateLimit = 50
+
+export const rateLimitFn = (options?: Options): RateLimit => {
   const tokenCache = new LRUCache<string, number[]>({
     max: options?.uniqueTokenPerInterval || 500,
     ttl: options?.interval || 60000,
@@ -43,5 +45,3 @@ const rateLimit = (options?: Options): RateLimit => {
       }),
   }
 }
-
-export default rateLimit
