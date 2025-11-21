@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // Utils
-import { apiUrl } from '../../utils/constants'
+import { apiUrl } from '../../utils/rn-constants'
 
 // Types
 import type { BibleDataResponse, BibleGuideDataResponse } from '../../types'

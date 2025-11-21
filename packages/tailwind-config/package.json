@@ -1,0 +1,13 @@
+{
+  "name": "@repo/tailwind-config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "peerDependencies": {
+    "tailwindcss": "3.4.17",
+    "nativewind": "4.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

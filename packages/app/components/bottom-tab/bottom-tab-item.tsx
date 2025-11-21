@@ -76,7 +76,12 @@ export function BottomTabItem({
           : undefined
       }
       animate={pressableAnimate}
-      transition={{ type: 'spring', damping: 15, mass: 0.4 }}
+      transition={{
+        type: 'spring',
+        damping: 12,
+        stiffness: 150,
+        mass: 0.6,
+      }}
       onPress={onPress}
       onLongPress={onLongPress}
       containerStyle={{ borderRadius: 9999 }}

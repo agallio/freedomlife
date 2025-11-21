@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 
 // Types
-import type { FeatureFlagClientData } from '../../types'
+import type { FeatureFlagClientData } from '../types'
 
 const FeatureFlagsContext = createContext<FeatureFlagClientData>({})
 

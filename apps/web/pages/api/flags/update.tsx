@@ -2,10 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 // Utils
 import { supabase } from '../../../utils/supabase'
-import rateLimit from '../../../utils/rate-limit'
-import { apiRateLimit } from '@repo/app/utils/constants'
+import { apiRateLimit, rateLimitFn } from '../../../utils/rate-limit'
 
-const limiter = rateLimit()
+const limiter = rateLimitFn()
 
 export default async function updateFeatureFlag(
   req: NextApiRequest,

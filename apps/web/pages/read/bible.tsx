@@ -10,11 +10,7 @@ import ReadTypography from '@repo/app/features/read/components/read-typography'
 
 // Contexts
 import { ReadLocalDatabaseWebProvider } from '@repo/app/features/read/local-databases/web/index.web'
-import { FeatureFlagsProvider } from '@repo/app/providers/feature-flags'
 import { useReadModalsWebContext } from '@repo/app/features/read/contexts/read-modals.context.web'
-
-// Queries
-import { useFlagQuery } from '@repo/app/hooks/use-flag-query'
 
 // Utils
 import { passageData } from '@repo/app/utils/constants'
@@ -37,12 +33,6 @@ export default function ReadPage() {
   const router = useRouter()
   const { setOpenPassage, setOpenPassageChapter, setOpenTranslate } =
     useReadModalsWebContext()
-
-  // Queries
-  const { data: tsiFlagData, isLoading: tsiFlagLoading } = useFlagQuery({
-    name: 'feature_tsi_translation',
-    enabled: true,
-  })
 
   // Constants
   const chapterQuery = router.query.chapter as string
@@ -118,16 +108,7 @@ export default function ReadPage() {
         </div>
 
         {/* Modals */}
-        <FeatureFlagsProvider
-          featureFlags={{
-            feature_tsi_translation: {
-              data: tsiFlagData,
-              isLoading: tsiFlagLoading,
-            },
-          }}
-        >
-          <TranslateModal />
-        </FeatureFlagsProvider>
+        <TranslateModal />
         <PassageModal
           handlePassageBack={handlePassageBack}
           redirectToPassageChapterScreen={redirectToPassageChapterScreen}

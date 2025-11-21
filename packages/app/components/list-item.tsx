@@ -60,7 +60,7 @@ export default function ListItem({
     >
       <View
         className={cn(
-          'web:transition web:duration-200 flex rounded-lg px-4 py-3',
+          'flex rounded-lg px-4 py-3 web:transition web:duration-200',
           disabled
             ? listItemVariants.disabled
             : `${listItemVariants[`active-${active}`]} ${getShadow(active)}`,

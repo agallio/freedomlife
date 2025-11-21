@@ -210,8 +210,6 @@ export default function ReadTypographyNavigator({
         'bottom-[110px]',
         Platform.OS === 'web' &&
           'pointer-events-none fixed left-0 right-0 mx-auto max-w-sm flex-row items-center justify-between px-6 sm:max-w-md sm:px-0',
-        // Platform.OS !== 'web' &&
-        //   'pointer-events-box-none absolute w-full p-0 md:px-12 lg:px-16',
         Platform.OS !== 'web' &&
           'pointer-events-box-none absolute flex w-full flex-row items-center justify-between px-6 min-[744px]:px-32 md:px-80',
       )}

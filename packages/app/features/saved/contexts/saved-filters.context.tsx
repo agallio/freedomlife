@@ -34,9 +34,7 @@ export function useSavedFilters<T>(selector: (_store: SavedFiltersStore) => T) {
   const value = useContext(SavedFiltersStoreContext)
 
   if (!value) {
-    throw new Error(
-      'useSavedFilters must be used within SavedFiltersProvider',
-    )
+    throw new Error('useSavedFilters must be used within SavedFiltersProvider')
   }
 
   return useStore(value, selector)

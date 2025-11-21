@@ -6,15 +6,15 @@ import {
   type SupabaseBibles,
   type SupabaseGuides,
 } from '../../../../utils/supabase'
-import rateLimit from '../../../../utils/rate-limit'
+import { apiRateLimit, rateLimitFn } from '../../../../utils/rate-limit'
 
 // Constants
-import { apiRateLimit, tsiAbbrs } from '@repo/app/utils/constants'
+import { tsiAbbrs } from '@repo/app/utils/constants'
 
 // Types
-import type { ChaptersData } from '@repo/app/types'
+import type { ChaptersData } from '@repo/app/types/api'
 
-const limiter = rateLimit()
+const limiter = rateLimitFn()
 
 export default async function bibleByDate(
   req: NextApiRequest,

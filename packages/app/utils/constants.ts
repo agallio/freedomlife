@@ -1,5 +1,3 @@
-import { Platform } from 'react-native'
-
 export type BibleTranslationItemType = {
   language: string
   versions: { key: string; name: string }[]
@@ -161,16 +159,6 @@ const tsiExcludeAbbrSet = new Set(tsiExcludeAbbr)
 export const tsiAbbrs = passageData
   .filter((item) => !tsiExcludeAbbrSet.has(item.abbr))
   .map((item) => item.abbr)
-
-export const apiRateLimit = 50
-
-const apiEnv = process.env.EXPO_PUBLIC_API_ENV || 'production'
-export const apiUrl =
-  Platform.OS === 'web'
-    ? ''
-    : apiEnv === 'local'
-      ? 'http://192.168.1.5:3000'
-      : 'https://freedomlife.id'
 
 export type HighlighterColorType = {
   [key: string]: {

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 // Utils
-import { apiUrl } from '../utils/constants'
+import { apiUrl } from '../utils/rn-constants'
 
 // Types
 import type { FlagDataResponse } from '../types'

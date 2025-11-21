@@ -1,3 +1,4 @@
+import 'raf/polyfill'
 import '../styles/global.css'
 
 import { useEffect } from 'react'

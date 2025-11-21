@@ -61,6 +61,19 @@ export default class Document extends NextDocument {
             media="(prefers-color-scheme: dark)"
             content="#1f2937"
           />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              (function() {
+                const theme = localStorage.getItem('theme');
+                const isDark = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) {
+                  document.documentElement.classList.add('dark');
+                }
+              })();
+            `,
+            }}
+          />
         </Head>
 
         <body>

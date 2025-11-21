@@ -80,7 +80,7 @@ export default function PassageGuide({ handlePassageBack }: PassageGuideProps) {
               variant="card"
               ariaLabel="Tombol untuk keluar dari panduan baca"
               text="Keluar Dari Panduan Baca"
-              className="web:hover:bg-emerald-800 web:dark:hover:bg-white/30 web:active:bg-emerald-800 web:dark:active:bg-white/30 bg-emerald-700 dark:bg-white/20"
+              className="bg-emerald-700 web:hover:bg-emerald-800 web:active:bg-emerald-800 dark:bg-white/20 web:dark:hover:bg-white/30 web:dark:active:bg-white/30"
               textClassName="text-white"
               onClick={onExitGuideClick}
             />

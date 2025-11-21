@@ -1,6 +1,6 @@
 /** Unused -- saved for later */
 import { Platform } from 'react-native'
-import { CheckCircleIcon } from 'react-native-heroicons/solid'
+// import { CheckCircleIcon } from 'react-native-heroicons/solid'
 import * as Burnt from 'burnt'
 
 // Screen

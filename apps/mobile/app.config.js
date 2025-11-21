@@ -18,7 +18,7 @@ export default {
   name: 'freedomlife',
   slug: 'freedomlife',
   scheme: 'freedomlife',
-  version: '2.4.0',
+  version: '2.5.0',
   orientation: 'portrait',
   icon: './assets/ios-light.png',
   userInterfaceStyle: 'automatic',
@@ -45,7 +45,7 @@ export default {
   android: {
     ...sharedSplash,
     package: 'id.freedomlife.android',
-    versionCode: 22,
+    versionCode: 23,
     edgeToEdgeEnabled: true,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -71,7 +71,7 @@ export default {
           ],
         },
         android: {
-          kotlinVersion: '2.0.21',
+          kotlinVersion: '2.1.20',
           usesCleartextTraffic: true,
           packagingOptions: {
             pickFirst: ['**/libc++_shared.so'],
@@ -106,6 +106,9 @@ export default {
       },
     ],
   ],
+  experiments: {
+    reactCompiler: true,
+  },
   updates: {
     url: 'https://u.expo.dev/816555cf-43fe-4a42-8199-65c263ddef54',
   },
