@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { View, useColorScheme } from 'react-native'
+import { Platform, View, useColorScheme } from 'react-native'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
 
 // Components
 import ReadNavbarContainer from './components/item-container'
@@ -21,6 +22,10 @@ export default function ReadNavbar(props: ReadNavbarProps) {
     (state) => state.selectedText,
   )
 
+  // Constants
+  const isIpadOS26 =
+    isLiquidGlassAvailable() && Platform.OS === 'ios' && Platform.isPad
+
   // Memoized Values
   const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
 
@@ -37,7 +42,7 @@ export default function ReadNavbar(props: ReadNavbarProps) {
           isSelected ? 'bg-emerald-300 dark:bg-emerald-700' : undefined,
         )}
         style={{
-          height: top + 55,
+          height: isIpadOS26 ? top + 90 : top + 55,
           paddingBottom: 8,
           borderBottomColor:
             colorScheme === 'light'
