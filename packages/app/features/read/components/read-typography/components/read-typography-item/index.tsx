@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { Pressable, useColorScheme, View } from 'react-native'
+import { Pressable, useColorScheme, View, Text as RNText } from 'react-native'
 import { BookmarkIcon } from 'react-native-heroicons/solid'
 
 // Components
@@ -122,18 +122,17 @@ function ReadTypographyItem({
 
           <Text
             style={{
-              lineHeight: Number(verseFontSize) * 2.1,
+              lineHeight: Number(verseFontSize) * 1.98,
             }}
           >
             {renderIndentation(String(item.verse))}
             <Text
               className={cn(
-                'text-gray-900',
                 textHighlightedColors.textColor,
                 textHighlightedColors.backgroundColor,
               )}
               style={{
-                lineHeight: Number(verseFontSize) * 2.1,
+                lineHeight: Number(verseFontSize) * 1.98,
                 // Manually set fontSize via style prop to handle font scaling on native.
                 fontSize: verseFontSize as number,
               }}
