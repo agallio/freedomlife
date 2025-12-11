@@ -1,8 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import fs from 'fs'
+import path from 'path'
 
 // Utils
-import { supabase, type SupabaseBibles } from '../../../utils/supabase'
 import { apiRateLimit, rateLimitFn } from '../../../utils/rate-limit'
+import { getBibleData } from '../../../utils/hono-api'
+
+// Types
+import type { SupabaseBibles } from '@repo/app/types/api'
+
+const tbBiblePath = path.join(process.cwd(), 'databases', 'tb_bible.json')
+const tbBibleData: SupabaseBibles[] = JSON.parse(
+  fs.readFileSync(tbBiblePath, 'utf-8'),
+)
 
 const limiter = rateLimitFn()
 
@@ -30,34 +40,56 @@ export default async function biblePassage(
   }
 
   const passageSplit = (passage as string).split('-')
+  const abbr = passageSplit[0]
+  const chapter = passageSplit[1]
 
-  const { data: rawData, error } = await supabase
-    .from('bibles')
-    .select()
-    .filter('version', 'eq', version || 'tb')
-    .filter('abbr', 'eq', passageSplit[0])
-    .filter('chapter', 'eq', passageSplit[1])
-  const data = rawData as SupabaseBibles[]
+  if (!abbr || !chapter) {
+    return res.status(400).json({
+      data: null,
+      error:
+        'Invalid passage format. Expected format: abbr-chapter (e.g., kej-1)',
+    })
+  }
 
-  if (error) return res.status(500).json({ data: null, error: error.message })
+  if (version === 'tb') {
+    const chapterData = tbBibleData.find(
+      (item) =>
+        item.abbr === abbr && item.chapter === chapter && item.version === 'tb',
+    )
 
-  if (data) {
-    try {
-      res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
-      return res.json({
-        data: {
-          version: version || 'tb',
-          book: data[0]!.book,
-          chapter: data[0]!.chapter,
-          data: data[0]!.verses,
-        },
-        error: null,
-      })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({ data: null, error: 'Internal server error.' })
+    if (!chapterData) {
+      return res.status(404).json({ data: null, error: 'Chapter not found.' })
     }
-  } else {
-    return res.status(404).json({ data: null, error: 'Chapter not found.' })
+
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
+    return res.json({
+      data: {
+        version: 'tb',
+        book: chapterData.book,
+        chapter: chapterData.chapter,
+        data: chapterData.verses,
+      },
+      error: null,
+    })
+  }
+
+  try {
+    const honoResponse = await getBibleData(version as string, abbr, chapter)
+
+    if (honoResponse.error || !honoResponse.data) {
+      return res.status(500).json({
+        data: null,
+        error: honoResponse.error || 'Failed to fetch Bible data',
+      })
+    }
+
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
+    return res.json({
+      data: honoResponse.data,
+      error: null,
+    })
+  } catch (e) {
+    console.error(e)
+    return res.status(500).json({ data: null, error: 'Internal server error.' })
   }
 }
