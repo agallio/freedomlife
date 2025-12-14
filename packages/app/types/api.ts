@@ -71,7 +71,6 @@ export interface SupabaseBibles {
 }
 
 export interface SupabaseGuides {
-  id: string
   month: string
   year: string
   date: string

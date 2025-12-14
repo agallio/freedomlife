@@ -17,7 +17,7 @@ import type {
   SupabaseGuides,
 } from '@repo/app/types/api'
 
-const guidesPath = path.join(process.cwd(), 'databases', 'guides_2025.json')
+const guidesPath = path.join(process.cwd(), 'databases', 'guides.json')
 const guidesData: SupabaseGuides[] = JSON.parse(
   fs.readFileSync(guidesPath, 'utf-8'),
 )
