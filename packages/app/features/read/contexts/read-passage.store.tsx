@@ -2,6 +2,7 @@ import { createStore } from 'zustand/vanilla'
 
 // Utils
 import dayjs from '../../../utils/dayjs'
+import { isSunsetActive } from '../../../utils/constants'
 
 export type ReadSelectedTextType = {
   passage: string
@@ -43,6 +44,13 @@ type ReadPassageActions = {
 
 export type ReadPassageStore = ReadPassageState & ReadPassageActions
 
+const getDefaultBibleVersion = (): string => {
+  if (isSunsetActive()) {
+    return 'tb'
+  }
+  return 'tb'
+}
+
 const defaultReadPassageState: ReadPassageState = {
   // State - Guided
   guided: {
@@ -54,12 +62,16 @@ const defaultReadPassageState: ReadPassageState = {
   selectedText: [],
   guidesHaveBeenRead: [],
   selectedGuideMonth: dayjs().format('MM'),
-  selectedBibleVersion: 'tb',
+  selectedBibleVersion: getDefaultBibleVersion(),
 }
 
 export const createReadPassageStore = (
   initialState = defaultReadPassageState,
 ) => {
+  if (isSunsetActive() && initialState.selectedBibleVersion !== 'tb') {
+    initialState.selectedBibleVersion = 'tb'
+  }
+
   return createStore<ReadPassageStore>()((set) => ({
     // Initialize state
     ...initialState,
@@ -82,8 +94,13 @@ export const createReadPassageStore = (
         set((prevState) => ({ ...prevState, guidesHaveBeenRead })),
       setSelectedGuideMonth: (selectedGuideMonth) =>
         set((prevState) => ({ ...prevState, selectedGuideMonth })),
-      setSelectedBibleVersion: (selectedBibleVersion) =>
-        set((prevState) => ({ ...prevState, selectedBibleVersion })),
+      setSelectedBibleVersion: (selectedBibleVersion) => {
+        if (isSunsetActive() && selectedBibleVersion !== 'tb') {
+          return
+        }
+
+        set((prevState) => ({ ...prevState, selectedBibleVersion }))
+      },
       insertSelectedText: (selectedText) =>
         set((prevState) => ({
           ...prevState,

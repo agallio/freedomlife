@@ -5,6 +5,7 @@ import path from 'path'
 // Utils
 import { apiRateLimit, rateLimitFn } from '../../../utils/rate-limit'
 import { getBibleData } from '../../../utils/hono-api'
+import { isSunsetActive } from '@repo/app/utils/constants'
 
 // Types
 import type { SupabaseBibles } from '@repo/app/types/api'
@@ -30,6 +31,13 @@ export default async function biblePassage(
     return res.status(400).json({
       data: null,
       error: `Param 'passage' and/or 'version' are missing.`,
+    })
+  }
+
+  if (isSunsetActive() && version !== 'tb') {
+    return res.status(404).json({
+      data: null,
+      error: 'Bible version not found.',
     })
   }
 

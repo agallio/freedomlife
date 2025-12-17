@@ -3,6 +3,7 @@ import { NextSeo } from 'next-seo'
 import MdxLayout from '@repo/app/components/mdx-layout.web'
 import SunsetIcon from '@repo/app/components/icons/sunset-icon'
 import { Button } from '@repo/app/components/button'
+import { isSunsetActive } from '@repo/app/utils/constants'
 
 <Head>
   <title>Perpisahan | freedomlife</title>
@@ -41,9 +42,9 @@ Setelah melayani Anda dalam perjalanan membaca Alkitab selama 7 tahun lebih, per
 
 ### Apa yang perlu Anda ketahui:
 
-- **Website freedomlife.id** akan dihentikan pada tanggal 1 Januari 2026.
+- **Website freedomlife.id** akan berhenti beroperasi pada tanggal 1 Januari 2026.
 - **Aplikasi iOS & Android freedomlife** masih dapat digunakan hingga **31 Maret 2026** untuk memberikan waktu transisi bagi Anda pengguna aplikasi mobile.
-- **Setelah 31 Maret 2026**, seluruh layanan freedomlife akan dihentikan secara permanen.
+- **Setelah 31 Maret 2026**, seluruh layanan freedomlife akan berhenti beroperasi secara permanen.
 
 ### Mengapa keputusan ini diambil?
 
@@ -85,5 +86,5 @@ Silakan kunjungi tautan dibawah ini untuk mengetahui informasi lebih lanjut:
 <div className='w-[40px]'/>
 
 export default function MDXPage({ children }) {
-  return <MdxLayout withBackButton>{children}</MdxLayout>
+  return <MdxLayout withBackButton={!isSunsetActive()}>{children}</MdxLayout>
 }

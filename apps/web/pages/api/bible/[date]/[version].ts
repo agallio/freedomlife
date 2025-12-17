@@ -7,7 +7,7 @@ import { apiRateLimit, rateLimitFn } from '../../../../utils/rate-limit'
 import { getBibleData } from '../../../../utils/hono-api'
 
 // Constants
-import { tsiAbbrs } from '@repo/app/utils/constants'
+import { tsiAbbrs, isSunsetActive } from '@repo/app/utils/constants'
 
 // Types
 import type {
@@ -77,6 +77,13 @@ export default async function bibleByDate(
     return res
       .status(404)
       .json({ data: null, error: "Param 'date' is missing" })
+  }
+
+  if (isSunsetActive() && version !== 'tb') {
+    return res.status(404).json({
+      data: null,
+      error: 'Bible version not found.',
+    })
   }
 
   const guideEntry = guidesData.find((guide) => guide.date === String(date))
