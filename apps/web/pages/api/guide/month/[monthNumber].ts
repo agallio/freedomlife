@@ -1,9 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import fs from 'fs'
+import path from 'path'
 
 // Utils
-import { supabase } from '../../../../utils/supabase'
 import { apiRateLimit, rateLimitFn } from '../../../../utils/rate-limit'
-import dayjs from '@repo/app/utils/dayjs'
+
+// Types
+import type { SupabaseGuides } from '@repo/app/types/api'
+
+const guidesPath = path.join(process.cwd(), 'databases', 'guides.json')
+const guidesData: SupabaseGuides[] = JSON.parse(
+  fs.readFileSync(guidesPath, 'utf-8'),
+)
 
 const limiter = rateLimitFn()
 
@@ -36,37 +44,14 @@ export default async function guideByMonth(
     return res.status(429).json({ data: null, error: 'Rate limit exceeded.' })
   }
 
-  // Handle 2023 No Data
-  const { data: rawFlagData } = await supabase
-    .from('flags')
-    .select()
-    .filter('name', 'eq', '2023_notice')
-  const flagData: boolean =
-    Array.isArray(rawFlagData) && rawFlagData.length > 0
-      ? rawFlagData[0].context.no_data
-      : false
-  const formattedYear = flagData ? '2022' : dayjs().format('YYYY')
+  // Filter guides by month (pad with leading zero for comparison)
+  const paddedMonth = String(monthNumber).padStart(2, '0')
+  const monthGuides = guidesData.filter((guide) => guide.month === paddedMonth)
 
-  const { data, error } = await supabase
-    .from('guides')
-    .select()
-    .filter('month', 'eq', monthNumber)
-    .filter('year', 'eq', formattedYear)
-    .order('date', { ascending: true })
-
-  if (error) return res.status(500).json({ data: null, error: error.message })
-
-  if (data && data.length > 0) {
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
-    const customData = flagData
-      ? data.map((i) => ({
-          ...i,
-          year: dayjs().format('YYYY'),
-          date: String(i.date).replace('2022', dayjs().format('YYYY')),
-        }))
-      : data
-    return res.json({ data: customData, error: null })
-  } else {
+  if (monthGuides.length === 0) {
     return res.status(404).json({ data: null, error: 'Guides not found.' })
   }
+
+  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
+  return res.json({ data: monthGuides, error: null })
 }

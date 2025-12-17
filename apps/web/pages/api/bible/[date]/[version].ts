@@ -1,20 +1,67 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import fs from 'fs'
+import path from 'path'
 
 // Utils
-import {
-  supabase,
-  type SupabaseBibles,
-  type SupabaseGuides,
-} from '../../../../utils/supabase'
 import { apiRateLimit, rateLimitFn } from '../../../../utils/rate-limit'
+import { getBibleData } from '../../../../utils/hono-api'
 
 // Constants
-import { tsiAbbrs } from '@repo/app/utils/constants'
+import { tsiAbbrs, isSunsetActive } from '@repo/app/utils/constants'
 
 // Types
-import type { ChaptersData } from '@repo/app/types/api'
+import type {
+  ChaptersData,
+  VerseData,
+  SupabaseBibles,
+  SupabaseGuides,
+} from '@repo/app/types/api'
+
+const guidesPath = path.join(process.cwd(), 'databases', 'guides.json')
+const guidesData: SupabaseGuides[] = JSON.parse(
+  fs.readFileSync(guidesPath, 'utf-8'),
+)
+
+const tbBiblePath = path.join(process.cwd(), 'databases', 'tb_bible.json')
+const tbBibleData: SupabaseBibles[] = JSON.parse(
+  fs.readFileSync(tbBiblePath, 'utf-8'),
+)
 
 const limiter = rateLimitFn()
+
+async function fetchBibleChapter(
+  abbr: string,
+  chapter: string,
+  version: string,
+): Promise<{
+  abbr: string
+  book: string
+  chapter: string
+  version: string
+  verses: VerseData[]
+} | null> {
+  if (version === 'tb') {
+    const chapterData = tbBibleData.find(
+      (item) =>
+        item.abbr === abbr && item.chapter === chapter && item.version === 'tb',
+    )
+    return chapterData || null
+  }
+
+  const apiResponse = await getBibleData(version, abbr, chapter)
+
+  if (apiResponse.error || !apiResponse.data) {
+    return null
+  }
+
+  return {
+    abbr,
+    book: apiResponse.data.book,
+    chapter: apiResponse.data.chapter.toString(),
+    version: apiResponse.data.version,
+    verses: apiResponse.data.data,
+  }
+}
 
 export default async function bibleByDate(
   req: NextApiRequest,
@@ -32,21 +79,20 @@ export default async function bibleByDate(
       .json({ data: null, error: "Param 'date' is missing" })
   }
 
-  const { data, error: guideByDateError } = await supabase
-    .from('guides')
-    .select()
-    .filter('date', 'eq', String(date))
-  const guideByDateData = data as SupabaseGuides[]
-
-  if (guideByDateError) {
-    return res.status(500).json({ data: null, error: guideByDateError.message })
+  if (isSunsetActive() && version !== 'tb') {
+    return res.status(404).json({
+      data: null,
+      error: 'Bible version not found.',
+    })
   }
 
-  if (!guideByDateData || guideByDateData.length === 0) {
-    return res
-      .status(500)
-      .json({ data: null, error: 'Internal server error. (guide not found)' })
+  const guideEntry = guidesData.find((guide) => guide.date === String(date))
+
+  if (!guideEntry) {
+    return res.status(404).json({ data: null, error: 'Guide not found' })
   }
+
+  const guideByDateData = [guideEntry]
 
   try {
     await limiter.check(res, apiRateLimit, 'API_RATE_LIMIT')
@@ -85,33 +131,29 @@ export default async function bibleByDate(
     const plColonDashSplit = plColonSplit[1]!.split('-')
 
     try {
-      const { data, error: plError } = await supabase
-        .from('bibles')
-        .select()
-        .filter('abbr', 'eq', plSpaceSplit[0])
-        .filter('chapter', 'eq', String(plColonSplit[0]))
-        .filter('version', 'eq', version || 'tb')
-      const plData = data as SupabaseBibles[]
+      const plData = await fetchBibleChapter(
+        plSpaceSplit[0],
+        String(plColonSplit[0]),
+        (version as string) || 'tb',
+      )
 
-      if (plError) {
+      if (!plData) {
         return res
           .status(500)
-          .json({ data: null, error: `${plError} (pl-colon)` })
+          .json({ data: null, error: 'Bible data not found (pl-colon)' })
       }
 
-      if (plData) {
-        plArr.push({
-          version: (version as string) || 'tb',
-          book: plData[0]!.book,
-          chapter: plData[0]!.chapter,
-          passagePlace: `pl-1`,
-          data: plData[0]!.verses.filter(
-            (item) =>
-              item.verse >= Number(plColonDashSplit[0]) &&
-              item.verse <= Number(plColonDashSplit[1]),
-          ),
-        })
-      }
+      plArr.push({
+        version: (version as string) || 'tb',
+        book: plData.book,
+        chapter: plData.chapter,
+        passagePlace: `pl-1`,
+        data: plData.verses.filter(
+          (item) =>
+            item.verse >= Number(plColonDashSplit[0]) &&
+            item.verse <= Number(plColonDashSplit[1]),
+        ),
+      })
     } catch (e) {
       console.error(e)
       return res
@@ -123,29 +165,25 @@ export default async function bibleByDate(
 
     for (let i = Number(plDashSplit[0]); i <= Number(plDashSplit[1]); i++) {
       try {
-        const { data, error: plError } = await supabase
-          .from('bibles')
-          .select()
-          .filter('abbr', 'eq', plSpaceSplit[0])
-          .filter('chapter', 'eq', i)
-          .filter('version', 'eq', version || 'tb')
-        const plData = data as SupabaseBibles[]
+        const plData = await fetchBibleChapter(
+          plSpaceSplit[0],
+          String(i),
+          (version as string) || 'tb',
+        )
 
-        if (plError) {
+        if (!plData) {
           return res
             .status(500)
-            .json({ data: null, error: `${plError} (pl-${place})` })
+            .json({ data: null, error: `Bible data not found (pl-${place})` })
         }
 
-        if (plData) {
-          plArr.push({
-            version: (version as string) || 'tb',
-            book: plData[0]!.book,
-            chapter: String(i),
-            passagePlace: `pl-${place++}`,
-            data: plData[0]!.verses,
-          })
-        }
+        plArr.push({
+          version: (version as string) || 'tb',
+          book: plData.book,
+          chapter: String(i),
+          passagePlace: `pl-${place++}`,
+          data: plData.verses,
+        })
       } catch (e) {
         console.error(e)
         return res
@@ -155,27 +193,25 @@ export default async function bibleByDate(
     }
   } else {
     try {
-      const { data, error: plError } = await supabase
-        .from('bibles')
-        .select()
-        .filter('abbr', 'eq', plSpaceSplit[0])
-        .filter('chapter', 'eq', plSpaceSplit[1])
-        .filter('version', 'eq', version || 'tb')
-      const plData = data as SupabaseBibles[]
+      const plData = await fetchBibleChapter(
+        plSpaceSplit[0],
+        String(plSpaceSplit[1]),
+        (version as string) || 'tb',
+      )
 
-      if (plError) {
-        return res.status(500).json({ data: null, error: `${plError} (pl)` })
+      if (!plData) {
+        return res
+          .status(500)
+          .json({ data: null, error: 'Bible data not found (pl)' })
       }
 
-      if (plData) {
-        plArr.push({
-          version: (version as string) || 'tb',
-          book: plData[0]!.book,
-          chapter: plData[0]!.chapter,
-          passagePlace: `pl-1`,
-          data: plData[0]!.verses,
-        })
-      }
+      plArr.push({
+        version: (version as string) || 'tb',
+        book: plData.book,
+        chapter: plData.chapter,
+        passagePlace: `pl-1`,
+        data: plData.verses,
+      })
     } catch (e) {
       console.error(e)
       return res
@@ -191,33 +227,29 @@ export default async function bibleByDate(
     const pbDashColonSplit = pbColonSplit[1]!.split('-')
 
     try {
-      const { data, error: pbError } = await supabase
-        .from('bibles')
-        .select()
-        .filter('abbr', 'eq', pbSpaceSplit[0])
-        .filter('chapter', 'eq', pbColonSplit[0])
-        .filter('version', 'eq', version || 'tb')
-      const pbData = data as SupabaseBibles[]
+      const pbData = await fetchBibleChapter(
+        pbSpaceSplit[0],
+        String(pbColonSplit[0]),
+        (version as string) || 'tb',
+      )
 
-      if (pbError) {
+      if (!pbData) {
         return res
           .status(500)
-          .json({ data: null, error: `${pbError} (pb-colon)` })
+          .json({ data: null, error: 'Bible data not found (pb-colon)' })
       }
 
-      if (pbData) {
-        pbArr.push({
-          version: (version as string) || 'tb',
-          book: pbData[0]!.book,
-          chapter: pbData[0]!.chapter,
-          passagePlace: `pb-1`,
-          data: pbData[0]!.verses.filter(
-            (item) =>
-              item.verse >= Number(pbDashColonSplit[0]) &&
-              item.verse <= Number(pbDashColonSplit[1]),
-          ),
-        })
-      }
+      pbArr.push({
+        version: (version as string) || 'tb',
+        book: pbData.book,
+        chapter: pbData.chapter,
+        passagePlace: `pb-1`,
+        data: pbData.verses.filter(
+          (item) =>
+            item.verse >= Number(pbDashColonSplit[0]) &&
+            item.verse <= Number(pbDashColonSplit[1]),
+        ),
+      })
     } catch (e) {
       console.error(e)
       return res
@@ -229,29 +261,25 @@ export default async function bibleByDate(
 
     for (let i = Number(pbDashSplit[0]); i <= Number(pbDashSplit[1]); i++) {
       try {
-        const { data, error: pbError } = await supabase
-          .from('bibles')
-          .select()
-          .filter('abbr', 'eq', pbSpaceSplit[0])
-          .filter('chapter', 'eq', i)
-          .filter('version', 'eq', version || 'tb')
-        const pbData = data as SupabaseBibles[]
+        const pbData = await fetchBibleChapter(
+          pbSpaceSplit[0],
+          String(i),
+          (version as string) || 'tb',
+        )
 
-        if (pbError) {
+        if (!pbData) {
           return res
             .status(500)
-            .json({ data: null, error: `${pbError} (pb-${place})` })
+            .json({ data: null, error: `Bible data not found (pb-${place})` })
         }
 
-        if (pbData) {
-          pbArr.push({
-            version: (version as string) || 'tb',
-            book: pbData[0]!.book,
-            chapter: String(i),
-            passagePlace: `pb-${place++}`,
-            data: pbData[0]!.verses,
-          })
-        }
+        pbArr.push({
+          version: (version as string) || 'tb',
+          book: pbData.book,
+          chapter: String(i),
+          passagePlace: `pb-${place++}`,
+          data: pbData.verses,
+        })
       } catch (e) {
         console.error(e)
         return res.status(500).json({
@@ -262,27 +290,25 @@ export default async function bibleByDate(
     }
   } else {
     try {
-      const { data, error: pbError } = await supabase
-        .from('bibles')
-        .select()
-        .filter('abbr', 'eq', pbSpaceSplit[0])
-        .filter('chapter', 'eq', pbSpaceSplit[1])
-        .filter('version', 'eq', version || 'tb')
-      const pbData = data as SupabaseBibles[]
+      const pbData = await fetchBibleChapter(
+        pbSpaceSplit[0],
+        String(pbSpaceSplit[1]),
+        (version as string) || 'tb',
+      )
 
-      if (pbError) {
-        return res.status(500).json({ data: null, error: `${pbError} (pb)` })
+      if (!pbData) {
+        return res
+          .status(500)
+          .json({ data: null, error: 'Bible data not found (pb)' })
       }
 
-      if (pbData) {
-        pbArr.push({
-          version: (version as string) || 'tb',
-          book: pbData[0]!.book,
-          chapter: pbData[0]!.chapter,
-          passagePlace: `pb-1`,
-          data: pbData[0]!.verses,
-        })
-      }
+      pbArr.push({
+        version: (version as string) || 'tb',
+        book: pbData.book,
+        chapter: pbData.chapter,
+        passagePlace: `pb-1`,
+        data: pbData.verses,
+      })
     } catch (e) {
       console.error(e)
       return res
@@ -300,33 +326,29 @@ export default async function bibleByDate(
       const injColonDashSplit = injColonSplit[1]!.split('-')
 
       try {
-        const { data, error: inError } = await supabase
-          .from('bibles')
-          .select()
-          .filter('abbr', 'eq', injSpaceSplit[0])
-          .filter('chapter', 'eq', injColonSplit[0])
-          .filter('version', 'eq', version || 'tb')
-        const inData = data as SupabaseBibles[]
+        const inData = await fetchBibleChapter(
+          injSpaceSplit[0],
+          String(injColonSplit[0]),
+          (version as string) || 'tb',
+        )
 
-        if (inError) {
+        if (!inData) {
           return res
             .status(500)
-            .json({ data: null, error: `${inError} (in-colon)` })
+            .json({ data: null, error: 'Bible data not found (in-colon)' })
         }
 
-        if (inData) {
-          injArr.push({
-            version: (version as string) || 'tb',
-            book: inData[0]!.book,
-            chapter: inData[0]!.chapter,
-            passagePlace: `in-1`,
-            data: inData[0]!.verses.filter(
-              (item) =>
-                item.verse >= Number(injColonDashSplit[0]) &&
-                item.verse <= Number(injColonDashSplit[1]),
-            ),
-          })
-        }
+        injArr.push({
+          version: (version as string) || 'tb',
+          book: inData.book,
+          chapter: inData.chapter,
+          passagePlace: `in-1`,
+          data: inData.verses.filter(
+            (item) =>
+              item.verse >= Number(injColonDashSplit[0]) &&
+              item.verse <= Number(injColonDashSplit[1]),
+          ),
+        })
       } catch (e) {
         console.error(e)
         return res
@@ -338,29 +360,25 @@ export default async function bibleByDate(
 
       for (let i = Number(injDashSplit[0]); i <= Number(injDashSplit[1]); i++) {
         try {
-          const { data, error: inError } = await supabase
-            .from('bibles')
-            .select()
-            .filter('abbr', 'eq', injSpaceSplit[0])
-            .filter('chapter', 'eq', i)
-            .filter('version', 'eq', version || 'tb')
-          const inData = data as SupabaseBibles[]
+          const inData = await fetchBibleChapter(
+            injSpaceSplit[0],
+            String(i),
+            (version as string) || 'tb',
+          )
 
-          if (inError) {
+          if (!inData) {
             return res
               .status(500)
-              .json({ data: null, error: `${inError} (in-${place})` })
+              .json({ data: null, error: `Bible data not found (in-${place})` })
           }
 
-          if (inData) {
-            injArr.push({
-              version: (version as string) || 'tb',
-              book: inData[0]!.book,
-              chapter: String(i),
-              passagePlace: `in-${place++}`,
-              data: inData[0]!.verses,
-            })
-          }
+          injArr.push({
+            version: (version as string) || 'tb',
+            book: inData.book,
+            chapter: String(i),
+            passagePlace: `in-${place++}`,
+            data: inData.verses,
+          })
         } catch (e) {
           console.error(e)
           return res.status(500).json({
@@ -371,27 +389,25 @@ export default async function bibleByDate(
       }
     } else {
       try {
-        const { data, error: inError } = await supabase
-          .from('bibles')
-          .select()
-          .filter('abbr', 'eq', injSpaceSplit[0])
-          .filter('chapter', 'eq', injSpaceSplit[1])
-          .filter('version', 'eq', version || 'tb')
-        const inData = data as SupabaseBibles[]
+        const inData = await fetchBibleChapter(
+          injSpaceSplit[0],
+          String(injSpaceSplit[1]),
+          (version as string) || 'tb',
+        )
 
-        if (inError) {
-          return res.status(500).json({ data: null, error: `${inError} (in)` })
+        if (!inData) {
+          return res
+            .status(500)
+            .json({ data: null, error: 'Bible data not found (in)' })
         }
 
-        if (inData) {
-          injArr.push({
-            version: (version as string) || 'tb',
-            book: inData[0]!.book,
-            chapter: inData[0]!.chapter,
-            passagePlace: `in-1`,
-            data: inData[0]!.verses,
-          })
-        }
+        injArr.push({
+          version: (version as string) || 'tb',
+          book: inData.book,
+          chapter: inData.chapter,
+          passagePlace: `in-1`,
+          data: inData.verses,
+        })
       } catch (e) {
         console.error(e)
         return res.status(500).json({

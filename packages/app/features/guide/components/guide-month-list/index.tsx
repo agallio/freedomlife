@@ -5,6 +5,7 @@ import GuideMonthItem from '../guide-month-item'
 
 // Utils
 import dayjs from '../../../../utils/dayjs'
+import { isSunsetActive } from '../../../../utils/constants'
 
 // Types
 import type { GuideMonthListProps } from './types'
@@ -13,6 +14,8 @@ export default function GuideMonthList({
   selectedGuideMonth,
   onMonthClick,
 }: GuideMonthListProps) {
+  const sunsetActive = isSunsetActive()
+
   return (
     <FlatList
       data={[...Array(12).keys()] as any}
@@ -25,7 +28,10 @@ export default function GuideMonthList({
         <GuideMonthItem
           active={Number(selectedGuideMonth) === item + 1}
           monthNumber={item}
-          disabled={item + 1 > Number(dayjs().format('MM'))}
+          disabled={
+            item + 1 > Number(dayjs().format('MM')) ||
+            (sunsetActive && item + 1 > 3)
+          }
           onClick={onMonthClick}
         />
       )}

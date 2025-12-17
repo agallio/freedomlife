@@ -15,6 +15,9 @@ import PostHogProviderWeb from '../providers/posthog.provider.web'
 import QueryProvider from '@repo/app/providers/react-query'
 import ReadProviders from '@repo/app/features/read/contexts'
 
+// Utils
+import { isSunsetActive } from '@repo/app/utils/constants'
+
 // Lazy-load Components
 const BottomTab = dynamic(() => import('@repo/app/components/bottom-tab'), {
   ssr: false,
@@ -61,6 +64,8 @@ function SEO() {
 export default function App({ Component, pageProps, router }: AppProps) {
   const nextRouter = useRouter()
 
+  const sunsetActive = isSunsetActive()
+
   // Effects
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -75,6 +80,12 @@ export default function App({ Component, pageProps, router }: AppProps) {
       })
     }
   }, [])
+
+  useEffect(() => {
+    if (sunsetActive && router.pathname !== '/end') {
+      nextRouter.replace('/end')
+    }
+  }, [sunsetActive, router.pathname, nextRouter])
 
   return (
     <>
@@ -105,7 +116,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
               {router.pathname !== '/404' &&
                 router.pathname !== '/_error' &&
                 router.pathname !== '/learn' &&
-                router.pathname !== '/persembahan' && (
+                router.pathname !== '/persembahan' &&
+                router.pathname !== '/end' && (
                   <BottomTab
                     pathname={
                       router.pathname.includes('read')

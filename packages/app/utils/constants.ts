@@ -56,6 +56,12 @@ export const bibleTranslationsFlat = bibleTranslations.flatMap(
   (item) => item.versions,
 )
 
+export const SUNSET_DATE = new Date('2026-01-01T00:00:00Z')
+
+export function isSunsetActive(): boolean {
+  return new Date() >= SUNSET_DATE
+}
+
 export type PassageDataItemType = {
   name: string
   abbr: string

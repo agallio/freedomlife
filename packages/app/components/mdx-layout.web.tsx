@@ -18,9 +18,14 @@ import FreedomlifeIcon from './icons/freedomlife-icon'
  */
 export default function MdxLayout({
   withCredit,
+  withBackButton,
   header,
   children,
-}: PropsWithChildren<{ withCredit?: boolean; header?: ReactNode }>) {
+}: PropsWithChildren<{
+  withCredit?: boolean
+  withBackButton?: boolean
+  header?: ReactNode
+}>) {
   const router = useRouter()
 
   // Constants
@@ -36,9 +41,9 @@ export default function MdxLayout({
 
   return (
     <div className="mx-auto max-w-sm px-6 pb-12 pt-4 sm:max-w-md sm:px-0 md:pb-16">
-      <div className="flex pb-6">
+      <button className="flex pb-6">
         <FreedomlifeIcon className="w-[230px]" />
-      </div>
+      </button>
 
       {header}
 
@@ -104,7 +109,7 @@ export default function MdxLayout({
             </div>
           )}
 
-          {withCredit && !isWebview && (
+          {withBackButton && !isWebview && (
             <div className="relative w-full">
               <Button
                 fullWidth

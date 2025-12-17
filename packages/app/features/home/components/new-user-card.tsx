@@ -8,11 +8,18 @@ import { Button } from '../../../components/button'
 // Icon Components
 import NewUserIcon from '../../../components/icons/new-user-icon'
 
+// Utils
+import { isSunsetActive } from '../../../utils/constants'
+
 export default function NewUserCard({
   openLearnMore,
 }: {
   openLearnMore: () => Promise<void>
 }) {
+  if (isSunsetActive()) {
+    return null
+  }
+
   return (
     <GradientCard
       variants="new-user"

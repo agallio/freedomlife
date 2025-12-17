@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Platform, useColorScheme } from 'react-native'
+import { Platform, useColorScheme, View } from 'react-native'
 import { LanguageIcon, XMarkIcon } from 'react-native-heroicons/solid'
 
 // Components
@@ -11,6 +11,7 @@ import { useReadPassageGeneralContext } from '../../../contexts/read-passage.con
 
 // Utils
 import { getIconColor } from '../../../../../utils/helpers'
+import { isSunsetActive } from '../../../../../utils/constants'
 
 type ReadNavbarLeftProps = {
   isLoading: boolean
@@ -32,6 +33,7 @@ export default function ReadNavbarLeft({
 
   // Constants
   const color = getIconColor(colorScheme)
+  const sunsetActive = isSunsetActive()
 
   // Memoized Values
   const isSelected = useMemo(() => selectedText.length > 0, [selectedText])
@@ -73,6 +75,10 @@ export default function ReadNavbarLeft({
         onClick={onResetHighlightClick}
       />
     )
+  }
+
+  if (sunsetActive) {
+    return <View className="h-[28px] w-[28px]" />
   }
 
   return (

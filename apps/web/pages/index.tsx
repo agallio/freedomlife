@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 // Components
@@ -8,6 +9,17 @@ import FooterCredits from '@repo/app/features/home/components/footer-credits.web
 
 // Icon Components
 import FreedomLifeIcon from '@repo/app/components/icons/freedomlife-icon'
+
+// Lazy Loaded Components
+const SunsetInfoCard = dynamic(
+  () => import('@repo/app/features/home/components/sunset-info-card'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[70px] rounded-lg bg-gradient-to-b from-[#5B3A7D] to-[#3D2659]" />
+    ),
+  },
+)
 
 export default function HomePage() {
   const router = useRouter()
@@ -21,6 +33,10 @@ export default function HomePage() {
     router.push('/learn')
   }
 
+  const redirectToEndScreen = () => {
+    router.push('/end')
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-sm flex-col px-6 pb-28 pt-4 sm:max-w-md">
       <div className="flex pb-4">
@@ -28,6 +44,7 @@ export default function HomePage() {
       </div>
 
       <div className="flex flex-col gap-4">
+        <SunsetInfoCard onPress={redirectToEndScreen} />
         <PassageCard redirectToReadScreen={redirectToReadScreen} />
         <NewUserCard openLearnMore={openLearnMore} />
       </div>

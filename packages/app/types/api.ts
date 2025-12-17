@@ -59,3 +59,25 @@ export interface FeatureFlagClientData {
     isLoading: boolean
   }
 }
+
+// Database schema types
+export interface SupabaseBibles {
+  id: string
+  abbr: string
+  book: string
+  chapter: string
+  version: string
+  verses: VerseData[]
+}
+
+export interface SupabaseGuides {
+  month: string
+  year: string
+  date: string
+  pl: string
+  pb: string
+  in: string
+  pl_name: string
+  pb_name: string
+  in_name: string
+}
