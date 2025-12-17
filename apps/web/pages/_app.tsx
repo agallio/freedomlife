@@ -105,7 +105,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
               {router.pathname !== '/404' &&
                 router.pathname !== '/_error' &&
                 router.pathname !== '/learn' &&
-                router.pathname !== '/persembahan' && (
+                router.pathname !== '/persembahan' &&
+                router.pathname !== '/end' && (
                   <BottomTab
                     pathname={
                       router.pathname.includes('read')

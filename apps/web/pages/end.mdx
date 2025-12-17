@@ -1,0 +1,89 @@
+import Head from 'next/head'
+import { NextSeo } from 'next-seo'
+import MdxLayout from '@repo/app/components/mdx-layout.web'
+import SunsetIcon from '@repo/app/components/icons/sunset-icon'
+import { Button } from '@repo/app/components/button'
+
+<Head>
+  <title>Perpisahan | freedomlife</title>
+</Head>
+<NextSeo
+  title="Perpisahan | freedomlife"
+  description="Halaman panduan penggunaan aplikasi freedomlife. Pelajari bagaimana cara menggunakan aplikasi freedomlife."
+  openGraph={{
+    url: 'https://freedomlife.id/learn',
+    title: 'Panduan Penggunaan | freedomlife',
+    description:
+      'Halaman panduan penggunaan aplikasi freedomlife. Pelajari bagaimana cara menggunakan aplikasi freedomlife.',
+    site_name: 'freedomlife',
+    images: [
+      {
+        url: 'https://freedomlife.id/images/og-learn.png',
+        alt: `Tulisan dan logo 'freedomlife' disertai dengan keterangan: 'Cara Penggunaan'`,
+      },
+    ],
+  }}
+  twitter={{
+    cardType: 'summary_large_image',
+  }}
+/>
+
+<div className="relative flex h-[80px] flex-row items-center overflow-hidden rounded-lg bg-gradient-to-b from-[#5B3A7D] to-[#3D2659] pl-[3.75rem] pr-4 min-[426px]:pl-20">
+  <SunsetIcon className="absolute bottom-0 left-0 w-[90px]" />
+  <div className="flex z-10 flex-1 flex-row items-center">
+    <p className="text-xs text-white min-[374px]:text-base font-inter">
+      Perjalanan freedomlife berakhir pada<br/><strong className='text-white'>1 Januari 2026</strong>
+    </p>
+  </div>
+</div>
+
+Setelah melayani Anda dalam perjalanan membaca Alkitab selama 7 tahun lebih, perjalanan freedomlife akan berakhir pada **1 Januari 2026**.
+
+### Apa yang perlu Anda ketahui:
+
+- **Website freedomlife.id** akan dihentikan pada tanggal 1 Januari 2026.
+- **Aplikasi iOS & Android freedomlife** masih dapat digunakan hingga **31 Maret 2026** untuk memberikan waktu transisi bagi Anda pengguna aplikasi mobile.
+- **Setelah 31 Maret 2026**, seluruh layanan freedomlife akan dihentikan secara permanen.
+
+### Mengapa keputusan ini diambil?
+
+Setelah pertimbangan yang matang, kami memutuskan untuk mengembangkan platform baru yang dapat melayani Anda dengan lebih baik dan berkelanjutan. Perubahan ini memungkinkan kami untuk terus berinovasi dalam membantu perjalanan membaca Alkitab Anda.
+
+### Terima kasih atas dukungan Anda
+
+Kepada semua pengguna setia dan para donatur yang telah mendukung freedomlife selama ini – terima kasih banyak. Setiap kontribusi dan doa Anda sangat berarti dan telah membuat layanan ini dapat terus berjalan hingga hari ini.
+
+---
+
+### Kami mengundang Anda
+
+Kabar baiknya, kami sedang membangun sesuatu yang baru: 
+
+<p align="center">
+  <img
+    src="/images/biblebytes-logo.webp"
+    alt="Logo BibleBytes"
+    className='drop-shadow rounded-lg'
+  />
+</p>
+
+Platform yang akan diluncurkan pada **1 Januari 2026.**
+
+**BibleBytes** hadir dengan panduan baca Alkitab yang lebih terstruktur, pengalaman pengguna yang lebih baik, dan fitur-fitur yang lebih optimal untuk mendampingi perjalanan Anda membaca Alkitab sepanjang tahun.
+
+Silakan kunjungi tautan dibawah ini untuk mengetahui informasi lebih lanjut:
+
+<Button
+  fullWidth
+  variant="passage"
+  text="Kunjungi BibleBytes"
+  onClick={() => window.open('https://biblebytes.id', '_blank', 'noopener,noreferrer')}
+/>
+
+---
+
+<div className='w-[40px]'/>
+
+export default function MDXPage({ children }) {
+  return <MdxLayout withBackButton>{children}</MdxLayout>
+}

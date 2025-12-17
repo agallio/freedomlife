@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
 
 // Components
+import SunsetInfoCard from '@repo/app/features/home/components/sunset-info-card'
 import PassageCard from '@repo/app/features/home/components/passage-card'
 import NewUserCard from '@repo/app/features/home/components/new-user-card'
 
@@ -20,8 +21,13 @@ export default function HomeScreen() {
     )
   }
 
+  const openSunsetInfo = async () => {
+    await WebBrowser.openBrowserAsync('https://freedomlife.id/end?webview=true')
+  }
+
   return (
     <ScrollView contentContainerClassName="flex flex-col px-6 pt-4 gap-4 pb-28 min-[744px]:px-40 md:px-52 lg:px-96">
+      <SunsetInfoCard onPress={openSunsetInfo} />
       <PassageCard redirectToReadScreen={redirectToReadScreen} />
       <NewUserCard openLearnMore={openLearnMore} />
     </ScrollView>

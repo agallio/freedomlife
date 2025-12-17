@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { Pressable, useColorScheme, View, Text as RNText } from 'react-native'
+import { Pressable, useColorScheme, View } from 'react-native'
 import { BookmarkIcon } from 'react-native-heroicons/solid'
 
 // Components

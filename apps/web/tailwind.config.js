@@ -11,7 +11,7 @@ module.exports = {
 
   // Web-specific content paths
   content: [
-    './pages/**/*.{js,jsx,ts,tsx}',
+    './pages/**/*.{js,jsx,ts,tsx,mdx}',
     '../../packages/app/components/**/*.{js,jsx,ts,tsx}',
     '../../packages/app/features/**/*.{js,jsx,ts,tsx}',
     '../../packages/app/providers/**/*.{js,jsx,ts,tsx}',
