@@ -3,10 +3,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 // Utils
 import { getBibleFile as getBibleFileFromApi } from '../../../utils/hono-api'
 import { apiRateLimit, rateLimitFn } from '../../../utils/rate-limit'
+import { SUNSET_DATE } from '@repo/app/utils/constants'
 
 const limiter = rateLimitFn()
-
-const IS_2026 = new Date('2026-01-01T00:00:00Z')
 const TB_BIBLE_GITHUB_URL =
   'https://raw.githubusercontent.com/agallio/freedomlife/refs/heads/main/apps/web/databases/tb_bible.json'
 
@@ -47,7 +46,7 @@ export default async function getBibleFile(
   }
 
   const now = new Date()
-  const is2026OrLater = now >= IS_2026
+  const is2026OrLater = now >= SUNSET_DATE
 
   const availableVersions = is2026OrLater
     ? availableVersionsAfter2026
@@ -57,7 +56,7 @@ export default async function getBibleFile(
     return res.status(400).json({
       data: null,
       error: is2026OrLater
-        ? `Only TB version is available for download. Other translations were sunset on ${IS_2026.toISOString().split('T')[0]}.`
+        ? `Only TB version is available for download. Other translations were sunset on ${SUNSET_DATE.toISOString().split('T')[0]}.`
         : 'Version not available.',
     })
   }

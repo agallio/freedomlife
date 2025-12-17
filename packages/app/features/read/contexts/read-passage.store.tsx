@@ -45,9 +45,6 @@ type ReadPassageActions = {
 export type ReadPassageStore = ReadPassageState & ReadPassageActions
 
 const getDefaultBibleVersion = (): string => {
-  if (isSunsetActive()) {
-    return 'tb'
-  }
   return 'tb'
 }
 
